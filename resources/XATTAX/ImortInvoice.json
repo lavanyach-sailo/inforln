@@ -1,0 +1,611 @@
+{
+	"suiteName" : "XATTAX Import e-invoice ",
+	"suiteDescription" : "XATTAX Import e-invoice Suite",
+	"testCases": [
+		{
+			"testNode": {
+				"testCaseID": "I_INV_001",
+				"testCaseTitle": "Verify Login with Valid Credentials",
+				"testCaseDescription": "User Login",
+				"dependsOn": "",
+				"tags":["SmokeTest","IINV","NegativeTest"],
+				"testCaseSteps": [
+				{ "login": { "login_username":"", "login_password":"", "url" : "http://175.101.240.71:9791/XATTAXEInvoice1.5/login","testStepDescription" : "Login with valid username and password"}},
+				{"typeTextWithTabKey" : [{"inputName":{"xpathparams": ["username"], "value" : "einvuser1", "testStepDescription" : "Enter valid username"}}]},					
+				{"typeTextWithTabKey" : [{"inputName":{"xpathparams": ["password"], "value" : "1234", "testStepDescription" : "Enter valid password"}}]},
+				{"clickElement" : [{"buttonLogin":{"xpathparams": ["loginId"],"testStepDescription" : "Click on login Button"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"buttonwithAnchor":{"xpathparams":["Logout"], "continueTestNodes" : false, "testStepDescription" : "Successfully Logged in and validate Logout button on the Homepage"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"buttonSelect":{"xpathparams": ["Select"], "testStepDescription" : "Click on Select Button"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sideMenus":{"xpathparams":["DASHBOARD"], "continueTestNodes" : false, "testStepDescription" : "Validate DASHBOARD side menu on the Homepage"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"inputDatePicker":{"xpathparams": ["fp-datepicker","fp"],"testStepDescription" : "Click on Date picker input Button"}}]},
+					{"clickElement" : [{"slectMonth":{"xpathparams": ["Jan"],"testStepDescription" : "Click on January month Button"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sideMenus":{"xpathparams":["Import e-Invoice"], "continueTestNodes" : false, "testStepDescription" : "Validate Import e-Invoice side menu on the Homepage"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"sideMenus":{"xpathparams": ["Import e-Invoice"], "testStepDescription" : "Click on Import e-Invoice Button"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"mainTitle":{"xpathparams":["e_Invoice Data Import"], "continueTestNodes" : false, "testStepDescription" : "Validate e_Invoice Data Import Title on the Import invoice page"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"labelwithText":{"xpathparams":["XATTAX Format"], "continueTestNodes" : false, "testStepDescription" : "Validate  XATTAX Format  on the Import invoice page"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"labelwithText":{"xpathparams":["Custom Format"], "continueTestNodes" : false, "testStepDescription" : "Validate Custom Format on the Import invoice page"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"labelwithText":{"xpathparams":["Automatic IRN Generation"], "continueTestNodes" : false, "testStepDescription" : "Validate Automatic IRN Generation on the Import invoice page"}}									
+								]
+							}
+						]
+					}
+					
+					
+					
+					
+			
+					
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "I_INV_002",
+				"testCaseTitle": "Import e-invoice",
+				"testCaseDescription": "Import e-invoice XaTTax format",
+				"dependsOn": "I_INV_001",
+				"tags":["SmokeTest","IINV","NegativeTest"],
+				"testCaseSteps": [
+					{"clickElement" : [{"sideMenus":{"xpathparams": ["Import e-Invoice"],"testStepDescription" : "Click on DASHBOARD Button"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"mainTitle":{"xpathparams":["e_Invoice Data Import"], "continueTestNodes" : false, "testStepDescription" : "Validate e_Invoice Data Import title on the Homepage"}}									
+								]
+							}
+						]
+					},
+					{"typeTextWithTabKey" : [{"buttonBrowse":{"xpathparams": ["fileUpload"], "fileName" : "E_Invoice_SampleTemplate.xlsx", "testStepDescription" : "Enter valid file path"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"buttonWithText":{"xpathparams":["Import"], "continueTestNodes" : false, "testStepDescription" : "Validate Import button on the Import e-invoice page"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"buttonWithText":{"xpathparams": ["Import"],"testStepDescription" : "Click on Import Button"}}]},					
+					{ "sleep": { "sec":"2000"}},
+					{"clickElement" : [{"buttonWithText":{"xpathparams": ["Yes"],"testStepDescription" : "Click on Yes Button"}}]},					
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"alertMsg":{"xpathparams":["File has been Imported Sucessfully and Total Imported Records:"], "continueTestNodes" : false, "testStepDescription" : "Validate the mesage File has been Imported Sucessfully and Total Imported Records:"}}									
+								]
+							}
+						]
+					}
+												
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "I_INV_003",
+				"testCaseTitle": "Import e-invoice with Automatic IRN",
+				"testCaseDescription": "Import e-invoice XaTTax format with Automatic IRN",
+				"dependsOn": "I_INV_001",
+				"tags":["SmokeTest","IINV","NegativeTest"],
+				"testCaseSteps": [
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"mainTitle":{"xpathparams":["e_Invoice Data Import"], "continueTestNodes" : false, "testStepDescription" : "Validate e_Invoice Data Import title on the Homepage"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"checkBoxWithName":{"xpathparams": ["isAutomaticIrnGen"],"testStepDescription" : "Click on Automatic IRN Generation check box"}}]},
+					{"typeTextWithTabKey" : [{"buttonBrowse":{"xpathparams": ["fileUpload"], "fileName" : "E_Invoice_SampleTemplate_IRN.xlsx", "testStepDescription" : "Enter valid file path"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"buttonWithText":{"xpathparams":["Import"], "continueTestNodes" : false, "testStepDescription" : "Validate Import button on the Import e-invoice page"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"buttonWithText":{"xpathparams": ["Import"],"testStepDescription" : "Click on Import Button"}}]},					
+					{ "sleep": { "sec":"2000"}},
+					{"clickElement" : [{"buttonWithText":{"xpathparams": ["Yes"],"testStepDescription" : "Click on Yes Button"}}]},					
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"alertMsg":{"xpathparams":["File has been Imported Sucessfully and Total Imported Records:"], "continueTestNodes" : false, "testStepDescription" : "Validate the mesage File has been Imported Sucessfully and Total Imported Records:"}}									
+								]
+							}
+						]
+					}
+												
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "I_INV_004",
+				"testCaseTitle": "Search particular e-invoice",
+				"testCaseDescription": "Import e-invoice XaTTax format and search the e-invoice",
+				"dependsOn": "I_INV_001",
+				"tags":["SmokeTest","IINV","NegativeTest"],
+				"testCaseSteps": [
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"mainTitle":{"xpathparams":["e_Invoice Data Import"], "continueTestNodes" : false, "testStepDescription" : "Validate e_Invoice Data Import title on the Homepage"}}									
+								]
+							}
+						]
+					},
+					{"typeTextWithTabKey" : [{"buttonBrowse":{"xpathparams": ["fileUpload"], "fileName" : "E_Invoice_SampleTemplate_search.xlsx", "testStepDescription" : "Enter valid file path"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"buttonWithText":{"xpathparams":["Import"], "continueTestNodes" : false, "testStepDescription" : "Validate Import button on the Import e-invoice page"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"buttonWithText":{"xpathparams": ["Import"],"testStepDescription" : "Click on Import Button"}}]},					
+					{ "sleep": { "sec":"2000"}},
+					{"clickElement" : [{"buttonWithText":{"xpathparams": ["Yes"],"testStepDescription" : "Click on Yes Button"}}]},					
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"alertMsg":{"xpathparams":["File has been Imported Sucessfully and Total Imported Records:"], "continueTestNodes" : false, "testStepDescription" : "Validate the mesage File has been Imported Sucessfully and Total Imported Records:"}}									
+								]
+							}
+						]
+					},
+					{"typeTextWithEnter" : [{"searchField":{"xpathparams": ["Search","search"], "value" : "E_Invoice_SampleTemplate_search.xlsx", "testStepDescription" : "Enter file name to search the result"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"tableC_namewithText":{"xpathparams":["E_Invoice_SampleTemplate_search.xlsx"], "continueTestNodes" : false, "testStepDescription" : "Validate the File name "}}									
+								]
+							}
+						]
+					}
+												
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "I_INV_005",
+				"testCaseTitle": "Validate Import instructions",
+				"testCaseDescription": "Validating import instructions",
+				"dependsOn": "I_INV_001",
+				"tags":["SmokeTest","IINV","NegativeTest"],
+				"testCaseSteps": [
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"mainTitle":{"xpathparams":["e_Invoice Data Import"], "continueTestNodes" : false, "testStepDescription" : "Validate e_Invoice Data Import title on the Homepage"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"buttonWithText":{"xpathparams": ["Import Instructions"],"testStepDescription" : "Click on Import Instructions button"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"anchorWithStrong":{"xpathparams":["Instructions"], "continueTestNodes" : false, "testStepDescription" : "Validate Instructions on import instructions"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"anchorWithStrong":{"xpathparams":["XATTAX"], "continueTestNodes" : false, "testStepDescription" : "Validate XATTAX on import instructions"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"anchorWithStrong":{"xpathparams":["GSTR_StateCodes.xls"], "continueTestNodes" : false, "testStepDescription" : "Validate GSTR_StateCodes.xls link on import instructions"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"anchorWithStrong":{"xpathparams":["e-Invoice-Template.xlsx"], "continueTestNodes" : false, "testStepDescription" : "Validate e-Invoice-Template.xlsx link on import instructions"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"anchorWithStrong":{"xpathparams":["e-Invoice-Template.csv"], "continueTestNodes" : false, "testStepDescription" : "Validate e-Invoice-Template.csv link on import instructions"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"anchorWithStrong":{"xpathparams":["Sample Templates with Data"], "continueTestNodes" : false, "testStepDescription" : "Validate Sample Templates with Data on import instructions"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"anchorWithStrong":{"xpathparams":["e-Invoice-SampleData.xlsx"], "continueTestNodes" : false, "testStepDescription" : "Validate e-Invoice-SampleData.xlsx link on import instructions"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"anchorWithStrong":{"xpathparams":["e-Invoice-SampleData.csv"], "continueTestNodes" : false, "testStepDescription" : "Validate e-Invoice-SampleData.csv link on import instructions"}}									
+								]
+							}
+						]
+					},					
+					{"clickElement" : [{"buttonWithText":{"xpathparams": ["Import Instructions"],"testStepDescription" : "Click on Import Instructions Button"}}]}												
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "I_INV_006",
+				"testCaseTitle": "Delete import invoice ",
+				"testCaseDescription": "Import e-invoice Delete",
+				"dependsOn": "I_INV_001",
+				"tags":["SmokeTest","IINV","NegativeTest"],
+				"testCaseSteps": [
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"mainTitle":{"xpathparams":["e_Invoice Data Import"], "continueTestNodes" : false, "testStepDescription" : "Validate e_Invoice Data Import title on the Homepage"}}									
+								]
+							}
+						]
+					},
+					{"typeTextWithTabKey" : [{"buttonBrowse":{"xpathparams": ["fileUpload"], "fileName" : "E_Invoice_SampleTemplate_Delete.xlsx", "testStepDescription" : "Enter valid file path"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"buttonWithText":{"xpathparams":["Import"], "continueTestNodes" : false, "testStepDescription" : "Validate Import button on the Import e-invoice page"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"buttonWithText":{"xpathparams": ["Import"],"testStepDescription" : "Click on Import Button"}}]},					
+					{"clickElement" : [{"buttonWithText":{"xpathparams": ["Yes"],"testStepDescription" : "Click on Yes Button"}}]},					
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"alertMsg":{"xpathparams":["File has been Imported Sucessfully and Total Imported Records:"], "continueTestNodes" : false, "testStepDescription" : "Validate the mesage File has been Imported Sucessfully and Total Imported Records:"}}									
+								]
+							}
+						]
+					},
+					{"typeTextWithEnter" : [{"searchField":{"xpathparams": ["Search","search"], "value" : "E_Invoice_SampleTemplate_Delete.xlsx", "testStepDescription" : "Enter file name to search the result"}}]},
+					{"clickElement" : [{"buttonwithclassDelete":{"xpathparams": ["btn btn-danger btn-xs"],"testStepDescription" : "Click on Delete Button"}}]},					
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"pwithtext":{"xpathparams":["Do you want to Delete Transaction? This Process can not be undone..!!"], "continueTestNodes" : false, "testStepDescription" : "Validate the message "}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"buttonwithClass":{"xpathparams": ["Yes"],"testStepDescription" : "Click on Yes Button"}}]},					
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"alertMsg":{"xpathparams":["Transaction Data Deleted successfully"], "continueTestNodes" : false, "testStepDescription" : "Validate the message "}}									
+								]
+							}
+						]
+					}
+												
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "I_INV_007",
+				"testCaseTitle": "Delete Import e-invoice with Automatic IRN",
+				"testCaseDescription": "Delete Import e-invoice XaTTax format with Automatic IRN",
+				"dependsOn": "I_INV_001",
+				"tags":["SmokeTest","IINV","NegativeTest"],
+				"testCaseSteps": [
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"mainTitle":{"xpathparams":["e_Invoice Data Import"], "continueTestNodes" : false, "testStepDescription" : "Validate e_Invoice Data Import title on the Homepage"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"checkBoxWithName":{"xpathparams": ["isAutomaticIrnGen"],"testStepDescription" : "Click on Automatic IRN Generation check box"}}]},
+					{"typeTextWithTabKey" : [{"buttonBrowse":{"xpathparams": ["fileUpload"], "fileName" : "E_Invoice_SampleTemplate_IRN_Delete.xlsx", "testStepDescription" : "Enter valid file path"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"buttonWithText":{"xpathparams":["Import"], "continueTestNodes" : false, "testStepDescription" : "Validate Import button on the Import e-invoice page"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"buttonWithText":{"xpathparams": ["Import"],"testStepDescription" : "Click on Import Button"}}]},					
+					{ "sleep": { "sec":"2000"}},
+					{"clickElement" : [{"buttonWithText":{"xpathparams": ["Yes"],"testStepDescription" : "Click on Yes Button"}}]},					
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"alertMsg":{"xpathparams":["File has been Imported Sucessfully and Total Imported Records:"], "continueTestNodes" : false, "testStepDescription" : "Validate the mesage File has been Imported Sucessfully and Total Imported Records:"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"buttonwithclassDelete":{"xpathparams": ["btn btn-danger btn-xs"],"testStepDescription" : "Click on Delete Button"}}]},					
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"pwithtext":{"xpathparams":["Do you want to Delete Transaction? This Process can not be undone..!!"], "continueTestNodes" : false, "testStepDescription" : "Validate the message "}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"buttonwithClass":{"xpathparams": ["Yes"],"testStepDescription" : "Click on Yes Button"}}]},					
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"alertMsg":{"xpathparams":["IRN not generated records deleted successfully."], "continueTestNodes" : false, "testStepDescription" : "Validate the message "}}									
+								]
+							}
+						]
+					}
+												
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "I_INV_008",
+				"testCaseTitle": "Import e-invoice with CSV forma",
+				"testCaseDescription": "Import e-invoice CSV format",
+				"dependsOn": "I_INV_001",
+				"tags":["SmokeTest","IINV","NegativeTest"],
+				"testCaseSteps": [
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"mainTitle":{"xpathparams":["e_Invoice Data Import"], "continueTestNodes" : false, "testStepDescription" : "Validate e_Invoice Data Import title on the Homepage"}}									
+								]
+							}
+						]
+					},
+					{"typeTextWithTabKey" : [{"buttonBrowse":{"xpathparams": ["fileUpload"], "fileName" : "E_Invoice_CSV_SampleData.csv", "testStepDescription" : "Enter valid file path"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"buttonWithText":{"xpathparams":["Import"], "continueTestNodes" : false, "testStepDescription" : "Validate Import button on the Import e-invoice page"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"buttonWithText":{"xpathparams": ["Import"],"testStepDescription" : "Click on Import Button"}}]},					
+					{ "sleep": { "sec":"2000"}},
+					{"clickElement" : [{"buttonWithText":{"xpathparams": ["Yes"],"testStepDescription" : "Click on Yes Button"}}]},					
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"alertMsg":{"xpathparams":["File has been Imported Sucessfully and Total Imported Records:"], "continueTestNodes" : false, "testStepDescription" : "Validate the mesage File has been Imported Sucessfully and Total Imported Records:"}}									
+								]
+							}
+						]
+					}
+												
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "I_INV_009",
+				"testCaseTitle": "Import e-invoice CSV format with Automatic IRN",
+				"testCaseDescription": "Import e-invoice CSV format with Automatic IRN",
+				"dependsOn": "I_INV_001",
+				"tags":["SmokeTest","IINV","NegativeTest"],
+				"testCaseSteps": [
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"mainTitle":{"xpathparams":["e_Invoice Data Import"], "continueTestNodes" : false, "testStepDescription" : "Validate e_Invoice Data Import title on the Homepage"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"checkBoxWithName":{"xpathparams": ["isAutomaticIrnGen"],"testStepDescription" : "Click on Automatic IRN Generation check box"}}]},
+					{"typeTextWithTabKey" : [{"buttonBrowse":{"xpathparams": ["fileUpload"], "fileName" : "E_Invoice_CSV_SampleData_IRN.csv", "testStepDescription" : "Enter valid file path"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"buttonWithText":{"xpathparams":["Import"], "continueTestNodes" : false, "testStepDescription" : "Validate Import button on the Import e-invoice page"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"buttonWithText":{"xpathparams": ["Import"],"testStepDescription" : "Click on Import Button"}}]},					
+					{ "sleep": { "sec":"2000"}},
+					{"clickElement" : [{"buttonWithText":{"xpathparams": ["Yes"],"testStepDescription" : "Click on Yes Button"}}]},					
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"alertMsg":{"xpathparams":["File has been Imported Sucessfully and Total Imported Records:"], "continueTestNodes" : false, "testStepDescription" : "Validate the mesage File has been Imported Sucessfully and Total Imported Records:"}}									
+								]
+							}
+						]
+					}
+												
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "I_INV_010",
+				"testCaseTitle": "Import duplicate e-invoice with Automatic IRN and click on Details",
+				"testCaseDescription": "Import duplicate e-invoice XaTTax format with Automatic IRN and click on Details",
+				"dependsOn": "I_INV_001",
+				"tags":["SmokeTest","IINV","NegativeTest"],
+				"testCaseSteps": [
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"mainTitle":{"xpathparams":["e_Invoice Data Import"], "continueTestNodes" : false, "testStepDescription" : "Validate e_Invoice Data Import title on the Homepage"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"checkBoxWithName":{"xpathparams": ["isAutomaticIrnGen"],"testStepDescription" : "Click on Automatic IRN Generation check box"}}]},
+					{"typeTextWithTabKey" : [{"buttonBrowse":{"xpathparams": ["fileUpload"], "fileName" : "E_Invoice_SampleTemplate_IRN.xlsx", "testStepDescription" : "Enter valid file path"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"buttonWithText":{"xpathparams":["Import"], "continueTestNodes" : false, "testStepDescription" : "Validate Import button on the Import e-invoice page"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"buttonWithText":{"xpathparams": ["Import"],"testStepDescription" : "Click on Import Button"}}]},					
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"buttonWithText":{"xpathparams":["Yes"], "continueTestNodes" : false, "testStepDescription" : "Validate the Yes button"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"buttonWithText":{"xpathparams": ["Yes"],"testStepDescription" : "Click on Yes Button"}}]},					
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"alertMsg":{"xpathparams":["File has been Imported Sucessfully and Total Imported Records:"], "continueTestNodes" : false, "testStepDescription" : "Validate the mesage File has been Imported Sucessfully and Total Imported Records:"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"buttonwithclassDelete":{"xpathparams": ["btn btn-primary -kk_"],"testStepDescription" : "Click on Details Button"}}]},					
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"h3withText":{"xpathparams":["Transaction Summary"], "continueTestNodes" : false, "testStepDescription" : "Validate the Transaction Summary window"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"buttonwithclassDelete":{"xpathparams": ["btn btn-primary -kk_"],"testStepDescription" : "Click on Details Button"}}]}	
+												
+				]
+			}
+		}
+				
+			
+		
+					
+	]
+}
+

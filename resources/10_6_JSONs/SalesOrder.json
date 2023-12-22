@@ -1,0 +1,1063 @@
+{
+	"testCases": [
+	{
+			"testNode": {
+				"testCaseID": "NOLNARRUL.0010",
+				"testCaseTitle": "Login to the aplication",
+				"dependsOn": "",
+				"testCaseSteps": [
+					{ "typeText": { "login_username":"partnersalesmanager@singlecrm.nokia.com.qcrm"}},
+					{ "typeText": { "login_password":"Psm@1234", "screenshot" : "Login"}},
+					{ "clickElement": { "login_button":""}},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"contacts":{"xpathparams":[], "fileName" : "Login", "bugTitle" : "Unable to Login to Salesforce"}}									
+								]
+							}
+						]
+					},
+					{ "clickElement": { "contacts":""}},
+					{ "typeTextWithEnter": { "search_account":"Partner User Account 1"}},
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"text":{"xpathparams":["Name"]}},
+									{"partner_account":{"xpathparams":["Partner User Account 1"], "fileName" : "Partner_User_Account", "bugTitle" : "Unable to navigate to Opportunities Page"}}									
+								]
+							}
+						]
+					},
+					{ "clickElement": { "partner_account":"Partner User Account 1"}},
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"buttonNewNote":{"xpathparams":[""]}}									
+								]
+							}
+						]
+					},
+					{ "clickElement": { "login_partner_user_dropdown":""}},
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"login_community_user":{"xpathparams":["Log in to Experience as User"], "fileName" : "Login_Community_User", "bugTitle" : "Unable to navigate to Opportunities Page"}}									
+								]
+							}
+						]
+					},
+					{ "clickElement": { "login_community_user":"Log in to Experience as User"}},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"opportunitiesWelcomeMessage":{"xpathparams":[]}}									
+								]
+							}
+						]
+					},
+					{ "clickElement": { "opportunities_button":"Opportunities"}},
+					{ "clickElement": { "opportunities_button":"Opportunities"}},
+					{ "clickElement": { "opportunities_button":"Opportunities"}},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"opportunity_name":{"xpathparams":["NAM Reseller  Oppty 1"], "fileName" : "Opportunity", "bugTitle" : "Unable to locate Opportunity"}}									
+								]
+							}
+						]
+					},
+					{ "clickElement": { "opportunity_name":"NAM Reseller  Oppty 1"}}
+					
+				]
+			}
+	},
+	{
+			"testNode": {
+				"testCaseID": "NOLNARRUL.0020",
+				"testCaseTitle": "Create Quote",
+				"dependsOn": "NOLNARRUL.0010",
+				"testCaseSteps": [					
+					{ "clickElement": { "new_quote":""}},
+					{ "typeText":     { "quote_name":""}},
+					{ "clickElement": { "portfolio_dropdown":""}},
+					{ "clickElement": { "FBA_dropdown":"POL", "screenshot" : "Create_Quote"}},
+					{ "clickElement": { "save_quote":""}},
+					{ "validate": 
+						[ 
+							{ "isElementNotPresent":
+								[
+									{"quoteErrorMessage":{"xpathparams":[], "fileName" : "Create_Quote", "bugTitle" : "Unable to Create Quote"}}									
+								]
+							}
+						]
+					},
+					{ "clickElement": { "related":""}},	
+					{"zoom": {"zoomPercentage" : "60"}},
+					{ "clickElement": { "quote_number":"", "screenshot" : "Quote_Number"}},
+					{"zoom": {"zoomPercentage" : "100"}},
+					{ "windowSwitch": { "window":"1"}}
+									
+				]
+			}
+        },
+		   {
+			"testNode": {
+				"testCaseID": "NOLNARRUL.0030",
+				"testCaseTitle": "Navigate to configure products",
+				"dependsOn": "NOLNARRUL.0020",
+				"testCaseSteps": [
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"configure_products":{"xpathparams":[""], "fileName" : "Configure_Products", "bugTitle" : "Unable to navigate to Configure Products"}}									
+								]
+							}
+						]
+					},
+					{ "clickElement": { "configure_products":""}},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"fn_configurable_products":{"xpathparams":[""], "fileName" : "FN_Configurable_Products", "bugTitle" : "Unable to navigate to FN Configure Products"}}									
+								]
+							}
+						]
+					},
+					{ "clickElement": { "fn_configurable_products":""}},
+					{ "clickElement": { "isam_fx_product":"Nokia Optical LAN"}},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"isam_fx_configure_product":{"xpathparams":[""], "fileName" : "Configure_Product", "bugTitle" : "Unable to locate Configure Product"}}									
+								]
+							}
+						]
+					},
+					{ "clickElement": { "isam_fx_configure_product":""}}
+				]
+			}
+        },
+       {
+          "testNode": {
+				"testCaseID": "NOLNARRUL.0040",
+				"testCaseTitle": "Navigate to configure products",
+				"dependsOn": "NOLNARRUL.0030",
+				"testCaseSteps": [
+					{"clickElement" : [{"mainTab":{"xpathparams": ["ONT"]}}]},
+					{"selectCheckbox" : [{"subGroupCheckBox":{"xpathparams": ["GPON ONTs", "PoE ONTs", "G-010P-A ONT Only"]}}]},
+					{"typeTextWithEnter": [{"subGroupInputBox":{"xpathparams": ["GPON ONTs", "PoE ONTs", "G-010P-A ONT Only"], "value" : "1024"}}]},
+					{"scrollTo" : [{"subGroups":{"xpathparams": ["XGS-PON ONTs", "non PoE ONTs"], "scrollLength" : "300"}}]},
+					{"selectCheckbox" : [{"subGroupCheckBox":{"xpathparams": ["XGS-PON ONTs", "non PoE ONTs", "XS-020X-A,US plug ( cable management)"]}}]},
+					{"typeTextWithEnter": [{"subGroupInputBox":{"xpathparams": ["XGS-PON ONTs", "non PoE ONTs", "XS-020X-A,US plug ( cable management)"], "value" : "1024"}}]},
+					{"clickElement" : [{"networkAttributesTab":{"xpathparams": [""]}}]},
+					{ "validate":
+							[ 
+								{ "verifyText":
+									[
+										{"networkAttributesSectionSplitRatio":{"xpathparams":["Network Attributes", "GPON Split Ratio", "32"], "fileName" : "GPON_Split_Ratio", "bugTitle" : "GPON Split Ratio is not 32 by default", "continueTestNodes": true}}
+									]
+								}
+							]
+					},
+					{ "validate":
+							[ 
+								{ "verifyText":
+									[
+										{"networkAttributesSectionSplitRatio":{"xpathparams":["Network Attributes", "XGS-PON Split Ratio", "64"], "fileName" : "XGS-PON_Split_Ratio", "bugTitle" : "XGS-PON Split Ratio is not 64 by default"}}
+									]
+								}
+							]
+					},
+					{"clickElement" : [{"mainTab":{"xpathparams": ["Shelf, LT & NT"]}}]},
+					{ "validate":
+						[ 
+							{ "isElementPresent":
+								[
+									{"kitSelectionRadioButton":{"xpathparams": ["Kit Selection", "Red FX-4 Str Kit 2FANT-G wFGLT-D NoOp V"], "fileName" : "Red FX-4 Str Kit 2FANT-G wFGLT-D NoOp V Radio Button", "bugTitle" : "Red FX-4 Str Kit 2FANT-G wFGLT-D NoOp V Radio Button is missing", "continueTestNodes": false}}
+								]
+							}
+						]
+					},
+					{"scrollTo" : [{"kitSelectionRadioButton":{"xpathparams": ["Kit Selection", "Red FX-4 Str Kit 2FANT-G wFGLT-D NoOp V"], "scrollLength" : "-200"}}]},
+					{"clickElement" : [{"kitSelectionRadioButton":{"xpathparams": ["Kit Selection", "Red FX-4 Str Kit 2FANT-G wFGLT-D NoOp V"]}}]},
+					{"clickElement" : {"text":"Expand All"}},
+					{ "validate":
+						[ 
+							{ "isElementPresent":
+								[
+									{"itemizedOptions":"FGLT-D 16p GPON LT x 1", "fileName" : "FGLT-D 16p GPON LT x 1-ItemizedOptions", "bugTitle" : "Itemized Options:[FGLT-D 16p GPON LT x 1] is missing"}
+								]
+							}
+						]
+					},
+					{ "validate":
+						[ 
+							{ "isElementPresent":
+								[
+									{"itemizedOptions":"FWLT-B 8port U-NGPON LT (2x40G BP) x 2", "fileName" : "FWLT-B 8port U-NGPON LT (2x40G BP) x 2-ItemizedOptions", "bugTitle" : "Itemized Options:[FWLT-B 8port U-NGPON LT (2x40G BP) x 2] is missing"}
+								]
+							}
+						]
+					},	 
+					{"scrollTo" : [{"kitDetailsProduct":{"xpathparams": ["Kit Details", "Network Uplinks", "SFP 1Gb"], "scrollLength" : "-200"}}]},
+					{"selectCheckbox" : [{"kitDetailsProductCheckBox":{"xpathparams": ["Kit Details", "Network Uplinks", "SFP 1Gb"]}}]},
+					{"selectCheckbox" : [{"kitDetailsProductChildCheckBox":{"xpathparams": ["Kit Details", "Network Uplinks", "SFP 1Gb", "1000Base-LX SFP SM 1310nm 10km 11dB"]}}]},
+					{"typeTextWithEnter": [{"kitDetailsProductChildinput":{"xpathparams": ["Kit Details", "Network Uplinks", "SFP 1Gb", "1000Base-LX SFP SM 1310nm 10km 11dB"], "value" : "2"}}]},
+					{"scrollTo" : [{"kitDetailsSubProduct":{"xpathparams": ["Kit Details", "GPON SFPs"], "scrollLength" : "300"}}]},
+					{"selectCheckbox" : [{"kitDetailsProductCheckBox":{"xpathparams": ["Kit Details", "GPON SFPs", "GPON SFP B+ (C-temp) OLT"]}}]},
+					{"typeTextWithEnter": [{"kitDetailsProductGponInput":{"xpathparams": ["Kit Details", "GPON SFPs", "GPON SFP B+ (C-temp) OLT"], "value" : "32"}}]},
+					{"scrollTo" : [{"shelfTabProducts":{"xpathparams": ["XGS-PON XFPs"], "scrollLength" : "300"}}]},
+					{"selectCheckbox" : [{"xgsponxfpSubProductsCheckBox":{"xpathparams": ["XGS-PON XFPs", "XGS Dual Rate XFP N1 (C-temp) OLT"]}}]},
+					{"typeTextWithEnter": [{"xgsponxfpSubProductsInput":{"xpathparams": ["XGS-PON XFPs", "XGS Dual Rate XFP N1 (C-temp) OLT"], "value" : "16"}}]},
+					{"clickElement" : [{"mainTab":{"xpathparams": ["ONT"]}}]},
+					{"clickElement" : [{"mainTab":{"xpathparams": ["Shelf, LT & NT"]}}]},
+					{ "validate":
+						[ 
+							{ "isElementPresent":
+								[
+									{"goToPricing":"", "fileName" : "GoToPricingButton", "bugTitle" : "Go To Pricing Button is missing", "continueTestNodes": false}
+								]
+							}
+						]
+					},	
+					{ "clickElement": {"goToPricing":""}},
+ 					{ "clickElement": {"expandProductMainGroup":""}},
+					{ "validate":[
+						{ "validateCartData":
+							[
+								{ "navigateCartList":[  
+										{"cartProductName": ""},
+										{"caryQty": ""},
+										{"cartProductCode": ""},
+										{"cartProductPrice": ""}
+									]
+								},
+								{ "validateCartList":[  
+										{"cartProductDetails": [
+										{"productName":"G-010P-A ONT Only","productQty":"1024","productCode":"3FE46431AA","productPrice":"165.17"},
+										{"productName":"XS-020X-A,US plug ( cable management)","productQty":"1024","productCode":"3FE48958AB","productPrice":"194.88"},
+										{"productName":"1000Base-LX SFP SM 1310nm 10km 11dB","productQty":"2","productCode":"3FE25774AA","productPrice":"145.19"},
+										{"productName":"GPON SFP B+ (C-temp) OLT","productQty":"32","productCode":"3FE53441AA","productPrice":"121.8"},
+										{"productName":"XGS Dual Rate XFP N1 (C-temp) OLT","productQty":"16","productCode":"3FE46232AA","productPrice":"414.8"},
+										{"productName":"Red FX-4 Str Kit 2FANT-G wFGLT-D NoOp V","productQty":"1","productCode":"3HG01551VA","productPrice":"14859.6"}
+									]}
+								]
+								}
+							]
+						}
+					]},
+					{ "clickElement": {"navBackTOCPQtabs":""}}
+					
+				]
+			}
+		},
+		{
+          "testNode": {
+				"testCaseID": "NOLNARRUL.0050",
+				"testCaseTitle": "Navigate to configure products",
+				"dependsOn": "NOLNARRUL.0030",
+				"testCaseSteps": [
+					{"clickElement" : [{"mainTab":{"xpathparams": ["ONT"]}}]},
+					{"selectCheckbox" : [{"subGroupCheckBox":{"xpathparams": ["GPON ONTs", "PoE ONTs", "G-010P-A ONT Only"]}}]},
+					{"typeTextWithEnter": [{"subGroupInputBox":{"xpathparams": ["GPON ONTs", "PoE ONTs", "G-010P-A ONT Only"], "value" : "1024"}}]},
+					{"scrollTo" : [{"subGroups":{"xpathparams": ["XGS-PON ONTs", "non PoE ONTs"], "scrollLength" : "300"}}]},
+					{"selectCheckbox" : [{"subGroupCheckBox":{"xpathparams": ["XGS-PON ONTs", "non PoE ONTs", "XS-020X-A,US plug ( cable management)"]}}]},
+					{"typeTextWithEnter": [{"subGroupInputBox":{"xpathparams": ["XGS-PON ONTs", "non PoE ONTs", "XS-020X-A,US plug ( cable management)"], "value" : "1024"}}]},
+					{"clickElement" : [{"networkAttributesTab":{"xpathparams": [""]}}]},
+					{ "validate":
+							[ 
+								{ "verifyText":
+									[
+										{"networkAttributesSectionSplitRatio":{"xpathparams":["Network Attributes", "GPON Split Ratio", "32"], "fileName" : "GPON_Split_Ratio", "bugTitle" : "GPON Split Ratio is not 32 by default", "continueTestNodes": true}}
+									]
+								}
+							]
+					},
+					{ "validate":
+							[ 
+								{ "verifyText":
+									[
+										{"networkAttributesSectionSplitRatio":{"xpathparams":["Network Attributes", "XGS-PON Split Ratio", "64"], "fileName" : "XGS-PON_Split_Ratio", "bugTitle" : "XGS-PON Split Ratio is not 64 by default"}}
+									]
+								}
+							]
+					},
+					{"clickElement" : [{"mainTab":{"xpathparams": ["Shelf, LT & NT"]}}]},
+					{ "validate":
+						[ 
+							{ "isElementPresent":
+								[
+									{"kitSelectionRadioButton":{"xpathparams": ["Kit Selection", "Red FX-4 Str Kit 2FANT-G wFGLT-D NoOp H"], "fileName" : "Red FX-4 Str Kit 2FANT-G wFGLT-D NoOp V Radio Button", "bugTitle" : "Red FX-4 Str Kit 2FANT-G wFGLT-D NoOp V Radio Button is missing", "continueTestNodes": false}}
+								]
+							}
+						]
+					},
+					{"scrollTo" : [{"kitSelectionRadioButton":{"xpathparams": ["Kit Selection", "Red FX-4 Str Kit 2FANT-G wFGLT-D NoOp H"], "scrollLength" : "-200"}}]},
+					{"clickElement" : [{"kitSelectionRadioButton":{"xpathparams": ["Kit Selection", "Red FX-4 Str Kit 2FANT-G wFGLT-D NoOp H"]}}]},
+					{"clickElement" : {"text":"Expand All"}},
+					{ "validate":
+						[ 
+							{ "isElementPresent":
+								[
+									{"itemizedOptions":"FGLT-D 16p GPON LT x 1", "fileName" : "FGLT-D 16p GPON LT x 1-ItemizedOptions", "bugTitle" : "Itemized Options:[FGLT-D 16p GPON LT x 1] is missing"}
+								]
+							}
+						]
+					},
+					{ "validate":
+						[ 
+							{ "isElementPresent":
+								[
+									{"itemizedOptions":"FWLT-B 8port U-NGPON LT (2x40G BP) x 2", "fileName" : "FWLT-B 8port U-NGPON LT (2x40G BP) x 2-ItemizedOptions", "bugTitle" : "Itemized Options:[FWLT-B 8port U-NGPON LT (2x40G BP) x 2] is missing"}
+								]
+							}
+						]
+					},	 
+					{"scrollTo" : [{"kitDetailsProduct":{"xpathparams": ["Kit Details", "Network Uplinks", "SFP 1Gb"], "scrollLength" : "-200"}}]},
+					{"selectCheckbox" : [{"kitDetailsProductCheckBox":{"xpathparams": ["Kit Details", "Network Uplinks", "SFP 1Gb"]}}]},
+					{"selectCheckbox" : [{"kitDetailsProductChildCheckBox":{"xpathparams": ["Kit Details", "Network Uplinks", "SFP 1Gb", "1000Base-LX SFP SM 1310nm 10km 11dB"]}}]},
+					{"typeTextWithEnter": [{"kitDetailsProductChildinput":{"xpathparams": ["Kit Details", "Network Uplinks", "SFP 1Gb", "1000Base-LX SFP SM 1310nm 10km 11dB"], "value" : "2"}}]},
+					{"scrollTo" : [{"kitDetailsSubProduct":{"xpathparams": ["Kit Details", "GPON SFPs"], "scrollLength" : "300"}}]},
+					{"selectCheckbox" : [{"kitDetailsProductCheckBox":{"xpathparams": ["Kit Details", "GPON SFPs", "GPON SFP B+ (C-temp) OLT"]}}]},
+					{"typeTextWithEnter": [{"kitDetailsProductGponInput":{"xpathparams": ["Kit Details", "GPON SFPs", "GPON SFP B+ (C-temp) OLT"], "value" : "32"}}]},
+					{"scrollTo" : [{"shelfTabProducts":{"xpathparams": ["XGS-PON XFPs"], "scrollLength" : "300"}}]},
+					{"selectCheckbox" : [{"xgsponxfpSubProductsCheckBox":{"xpathparams": ["XGS-PON XFPs", "XGS Dual Rate XFP N1 (C-temp) OLT"]}}]},
+					{"typeTextWithEnter": [{"xgsponxfpSubProductsInput":{"xpathparams": ["XGS-PON XFPs", "XGS Dual Rate XFP N1 (C-temp) OLT"], "value" : "16"}}]},
+					{"clickElement" : [{"mainTab":{"xpathparams": ["ONT"]}}]},
+					{"clickElement" : [{"mainTab":{"xpathparams": ["Shelf, LT & NT"]}}]},
+					{ "validate":
+						[ 
+							{ "isElementPresent":
+								[
+									{"goToPricing":"", "fileName" : "GoToPricingButton", "bugTitle" : "Go To Pricing Button is missing", "continueTestNodes": false}
+								]
+							}
+						]
+					},	
+					{ "clickElement": {"goToPricing":""}},
+ 					{ "clickElement": {"expandProductMainGroup":""}},
+					{ "validate":[
+						{ "validateCartData":
+							[
+								{ "navigateCartList":[  
+										{"cartProductName": ""},
+										{"caryQty": ""},
+										{"cartProductCode": ""},
+										{"cartProductPrice": ""}
+									]
+								},
+								{ "validateCartList":[  
+										{"cartProductDetails": [
+										{"productName":"G-010P-A ONT Only","productQty":"1024","productCode":"3FE46431AA","productPrice":"165.17"},
+										{"productName":"XS-020X-A,US plug ( cable management)","productQty":"1024","productCode":"3FE48958AB","productPrice":"194.88"},
+										{"productName":"1000Base-LX SFP SM 1310nm 10km 11dB","productQty":"2","productCode":"3FE25774AA","productPrice":"145.19"},
+										{"productName":"GPON SFP B+ (C-temp) OLT","productQty":"32","productCode":"3FE53441AA","productPrice":"121.8"},
+										{"productName":"XGS Dual Rate XFP N1 (C-temp) OLT","productQty":"16","productCode":"3FE46232AA","productPrice":"414.8"},
+										{"productName":"Red FX-4 Str Kit 2FANT-G wFGLT-D NoOp H","productQty":"1","productCode":"3HG01551HA","productPrice":"14859.6"}
+									]}
+								]
+								}
+							]
+						}
+					]},
+					{ "clickElement": {"navBackTOCPQtabs":""}}
+				]
+			}
+		},
+		{
+          "testNode": {
+				"testCaseID": "NOLNARRUL.0060",
+				"testCaseTitle": "Navigate to configure products",
+				"dependsOn": "NOLNARRUL.0030",
+				"testCaseSteps": [
+					{"clickElement" : [{"mainTab":{"xpathparams": ["ONT"]}}]},
+					{"selectCheckbox" : [{"subGroupCheckBox":{"xpathparams": ["GPON ONTs", "PoE ONTs", "G-010P-A ONT Only"]}}]},
+					{"typeTextWithEnter": [{"subGroupInputBox":{"xpathparams": ["GPON ONTs", "PoE ONTs", "G-010P-A ONT Only"], "value" : "1024"}}]},
+					{"scrollTo" : [{"subGroups":{"xpathparams": ["XGS-PON ONTs", "non PoE ONTs"], "scrollLength" : "300"}}]},
+					{"selectCheckbox" : [{"subGroupCheckBox":{"xpathparams": ["XGS-PON ONTs", "non PoE ONTs", "XS-020X-A,US plug ( cable management)"]}}]},
+					{"typeTextWithEnter": [{"subGroupInputBox":{"xpathparams": ["XGS-PON ONTs", "non PoE ONTs", "XS-020X-A,US plug ( cable management)"], "value" : "1024"}}]},
+					{"clickElement" : [{"networkAttributesTab":{"xpathparams": [""]}}]},
+					{ "validate":
+							[ 
+								{ "verifyText":
+									[
+										{"networkAttributesSectionSplitRatio":{"xpathparams":["Network Attributes", "GPON Split Ratio", "32"], "fileName" : "GPON_Split_Ratio", "bugTitle" : "GPON Split Ratio is not 32 by default", "continueTestNodes": true}}
+									]
+								}
+							]
+					},
+					{ "validate":
+							[ 
+								{ "verifyText":
+									[
+										{"networkAttributesSectionSplitRatio":{"xpathparams":["Network Attributes", "XGS-PON Split Ratio", "64"], "fileName" : "XGS-PON_Split_Ratio", "bugTitle" : "XGS-PON Split Ratio is not 64 by default"}}
+									]
+								}
+							]
+					},
+					{"clickElement" : [{"mainTab":{"xpathparams": ["Shelf, LT & NT"]}}]},
+					{ "validate":
+						[ 
+							{ "isElementPresent":
+								[
+									{"kitSelectionRadioButton":{"xpathparams": ["Kit Selection", "Redundant FX-4 Starter Kit w/8-XGS LT V"], "fileName" : "Redundant FX-4 Starter Kit w/8-XGS LT V Radio Button", "bugTitle" : "Redundant FX-4 Starter Kit w/8-XGS LT V Radio Button is missing", "continueTestNodes": false}}
+								]
+							}
+						]
+					},
+					{"scrollTo" : [{"kitSelectionRadioButton":{"xpathparams": ["Kit Selection", "Redundant FX-4 Starter Kit w/8-XGS LT V"], "scrollLength" : "-200"}}]},
+					{"clickElement" : [{"kitSelectionRadioButton":{"xpathparams": ["Kit Selection", "Redundant FX-4 Starter Kit w/8-XGS LT V"]}}]},
+					{"clickElement" : {"text":"Expand All"}},
+					{ "validate":
+						[ 
+							{ "isElementPresent":
+								[
+									{"itemizedOptions":"FGLT-D 16p GPON LT x 1", "fileName" : "FGLT-D 16p GPON LT x 1-ItemizedOptions", "bugTitle" : "Itemized Options:[FGLT-D 16p GPON LT x 1] is missing"}
+								]
+							}
+						]
+					},
+					{ "validate":
+						[ 
+							{ "isElementPresent":
+								[
+									{"itemizedOptions":"FWLT-B 8port U-NGPON LT (2x40G BP) x 2", "fileName" : "FWLT-B 8port U-NGPON LT (2x40G BP) x 2-ItemizedOptions", "bugTitle" : "Itemized Options:[FWLT-B 8port U-NGPON LT (2x40G BP) x 2] is missing"}
+								]
+							}
+						]
+					},	 
+					{"scrollTo" : [{"kitDetailsProduct":{"xpathparams": ["Kit Details", "Network Uplinks", "SFP 1Gb"], "scrollLength" : "-200"}}]},
+					{"selectCheckbox" : [{"kitDetailsProductCheckBox":{"xpathparams": ["Kit Details", "Network Uplinks", "SFP 1Gb"]}}]},
+					{"selectCheckbox" : [{"kitDetailsProductChildCheckBox":{"xpathparams": ["Kit Details", "Network Uplinks", "SFP 1Gb", "1000Base-LX SFP SM 1310nm 10km 11dB"]}}]},
+					{"typeTextWithEnter": [{"kitDetailsProductChildinput":{"xpathparams": ["Kit Details", "Network Uplinks", "SFP 1Gb", "1000Base-LX SFP SM 1310nm 10km 11dB"], "value" : "2"}}]},
+					{"scrollTo" : [{"kitDetailsSubProduct":{"xpathparams": ["Kit Details", "GPON SFPs"], "scrollLength" : "300"}}]},
+					{"selectCheckbox" : [{"kitDetailsProductCheckBox":{"xpathparams": ["Kit Details", "GPON SFPs", "GPON SFP B+ (C-temp) OLT"]}}]},
+					{"typeTextWithEnter": [{"kitDetailsProductGponInput":{"xpathparams": ["Kit Details", "GPON SFPs", "GPON SFP B+ (C-temp) OLT"], "value" : "32"}}]},
+					{"scrollTo" : [{"shelfTabProducts":{"xpathparams": ["XGS-PON XFPs"], "scrollLength" : "300"}}]},
+					{"selectCheckbox" : [{"xgsponxfpSubProductsCheckBox":{"xpathparams": ["XGS-PON XFPs", "XGS Dual Rate XFP N1 (C-temp) OLT"]}}]},
+					{"typeTextWithEnter": [{"xgsponxfpSubProductsInput":{"xpathparams": ["XGS-PON XFPs", "XGS Dual Rate XFP N1 (C-temp) OLT"], "value" : "16"}}]},
+					{"clickElement" : [{"mainTab":{"xpathparams": ["ONT"]}}]},
+					{"clickElement" : [{"mainTab":{"xpathparams": ["Shelf, LT & NT"]}}]},
+					{ "validate":
+						[ 
+							{ "isElementPresent":
+								[
+									{"goToPricing":"", "fileName" : "GoToPricingButton", "bugTitle" : "Go To Pricing Button is missing", "continueTestNodes": false}
+								]
+							}
+						]
+					},	
+					{ "clickElement": {"goToPricing":""}},
+ 					{ "clickElement": {"expandProductMainGroup":""}},
+					{ "validate":[
+						{ "validateCartData":
+							[
+								{ "navigateCartList":[  
+										{"cartProductName": ""},
+										{"caryQty": ""},
+										{"cartProductCode": ""},
+										{"cartProductPrice": ""}
+									]
+								},
+								{ "validateCartList":[  
+										{"cartProductDetails": [
+										{"productName":"G-010P-A ONT Only","productQty":"1024","productCode":"3FE46431AA","productPrice":"165.17"},
+										{"productName":"XS-020X-A,US plug ( cable management)","productQty":"1024","productCode":"3FE48958AB","productPrice":"194.88"},
+										{"productName":"1000Base-LX SFP SM 1310nm 10km 11dB","productQty":"2","productCode":"3FE25774AA","productPrice":"145.19"},
+										{"productName":"GPON SFP B+ (C-temp) OLT","productQty":"32","productCode":"3FE53441AA","productPrice":"121.8"},
+										{"productName":"XGS Dual Rate XFP N1 (C-temp) OLT","productQty":"16","productCode":"3FE46232AA","productPrice":"414.8"},
+										{"productName":"Redundant FX-4 Starter Kit w/8-XGS LT V","productQty":"1","productCode":"3HG01397AD","productPrice":"14859.6"}
+									]}
+								]
+								}
+							]
+						}
+					]},
+					{ "clickElement": {"navBackTOCPQtabs":""}}
+					
+				]
+			}
+		},
+		{
+          "testNode": {
+				"testCaseID": "NOLNARRUL.0070",
+				"testCaseTitle": "Navigate to configure products",
+				"dependsOn": "NOLNARRUL.0030",
+				"testCaseSteps": [
+					{"clickElement" : [{"mainTab":{"xpathparams": ["ONT"]}}]},
+					{"selectCheckbox" : [{"subGroupCheckBox":{"xpathparams": ["GPON ONTs", "PoE ONTs", "G-010P-A ONT Only"]}}]},
+					{"typeTextWithEnter": [{"subGroupInputBox":{"xpathparams": ["GPON ONTs", "PoE ONTs", "G-010P-A ONT Only"], "value" : "1024"}}]},
+					{"scrollTo" : [{"subGroups":{"xpathparams": ["XGS-PON ONTs", "non PoE ONTs"], "scrollLength" : "300"}}]},
+					{"selectCheckbox" : [{"subGroupCheckBox":{"xpathparams": ["XGS-PON ONTs", "non PoE ONTs", "XS-020X-A,US plug ( cable management)"]}}]},
+					{"typeTextWithEnter": [{"subGroupInputBox":{"xpathparams": ["XGS-PON ONTs", "non PoE ONTs", "XS-020X-A,US plug ( cable management)"], "value" : "1024"}}]},
+					{"clickElement" : [{"networkAttributesTab":{"xpathparams": [""]}}]},
+					{ "validate":
+							[ 
+								{ "verifyText":
+									[
+										{"networkAttributesSectionSplitRatio":{"xpathparams":["Network Attributes", "GPON Split Ratio", "32"], "fileName" : "GPON_Split_Ratio", "bugTitle" : "GPON Split Ratio is not 32 by default", "continueTestNodes": true}}
+									]
+								}
+							]
+					},
+					{ "validate":
+							[ 
+								{ "verifyText":
+									[
+										{"networkAttributesSectionSplitRatio":{"xpathparams":["Network Attributes", "XGS-PON Split Ratio", "64"], "fileName" : "XGS-PON_Split_Ratio", "bugTitle" : "XGS-PON Split Ratio is not 64 by default"}}
+									]
+								}
+							]
+					},
+					{"clickElement" : [{"mainTab":{"xpathparams": ["Shelf, LT & NT"]}}]},
+					{ "validate":
+						[ 
+							{ "isElementPresent":
+								[
+									{"kitSelectionRadioButton":{"xpathparams": ["Kit Selection", "Redundant FX-4 Starter Kit w/8-XGS LT H"], "fileName" : "Redundant FX-4 Starter Kit w/8-XGS LT H Radio Button", "bugTitle" : "Redundant FX-4 Starter Kit w/8-XGS LT H Radio Button is missing", "continueTestNodes": false}}
+								]
+							}
+						]
+					},
+					{"scrollTo" : [{"kitSelectionRadioButton":{"xpathparams": ["Kit Selection", "Redundant FX-4 Starter Kit w/8-XGS LT H"], "scrollLength" : "-200"}}]},
+					{"clickElement" : [{"kitSelectionRadioButton":{"xpathparams": ["Kit Selection", "Redundant FX-4 Starter Kit w/8-XGS LT H"]}}]},
+					{"clickElement" : {"text":"Expand All"}},
+					{ "validate":
+						[ 
+							{ "isElementPresent":
+								[
+									{"itemizedOptions":"FGLT-D 16p GPON LT x 1", "fileName" : "FGLT-D 16p GPON LT x 1-ItemizedOptions", "bugTitle" : "Itemized Options:[FGLT-D 16p GPON LT x 1] is missing"}
+								]
+							}
+						]
+					},
+					{ "validate":
+						[ 
+							{ "isElementPresent":
+								[
+									{"itemizedOptions":"FWLT-B 8port U-NGPON LT (2x40G BP) x 2", "fileName" : "FWLT-B 8port U-NGPON LT (2x40G BP) x 2-ItemizedOptions", "bugTitle" : "Itemized Options:[FWLT-B 8port U-NGPON LT (2x40G BP) x 2] is missing"}
+								]
+							}
+						]
+					},	 
+					{"scrollTo" : [{"kitDetailsProduct":{"xpathparams": ["Kit Details", "Network Uplinks", "SFP 1Gb"], "scrollLength" : "-200"}}]},
+					{"selectCheckbox" : [{"kitDetailsProductCheckBox":{"xpathparams": ["Kit Details", "Network Uplinks", "SFP 1Gb"]}}]},
+					{"selectCheckbox" : [{"kitDetailsProductChildCheckBox":{"xpathparams": ["Kit Details", "Network Uplinks", "SFP 1Gb", "1000Base-LX SFP SM 1310nm 10km 11dB"]}}]},
+					{"typeTextWithEnter": [{"kitDetailsProductChildinput":{"xpathparams": ["Kit Details", "Network Uplinks", "SFP 1Gb", "1000Base-LX SFP SM 1310nm 10km 11dB"], "value" : "2"}}]},
+					{"scrollTo" : [{"kitDetailsSubProduct":{"xpathparams": ["Kit Details", "GPON SFPs"], "scrollLength" : "300"}}]},
+					{"selectCheckbox" : [{"kitDetailsProductCheckBox":{"xpathparams": ["Kit Details", "GPON SFPs", "GPON SFP B+ (C-temp) OLT"]}}]},
+					{"typeTextWithEnter": [{"kitDetailsProductGponInput":{"xpathparams": ["Kit Details", "GPON SFPs", "GPON SFP B+ (C-temp) OLT"], "value" : "32"}}]},
+					{"scrollTo" : [{"shelfTabProducts":{"xpathparams": ["XGS-PON XFPs"], "scrollLength" : "300"}}]},
+					{"selectCheckbox" : [{"xgsponxfpSubProductsCheckBox":{"xpathparams": ["XGS-PON XFPs", "XGS Dual Rate XFP N1 (C-temp) OLT"]}}]},
+					{"typeTextWithEnter": [{"xgsponxfpSubProductsInput":{"xpathparams": ["XGS-PON XFPs", "XGS Dual Rate XFP N1 (C-temp) OLT"], "value" : "16"}}]},
+					{"clickElement" : [{"mainTab":{"xpathparams": ["ONT"]}}]},
+					{"clickElement" : [{"mainTab":{"xpathparams": ["Shelf, LT & NT"]}}]},
+					{ "validate":
+						[ 
+							{ "isElementPresent":
+								[
+									{"goToPricing":"", "fileName" : "GoToPricingButton", "bugTitle" : "Go To Pricing Button is missing", "continueTestNodes": false}
+								]
+							}
+						]
+					},	
+					{ "clickElement": {"goToPricing":""}},
+ 					{ "clickElement": {"expandProductMainGroup":""}},
+					{ "validate":[
+						{ "validateCartData":
+							[
+								{ "navigateCartList":[  
+										{"cartProductName": ""},
+										{"caryQty": ""},
+										{"cartProductCode": ""},
+										{"cartProductPrice": ""}
+									]
+								},
+								{ "validateCartList":[  
+										{"cartProductDetails": [
+										{"productName":"G-010P-A ONT Only","productQty":"1024","productCode":"3FE46431AA","productPrice":"165.17"},
+										{"productName":"XS-020X-A,US plug ( cable management)","productQty":"1024","productCode":"3FE48958AB","productPrice":"194.88"},
+										{"productName":"1000Base-LX SFP SM 1310nm 10km 11dB","productQty":"2","productCode":"3FE25774AA","productPrice":"145.19"},
+										{"productName":"GPON SFP B+ (C-temp) OLT","productQty":"32","productCode":"3FE53441AA","productPrice":"121.8"},
+										{"productName":"XGS Dual Rate XFP N1 (C-temp) OLT","productQty":"16","productCode":"3FE46232AA","productPrice":"414.8"},
+										{"productName":"Redundant FX-4 Starter Kit w/8-XGS LT H","productQty":"1","productCode":"3HG01397AE","productPrice":"14859.6"}
+									]}
+								]
+								}
+							]
+						}
+					]},
+					{ "clickElement": {"navBackTOCPQtabs":""}}
+					
+				]
+			}
+		},
+		{
+          "testNode": {
+				"testCaseID": "NOLNARRUL.0080",
+				"testCaseTitle": "Navigate to configure products",
+				"dependsOn": "NOLNARRUL.0030",
+				"testCaseSteps": [
+					{"clickElement" : [{"mainTab":{"xpathparams": ["ONT"]}}]},
+					{"selectCheckbox" : [{"subGroupCheckBox":{"xpathparams": ["GPON ONTs", "PoE ONTs", "G-010P-A ONT Only"]}}]},
+					{"typeTextWithEnter": [{"subGroupInputBox":{"xpathparams": ["GPON ONTs", "PoE ONTs", "G-010P-A ONT Only"], "value" : "1000"}}]},
+					{"scrollTo" : [{"subGroups":{"xpathparams": ["XGS-PON ONTs", "non PoE ONTs"], "scrollLength" : "300"}}]},
+					{"selectCheckbox" : [{"subGroupCheckBox":{"xpathparams": ["XGS-PON ONTs", "non PoE ONTs", "XS-020X-A,US plug ( cable management)"]}}]},
+					{"typeTextWithEnter": [{"subGroupInputBox":{"xpathparams": ["XGS-PON ONTs", "non PoE ONTs", "XS-020X-A,US plug ( cable management)"], "value" : "1000"}}]},
+					{"clickElement" : [{"networkAttributesTab":{"xpathparams": [""]}}]},
+					{ "validate":
+							[ 
+								{ "verifyText":
+									[
+										{"networkAttributesSectionSplitRatio":{"xpathparams":["Network Attributes", "GPON Split Ratio", "32"], "fileName" : "GPON_Split_Ratio", "bugTitle" : "GPON Split Ratio is not 32 by default", "continueTestNodes": true}}
+									]
+								}
+							]
+					},
+					{ "validate":
+							[ 
+								{ "verifyText":
+									[
+										{"networkAttributesSectionSplitRatio":{"xpathparams":["Network Attributes", "XGS-PON Split Ratio", "64"], "fileName" : "XGS-PON_Split_Ratio", "bugTitle" : "XGS-PON Split Ratio is not 64 by default"}}
+									]
+								}
+							]
+					},
+					{"clickElement" : [{"mainTab":{"xpathparams": ["Shelf, LT & NT"]}}]},
+					{ "validate":
+						[ 
+							{ "isElementPresent":
+								[
+									{"kitSelectionRadioButton":{"xpathparams": ["Kit Selection", "Red FX-8 Str Kit 2FANT-G wFGLT-D NoOp V"], "fileName" : "Red FX-8 Str Kit 2FANT-G wFGLT-D NoOp V Radio Button", "bugTitle" : "Red FX-8 Str Kit 2FANT-G wFGLT-D NoOp V Radio Button is missing", "continueTestNodes": false}}
+								]
+							}
+						]
+					},
+					{"scrollTo" : [{"kitSelectionRadioButton":{"xpathparams": ["Kit Selection", "Red FX-8 Str Kit 2FANT-G wFGLT-D NoOp V"], "scrollLength" : "-200"}}]},
+					{"clickElement" : [{"kitSelectionRadioButton":{"xpathparams": ["Kit Selection", "Red FX-8 Str Kit 2FANT-G wFGLT-D NoOp V"]}}]},
+					{"clickElement" : {"text":"Expand All"}},
+					{ "validate":
+						[ 
+							{ "isElementPresent":
+								[
+									{"itemizedOptions":"FGLT-D 16p GPON LT x 1", "fileName" : "FGLT-D 16p GPON LT x 1-ItemizedOptions", "bugTitle" : "Itemized Options:[FGLT-D 16p GPON LT x 1] is missing"}
+								]
+							}
+						]
+					},
+					{ "validate":
+						[ 
+							{ "isElementPresent":
+								[
+									{"itemizedOptions":"FWLT-B 8port U-NGPON LT (2x40G BP) x 2", "fileName" : "FWLT-B 8port U-NGPON LT (2x40G BP) x 2-ItemizedOptions", "bugTitle" : "Itemized Options:[FWLT-B 8port U-NGPON LT (2x40G BP) x 2] is missing"}
+								]
+							}
+						]
+					},	 
+					{"scrollTo" : [{"kitDetailsProduct":{"xpathparams": ["Kit Details", "Network Uplinks", "SFP 1Gb"], "scrollLength" : "-200"}}]},
+					{"selectCheckbox" : [{"kitDetailsProductCheckBox":{"xpathparams": ["Kit Details", "Network Uplinks", "SFP 1Gb"]}}]},
+					{"selectCheckbox" : [{"kitDetailsProductChildCheckBox":{"xpathparams": ["Kit Details", "Network Uplinks", "SFP 1Gb", "1000Base-LX SFP SM 1310nm 10km 11dB"]}}]},
+					{"typeTextWithEnter": [{"kitDetailsProductChildinput":{"xpathparams": ["Kit Details", "Network Uplinks", "SFP 1Gb", "1000Base-LX SFP SM 1310nm 10km 11dB"], "value" : "2"}}]},
+					{"scrollTo" : [{"kitDetailsSubProduct":{"xpathparams": ["Kit Details", "GPON SFPs"], "scrollLength" : "300"}}]},
+					{"selectCheckbox" : [{"kitDetailsProductCheckBox":{"xpathparams": ["Kit Details", "GPON SFPs", "GPON SFP B+ (C-temp) OLT"]}}]},
+					{"typeTextWithEnter": [{"kitDetailsProductGponInput":{"xpathparams": ["Kit Details", "GPON SFPs", "GPON SFP B+ (C-temp) OLT"], "value" : "32"}}]},
+					{"scrollTo" : [{"shelfTabProducts":{"xpathparams": ["XGS-PON XFPs"], "scrollLength" : "300"}}]},
+					{"selectCheckbox" : [{"xgsponxfpSubProductsCheckBox":{"xpathparams": ["XGS-PON XFPs", "XGS Dual Rate XFP N1 (C-temp) OLT"]}}]},
+					{"typeTextWithEnter": [{"xgsponxfpSubProductsInput":{"xpathparams": ["XGS-PON XFPs", "XGS Dual Rate XFP N1 (C-temp) OLT"], "value" : "16"}}]},
+					{"clickElement" : [{"mainTab":{"xpathparams": ["ONT"]}}]},
+					{"clickElement" : [{"mainTab":{"xpathparams": ["Shelf, LT & NT"]}}]},
+					{ "validate":
+						[ 
+							{ "isElementPresent":
+								[
+									{"goToPricing":"", "fileName" : "GoToPricingButton", "bugTitle" : "Go To Pricing Button is missing", "continueTestNodes": false}
+								]
+							}
+						]
+					},	
+					{ "clickElement": {"goToPricing":""}},
+ 					{ "clickElement": {"expandProductMainGroup":""}},
+					{ "validate":[
+						{ "validateCartData":
+							[
+								{ "navigateCartList":[  
+										{"cartProductName": ""},
+										{"caryQty": ""},
+										{"cartProductCode": ""},
+										{"cartProductPrice": ""}
+									]
+								},
+								{ "validateCartList":[  
+										{"cartProductDetails": [
+										{"productName":"G-010P-A ONT Only","productQty":"1000","productCode":"3FE46431AA","productPrice":"165.17"},
+										{"productName":"XS-020X-A,US plug ( cable management)","productQty":"1000","productCode":"3FE48958AB","productPrice":"194.88"},
+										{"productName":"1000Base-LX SFP SM 1310nm 10km 11dB","productQty":"2","productCode":"3FE25774AA","productPrice":"145.19"},
+										{"productName":"GPON SFP B+ (C-temp) OLT","productQty":"32","productCode":"3FE53441AA","productPrice":"121.8"},
+										{"productName":"XGS Dual Rate XFP N1 (C-temp) OLT","productQty":"16","productCode":"3FE46232AA","productPrice":"414.8"},
+										{"productName":"Red FX-8 Str Kit 2FANT-G wFGLT-D NoOp V","productQty":"1","productCode":"3HG01552VA","productPrice":"16808.4"}
+									]}
+								]
+								}
+							]
+						}
+					]},
+					{ "clickElement": {"navBackTOCPQtabs":""}}
+					
+				]
+			}
+		},
+		{
+          "testNode": {
+				"testCaseID": "NOLNARRUL.0090",
+				"testCaseTitle": "Navigate to configure products",
+				"dependsOn": "NOLNARRUL.0030",
+				"testCaseSteps": [
+					{"clickElement" : [{"mainTab":{"xpathparams": ["ONT"]}}]},
+					{"selectCheckbox" : [{"subGroupCheckBox":{"xpathparams": ["GPON ONTs", "PoE ONTs", "G-010P-A ONT Only"]}}]},
+					{"typeTextWithEnter": [{"subGroupInputBox":{"xpathparams": ["GPON ONTs", "PoE ONTs", "G-010P-A ONT Only"], "value" : "1000"}}]},
+					{"scrollTo" : [{"subGroups":{"xpathparams": ["XGS-PON ONTs", "non PoE ONTs"], "scrollLength" : "300"}}]},
+					{"selectCheckbox" : [{"subGroupCheckBox":{"xpathparams": ["XGS-PON ONTs", "non PoE ONTs", "XS-020X-A,US plug ( cable management)"]}}]},
+					{"typeTextWithEnter": [{"subGroupInputBox":{"xpathparams": ["XGS-PON ONTs", "non PoE ONTs", "XS-020X-A,US plug ( cable management)"], "value" : "1000"}}]},
+					{"clickElement" : [{"networkAttributesTab":{"xpathparams": [""]}}]},
+					{ "validate":
+							[ 
+								{ "verifyText":
+									[
+										{"networkAttributesSectionSplitRatio":{"xpathparams":["Network Attributes", "GPON Split Ratio", "32"], "fileName" : "GPON_Split_Ratio", "bugTitle" : "GPON Split Ratio is not 32 by default", "continueTestNodes": true}}
+									]
+								}
+							]
+					},
+					{ "validate":
+							[ 
+								{ "verifyText":
+									[
+										{"networkAttributesSectionSplitRatio":{"xpathparams":["Network Attributes", "XGS-PON Split Ratio", "64"], "fileName" : "XGS-PON_Split_Ratio", "bugTitle" : "XGS-PON Split Ratio is not 64 by default"}}
+									]
+								}
+							]
+					},
+					{"clickElement" : [{"mainTab":{"xpathparams": ["Shelf, LT & NT"]}}]},
+					{ "validate":
+						[ 
+							{ "isElementPresent":
+								[
+									{"kitSelectionRadioButton":{"xpathparams": ["Kit Selection", "Red FX-8 Str Kit 2FANT-G wFGLT-D NoOp H"], "fileName" : "Red FX-8 Str Kit 2FANT-G wFGLT-D NoOp H Radio Button", "bugTitle" : "Red FX-8 Str Kit 2FANT-G wFGLT-D NoOp H Radio Button is missing", "continueTestNodes": false}}
+								]
+							}
+						]
+					},
+					{"scrollTo" : [{"kitSelectionRadioButton":{"xpathparams": ["Kit Selection", "Red FX-8 Str Kit 2FANT-G wFGLT-D NoOp H"], "scrollLength" : "-200"}}]},
+					{"clickElement" : [{"kitSelectionRadioButton":{"xpathparams": ["Kit Selection", "Red FX-8 Str Kit 2FANT-G wFGLT-D NoOp H"]}}]},
+					{"clickElement" : {"text":"Expand All"}},
+					{ "validate":
+						[ 
+							{ "isElementPresent":
+								[
+									{"itemizedOptions":"FGLT-D 16p GPON LT x 1", "fileName" : "FGLT-D 16p GPON LT x 1-ItemizedOptions", "bugTitle" : "Itemized Options:[FGLT-D 16p GPON LT x 1] is missing"}
+								]
+							}
+						]
+					},
+					{ "validate":
+						[ 
+							{ "isElementPresent":
+								[
+									{"itemizedOptions":"FWLT-B 8port U-NGPON LT (2x40G BP) x 2", "fileName" : "FWLT-B 8port U-NGPON LT (2x40G BP) x 2-ItemizedOptions", "bugTitle" : "Itemized Options:[FWLT-B 8port U-NGPON LT (2x40G BP) x 2] is missing"}
+								]
+							}
+						]
+					},	 
+					{"scrollTo" : [{"kitDetailsProduct":{"xpathparams": ["Kit Details", "Network Uplinks", "SFP 1Gb"], "scrollLength" : "-200"}}]},
+					{"selectCheckbox" : [{"kitDetailsProductCheckBox":{"xpathparams": ["Kit Details", "Network Uplinks", "SFP 1Gb"]}}]},
+					{"selectCheckbox" : [{"kitDetailsProductChildCheckBox":{"xpathparams": ["Kit Details", "Network Uplinks", "SFP 1Gb", "1000Base-LX SFP SM 1310nm 10km 11dB"]}}]},
+					{"typeTextWithEnter": [{"kitDetailsProductChildinput":{"xpathparams": ["Kit Details", "Network Uplinks", "SFP 1Gb", "1000Base-LX SFP SM 1310nm 10km 11dB"], "value" : "2"}}]},
+					{"scrollTo" : [{"kitDetailsSubProduct":{"xpathparams": ["Kit Details", "GPON SFPs"], "scrollLength" : "300"}}]},
+					{"selectCheckbox" : [{"kitDetailsProductCheckBox":{"xpathparams": ["Kit Details", "GPON SFPs", "GPON SFP B+ (C-temp) OLT"]}}]},
+					{"typeTextWithEnter": [{"kitDetailsProductGponInput":{"xpathparams": ["Kit Details", "GPON SFPs", "GPON SFP B+ (C-temp) OLT"], "value" : "32"}}]},
+					{"scrollTo" : [{"shelfTabProducts":{"xpathparams": ["XGS-PON XFPs"], "scrollLength" : "300"}}]},
+					{"selectCheckbox" : [{"xgsponxfpSubProductsCheckBox":{"xpathparams": ["XGS-PON XFPs", "XGS Dual Rate XFP N1 (C-temp) OLT"]}}]},
+					{"typeTextWithEnter": [{"xgsponxfpSubProductsInput":{"xpathparams": ["XGS-PON XFPs", "XGS Dual Rate XFP N1 (C-temp) OLT"], "value" : "16"}}]},
+					{"clickElement" : [{"mainTab":{"xpathparams": ["ONT"]}}]},
+					{"clickElement" : [{"mainTab":{"xpathparams": ["Shelf, LT & NT"]}}]},
+					{ "validate":
+						[ 
+							{ "isElementPresent":
+								[
+									{"goToPricing":"", "fileName" : "GoToPricingButton", "bugTitle" : "Go To Pricing Button is missing", "continueTestNodes": false}
+								]
+							}
+						]
+					},	
+					{ "clickElement": {"goToPricing":""}},
+ 					{ "clickElement": {"expandProductMainGroup":""}},
+					{ "validate":[
+						{ "validateCartData":
+							[
+								{ "navigateCartList":[  
+										{"cartProductName": ""},
+										{"caryQty": ""},
+										{"cartProductCode": ""},
+										{"cartProductPrice": ""}
+									]
+								},
+								{ "validateCartList":[  
+										{"cartProductDetails": [
+										{"productName":"G-010P-A ONT Only","productQty":"1000","productCode":"3FE46431AA","productPrice":"165.17"},
+										{"productName":"XS-020X-A,US plug ( cable management)","productQty":"1000","productCode":"3FE48958AB","productPrice":"194.88"},
+										{"productName":"1000Base-LX SFP SM 1310nm 10km 11dB","productQty":"2","productCode":"3FE25774AA","productPrice":"145.19"},
+										{"productName":"GPON SFP B+ (C-temp) OLT","productQty":"32","productCode":"3FE53441AA","productPrice":"121.8"},
+										{"productName":"XGS Dual Rate XFP N1 (C-temp) OLT","productQty":"16","productCode":"3FE46232AA","productPrice":"414.8"},
+										{"productName":"Red FX-8 Str Kit 2FANT-G wFGLT-D NoOp H","productQty":"1","productCode":"3HG01552HA","productPrice":"16808.4"}
+									]}
+								]
+								}
+							]
+						}
+					]},
+					{ "clickElement": {"navBackTOCPQtabs":""}}
+					
+				]
+			}
+		},
+		{
+          "testNode": {
+				"testCaseID": "NOLNARRUL.0100",
+				"testCaseTitle": "Navigate to configure products",
+				"dependsOn": "NOLNARRUL.0030",
+				"testCaseSteps": [
+					{"clickElement" : [{"mainTab":{"xpathparams": ["ONT"]}}]},
+					{"selectCheckbox" : [{"subGroupCheckBox":{"xpathparams": ["GPON ONTs", "PoE ONTs", "G-010P-A ONT Only"]}}]},
+					{"typeTextWithEnter": [{"subGroupInputBox":{"xpathparams": ["GPON ONTs", "PoE ONTs", "G-010P-A ONT Only"], "value" : "1000"}}]},
+					{"scrollTo" : [{"subGroups":{"xpathparams": ["XGS-PON ONTs", "non PoE ONTs"], "scrollLength" : "300"}}]},
+					{"selectCheckbox" : [{"subGroupCheckBox":{"xpathparams": ["XGS-PON ONTs", "non PoE ONTs", "XS-020X-A,US plug ( cable management)"]}}]},
+					{"typeTextWithEnter": [{"subGroupInputBox":{"xpathparams": ["XGS-PON ONTs", "non PoE ONTs", "XS-020X-A,US plug ( cable management)"], "value" : "1000"}}]},
+					{"clickElement" : [{"networkAttributesTab":{"xpathparams": [""]}}]},
+					{ "validate":
+							[ 
+								{ "verifyText":
+									[
+										{"networkAttributesSectionSplitRatio":{"xpathparams":["Network Attributes", "GPON Split Ratio", "32"], "fileName" : "GPON_Split_Ratio", "bugTitle" : "GPON Split Ratio is not 32 by default", "continueTestNodes": true}}
+									]
+								}
+							]
+					},
+					{ "validate":
+							[ 
+								{ "verifyText":
+									[
+										{"networkAttributesSectionSplitRatio":{"xpathparams":["Network Attributes", "XGS-PON Split Ratio", "64"], "fileName" : "XGS-PON_Split_Ratio", "bugTitle" : "XGS-PON Split Ratio is not 64 by default"}}
+									]
+								}
+							]
+					},
+					{"clickElement" : [{"mainTab":{"xpathparams": ["Shelf, LT & NT"]}}]},
+					{ "validate":
+						[ 
+							{ "isElementPresent":
+								[
+									{"kitSelectionRadioButton":{"xpathparams": ["Kit Selection", "Redundant FX-8 Starter Kit w/8-XGS LT V"], "fileName" : "Redundant FX-8 Starter Kit w/8-XGS LT V Radio Button", "bugTitle" : "Redundant FX-8 Starter Kit w/8-XGS LT V Radio Button is missing", "continueTestNodes": false}}
+								]
+							}
+						]
+					},
+					{"scrollTo" : [{"kitSelectionRadioButton":{"xpathparams": ["Kit Selection", "Redundant FX-8 Starter Kit w/8-XGS LT V"], "scrollLength" : "-200"}}]},
+					{"clickElement" : [{"kitSelectionRadioButton":{"xpathparams": ["Kit Selection", "Redundant FX-8 Starter Kit w/8-XGS LT V"]}}]},
+					{"clickElement" : {"text":"Expand All"}},
+					{ "validate":
+						[ 
+							{ "isElementPresent":
+								[
+									{"itemizedOptions":"FGLT-D 16p GPON LT x 1", "fileName" : "FGLT-D 16p GPON LT x 1-ItemizedOptions", "bugTitle" : "Itemized Options:[FGLT-D 16p GPON LT x 1] is missing"}
+								]
+							}
+						]
+					},
+					{ "validate":
+						[ 
+							{ "isElementPresent":
+								[
+									{"itemizedOptions":"FWLT-B 8port U-NGPON LT (2x40G BP) x 2", "fileName" : "FWLT-B 8port U-NGPON LT (2x40G BP) x 2-ItemizedOptions", "bugTitle" : "Itemized Options:[FWLT-B 8port U-NGPON LT (2x40G BP) x 2] is missing"}
+								]
+							}
+						]
+					},	 
+					{"scrollTo" : [{"kitDetailsProduct":{"xpathparams": ["Kit Details", "Network Uplinks", "SFP 1Gb"], "scrollLength" : "-200"}}]},
+					{"selectCheckbox" : [{"kitDetailsProductCheckBox":{"xpathparams": ["Kit Details", "Network Uplinks", "SFP 1Gb"]}}]},
+					{"selectCheckbox" : [{"kitDetailsProductChildCheckBox":{"xpathparams": ["Kit Details", "Network Uplinks", "SFP 1Gb", "1000Base-LX SFP SM 1310nm 10km 11dB"]}}]},
+					{"typeTextWithEnter": [{"kitDetailsProductChildinput":{"xpathparams": ["Kit Details", "Network Uplinks", "SFP 1Gb", "1000Base-LX SFP SM 1310nm 10km 11dB"], "value" : "2"}}]},
+					{"scrollTo" : [{"kitDetailsSubProduct":{"xpathparams": ["Kit Details", "GPON SFPs"], "scrollLength" : "300"}}]},
+					{"selectCheckbox" : [{"kitDetailsProductCheckBox":{"xpathparams": ["Kit Details", "GPON SFPs", "GPON SFP B+ (C-temp) OLT"]}}]},
+					{"typeTextWithEnter": [{"kitDetailsProductGponInput":{"xpathparams": ["Kit Details", "GPON SFPs", "GPON SFP B+ (C-temp) OLT"], "value" : "32"}}]},
+					{"scrollTo" : [{"shelfTabProducts":{"xpathparams": ["XGS-PON XFPs"], "scrollLength" : "300"}}]},
+					{"selectCheckbox" : [{"xgsponxfpSubProductsCheckBox":{"xpathparams": ["XGS-PON XFPs", "XGS Dual Rate XFP N1 (C-temp) OLT"]}}]},
+					{"typeTextWithEnter": [{"xgsponxfpSubProductsInput":{"xpathparams": ["XGS-PON XFPs", "XGS Dual Rate XFP N1 (C-temp) OLT"], "value" : "16"}}]},
+					{"clickElement" : [{"mainTab":{"xpathparams": ["ONT"]}}]},
+					{"clickElement" : [{"mainTab":{"xpathparams": ["Shelf, LT & NT"]}}]},
+					{ "validate":
+						[ 
+							{ "isElementPresent":
+								[
+									{"goToPricing":"", "fileName" : "GoToPricingButton", "bugTitle" : "Go To Pricing Button is missing", "continueTestNodes": false}
+								]
+							}
+						]
+					},	
+					{ "clickElement": {"goToPricing":""}},
+ 					{ "clickElement": {"expandProductMainGroup":""}},
+					{ "validate":[
+						{ "validateCartData":
+							[
+								{ "navigateCartList":[  
+										{"cartProductName": ""},
+										{"caryQty": ""},
+										{"cartProductCode": ""},
+										{"cartProductPrice": ""}
+									]
+								},
+								{ "validateCartList":[  
+										{"cartProductDetails": [
+										{"productName":"G-010P-A ONT Only","productQty":"1000","productCode":"3FE46431AA","productPrice":"165.17"},
+										{"productName":"XS-020X-A,US plug ( cable management)","productQty":"1000","productCode":"3FE48958AB","productPrice":"194.88"},
+										{"productName":"1000Base-LX SFP SM 1310nm 10km 11dB","productQty":"2","productCode":"3FE25774AA","productPrice":"145.19"},
+										{"productName":"GPON SFP B+ (C-temp) OLT","productQty":"32","productCode":"3FE53441AA","productPrice":"121.8"},
+										{"productName":"XGS Dual Rate XFP N1 (C-temp) OLT","productQty":"16","productCode":"3FE46232AA","productPrice":"414.8"},
+										{"productName":"Redundant FX-8 Starter Kit w/8-XGS LT V","productQty":"1","productCode":"3HG01512VA","productPrice":"16808.4"}
+									]}
+								]
+								}
+							]
+						}
+					]},
+					{ "clickElement": {"navBackTOCPQtabs":""}}
+					
+				]
+			}
+		},
+		{
+          "testNode": {
+				"testCaseID": "NOLNARRUL.0110",
+				"testCaseTitle": "Navigate to configure products",
+				"dependsOn": "NOLNARRUL.0030",
+				"testCaseSteps": [
+					{"clickElement" : [{"mainTab":{"xpathparams": ["ONT"]}}]},
+					{"selectCheckbox" : [{"subGroupCheckBox":{"xpathparams": ["GPON ONTs", "PoE ONTs", "G-010P-A ONT Only"]}}]},
+					{"typeTextWithEnter": [{"subGroupInputBox":{"xpathparams": ["GPON ONTs", "PoE ONTs", "G-010P-A ONT Only"], "value" : "1000"}}]},
+					{"scrollTo" : [{"subGroups":{"xpathparams": ["XGS-PON ONTs", "non PoE ONTs"], "scrollLength" : "300"}}]},
+					{"selectCheckbox" : [{"subGroupCheckBox":{"xpathparams": ["XGS-PON ONTs", "non PoE ONTs", "XS-020X-A,US plug ( cable management)"]}}]},
+					{"typeTextWithEnter": [{"subGroupInputBox":{"xpathparams": ["XGS-PON ONTs", "non PoE ONTs", "XS-020X-A,US plug ( cable management)"], "value" : "1000"}}]},
+					{"clickElement" : [{"networkAttributesTab":{"xpathparams": [""]}}]},
+					{ "validate":
+							[ 
+								{ "verifyText":
+									[
+										{"networkAttributesSectionSplitRatio":{"xpathparams":["Network Attributes", "GPON Split Ratio", "32"], "fileName" : "GPON_Split_Ratio", "bugTitle" : "GPON Split Ratio is not 32 by default", "continueTestNodes": true}}
+									]
+								}
+							]
+					},
+					{ "validate":
+							[ 
+								{ "verifyText":
+									[
+										{"networkAttributesSectionSplitRatio":{"xpathparams":["Network Attributes", "XGS-PON Split Ratio", "64"], "fileName" : "XGS-PON_Split_Ratio", "bugTitle" : "XGS-PON Split Ratio is not 64 by default"}}
+									]
+								}
+							]
+					},
+					{"clickElement" : [{"mainTab":{"xpathparams": ["Shelf, LT & NT"]}}]},
+					{ "validate":
+						[ 
+							{ "isElementPresent":
+								[
+									{"kitSelectionRadioButton":{"xpathparams": ["Kit Selection", "Redundant FX-8 Starter Kit w/8-XGS LT H"], "fileName" : "Redundant FX-8 Starter Kit w/8-XGS LT H Radio Button", "bugTitle" : "Redundant FX-8 Starter Kit w/8-XGS LT H Radio Button is missing", "continueTestNodes": false}}
+								]
+							}
+						]
+					},
+					{"scrollTo" : [{"kitSelectionRadioButton":{"xpathparams": ["Kit Selection", "Redundant FX-8 Starter Kit w/8-XGS LT H"], "scrollLength" : "-200"}}]},
+					{"clickElement" : [{"kitSelectionRadioButton":{"xpathparams": ["Kit Selection", "Redundant FX-8 Starter Kit w/8-XGS LT H"]}}]},
+					{"clickElement" : {"text":"Expand All"}},
+					{ "validate":
+						[ 
+							{ "isElementPresent":
+								[
+									{"itemizedOptions":"FGLT-D 16p GPON LT x 1", "fileName" : "FGLT-D 16p GPON LT x 1-ItemizedOptions", "bugTitle" : "Itemized Options:[FGLT-D 16p GPON LT x 1] is missing"}
+								]
+							}
+						]
+					},
+					{ "validate":
+						[ 
+							{ "isElementPresent":
+								[
+									{"itemizedOptions":"FWLT-B 8port U-NGPON LT (2x40G BP) x 2", "fileName" : "FWLT-B 8port U-NGPON LT (2x40G BP) x 2-ItemizedOptions", "bugTitle" : "Itemized Options:[FWLT-B 8port U-NGPON LT (2x40G BP) x 2] is missing"}
+								]
+							}
+						]
+					},	 
+					{"scrollTo" : [{"kitDetailsProduct":{"xpathparams": ["Kit Details", "Network Uplinks", "SFP 1Gb"], "scrollLength" : "-200"}}]},
+					{"selectCheckbox" : [{"kitDetailsProductCheckBox":{"xpathparams": ["Kit Details", "Network Uplinks", "SFP 1Gb"]}}]},
+					{"selectCheckbox" : [{"kitDetailsProductChildCheckBox":{"xpathparams": ["Kit Details", "Network Uplinks", "SFP 1Gb", "1000Base-LX SFP SM 1310nm 10km 11dB"]}}]},
+					{"typeTextWithEnter": [{"kitDetailsProductChildinput":{"xpathparams": ["Kit Details", "Network Uplinks", "SFP 1Gb", "1000Base-LX SFP SM 1310nm 10km 11dB"], "value" : "2"}}]},
+					{"scrollTo" : [{"kitDetailsSubProduct":{"xpathparams": ["Kit Details", "GPON SFPs"], "scrollLength" : "300"}}]},
+					{"selectCheckbox" : [{"kitDetailsProductCheckBox":{"xpathparams": ["Kit Details", "GPON SFPs", "GPON SFP B+ (C-temp) OLT"]}}]},
+					{"typeTextWithEnter": [{"kitDetailsProductGponInput":{"xpathparams": ["Kit Details", "GPON SFPs", "GPON SFP B+ (C-temp) OLT"], "value" : "32"}}]},
+					{"scrollTo" : [{"shelfTabProducts":{"xpathparams": ["XGS-PON XFPs"], "scrollLength" : "300"}}]},
+					{"selectCheckbox" : [{"xgsponxfpSubProductsCheckBox":{"xpathparams": ["XGS-PON XFPs", "XGS Dual Rate XFP N1 (C-temp) OLT"]}}]},
+					{"typeTextWithEnter": [{"xgsponxfpSubProductsInput":{"xpathparams": ["XGS-PON XFPs", "XGS Dual Rate XFP N1 (C-temp) OLT"], "value" : "16"}}]},
+					{"clickElement" : [{"mainTab":{"xpathparams": ["ONT"]}}]},
+					{"clickElement" : [{"mainTab":{"xpathparams": ["Shelf, LT & NT"]}}]},
+					{ "validate":
+						[ 
+							{ "isElementPresent":
+								[
+									{"goToPricing":"", "fileName" : "GoToPricingButton", "bugTitle" : "Go To Pricing Button is missing", "continueTestNodes": false}
+								]
+							}
+						]
+					},	
+					{ "clickElement": {"goToPricing":""}},
+ 					{ "clickElement": {"expandProductMainGroup":""}},
+					{ "validate":[
+						{ "validateCartData":
+							[
+								{ "navigateCartList":[  
+										{"cartProductName": ""},
+										{"caryQty": ""},
+										{"cartProductCode": ""},
+										{"cartProductPrice": ""}
+									]
+								},
+								{ "validateCartList":[  
+										{"cartProductDetails": [
+										{"productName":"G-010P-A ONT Only","productQty":"1000","productCode":"3FE46431AA","productPrice":"165.17"},
+										{"productName":"XS-020X-A,US plug ( cable management)","productQty":"1000","productCode":"3FE48958AB","productPrice":"194.88"},
+										{"productName":"1000Base-LX SFP SM 1310nm 10km 11dB","productQty":"2","productCode":"3FE25774AA","productPrice":"145.19"},
+										{"productName":"GPON SFP B+ (C-temp) OLT","productQty":"32","productCode":"3FE53441AA","productPrice":"121.8"},
+										{"productName":"XGS Dual Rate XFP N1 (C-temp) OLT","productQty":"16","productCode":"3FE46232AA","productPrice":"414.8"},
+										{"productName":"Redundant FX-8 Starter Kit w/8-XGS LT H","productQty":"1","productCode":"3HG01512HA","productPrice":"16808.4"}
+									]}
+								]
+								}
+							]
+						}
+					]},
+					{ "clickElement": {"navBackTOCPQtabs":""}}
+					
+				]
+			}
+		} 
+		
+		
+	]
+}

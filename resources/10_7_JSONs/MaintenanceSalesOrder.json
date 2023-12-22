@@ -1,0 +1,1314 @@
+{
+	"suiteName": "MaintenanceSalesOrder",
+	"suiteDescription": "Maintenance Sales Order Suite Flow",
+	"testCases": [
+		{
+			"testNode": {
+				"testCaseID": "MSO_001",
+				"testCaseTitle": "Verify Login with Valid Credentials",
+				"testCaseDescription": "Infor LN Login",
+				"dependsOn": "",
+				"tags":["SmokeTest","MSO","NegativeTest"],
+				"testCaseSteps": [
+				{ "login": { "login_username":"supraja", "login_password":"Sailo@107", "url" : "http://$username:$password@175.101.240.71:8312/webui/servlet/login","testStepDescription" : "Login with valid username and password"}},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"labelwithText":{"xpathparams":["OK"], "continueTestNodes" : false}},
+									{"then":
+									[
+										{"clickElement" : [{"labelwithText":{"xpathparams": ["OK"]}}]}
+									]
+									}
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"menuItem":{"xpathparams":["Infor LN"], "continueTestNodes" : false, "testStepDescription" : "Successfully Logged in and validate Infor LN Menu on the Homepage"}}									
+								]
+							}
+						]
+					}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "MSO_002",
+				"testCaseTitle": "Verify Production Orders",
+				"testCaseDescription": "Navigate to Production Order",
+				"dependsOn": "MSO_001",
+				"tags":["SmokeTest","MSO","NegativeTest"],
+				"testCaseSteps": [
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"menuItem":{"xpathparams":["Infor LN"], "continueTestNodes" : false}},
+									{"else":
+									[
+										{"clickElement" : [{"sideMenu":{"xpathparams": []}}]}
+									]
+									}
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"menuItem":{"xpathparams": ["Infor LN"], "testStepDescription" : "Click on Infor LN Menu"}}]},
+					{"clickElement" : [{"subMenuItem":{"xpathparams": ["Infor LN", "Service"], "testStepDescription" : "Click on Service under Infor LN"}}]},
+					{"clickElement" : [{"subMenuItems":{"xpathparams": ["Infor LN", "Service", "Depot Repair"], "testStepDescription" : "Click on Depot Repair under Service"}}]},
+					{"clickElement" : [{"subMenuItemChild":{"xpathparams": ["Infor LN", "Service", "Depot Repair","Maintenance Sales Orders"], "testStepDescription" : "Click on Maintenance Sales Orders under Depot Repair"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sessionTab":{"xpathparams":["Maintenance Sales Orders"], "continueTestNodes" : false, "testStepDescription" : "Validate Maintenance Sales Orders Tab is displayed"}}									
+								]
+							}
+						]
+					}
+					
+				]
+			}
+		},
+		
+		{
+			"testNode": {
+				"testCaseID": "MSO_003",
+				"testCaseTitle": "Verify New form",
+				"testCaseDescription": "Creating New Maintenance Sales Order Form",
+				"dependsOn": "MSO_002",
+				"tags":["SmokeTest","MSO","NegativeTest"],
+				"testCaseSteps": [
+					{"clickElement" : [{"buttonAddnewHeader1":{"xpathparams": ["Maintenance Sales Orders"], "testStepDescription" : "Click on New button on Maintenance Sales Orders Tab"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sessionTab":{"xpathparams":["Maintenance Sales Order"], "continueTestNodes" : false, "testStepDescription" : "Validate Maintenance Sales Order Tab is displayed"}}									
+								]
+							}
+						]
+					}
+				]
+			}
+		},
+		
+		{
+			"testNode": {
+				"testCaseID": "MSO_004",
+				"testCaseTitle": "Verify Invalid MSO series",
+				"testCaseDescription": "Maintenance Sales Order Series validation",
+				"dependsOn": "MSO_003",
+				"tags":["SmokeTest","NegativeTest"],
+				"testCaseSteps": [
+					{"typeTextWithTabKey" : [{"inputWithoutHeading":{"xpathparams": ["Maintenance Sales Order:"], "value" : "PPP", "testStepDescription" : "Enter Maintenance Sales Order"}}]},
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"errorMessagePopUp":{"xpathparams":["Change the value of the Maintenance Sales Order field. Reason: Series PPP not defined for First Free Number Group MSO"], "continueTestNodes" : false, "testStepDescription": "Validate the Error Message for Inactive PRDO Name"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"buttonOKError":{"xpathparams": [], "tesStepDescription": "Click on OK button to close the error message"}}]}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "MSO_005",
+				"testCaseTitle": "Verify valid MSO series",
+				"testCaseDescription": "Maintenance Sales Order Series validation",
+				"dependsOn": "MSO_003",
+				"tags":["SmokeTest","MSO","NegativeTest"],
+				"testCaseSteps": [
+					{"typeTextWithTabKey" : [{"inputWithoutHeading":{"xpathparams": ["Maintenance Sales Order:"], "value" : "$validSalesOrderSeries", "testStepDescription" : "Enter valid Maintenance Sales Order"}}]}
+					
+				]
+			}
+		},
+		
+		{
+			"testNode": {
+				"testCaseID": "MSO_006",
+				"testCaseTitle": "Verify Inactive Sold-to Business Partner",
+				"testCaseDescription": "Inactive Sold-to Business Partner validation",
+				"dependsOn": "MSO_005",
+				"tags":["SmokeTest","NegativeTest"],
+				"testCaseSteps": [
+					{"typeTextWithTabKey" : [{"inputFields":{"xpathparams": ["General","Sold-to Business Partner"], "value" : "ABC00123", "testStepDescription" : "Enter Inactive Sold-to Business Partner"}}]},
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"errorMessagePopUp":{"xpathparams":["Specified \"Sold-to Business Partner\" not found in \"Sold-to Business Partners\". Enter another \"Sold-to Business Partner\""], "continueTestNodes" : false, "testStepDescription": "Validate the Error Message for Sold-to Business Partner"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"buttonOKError":{"xpathparams": [], "tesStepDescription": "Click on OK button to close the error message"}}]}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "MSO_007",
+				"testCaseTitle": "Verify active Sold-to Business Partner",
+				"testCaseDescription": "Sold-to Business Partner validation",
+				"dependsOn": "MSO_005",
+				"tags":["SmokeTest","MSO","NegativeTest"],
+				"testCaseSteps": [
+					{"clickElement" : [{"searchButtonInputFields":{"xpathparams": ["General","Sold-to Business Partner"],"testStepDescription":"Click on search button to search the valid Sold-to Business Partner"}}]},
+					{"typeTextWithTabKey" : [{"textinputFieldsSearch":{"xpathparams": [], "value" : "$activeBP", "testStepDescription" : "Enter Active Sold-to Business Partner value"}}]},
+					{"clickElement" : [{"windowFirstRowCheckBox":{"xpathparams": [], "tesStepDescription": "Click on check box"}}]},
+					{"clickElement" : [{"windowOkButton":{"xpathparams": [],"testStepDescription" : "Click on Ok Button"}}]},
+					{ "keyBoardEvent": { "tab":"1"}}
+				]
+			}
+		},		
+		{
+			"testNode": {
+				"testCaseID": "MSO_008",
+				"testCaseTitle": "Verify Invalid Item",
+				"testCaseDescription": "Item validation",
+				"dependsOn": "MSO_007",
+				"tags":["SmokeTest","NegativeTest"],
+				"testCaseSteps": [
+					{"typeTextWithTabKey" : [{"input2Field":{"xpathparams": ["Installation","Item"], "value" : "A", "testStepDescription":"Enter Invalid Item"}}]},
+					{ "keyBoardEvent": { "tab":"1"}},
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"errorMessagePopUp":{"xpathparams":["Specified \"Item\" not found in \"Items\". Enter another \"Item\""], "continueTestNodes" : false, "testStepDescription": "Validate the Error Message for Invalid Item"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"buttonOKError":{"xpathparams": [],"testStepDescription" : "Click on OK Button to close the error message"}}]}
+				]
+			}
+		},		
+		{
+			"testNode": {
+				"testCaseID": "MSO_009",
+				"testCaseTitle": "Verify Valid Item",
+				"testCaseDescription": "Item validation",
+				"dependsOn": "MSO_007",
+				"tags":["SmokeTest","MSO","NegativeTest"],
+				"testCaseSteps": [
+					{"clickElement" : [{"input2Search":{"xpathparams": ["Installation","Item"],"testStepDescription" : "Enter Valid Item"}}]},
+					{"typeTextWithTabKey" : [{"textItemfilter":{"xpathparams": [], "value" : "Serialized Service Item 2", "testStepDescription" : "Enter Active Item value"}}]},
+					{"clickElement" : [{"windowFirstRowCheckBox":{"xpathparams": [], "tesStepDescription": "Click on check box"}}]},
+					{"clickElement" : [{"windowOkButton":{"xpathparams": [],"testStepDescription" : "Click on Ok Button"}}]},
+					{ "keyBoardEvent": { "tab":"2"}}
+					
+					
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "MSO_010",
+				"testCaseTitle": "Generate the Serial Number",
+				"testCaseDescription": "Generate the Serial Number",
+				"dependsOn": "MSO_009",
+				"tags":["SmokeTest","MSO","NegativeTest"],
+				"testCaseSteps": [
+					{"clickElement" : [{"labelwithText":{"xpathparams": ["Generate"], "testStepDescription":"Click on Generate Button"}}]},
+					{"getText": [{"inputFields":{"xpathparams": ["Installation","Serial Number:"], "varName" : "serialNumber","testStepDescription":"Get the genrated serial number and save"}}]}
+			  ]
+			}
+		},
+		
+		{
+			"testNode": {
+				"testCaseID": "MSO_011",
+				"testCaseTitle": "Generate Sales Order Number",
+				"testCaseDescription": "Generate Sales Order Number",
+				"dependsOn": "MSO_010",
+				"tags":["SmokeTest","MSO","NegativeTest"],
+				"testCaseSteps": [
+                    {"clickElement" : [{"buttonSaveSession":{"xpathparams": ["Maintenance Sales Order"], "testStepDescription":"Click on Save button"}}]},
+					{"getText": [{"inputWithoutHeading":{"xpathparams": ["Maintenance Sales Order:"], "varName" : "salesOrderNumber","testStepDescription":"Get the genrated sales order number and save"}}]}					
+				]
+			}
+		},
+		
+		{
+			"testNode": {
+				"testCaseID": "MSO_012",
+				"testCaseTitle": "Add new Line Item and Release the Order",
+				"testCaseDescription": "Add new Line Item and Release the Order",
+				"dependsOn": "MSO_011",
+				"tags":["SmokeTest","MSO","NegativeTest"],
+				"testCaseSteps": [
+					{"clickElement" : [{"buttonAddnewLine":{"xpathparams": ["Maintenance Sales Order"],"testStepDescription" : "Click on Add new Line"}}]},
+					{"clickElement" : [{"buttonSaveSession":{"xpathparams": ["Maintenance Sales Order"],"testStepDescription" : "Click on Save Session"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"orderStatus":{"xpathparams":["Free"], "continueTestNodes" : false, "testStepDescription": "Validate the order status as Free"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"buttonMenuHeadres":{"xpathparams":["Maintenance Sales Order","Release"], "continueTestNodes" : false, "testStepDescription": "Validate the Release Button"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"buttonMenuHeadres":{"xpathparams": ["Maintenance Sales Order","Release"],"testStepDescription" : "Click on Release Button"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"orderStatus":{"xpathparams":["Released"], "continueTestNodes" : false, "testStepDescription": "Validate the order status as Released"}}									
+								]
+							}
+						]
+					}					
+					
+				]
+			}
+		},		
+		{
+			"testNode": {
+				"testCaseID": "MSO_013",
+				"testCaseTitle": "Navigate to Related Orders",
+				"testCaseDescription": "Navigate to Related Orders",
+				"dependsOn": "MSO_012",
+				"tags":["SmokeTest","MSO","NegativeTest"],
+				"testCaseSteps": [
+				    { "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"buttonMenuHeadres":{"xpathparams":["Maintenance Sales Order","References"], "continueTestNodes" : false, "testStepDescription": "Validate the References Button on the header"}}									
+								]
+							}
+						]
+					},
+					{ "sleep": { "sec":"1000"}},
+					{"clickElement" : [{"buttonMenuHeadres":{"xpathparams": ["Maintenance Sales Order","References"],"testStepDescription" : "Click on References in Maintenance Sales Order Tab"}}]},
+					{"clickElement" : [{"buttonMenuItemUnderActions":{"xpathparams": ["Related Orders"],"testStepDescription" : "Click on Related Orders Option"}}]}
+					
+				]
+			}
+		},		
+				
+		{
+			"testNode": {
+				"testCaseID": "MSO_014",
+				"testCaseTitle": "Navigate to Status Overview",
+				"testCaseDescription":"Navigate to Status Overview",
+				"dependsOn": "MSO_013",
+				"tags":["SmokeTest","MSO","NegativeTest"],
+				"testCaseSteps": [
+				    
+				    {"clickElement" : [{"window2RowCheckboxWithoutOK":{"xpathparams": ["Related"],"testStepDescription":"Click on Second Row Check Box"}}]},
+				    {"clickElement" : [{"buttonMenuHeadres":{"xpathparams": ["Maintenance Sales Order - Related Orders","Status Overview"],"testStepDescription" : "Click on Status Overview in the Relaated Orders Popup Window"}}]},
+				    { "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sessionTab":{"xpathparams":["Inbound Line Status Overview"], "continueTestNodes" : false, "testStepDescription" : "Validate Inbound Line Status Overview Tab is displayed"}}									
+								]
+							}
+						]
+					}			     						
+				]
+			}
+		},	
+		{
+			"testNode": {
+				"testCaseID": "MSO_015",
+				"testCaseTitle": "Receive Warehouse Receipt",
+				"testCaseDescription":"Receive Warehouse Receipt in Status Overview",
+				"dependsOn": "MSO_014",
+				"tags":["SmokeTest","MSO","NegativeTest"],
+				"testCaseSteps": [
+				     { "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"automaticStatus1":{"xpathparams":["Warehouse Receipt","No"], "contiueTestNodes" : false, "testStepDescription": "Validate the Automatic Status as No"}},
+									{"then":
+							         [
+							           {"clickElement" : [{"buttonMenuHeadres":{"xpathparams": ["Inbound Line Status Overview","Actions"],"testStepDescription":"Click on Actions Icon"}}]},
+				                       {"clickElement" : [{"buttonMenuItemUnderActions":{"xpathparams": ["Receive"],"testStepDescription":"Click on Receive"}}]},
+				                       {"clickElement" : [{"sessionTab":{"xpathparams": ["Warehouse Receipt"],"testStepDscription":"Click Warehouse Receipt session"}}]},
+				                       {"clickElement" : [{"buttonMenuHeadres":{"xpathparams": ["Warehouse Receipt","Confirm Receipt"],"testStepDescription":"Click on Confirm Receipt"}}]},
+				                       { "validate": 
+						                [ 
+							              { "isElementPresent":[{"orderStatus":{"xpathparams":["Confirmed"], "continueTestNodes" : false, "testStepDescription": "Validate the order status as Confirmed"}}]
+							              }
+						                ]
+					                   },
+				                       {"clickElement" : [{"buttonSaveAndExit":{"xpathparams": ["Warehouse Receipt"],"testStepDescription":"Click on Save and Exit for Warehouse Receipt"}}]}
+							         ]
+							       }									
+								]
+							}
+							
+						]
+					}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "MSO_016",
+				"testCaseTitle": "Save and Exit Inbound Line Status Overview",
+				"testCaseDescription":"Save and Exit Inbound Line Status Overview",
+				"dependsOn": "MSO_015",
+				"tags":["SmokeTest","MSO","NegativeTest"],
+				"testCaseSteps": [
+				    { "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sessionTab":{"xpathparams":["Inbound Line Status Overview"], "continueTestNodes" : false, "testStepDescription": "Validate the Inbound Line Status Overview tab"}}									
+								]
+							}
+						]
+					},
+				    {"clickElement" : [{"buttonSaveAndExit":{"xpathparams": ["Inbound Line Status Overview"],"testStepDescription":"Click on Save and Exit Inbound Line Status Overview "}}]}
+				]
+			}
+		},		
+		{
+			"testNode": {
+				"testCaseID": "MSO_017",
+				"testCaseTitle": "Save and Exit Related Orders",
+				"testCaseDescription": "Save and Exit Related Orders",
+				"dependsOn": "MSO_016",
+				"tags": ["SmokeTest","MSO"],
+				"testCaseSteps": [
+					{"clickElement" : [{"buttonSaveAndExit":{"xpathparams": ["Maintenance Sales Order - Related Orders"],"testStepDescription":"Click on Save and Exit Related Orders"}}]}
+					]
+					}
+					},				
+					{
+			"testNode": {
+				"testCaseID": "MSO_018",
+				"testCaseTitle": "Navigate to Work Order",
+				"testCaseDescription": "Navigate to Work Order",
+				"dependsOn": "MSO_017",
+				"tags": ["SmokeTest","MSO"],
+				"testCaseSteps": [
+				{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sessionTab":{"xpathparams":["Maintenance Sales Order"], "continueTestNodes" : false, "testStepDescription" : "Validate Line Item check box is displayed"}}									
+								]
+							}
+						]
+					},
+				{"clickElement" : [{"selectLineItems1":{"xpathparams": [],"testStepDescription":"Select the Line Items Check box"}}]},
+				{"clickElement" : [{"selectAll":{"xpathparams": ["All"],"testStepDescription":"Select all option"}}]},
+				{"clickElement" : [{"lineActionButton1":{"xpathparams": ["Maintenance Sales Order","Work Order"],"testStepDescription":"Click on Work Order in the Line Level"}}]},
+				{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sessionTab":{"xpathparams":["Work Order"], "continueTestNodes" : false, "testStepDescription" : "Validate Work Order Tab is displayed"}}									
+								]
+							}
+						]
+					}
+				]
+			}
+		},	
+		{
+			"testNode": {
+				"testCaseID": "MSO_019",
+				"testCaseTitle": "Plan Order",
+				"testCaseDescription": "Plan Order for the Item",
+				"dependsOn": "MSO_018",
+				"tags": ["SmokeTest","MSO"],
+				"testCaseSteps": [
+				{"clickElement" : [{"sessionTab":{"xpathparams": ["Work Order"],"testStepDescription":"Click on Work Order Tab"}}]},
+				{"clickElement" : [{"buttonMenuHeadres":{"xpathparams": ["Work Order","Plan Order..."],"testStepDescription":"Click on Plan Order"}}]}
+				]
+					}
+					},
+		{
+			"testNode": {
+				"testCaseID": "MSO_020",
+				"testCaseTitle": "Navigate to Related Orders for Work Order",
+				"testCaseDescription": "Navigate to Related Orders for Work Order",
+				"dependsOn": "MSO_019",
+				"tags": ["SmokeTest","MSO"],
+				"testCaseSteps": [
+				       {"clickElement" : [{"buttonSaveSession":{"xpathparams": ["Work Order"],"testStepDescription":"Click on save button "}}]},
+				       { "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"buttonMenuHeadres":{"xpathparams":["Work Order","References"], "continueTestNodes" : false, "testStepDescription": "Validate the References menu is displayed"}}									
+								]
+							}
+						]
+					},
+				       {"clickElement" : [{"buttonMenuHeadres":{"xpathparams": ["Work Order","References"],"testStepDescription":"Click on References Menu"}}]},
+				       {"clickElement" : [{"buttonMenuItemUnderActions":{"xpathparams": ["Related Orders"],"testStepDescription":"Click on Related Orders"}}]}
+				]
+					}
+					},	
+					{
+			"testNode": {
+				"testCaseID": "MSO_021",
+				"testCaseTitle": "Navigate to Status Overview for Work Order",
+				"testCaseDescription": "Navigate to Status Overview for Work Order",
+				"dependsOn": "MSO_020",
+				"tags": ["SmokeTest","MSO"],
+				"testCaseSteps": [
+				
+					{"clickElement" : [{"window1RowCheckboxWithoutOK":{"xpathparams": ["Related"],"testStepDescription":"Click on Checkbox"}}]},
+					{"clickElement" : [{"buttonMenuHeadres":{"xpathparams": ["Work Order - Related Orders","Status Overview"],"testStepDscription":"Click on Status Overview"}}]},
+				 	{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"sessionTab":{"xpathparams":["Outbound Line Status Overview"], "continueTestNodes" : false, "testStepDescription": "Validate the Outbound Line Status Overview Tab is displayed"}}									
+								]
+							}
+						]
+					}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "MSO_022",
+				"testCaseTitle": "Generate Outbound Advice",
+				"testCaseDescription": "Generate Outbound Advice",
+				"dependsOn": "MSO_021",
+				"tags": ["SmokeTest","MSO"],
+				"testCaseSteps": [
+				{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"outboundLineAutomaticStatus":{"xpathparams":["Generate Outbound Advice","No"], "continueTestNodes" : false, "testStepDescription": "Validate the Generate Outbound Advice Automatic Status as NO"}},
+									{"then":
+									[
+									{"clickElement" : [{"buttonMenuHeadres":{"xpathparams": ["Outbound Line Status Overview","Actions"],"testStepDescription":"Click on Actions"}}]},
+									{"clickElement" : [{"buttonMenuItemUnderActions":{"xpathparams": ["Generate Outbound Advice"],"testStepDescription":"Click on Generate Outbound Advice"}}]},
+									{"clickElement" : [{"popUpMenubutton":{"xpathparams": ["Generate Outbound Advice","Advise"],"testStepDescription":"Click on Advise in the popup"}}]},
+									{ "validate": 
+									[ 
+										{ "isDisplayed":
+										[
+										{"buttonYesDialogButton":{"xpathparams":["Yes"], "continueTestNodes" : false, "testStepDescription": "Validate the Yes button"}}									
+										]
+										}
+									]
+									},
+									{"clickElement" : [{"buttonYesDialogButton":{"xpathparams": ["Yes"],"testStepDescription":"Click on Yes"}}]},
+									{ "validate": 
+									[ 
+										{ "isDisplayed":
+										[
+										{"device":{"xpathparams":[], "continueTestNodes" : false, "testStepDescription": "Validate the device"}}									
+										]
+										}
+									]
+									},
+									{"typeTextWithTabKey" : [{"device":{"xpathparams": [],"value":"$device","testStepDescription":"Enter the Device D"}}]},
+									{ "validate": 
+									[ 
+										{ "isDisplayed":
+										[
+										{"continueBtn":{"xpathparams":[], "continueTestNodes" : false, "testStepDescription": "Validate the Continue"}}									
+										]
+										}
+									]
+									},
+									{"clickElement" : [{"continueBtn":{"xpathparams": [],"testStepDescription":"Click on Continue Buttton"}}]},
+									{"typeTextWithTabKey" : [{"device18":{"xpathparams": [],"value":"$device","testStepDescription":"Enter the Device D"}}]},
+									{ "validate": 
+									[ 
+										{ "isDisplayed":
+										[
+										{"continueBtn":{"xpathparams":[], "continueTestNodes" : false, "testStepDescription": "Validate the Continue"}}									
+										]
+										}
+									]
+									},
+									{"clickElement" : [{"continueBtn":{"xpathparams": [],"testStepDescription":"Click on Continue Buttton"}}]},
+									{ "validate": 
+						              [ 
+							          { "isElementPresent":[{"sessionTab":{"xpathparams":["Outbound Advice by Order"], "continueTestNodes" : false, "testStepDescription": "Validate the Outbound Line Status Overview Tab is displayed"}}									
+								      ]
+							          }
+						              ]
+					                },
+									{"clickElement" : [{"sessionClose":{"xpathparams": [],"testStepDescription":"Close the Pdf Session"}}]},
+									{"clickElement" : [{"sessionClose":{"xpathparams": [],"testStepDescription":"Close the Pdf Session"}}]},
+									{"clickElement" : [{"popUpMenubutton":{"xpathparams": ["Generate Outbound Advice","Close"],"testStepDescription":"Click on Close in the popup"}}]}
+									]
+									}								
+								]
+							}
+						]
+					}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "MSO_023",
+				"testCaseTitle": "Freeze/Confirm Shipments/Loads",
+				"testCaseDescription": "Freeze/Confirm Shipments/Loads",
+				"dependsOn": "MSO_022",
+				"tags": ["SmokeTest","MSO"],
+				"testCaseSteps": [				
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"outboundLineAutomaticStatus":{"xpathparams":["Freeze/Confirm Shipments/Loads","No"], "continueTestNodes" : false,"testStepDesceription":"Validate the Automatic Status as No"}},
+									{"then":
+									[
+									{"clickElement" : [{"buttonMenuHeadres":{"xpathparams": ["Outbound Line Status Overview","Actions"],"testStepDescription":"Click on Actions"}}]},
+					                {"clickElement" : [{"buttonMenuItemUnderActions":{"xpathparams": ["Freeze/Confirm"],"testStepDescription":"Click on Freeze/Confirm"}}]},					
+									{"clickElement" : [{"selectWarehouseLines":{"xpathparams": [],"testStepDescription":"Click on Checkbox"}}]},
+				                    {"clickElement" : [{"selectAll":{"xpathparams": ["All"],"testStepDescription":"Select all option"}}]},
+				                    { "sleep": { "sec":"1000"}},
+				                    {"clickElement" : [{"buttonMenuHeadres":{"xpathparams": ["Shipment Lines","Confirm"],"testStepDescription":"Click on Confirm"}}]},
+				                    { "sleep": { "sec":"1000"}},
+				                    {"clickElement" : [{"buttonSaveAndExit":{"xpathparams": ["Shipment Lines"],"testStepDescription":"Click on Save and Exit Shipment Lines"}}]}
+				                    ]
+				                   }									
+								]
+							}
+						]
+					}
+					
+					]
+					}
+					},
+{
+			"testNode": {
+				"testCaseID": "MSO_024",
+				"testCaseTitle": "Save and Exit Outbound Line Status Overview and Work Order-Related Orders",
+				"testCaseDescription":"Save and Exit Outbound Line Status Overview and Work Order-Related Orders",
+				"dependsOn": "MSO_023",
+				"tags":["MSO"],
+				"testCaseSteps": [
+				      {"clickElement" : [{"buttonSaveAndExit":{"xpathparams": ["Outbound Line Status Overview"],"testStepDescription":"Click on Save and Exit Outbound Line Status Overview"}}]},
+				      {"clickElement" : [{"buttonSaveAndExit":{"xpathparams": ["Work Order - Related Orders"],"testStepDescription":"Click on Save and Exit Work Order - Related Orders"}}]}	
+				]
+			}
+		},
+			
+	{
+			"testNode": {
+				"testCaseID": "MSO_025",
+				"testCaseTitle": "Item Receipt",
+				"testCaseDescription":"Item Receipt",
+				"dependsOn": "MSO_024",
+				"tags":["MSO"],
+				"testCaseSteps": [
+				   { "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"labelwithText":{"xpathparams":["Logistic"], "continueTestNodes" : false, "testStepDescription": "Validate the logistic is displayed"}}									
+								]
+							}
+						]
+					},
+				   {"clickElement" : [{"labelwithText":{"xpathparams": ["Logistic"],"testStepDescription":"Click on Logistic Tab"}}]},
+				   { "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"inputFields":{"xpathparams":["Issue","Repair Site"], "continueTestNodes" : false, "testStepDescription": "Validate the Receipt Site is displayed"}}									
+								]
+							}
+						]
+					},
+					{ "sleep": { "sec":"2000"}},
+				    { "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"itemReceiptButton":{"xpathparams":[], "continueTestNodes" : false, "testStepDescription": "Validate the Item Receipt is displayed"}}									
+								]
+							}
+						]
+					},
+				   {"clickElement" : [{"itemReceiptButton":{"xpathparams": [],"testStepDescription":"Click on Item Receipt Button"}}]}, 
+				   { "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"buttonYesDialogButton":{"xpathparams":["Yes"], "continueTestNodes" : false, "testStepDescription": "Validate the Yes button is displayed"}}									
+								]
+							}
+						]
+					},
+				   {"clickElement" : [{"buttonYesDialogButton":{"xpathparams": ["Yes"],"testStepDescription":"Click on Yes in the Dialog Box"}}]}		     
+				]
+			}
+		},
+			{
+			"testNode": {
+				"testCaseID": "MSO_026",
+				"testCaseTitle": "Release Work Order",
+				"testCaseDescription":"Release Work Order",
+				"dependsOn": "MSO_025",
+				"tags":["MSO"],
+				"testCaseSteps": [
+				    {"clickElement" : [{"buttonSaveSession":{"xpathparams": ["Work Order"],"testStepDescription":"Click on Save"}}]},
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"buttonMenuHeadres":{"xpathparams":["Work Order","Release Order"], "continueTestNodes" : false, "testStepDescription": "Validate the Work Order Relasing is displayed"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"buttonMenuHeadres":{"xpathparams": ["Work Order","Release Order"],"testStepDescription":"Click on Realease Order in Work Order Tab"}}]},
+				    { "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"labelwithText":{"xpathparams":["Work Order Releasing"], "continueTestNodes" : false, "testStepDescription": "Validate the Work Order Relasing is displayed"}}									
+								]
+							}
+						]
+					},
+				    {"typeTextWithTabKey" : [{"inputFields":{"xpathparams": ["Purchase Order Normal Delivery","Order Type:"], "value" : "$normalOrderType", "testStepDescription" : "Enter Order Type"}}]},
+				    {"typeTextWithTabKey" : [{"inputFields":{"xpathparams": ["Purchase Order Normal Delivery","Order Series:"], "value" : "$normalOrderSeries", "testStepDescription" : "Enter Order Series"}}]},
+				    {"clickElement" : [{"labelwithText":{"xpathparams": ["Process Report"],"testStepDescription":"Click on Process Report option"}}]},
+				    {"clickElement" : [{"labelwithText":{"xpathparams": ["Error Report"],"testStepDescription":"Click on Error Report Option"}}]},
+				    {"clickElement" : [{"labelwithText":{"xpathparams": ["Information Report"],"testStepDescription":"Click on Information Report Option"}}]},										 
+				 	{"clickElement" : [{"popUpMenubutton":{"xpathparams": ["Work Order Releasing","Process"],"testStepDescription":"Click on Process in the popup"}}]},
+				 	{"typeTextWithTabKey" : [{"device":{"xpathparams": [],"value":"$device","testStepDescription":"Enter the device D"}}]},
+				    {"clickElement" : [{"continueBtn":{"xpathparams": [],"testStepDescription":"Click on Continue Button"}}]},
+				    {"clickElement" : [{"sessionClose":{"xpathparams": [],"testStepDescription":"Close the pdf session"}}]},
+				 	{"clickElement" : [{"popUpMenubutton":{"xpathparams": ["Work Order Releasing","Close"],"testStepDescription":"Click on Close in the popup"}}]}		     
+				]
+			}
+		},
+			
+		{
+			"testNode": {
+				"testCaseID": "MSO_027",
+				"testCaseTitle": "Navigate to Related Order",
+				"testCaseDescription":"Navigate to Related Order",
+				"dependsOn": "MSO_026",
+				"tags":["MSO"],
+				"testCaseSteps": 
+				 [
+				  {"clickElement" : [{"buttonSaveSession":{"xpathparams": ["Work Order"],"testStepDescription":"Click on save in Work Order Tab"}}]},
+				  {"clickElement" : [{"buttonMenuHeadres":{"xpathparams": ["Work Order","References"],"testStepDescription":"Click on References in the Work Order Tab"}}]},
+				  {"clickElement" : [{"buttonMenuItemUnderActions":{"xpathparams": ["Related Orders"],"testStepDescription":"Click on Related Invoices"}}]},
+				  {"clickElement" : [{"window3RowCheckboxWithoutOK":{"xpathparams": ["Related"]},"testStepDescription":"Click on Check box"}]},
+				   {"clickElement" : [{"popUpMenubutton":{"xpathparams": ["Work Order - Related Orders","Status Overview"],"testStepDescription":"Click on Status Overview in the pop"}}]}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "MSO_028",
+				"testCaseTitle": "Generate Outbound Advice",
+				"testCaseDescription":"Generate Outbound Advice",
+				"dependsOn": "MSO_027",
+				"tags":["MSO"],
+				"testCaseSteps": [  
+				  { "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"outboundLineAutomaticStatus":{"xpathparams":["Generate Outbound Advice","No"], "continueTestNodes" : false, "testStepDescription": "Validate the Automatic Status as NO"}},
+									{"then":
+									[
+									{"clickElement" : [{"buttonMenuHeadres":{"xpathparams": ["Outbound Line Status Overview","Actions"],"testStepDescription":"Click on Actions"}}]},
+									{"clickElement" : [{"buttonMenuItemUnderActions":{"xpathparams": ["Generate Outbound Advice"],"testStepDescription":"Click on Generate Outbound Advice"}}]},
+									{"clickElement" : [{"popUpMenubutton":{"xpathparams": ["Generate Outbound Advice","Advise"],"testStepDescription":"Click on Advise in the popup"}}]},
+									{ "validate": 
+									[ 
+										{ "isDisplayed":
+										[
+										{"buttonYesDialogButton":{"xpathparams":["Yes"], "continueTestNodes" : false, "testStepDescription": "Validate the Yes button"}}									
+										]
+										}
+									]
+									},									
+									{"clickElement" : [{"buttonYesDialogButton":{"xpathparams": ["Yes"],"testStepDescription":"Click on Yes"}}]},
+									{ "validate": 
+									[ 
+										{ "isDisplayed":
+										[
+										{"device":{"xpathparams":[], "continueTestNodes" : false, "testStepDescription": "Validate the device"}}									
+										]
+										}
+									]
+									},
+									{"typeTextWithTabKey" : [{"device":{"xpathparams": [],"value":"$device","testStepDescription":"Enter the Device D"}}]},
+									{ "validate": 
+									[ 
+										{ "isDisplayed":
+										[
+										{"continueBtn":{"xpathparams":[], "continueTestNodes" : false, "testStepDescription": "Validate the Continue"}}									
+										]
+										}
+									]
+									},
+									{"clickElement" : [{"continueBtn":{"xpathparams": [],"testStepDescription":"Click on Continue Buttton"}}]},
+									{ "validate": 
+									[ 
+										{ "isDisplayed":
+										[
+										{"continueBtn":{"xpathparams":[], "continueTestNodes" : false, "testStepDescription": "Validate the Continue"}}									
+										]
+										}
+									]
+									},
+									{"clickElement" : [{"continueBtn":{"xpathparams": [],"testStepDescription":"Click on Continue Buttton"}}]},
+									{ "validate": 
+									[ 
+										{ "isDisplayed":
+										[
+										{"continueBtn":{"xpathparams":[], "continueTestNodes" : false, "testStepDescription": "Validate the Continue"}}									
+										]
+										}
+									]
+									},
+									{"clickElement" : [{"continueBtn":{"xpathparams": [],"testStepDescription":"Click on Continue Buttton"}}]},
+									{"clickElement" : [{"sessionClose":{"xpathparams": [],"testStepDescription":"Close the Pdf Session"}}]},
+									{"clickElement" : [{"sessionClose":{"xpathparams": [],"testStepDescription":"Close the Pdf Session"}}]},
+									{"clickElement" : [{"popUpMenubutton":{"xpathparams": ["Generate Outbound Advice","Close"],"testStepDescription":"Click on Close in the popup"}}]}
+									]
+									}								
+								]
+							}
+						]
+					}					
+				]
+			}
+		},
+								
+		{
+			"testNode": {
+				"testCaseID": "MSO_029",
+				"testCaseTitle": "Freeze/Confirm the Work Order",
+				"testCaseDescription": "Freeze/Confirm the Work Order",
+				"dependsOn": "MSO_028",
+				"tags": ["MSO"],
+				"testCaseSteps": [
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"outboundLineAutomaticStatus":{"xpathparams":["Freeze/Confirm Shipments/Loads","No"], "continueTestNodes" : false,"testStepDesceription":"Validate the Automatic Status as No"}},
+									{"then":
+									[
+									{"clickElement" : [{"buttonMenuHeadres":{"xpathparams": ["Outbound Line Status Overview","Actions"],"testStepDescription":"Click on Actions"}}]},
+					                {"clickElement" : [{"buttonMenuItemUnderActions":{"xpathparams": ["Freeze/Confirm"],"testStepDescription":"Click onClick on Freeze/Confirm"}}]},					
+									{"clickElement" : [{"selectWarehouseLines":{"xpathparams": [],"testStepDescription":"Click on Checkbox"}}]},
+				                    {"clickElement" : [{"selectAll":{"xpathparams": ["All"],"testStepDescription":"Select all option"}}]},
+									{ "sleep": { "sec":"1000"}},
+				                    {"clickElement" : [{"buttonMenuHeadres":{"xpathparams": ["Shipment Lines","Confirm"],"testStepDescription":"Click on Confirm"}}]},
+				                    { "sleep": { "sec":"1000"}},
+				                    { "validate": 
+						             [ 
+							           { "isDisplayed":
+								        [
+									     {"buttonSaveAndExit":{"xpathparams":["Shipment Lines"], "continueTestNodes" : false, "testStepDescription": "Validate the Save and Exit Shipment LinesF is displayed"}}									
+								        ]
+							           }
+						             ]
+					               },
+				                    {"clickElement" : [{"buttonSaveAndExit":{"xpathparams": ["Shipment Lines"],"testStepDescription":"Click on Save and Exit Shipment Lines"}}]}
+				                    ]
+				                   }									
+								]
+							}
+						]
+					}				
+				     
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "MSO_030",
+				"testCaseTitle": "Save and Exit Outbound Line Status and Related Orders",
+				"testCaseDescription":"Save and Exit Outbound Line Status and Related Orders",
+				"dependsOn": "MSO_029",
+				"tags":["MSO"],
+				"testCaseSteps": [
+				         { "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sessionTab":{"xpathparams":["Outbound Line Status Overview"], "continueTestNodes" : false, "testStepDescription": "Validate the Outbound Line Status Overview Tab is displayed"}}									
+								]
+							}
+						]
+					},	 { "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"buttonSaveAndExit":{"xpathparams":["Outbound Line Status Overview"], "continueTestNodes" : false, "testStepDescription": "Validate the Save and Exit for Outbound Line Status Overview"}}									
+								]
+							}
+						]
+					},
+					
+				         {"clickElement" : [{"buttonSaveAndExit":{"xpathparams": ["Outbound Line Status Overview"],"testStepDescription":"Click on Save and Exit for Outbound Line Status Overview"}}]},
+				         { "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"buttonSaveAndExit":{"xpathparams":["Work Order - Related Orders"], "continueTestNodes" : false, "testStepDescription": "Validate the Work Order - Related Orders save and exit button is displayed"}}									
+								]
+							}
+						]
+					},
+				         {"clickElement" : [{"buttonSaveAndExit":{"xpathparams": ["Work Order - Related Orders"],"testStepDescription":"Click on Save and Exit for Work Order - Related Orders"}}]}			    
+				 					
+				]
+			}
+		},
+		
+				
+						
+				{
+			"testNode": {
+				"testCaseID": "MSO_031",
+				"testCaseTitle": "Complete the Order",
+				"testCaseDescription":"Complete the Order",
+				"dependsOn": "MSO_030",
+				"tags":["MSO"],
+				"testCaseSteps": [
+				    
+				     {"clickElement" : [{"sessionTab":{"xpathparams": ["Work Order"],"testStepDescription":"Click on Order Tab"}}]},
+				     {"clickElement" : [{"buttonMenuHeadres":{"xpathparams": ["Work Order","Actions"],"testStepDescription":"Click on Actions"}}]},				    
+				     {"clickElement" : [{"buttonMenuItemUnderActions":{"xpathparams": ["Complete Order"],"testStepDescription":"Click on Complete Order"}}]},
+				     { "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"buttonYesDialogButton":{"xpathparams":["Yes"], "continueTestNodes" : false, "testStepDescription": "Validate the Yes Dialog box"}}									
+								]
+							}
+						]
+					},
+				     {"clickElement" : [{"buttonYesDialogButton":{"xpathparams": ["Yes"],"testStepDescription":"Click on Yes in the Dialog Box"}}]},
+				     { "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"buttonYesDialogButton":{"xpathparams":["Yes"], "continueTestNodes" : false, "testStepDescription": "Validate the Yes Dialog box"}}									
+								]
+							}
+						]
+					},
+					{ "sleep": { "sec":"1000"}},
+				    {"clickElement" : [{"buttonYesDialogButton":{"xpathparams": ["Yes"],"testStepDescription":"Click on Yes in the Dialog Box"}}]}
+				   ]
+			}
+		},	
+		{
+			"testNode": {
+				"testCaseID": "MSO_032",
+				"testCaseTitle": "Navigate To Related Orders and Status Overview",
+				"testCaseDescription":"Navigate To Related Orders and Status Overview",
+				"dependsOn": "MSO_031",
+				"tags":["MSO"],
+				"testCaseSteps": [
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"orderStatus":{"xpathparams":["Signed-Off"], "continueTestNodes" : false, "testStepDescription": "Validate the order Status as Signed-Off"}}									
+								]
+							}
+						]
+					},
+				   {"clickElement" : [{"buttonMenuHeadres":{"xpathparams": ["Work Order","References"],"testStepDescription":"Click on References"}}]},
+				   {"clickElement" : [{"buttonMenuItemUnderActions":{"xpathparams": ["Related Orders"],"testStepDescription":"Click on Related Orders"}}]},
+				   {"clickElement" : [{"window3RowCheckboxWithoutOK":{"xpathparams": ["Related"]},"testStepDescription":"Click on Checkbox"}]},
+				   {"clickElement" : [{"popUpMenubutton":{"xpathparams": ["Work Order - Related Orders","Status Overview"],"testStepDescription":"Click Status Overview in the popup"}}]}
+				
+					]
+		        }
+		},
+		{
+			"testNode": {
+				"testCaseID": "MSO_033",
+				"testCaseTitle": "Receive Warehouse Receipt",
+				"testCaseDescription":"Receive Warehouse Receipt",
+				"dependsOn": "MSO_032",
+				"tags":["MSO"],
+				"testCaseSteps": [
+				   { "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"automaticStatus1":{"xpathparams":["Warehouse Receipt","No"], "contiueTestNodes" : false, "testStepDescription": "Validate the Autoamtic Status as NO"}},
+									{"then":
+							         [
+							           {"clickElement" : [{"buttonMenuHeadres":{"xpathparams": ["Inbound Line Status Overview","Actions"],"testStepDescription":"Click on Actions Icon"}}]},
+				                       {"clickElement" : [{"buttonMenuItemUnderActions":{"xpathparams": ["Receive"],"testStepDescription":"Click on Receive"}}]},
+				                       {"clickElement" : [{"sessionTab":{"xpathparams": ["Warehouse Receipt"],"testStepDscription":"Click on Warehouse Receipt Tab"}}]},
+				                       {"clickElement" : [{"buttonMenuHeadres":{"xpathparams": ["Warehouse Receipt","Confirm Receipt"],"testStepDescription":"Click on Confirm Receipt"}}]},
+				                       {"clickElement" : [{"buttonSaveAndExit":{"xpathparams": ["Warehouse Receipt"],"testStepDescription":"Click on Save and Exit for Warehouse Receipt"}}]}
+							         ]
+							       }									
+								]
+							}
+							
+						]
+					}				
+					]
+		        }
+		},
+		{
+			"testNode": {
+				"testCaseID": "MSO_034",
+				"testCaseTitle": "Navigate To Related Orders and Status Overview",
+				"testCaseDescription":"Navigate To Related Orders and Status Overview",
+				"dependsOn": "MSO_033",
+				"tags":["MSO"],
+				"testCaseSteps": [
+				   {"clickElement" : [{"buttonSaveAndExit":{"xpathparams": ["Inbound Line Status Overview"],"testStepDescription":"Click on Save and Exit for Inbound Line Status Overview"}}]},	
+				   {"clickElement" : [{"buttonSaveAndExit":{"xpathparams": ["Work Order - Related Orders"],"testStepDescription":"Click on Save and Exit for Work Order - Related Orders"}}]}			
+					]
+		        }
+		},
+		{
+			"testNode": {
+				"testCaseID": "MSO_035",
+				"testCaseTitle": "Close Order",
+				"testCaseDescription":"Close Order",
+				"dependsOn": "MSO_034",
+				"tags":["MSO"],
+				"testCaseSteps": [
+				   {"clickElement" : [{"sessionTab":{"xpathparams": ["Work Order"],"testStepDescription":"Click on Work Order Tab"}}]},
+				   {"clickElement" : [{"buttonMenuHeadres":{"xpathparams": ["Work Order","Actions"],"testStepDescription":"Click on Actions"}}]},	
+				   {"clickElement" : [{"buttonMenuItemUnderActions":{"xpathparams": ["Close Order"],"testStepDescription":"Click on Close Order"}}]},			
+				   { "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"orderStatus":{"xpathparams":["Closed"], "continueTestNodes" : false, "testStepDescription": "Validate the Status as Closed"}}									
+								]
+							}
+						]
+					}	
+					]
+		        }
+		},
+		{
+			"testNode": {
+				"testCaseID": "MSO_036",
+				"testCaseTitle": "Save and Exit Work Order",
+				"testCaseDescription":"Save and Exit Work Order",
+				"dependsOn": "MSO_035",
+				"tags":["MSO"],
+				"testCaseSteps": [
+				   {"clickElement" : [{"buttonSaveAndExit":{"xpathparams": ["Work Order"],"testStepDescription":"Click on Save and Exit Work Order"}}]}
+				   ]
+		        }
+		},
+		{
+			"testNode": {
+				"testCaseID": "MSO_037",
+				"testCaseTitle": "Save and Exit Work Order",
+				"testCaseDescription":"Save and Exit Work Order",
+				"dependsOn": "MSO_036",
+				"tags":["MSO"],
+				"testCaseSteps": [
+				   {"clickElement" : [{"sessionTab":{"xpathparams": ["Maintenance Sales Order"],"testStepDescription":"Click on Maintenance Sales Order Tab"}}]},
+				   {"clickElement" : [{"buttonMenuHeadres":{"xpathparams": ["Maintenance Sales Order","References"],"testStepDescription":"Click on References"}}]},
+				   {"clickElement" : [{"buttonMenuItemUnderActions":{"xpathparams": ["Related Orders"],"testStepDescription":"Click on Related Orders"}}]}
+				   ]
+		        }
+		},
+			{
+			"testNode": {
+				"testCaseID": "MSO_038",
+				"testCaseTitle": "Navigate to Status Overview",
+				"testCaseDescription":"Navigate to Status Overview",
+				"dependsOn": "MSO_037",
+				"tags":["MSO"],
+				"testCaseSteps": [
+				    { "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"labelwithText":{"xpathparams":["Maintenance Sales Order - Related Orders"], "continueTestNodes" : false, "testStepDescription": "Validate the Maintenance Sales Order - Related Orders pop is dispalyed"}}									
+								]
+							}
+						]
+					},
+				   {"clickElement" : [{"window4RowCheckboxWithoutOK":{"xpathparams": ["Related"],"testStepDescription":"Click on the checkbox"}}]},
+				   {"clickElement" : [{"buttonMenuHeadres":{"xpathparams": ["Maintenance Sales Order - Related Orders","Status Overview"],"testStepDescription":"Click on Status Overview"}}]},
+				   { "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sessionTab":{"xpathparams":["Outbound Line Status Overview"], "continueTestNodes" : false, "testStepDescription": "Validate the Outbound Line Status Overview Tab is displayed"}}									
+								]
+							}
+						]
+					}
+				   ]
+		        }
+		},
+		{
+			"testNode": {
+				"testCaseID": "MSO_039",
+				"testCaseTitle": "Generate Outbound Advice",
+				"testCaseDescription":"Generate Outbound Advice",
+				"dependsOn": "MSO_038",
+				"tags":["MSO"],
+				"testCaseSteps": [
+				    { "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"outboundLineAutomaticStatus":{"xpathparams":["Generate Outbound Advice","No"], "continueTestNodes" : false, "testStepDescription": "Validate the Automatic Status as NO"}},
+									{"then":
+									[
+									{"clickElement" : [{"buttonMenuHeadres":{"xpathparams": ["Outbound Line Status Overview","Actions"],"testStepDescription":"Click on Actions"}}]},
+									{"clickElement" : [{"buttonMenuItemUnderActions":{"xpathparams": ["Generate Outbound Advice"],"testStepDescription":"Click on Generate Outbound Advice"}}]},
+									{"clickElement" : [{"popUpMenubutton":{"xpathparams": ["Generate Outbound Advice","Advise"],"testStepDescription":"Click on Click on Advise in the popup"}}]},
+									{"clickElement" : [{"buttonYesDialogButton":{"xpathparams": ["Yes"],"testStepDescription":"Click on Click on Yes"}}]},
+									{"typeTextWithTabKey" : [{"device":{"xpathparams": [],"value":"$device","testStepDescription":"Enter the Device D"}}]},
+									{ "validate": 
+									[ 
+										{ "isDisplayed":
+										[
+										{"continueBtn":{"xpathparams":[], "continueTestNodes" : false, "testStepDescription": "Validate the Continue"}}									
+										]
+										}
+									]
+									},
+									{"clickElement" : [{"continueBtn":{"xpathparams": [],"testStepDescription":"Click on Continue Buttton"}}]},
+									{ "validate": 
+									[ 
+										{ "isDisplayed":
+										[
+										{"continueBtn":{"xpathparams":[], "continueTestNodes" : false, "testStepDescription": "Validate the Continue"}}									
+										]
+										}
+									]
+									},
+									{"clickElement" : [{"continueBtn":{"xpathparams": [],"testStepDescription":"Click on Continue Buttton"}}]},
+									{"clickElement" : [{"sessionClose":{"xpathparams": [],"testStepDescription":"Close the Pdf Session"}}]},
+									{"clickElement" : [{"sessionClose":{"xpathparams": [],"testStepDescription":"Close the Pdf Session"}}]},									
+									{"clickElement" : [{"popUpMenubutton":{"xpathparams": ["Generate Outbound Advice","Close"],"testStepDescription":"Click on Close in the popup"}}]}
+									]
+									}								
+								]
+							}
+						]
+					}					
+				    
+				   ]
+		        }
+		},
+		{
+			"testNode": {
+				"testCaseID": "MSO_040",
+				"testCaseTitle": "Freeze/Confirm",
+				"testCaseDescription":"Freeze/Confirm",
+				"dependsOn": "MSO_039",
+				"tags":["MSO"],
+				"testCaseSteps": [
+				    { "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"outboundLineAutomaticStatus":{"xpathparams":["Freeze/Confirm Shipments/Loads","No"], "continueTestNodes" : false,"testStepDesceription":"Validate the Automatic Status as No"}},
+									{"then":
+									[
+									{"clickElement" : [{"buttonMenuHeadres":{"xpathparams": ["Outbound Line Status Overview","Actions"],"testStepDescription":"Click on Actions"}}]},
+					                {"clickElement" : [{"buttonMenuItemUnderActions":{"xpathparams": ["Freeze/Confirm"],"testStepDescription":"Click on Freeze/Confirm"}}]},					
+									{"clickElement" : [{"selectLinePickingList":{"xpathparams": [],"testStepDescription":"Click on Checkbox"}}]},
+				                    {"clickElement" : [{"selectAll":{"xpathparams": ["All"],"testStepDescription":"Select all option"}}]},
+				                    { "sleep": { "sec":"1000"}},
+				                    {"clickElement" : [{"buttonMenuHeadres":{"xpathparams": ["Shipment Lines","Confirm"],"testStepDescription":"Click on Confirm"}}]},
+				                    { "sleep": { "sec":"1000"}},
+				                    {"clickElement" : [{"buttonSaveAndExit":{"xpathparams": ["Shipment Lines"],"testStepDescription":"Click on Save and Exit Shipment Lines"}}]}
+				                    ]
+				                   }									
+								]
+							}
+						]
+					}			
+				    
+				   ]
+		        }
+		},
+		{
+			"testNode": {
+				"testCaseID": "MSO_041",
+				"testCaseTitle": "Save and Exit Outbound Line Status Overview and Related Orders",
+				"testCaseDescription":"Save and Exit Outbound Line Status Overview",
+				"dependsOn": "MSO_040",
+				"tags":["MSO"],
+				"testCaseSteps": [
+				   {"clickElement" : [{"sessionTab":{"xpathparams": ["Outbound Line Status Overview"],"testStepDescription":"Click on Outbound Line Status Overview Tab"}}]},
+				   {"clickElement" : [{"buttonSaveAndExit":{"xpathparams": ["Outbound Line Status Overview"],"testStepDescription":"Click on Save and Exit for Outbound Line Status Overview"}}]},
+				   {"clickElement" : [{"buttonSaveAndExit":{"xpathparams": ["Maintenance Sales Order - Related Orders"],"testStepDescription":"Click on Save and Exit for Maintenance Sales Order - Related Orders"}}]}			
+				    
+				   ]
+		        }
+		},
+		{
+			"testNode": {
+				"testCaseID": "MSO_042",
+				"testCaseTitle": "Costed Maintenance Sales Order",
+				"testCaseDescription":"Costed Maintenance Sales Order",
+				"dependsOn": "MSO_041",
+				"tags":["MSO"],
+				"testCaseSteps": [
+				   {"clickElement" : [{"sessionTab":{"xpathparams": ["Maintenance Sales Order"],"testStepDescription":"Click on Maintenance Sales Order Tab"}}]},
+				   {"clickElement" : [{"buttonMenuHeadres":{"xpathparams": ["Maintenance Sales Order","Cost"],"testStepDescription":"Click on Cost option"}}]},
+				   { "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"buttonYesDialogButton":{"xpathparams":["Yes"], "continueTestNodes" : false, "testStepDescription": "Validate the Yes is displayed"}}									
+								]
+							}
+						]
+					},
+				   {"clickElement" : [{"buttonYesDialogButton":{"xpathparams": ["Yes"],"testStepDescription":"Click on Yes"}}]},			
+				   { "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"orderStatus":{"xpathparams":["Costed"], "continueTestNodes" : false, "testStepDescription": "Validate the order status is Costed"}}									
+								]
+							}
+						]
+					} 
+				   ]
+		        }
+		},
+		{
+			"testNode": {
+				"testCaseID": "MSO_043",
+				"testCaseTitle": "Navigate to Billable Line",
+				"testCaseDescription":"Navigate to Billable Line",
+				"dependsOn": "MSO_042",
+				"tags":["MSO"],
+				"testCaseSteps": [
+				    {"clickElement" : [{"subMenuItem":{"xpathparams": ["Infor LN", "Invoicing"], "testStepDescription" : "Click on Invoicing under Infor LN"}}]},
+					{"clickElement" : [{"subMenuItems":{"xpathparams": ["Infor LN", "Invoicing", "Invoicing 360"], "testStepDescription" : "Click on Invoicing 360 under Invoicing"}}]},
+				  	{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sessionTab":{"xpathparams":["Invoicing 360"], "continueTestNodes" : false, "testStepDescription": "Validate the Invoicing 360 Tab is displayed"}}									
+								]
+							}
+						]
+					} 
+				   ]
+		        }
+		},
+		{
+			"testNode": {
+				"testCaseID": "MSO_044",
+				"testCaseTitle": "Create Invoice",
+				"testCaseDescription":"Create Invoice",
+				"dependsOn": "MSO_043",
+				"tags":["MSO"],
+				"testCaseSteps": [
+				   {"clickElement" : [{"sessionTab":{"xpathparams": ["Invoicing 360"],"testStepDescription":"Click on Invoicing 360 Tab"}}]},
+				   {"typeTextWithEnter" : [{"searchDocument":{"xpathparams": [], "varName" : "salesOrderNumber","testStepDescription": "Enter the Sales order number in the serach"}}]},
+					{"clickElement" : [{"selectLineItems":{"xpathparams": [], "tesStepDescription": "Select Checkbox "}}]},
+					{"clickElement" : [{"selectAll":{"xpathparams": ["All"], "tesStepDescription": "Click on All"}}]},
+				   	{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"lineActionButton1":{"xpathparams":["Invoicing 360","Create Invoice"], "continueTestNodes" : false, "testStepDescription": "Validate the Create Invoice button is visible"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"lineActionButton1":{"xpathparams": ["Invoicing 360","Create Invoice"],"testStepDescription":"Click on Create Invoice"}}]},
+					{"clickElement" : [{"buttonYesDialogButton":{"xpathparams": ["Yes"],"testStepDescription":"Click on Yes"}}]}, 
+					{"clickElement" : [{"sessionClose":{"xpathparams": [],"testStepDescription":"Close the Pdf Session"}}]},
+					{"clickElement" : [{"sessionClose":{"xpathparams": [],"testStepDescription":"Close the Pdf Session"}}]},
+					{"clickElement" : [{"buttonSaveAndExit":{"xpathparams": ["Invoicing 360"],"testStepDescription":"Click on Save and Exit for Invoicing 360"}}]}
+				   ]
+		        }
+		},
+		{
+			"testNode": {
+				"testCaseID": "MSO_045",
+				"testCaseTitle": "Close Maintenance Sales Order",
+				"testCaseDescription":"Close Maintenance Sales Order",
+				"dependsOn": "MSO_044",
+				"tags":["MSO"],
+				"testCaseSteps": [
+				   {"clickElement" : [{"sessionTab":{"xpathparams": ["Maintenance Sales Order"],"testStepDescription":"Click on Maintenance Sales Order Tab"}}]},
+				   {"clickElement" : [{"buttonMenuHeadres":{"xpathparams": ["Maintenance Sales Order","Actions"],"testStepDescription":"Click on Actions"}}]},
+				   {"clickElement" : [{"buttonMenuItemUnderActions":{"xpathparams": ["Close..."],"testStepDescription":"Click on Close"}}]},
+				   { "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"labelwithText":{"xpathparams":["OK"], "continueTestNodes" : false}},
+									{"then":
+									[
+										{"clickElement" : [{"labelwithText":{"xpathparams": ["OK"]}}]}
+									]
+									}
+								]
+							}
+						]
+					},			
+				   {"clickElement" : [{"labelwithText":{"xpathparams": ["Process Report"],"testStepDescription":"Click on Process Report option"}}]},
+				    {"clickElement" : [{"labelwithText":{"xpathparams": ["Error Report"],"testStepDescription":"Click on Error Report Option"}}]},
+				 	{"clickElement" : [{"popUpMenubutton":{"xpathparams": ["Close Maintenance Sales Order","Process"],"testStepDescription":"Click on Process in the popup"}}]},
+				 	{"typeTextWithTabKey" : [{"device":{"xpathparams": [],"value":"$device","testStepDescription":"Enter the device D"}}]},
+				    {"clickElement" : [{"continueBtn":{"xpathparams": [],"testStepDescription":"Click on Continue Button"}}]},
+				    {"clickElement" : [{"sessionClose":{"xpathparams": [],"testStepDescription":"Close the pdf session"}}]},
+				 	{"clickElement" : [{"popUpMenubutton":{"xpathparams": ["Close Maintenance Sales Order","Close"],"testStepDescription":"Click on Close in the popup"}}]},
+				   { "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"orderStatus":{"xpathparams":["Closed"], "continueTestNodes" : false, "testStepDescription": "Validate the Order Status as Closed"}}									
+								]
+							}
+						]
+					}
+				  ]
+		        }
+		}
+		
+		
+			
+		
+					]
+				}	

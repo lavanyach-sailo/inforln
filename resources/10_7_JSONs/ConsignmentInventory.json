@@ -1,0 +1,784 @@
+{
+	"suiteName" : "ConsignmentInventory",
+	"suiteDescription" : "ConsignmentInventory",
+	"testCases": [
+		{
+			"testNode": {
+				"testCaseID": "CIR_001",
+				"testCaseTitle": "Verify Login with Valid Credentials",
+				"testCaseDescription": "Infor LN Login",
+				"dependsOn": "",
+				"tags":["SmokeTest","CIR","NegativeTest"],
+				"testCaseSteps": [
+				{ "login": { "login_username":"$username", "login_password":"$password","url":"$url", "testStepDescription" : "Login with valid username and password"}},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"labelwithText":{"xpathparams":["OK"], "continueTestNodes" : false}},
+									{"then":
+									[
+										{"clickElement" : [{"labelwithText":{"xpathparams": ["OK"]}}]}
+									]
+									}
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"menuItem":{"xpathparams":["Infor LN"], "continueTestNodes" : false, "testStepDescription" : "Successfully Logged in and validate Infor LN Menu on the Homepage"}}									
+								]
+							}
+						]
+					}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "CIR_002",
+				"testCaseTitle": "Verify Production Orders",
+				"testCaseDescription": "Navigate to Production Order",
+				"dependsOn": "CIR_001",
+				"tags":["SmokeTest","CIR"],
+				"testCaseSteps": [
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"menuItem":{"xpathparams":["Infor LN"], "continueTestNodes" : false}},
+									{"else":
+									[
+										{"clickElement" : [{"sideMenu":{"xpathparams": []}}]}
+									]
+									}
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"menuItem":{"xpathparams": ["Infor LN"], "testStepDescription" : "Click on Infor LN Menu"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"subMenuItem":{"xpathparams":["Infor LN", "Warehousing"], "continueTestNodes" : false, "testStepDescription" : "Validate Warehouseing option is displayed"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"subMenuItem":{"xpathparams": ["Infor LN", "Warehousing"], "testStepDescription" : "Click on Warehousing"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"subMenuItems":{"xpathparams":["Infor LN", "Warehousing", "Warehouse 360"], "continueTestNodes" : false, "testStepDescription" : "Validate Warehouse 360 option is displayed"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"subMenuItems":{"xpathparams": ["Infor LN", "Warehousing", "Warehouse 360"], "testStepDescription" : "Click on Warehouse 360 under Warehousing"}}]},					
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sessionTab":{"xpathparams":["Warehouse 360"], "continueTestNodes" : false, "testStepDescription" : "Validate Warehouse Tab is displayed"}}									
+								]
+							}
+						]
+					}
+					
+				]
+			}
+		},	
+		{
+			"testNode": {
+				"testCaseID": "CIR_003",
+				"testCaseTitle": "Verify New Warehouses form",
+				"testCaseDescription": "Creating New Warehouses Form",
+				"dependsOn": "CIR_002",
+				"tags":["SmokeTest","CIR"],
+				"testCaseSteps": [
+					{"clickElement" : [{"buttonAddnewHeader1":{"xpathparams": ["Warehouse 360"], "testStepDescription" : "Click on New button on Warehouses Tab"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sessionTab":{"xpathparams":["Warehouses"], "continueTestNodes" : false, "testStepDescription" : "Validate Warehouses is displayed"}}									
+								]
+							}
+						]
+					}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "CIR_004",
+				"testCaseTitle": "Verify Active Warehouse for Warehouse Session",
+				"testCaseDescription": "Validate valid Warehouse for Warehouse Session",
+				"dependsOn": "CIR_003",
+				"tags":["SmokeTest","CIR"],
+				"testCaseSteps": [			
+					{"typeTextWithTabKey" : [{"WarehouseField":{"xpathparams": [], "value" : "randomString", "randomLength" :"3",  "testStepDescription" : "Enter Active warehouse for warehouse 360"}}]},
+					{"typeTextWithTabKey" : [{"WarehouseDescription":{"xpathparams": [], "value" : "Consignment Not Owned", "testStepDescription" : "EnterDescription for warehouse 360"}}]}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "CIR_005",
+				"testCaseTitle": "Verify Site",
+				"testCaseDescription": "Validate valid Warehouse for Warehouse Session",
+				"dependsOn": "CIR_004",
+				"tags":["SmokeTest","CIR"],
+				"testCaseSteps": [			
+					{"clickElement" : [{"inputSearch":{"xpathparams": ["Site:"], "testStepDescription" : "Click on Search Button to search the Enterprise Unit"}}]},
+					{"clickElement" : [{"windowFirstRowCheckBox":{"xpathparams": [], "tesStepDescription": "Click on check box"}}]},
+					{"clickElement" : [{"windowOkButton":{"xpathparams": [],"testStepDescription" : "Click on Ok Button"}}]}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "CIR_006",
+				"testCaseTitle": "Verify Enterprise Unit for Warehouse Session",
+				"testCaseDescription": "Validate valid Warehouse for Warehouse Session",
+				"dependsOn": "CIR_005",
+				"tags":["SmokeTest","CIR"],
+				"testCaseSteps": [			
+					{"clickElement" : [{"inputSearch":{"xpathparams": ["Enterprise Unit:"], "testStepDescription" : "Click on Search Button to search the Enterprise Unit"}}]},
+					{"clickElement" : [{"windowFirstRowCheckBox":{"xpathparams": [], "tesStepDescription": "Click on check box"}}]},
+					{"clickElement" : [{"windowOkButton":{"xpathparams": [],"testStepDescription" : "Click on Ok Button"}}]}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "CIR_007",
+				"testCaseTitle": "Verify General warehouse Type, Address for Warehouse Session",
+				"testCaseDescription": "Entering the Inputs for  General warehouse Type, Address for Warehouse Session",
+				"dependsOn": "CIR_006",
+				"tags":["SmokeTest","CIR"],
+				"testCaseSteps": [			
+				    {"clickElement" : [{"dropDownField":{"xpathparams": ["General","Warehouse Type:"], "testStepDescription" : "Click on Warehouse Tpe Dropdown"}}]},
+					{"clickElement" : [{"CNOoption":{"xpathparams": ["Consignment (Not Owned)"], "testStepDescription" : "Select consignment not owned in dropdown"}}]},
+				    {"clickElement" : [{"searchButtonInputFields":{"xpathparams": ["General","Address:"], "testStepDescription" : "Click on Search Button to search the Address"}}]},
+					{"clickElement" : [{"windowFirstRowCheckBox":{"xpathparams": [], "tesStepDescription": "Click on check box"}}]},
+					{"clickElement" : [{"windowOkButton":{"xpathparams": [],"testStepDescription" : "Click on Ok Button"}}]}
+					
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "CIR_008",
+				"testCaseTitle": "Verify the buy from and ship-from in relationship for Warehouse Session",
+				"testCaseDescription": "Entering the Inputs for buy from and ship-from in relationship for Warehouse Session",
+				"dependsOn": "CIR_007",
+				"tags":["SmokeTest","CIR"],
+				"testCaseSteps": [			
+				    {"clickElement" : [{"labelwithText":{"xpathparams": ["Relationships"], "testStepDescription" : "Click on Relationship Tab"}}]},
+					{"clickElement" : [{"searchButtonInputFields":{"xpathparams": ["Business Partner","Buy-from"],"testStepDescription" : "Click on Buy From Search Button to search the Bussiness Partner"}}]},
+					{"typeTextWithTabKey" : [{"textinputFieldsSearch":{"xpathparams": [], "value" : "$buyFrom", "testStepDescription" : "Enter Active BP value"}}]},
+					{"clickElement" : [{"windowFirstRowCheckBox":{"xpathparams": [], "tesStepDescription": "Click on check box"}}]},
+					{"clickElement" : [{"windowOkButton":{"xpathparams": [],"testStepDescription" : "Click on Ok Button"}}]},
+					{"clickElement" : [{"searchButtonInputFields":{"xpathparams": ["Business Partner","Ship-from"],"testStepDescription" : "Click on Ship From Search Button to search the Bussiness Partner"}}]},
+					{"typeTextWithTabKey" : [{"textinputFieldsSearch":{"xpathparams": [], "value" : "$shipFrom", "testStepDescription" : "Enter Active BP value"}}]},
+					{"clickElement" : [{"windowFirstRowCheckBox":{"xpathparams": [], "tesStepDescription": "Click on check box"}}]},
+					{"clickElement" : [{"windowOkButton":{"xpathparams": [],"testStepDescription" : "Click on Ok Button"}}]}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "CIR_009",
+				"testCaseTitle": "Save and Exit Warehouses and Warehouse 360",
+				"testCaseDescription": "Save and Exit Warehouses and Warehouse 360",
+				"dependsOn": "CIR_008",
+				"tags":["SmokeTest","CIR"],
+				"testCaseSteps": [			
+				    {"clickElement" : [{"buttonSaveAndExit":{"xpathparams": ["Warehouses"], "tesStepDescription": "Click on Save and Exit"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sessionTab":{"xpathparams":["Warehouse 360"], "continueTestNodes" : false, "testStepDescription" : "Validate Warehouse 360 is displayed"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"WH360SaveandExit":{"xpathparams": ["Warehouse 360"],"testStepDescription" : "Click on Save and Exit Button in Warehouse 360"}}]}		
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "CIR_010",
+				"testCaseTitle": "Navigate to Consignment Purchase Orders",
+				"testCaseDescription": "Navigate to Consignment Purchase Orders",
+				"dependsOn": "CIR_009",
+				"tags":["CIR"],
+				"testCaseSteps": [
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"menuItem":{"xpathparams":["Infor LN"], "continueTestNodes" : false}},
+									{"else":
+									[
+										{"clickElement" : [{"sideMenu":{"xpathparams": []}}]}
+									]
+									}
+								]
+							}
+						]
+					},				
+					{"clickElement" : [{"subMenuItem":{"xpathparams": ["Infor LN", "Procurement"], "testStepDescription" : "Click on Procurement"}}]},
+					{"clickElement" : [{"subMenuItems":{"xpathparams": ["Infor LN", "Procurement","Master Data"], "testStepDescription" : "Click on Master Data under Procurement"}}]},
+					{"clickElement" : [{"subMenuItemChild":{"xpathparams": ["Infor LN", "Procurement","Master Data","Orders"], "testStepDescription" : "Click on Orders under Master Data"}}]},
+					{"clickElement" : [{"SubMenuItemsubChild":{"xpathparams": ["Infor LN", "Procurement","Master Data","Orders","Order Types"], "testStepDescription" : "Click on Order Types under Orders"}}]},	
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sessionTab":{"xpathparams":["Purchase Order Types"], "continueTestNodes" : false, "testStepDescription" : "Validate Purchase Order Types is displayed"}}									
+								]
+							}
+						]
+					}
+					
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "CIR_011",
+				"testCaseTitle": "Verify New Purchase Orders for Consignment payment",
+				"testCaseDescription": "Creating New Purchase Orders for consignment payment",
+				"dependsOn": "CIR_010",
+			    "tags":["CIR"],
+				"testCaseSteps": [			
+					{"clickElement" : [{"buttonAddnewHeader1":{"xpathparams": ["Purchase Order Types"],"testStepDescription" : "Click on New Icon to create new purchase order"}}]},			
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sessionTab":{"xpathparams":["Purchase Order Type"], "continueTestNodes" : false, "testStepDescription" : "Validate Purchase Order Type is displayed"}}									
+								]
+							}
+						]
+					}
+					
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "CIR_012",
+				"testCaseTitle": "Verify New Purchase Orders Item and description",
+				"testCaseDescription": "Creating New Purchase Orders Item and description",
+				"dependsOn": "CIR_011",
+				"tags":["CIR"],
+				"testCaseSteps": [			
+					{"typeTextWithTabKey" : [{"inputWithoutHeading":{"xpathparams": ["Purchase Order Type:"],"value" : "randomString", "randomLength" :"3", "testStepDescription" : "Click on purchase order Field and enter the values"}}]},			
+					{"typeTextWithTabKey" : [{"inputWithoutHeading2":{"xpathparams": ["Purchase Order Type:"],"value" : "Consignment Payment","testStepDescription" : "Click on purchase order Field and enter the values"}}]},
+					{"clickElement" : [{"checkBoxwithText":{"xpathparams": ["Consignment Payment"],"testStepDescription" : "Click on Consignment Payment Checkbox"}}]}					
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "CIR_013",
+				"testCaseTitle": "Save and Exit Purchase Order Type",
+				"testCaseDescription": "Save and Exit Purchase Order Type",
+				"dependsOn": "CIR_012",
+				"tags":["CIR"],
+				"testCaseSteps": [			
+				  {"clickElement" : [{"SaveandExitPOT":{"xpathparams": [],"testStepDescription" : "Click on Save and Exit Button in  Purchase Order type"}}]}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "CIR_014",
+				"testCaseTitle": "Verify New Purchase Orders form for consignment Repelishment",
+				"testCaseDescription": "Creating New Purchase Orders for consignment replishment",
+				"dependsOn": "CIR_013",
+				"tags":["CIR"],
+				"testCaseSteps": [			
+					{"clickElement" : [{"buttonAddnewHeader1":{"xpathparams": ["Purchase Order Types"],"testStepDescription" : "Click on New Icon to create new purchase order"}}]},			
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sessionTab":{"xpathparams":["Purchase Order Type"], "continueTestNodes" : false, "testStepDescription" : "Validate Purchase Order Type is displayed"}}									
+								]
+							}
+						]
+					}
+					
+				]
+			}
+		},		
+		{
+			"testNode": {
+				"testCaseID": "CIR_015",
+				"testCaseTitle": "Verify New Purchase Orders Item and description for Repelishment",
+				"testCaseDescription": "Creating New Purchase Orders Item and description for Repelishment",
+				"dependsOn": "CIR_014",
+				"tags":["CIR"],
+				"testCaseSteps": [			
+					{"typeTextWithTabKey" : [{"inputWithoutHeading":{"xpathparams": ["Purchase Order Type:"],"value" : "randomString", "randomLength" :"3", "testStepDescription" : "Click on purchase order Field and enter the values"}}]},			
+					{"typeTextWithTabKey" : [{"inputWithoutHeading2":{"xpathparams": ["Purchase Order Type:"],"value" : "$orderTypeDesc","testStepDescription" : "Click on purchase order Field and enter the Description"}}]},								
+					{"clickElement" : [{"checkBoxwithText":{"xpathparams": ["Consignment Replenishment"],"testStepDescription" : "Click on Consignment Repelishment Checkbox"}}]}					
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "CIR_016",
+				"testCaseTitle": "Verify Order Series in Purchase Orders for Repelishment",
+				"testCaseDescription": "Creating  Order Series in Purchase Orders for Repelishment",
+				"dependsOn": "CIR_015",
+				"tags":["CIR"],
+				"testCaseSteps": [			
+					{"clickElement" : [{"searchButtonInputFields":{"xpathparams": ["Series", "Order Series:"],"testStepDescription" : "Click on Ordr Series Search Button to search the Bussiness Partner"}}]},
+					{"typeTextWithTabKey" : [{"OSFilter":{"xpathparams": [], "value" : "$orderSeries", "testStepDescription" : "Enter the value for order series"}}]},
+					{"clickElement" : [{"windowFirstRowCheckBox":{"xpathparams": [], "tesStepDescription": "Click on check box"}}]},
+					{"clickElement" : [{"windowOkButton":{"xpathparams": [],"testStepDescription" : "Click on Ok Button"}}]}
+				]
+			}
+		},	
+        {
+			"testNode": {
+				"testCaseID": "CIR_017",
+				"testCaseTitle": "Verify Warehouse Order Type in Purchase Orders for Repelishment",
+				"testCaseDescription": "Creating Warehouse Order Type in Purchase Orders for Repelishment",
+				"dependsOn": "CIR_016",
+				"tags":["CIR"],
+				"testCaseSteps": [			
+					{"clickElement" : [{"searchButtonInputFields":{"xpathparams": ["Settings", "Warehousing Order Type:"],"testStepDescription" : "Click on Warehouse Order Type Search Button to search the Bussiness Partner"}}]},
+					{"typeTextWithTabKey" : [{"WHOFilter":{"xpathparams": [], "value" : "$warehouseOrderType", "testStepDescription" : "Enter the value for Warehouse Order Type"}}]},
+					{"clickElement" : [{"windowFirstRowCheckBox":{"xpathparams": [], "tesStepDescription": "Click on check box"}}]},
+					{"clickElement" : [{"windowOkButton":{"xpathparams": [],"testStepDescription" : "Click on Ok Button"}}]},
+				    {"clickElement" : [{"SaveandExitPOT":{"xpathparams": ["Purchase Order Type"],"testStepDescription" : "Click on Save and Exit Button in  Purchase Order type"}}]},
+				    {"clickElement" : [{"SaveandExitPOTypes":{"xpathparams": ["Purchase Order Types"],"testStepDescription" : "Click on Save and Exit Button in  Purchase Order types"}}]}    
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "CIR_018",
+				"testCaseTitle": "Verify Order Intake Workbench",
+				"testCaseDescription": "Navigate to Purchase Order Intake Workbench",
+				"dependsOn": "CIR_017",
+				"tags":["CIR"],
+				"testCaseSteps": [
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"menuItem":{"xpathparams":["Infor LN"], "continueTestNodes" : false}},
+									{"else":
+									[
+										{"clickElement" : [{"sideMenu":{"xpathparams": []}}]}
+									]
+									}
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"subMenuItems":{"xpathparams": ["Infor LN", "Procurement", "Master Data"], "testStepDescription" : "Click on Orders under Procurement"}}]},
+					{"clickElement" : [{"subMenuOrder":{"xpathparams": ["Infor LN", "Procurement", "Orders"], "testStepDescription" : "Click on Orders under Procurement"}}]},
+					{"clickElement" : [{"subMenuItemChild":{"xpathparams": ["Infor LN", "Procurement", "Orders","Order Intake Workbench"], "testStepDescription" : "Click on Order Intake Workbench under Orders"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sessionTab":{"xpathparams":["Purchase Order Intake Workbench"], "continueTestNodes" : false, "testStepDescription" : "Validate PO WorkBench Tab is displayed"}}									
+								]
+							}
+						]
+					}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "CIR_019",
+				"testCaseTitle": "Verify New PO form",
+				"testCaseDescription": "Creating New Purchase Order Form",
+				"dependsOn": "CIR_018",
+				"tags":["SmokeTest","CIR","NegativeTest"],
+				"testCaseSteps": [
+					{"clickElement" : [{"PT":{"xpathparams": ["Purchase Orders"], "testStepDescription" : "Click on purchase Tab"}}]}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "CIR_020",
+				"testCaseTitle": "Verify New PO form",
+				"testCaseDescription": "Creating New Purchase Order Form",
+				"dependsOn": "CIR_019",
+				"tags":["SmokeTest","CIR","NegativeTest"],
+				"testCaseSteps": [
+					{"clickElement" : [{"NewPO":{"xpathparams": [], "testStepDescription" : "Click on New button on PO Workbench Tab"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sessionTab":{"xpathparams":["Purchase Order"], "continueTestNodes" : false, "testStepDescription" : "Validate PO Tab is displayed"}}									
+								]
+							}
+						]
+					}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "CIR_021",
+				"testCaseTitle": "Verify Active BP for PO",
+				"testCaseDescription": "Validate valid Business Partner for Purchase Order",
+				"dependsOn": "CIR_020",
+				"tags":["SmokeTest","CIR","NegativeTest"],
+				"testCaseSteps": [
+					{"clickElement" : [{"searchButtonInputFields":{"xpathparams": ["Buy-from","Business Partner"],"testStepDescription" : "Click on Search Button to search the Bussiness Partner"}}]},
+					{"typeTextWithTabKey" : [{"textinputFieldsSearch":{"xpathparams": [], "value" : "$activeBP", "testStepDescription" : "Enter Active BP value"}}]},
+					{"clickElement" : [{"windowFirstRowCheckBox":{"xpathparams": [], "tesStepDescription": "Click on check box"}}]},
+					{"clickElement" : [{"windowOkButton":{"xpathparams": [],"testStepDescription" : "Click on Ok Button"}}]}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "CIR_022",
+				"testCaseTitle": "Verify Valid Order Type for PO",
+				"testCaseDescription": "Validate valid Order Type for Purchase Order",
+				"dependsOn": "CIR_021",
+				"tags":["CIR"],
+				"testCaseSteps": [
+					{"clickElement" : [{"searchButtonInputFields":{"xpathparams": ["Control","Order Type"],"testStepDescription" : "Click on Search Button to search the Purchase order type"}}]},
+					{"typeTextWithTabKey" : [{"textinputFieldsSearch":{"xpathparams": [], "value" : "$validOrderType", "testStepDescription" : "Enter valid Purchase order type value"}}]},
+					{"clickElement" : [{"windowFirstRowCheckBox":{"xpathparams": [], "tesStepDescription": "Click on check box"}}]},
+					{"clickElement" : [{"windowOkButton":{"xpathparams": [],"testStepDescription" : "Click on Ok Button"}}]}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "CIR_023",
+				"testCaseTitle": "Verify Valid Purchase office",
+				"testCaseDescription": "Enter Valid Purchase Office",
+				"dependsOn": "CIR_022",
+				"tags":["CIR"],
+				"testCaseSteps": [
+					{"clickElement" : [{"searchButtonInputFields":{"xpathparams": ["Control","Purchase Office"],"testStepDescription" : "Click on Search Button to pick the Purchase Office"}}]},
+					{"clickElement" : [{"windowFirstRowCheckBox":{"xpathparams": [], "tesStepDescription": "Click on check box"}}]},
+					{"clickElement" : [{"windowOkButton":{"xpathparams": [],"testStepDescription" : "Click on Ok Button"}}]}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "CIR_024",
+				"testCaseTitle": "Verify Valid Order Series",
+				"testCaseDescription": "Enter Valid Order Series",
+				"dependsOn": "CIR_023",
+				"tags":["CIR"],
+				"testCaseSteps": [
+					{"clickElement" : [{"searchButtonInputFields":{"xpathparams": ["Control","Order:"],"testStepDescription" : "Click on Search Button to search the Valid order series"}}]},
+					{"clickElement" : [{"windowFirstRowCheckBox":{"xpathparams": [], "tesStepDescription": "Click on check box"}}]},
+					{"clickElement" : [{"windowOkButton":{"xpathparams": [],"testStepDescription" : "Click on Ok Button"}}]}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "CIR_025",
+				"testCaseTitle": "Verify New Order Lines",
+				"testCaseDescription": "Click on New on the Line to create new line",
+				"dependsOn": "CIR_024",
+				"tags":["CIR"],
+				"testCaseSteps": [
+					{"clickElement" : [{"NewOrderLinePurchase":{"xpathparams": [],"testStepDescription":"Click on New on the Line to create a new line"}}]},
+					{"doubleClickElement" : [{"splitBar":{"xpathparams": [],"testStepDescription": "Click on the splitbar to move upwards"}}]},
+					{ "keyBoardEvent": { "tab":"3"}}				
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "CIR_026",
+				"testCaseTitle": "Verify Valid Item",
+				"testCaseDescription": "Enter Valid Item in the Line",
+				"dependsOn": "CIR_025",
+				"tags":["CIR"],
+				"testCaseSteps": [
+					{"clickElement" : [{"searchButtonPurchaseitem":{"xpathparams": [],"testStepDescription":"Click on search button to search the valid Item in the Line"}}]},
+					{"typeTextWithTabKey" : [{"textItemfilter":{"xpathparams": [], "value" : "$validItem", "testStepDescription" : "Enter Active Sales Item value"}}]},
+					{"clickElement" : [{"windowFirstRowCheckBox":{"xpathparams": [], "tesStepDescription": "Click on check box"}}]},
+					{"clickElement" : [{"windowOkButton":{"xpathparams": [],"testStepDescription" : "Click on Ok Button"}}]},
+					{ "keyBoardEvent": { "tab":"1"}}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "CIR_027",
+				"testCaseTitle": "Verify Valid Qty",
+				"testCaseDescription":"Enter valid qty greater than 0",
+				"dependsOn": "CIR_026",
+				"tags":["CIR"],
+				"testCaseSteps": [
+					{"typeTextWithTabKey" : [{"purchaseItemQuantity":{"xpathparams": [], "value" : "$validQty", "testStepDescription" : "Enter valid Quantity"}}]},
+					{ "keyBoardEvent": { "tab":"1"}}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "CIR_028",
+				"testCaseTitle": "Verify Save Order",
+				"testCaseDescription" : "Click on Save to save PO",
+				"dependsOn": "CIR_027",
+				"tags":["CIR"],
+				"testCaseSteps": [
+				{"doubleClickElement" : [{"splitBar":{"xpathparams": [],"testStepDescription": "Click on splitbar to move downwards"}}]},
+					{"clickElement" : [{"buttonSaveSession":{"xpathparams": ["Purchase Order"],"testStepDescription":"Click on Save button to save the PO"}}]}
+				]
+			}
+		},
+		{
+			 "testNode": {
+				"testCaseID": "CIR_029",
+				"testCaseTitle": "Verify Order Line Items and warehouse",
+				"testCaseDescription" : " Verify Order Line Items and warehouse",
+				"dependsOn": "CIR_028",
+				"tags":["CIR"],
+				"testCaseSteps": [
+					{"clickElement" : [{"DrillRA":{"xpathparams": [],"testStepDescription":"Select the line items"}}]},
+					{"clickElement" : [{"labelwithText":{"xpathparams": ["Receiving"],"testStepDescription":"Click on Receiving"}}]},
+					{"clickElement" : [{"searchButtonInputFields":{"xpathparams": ["Warehouse","Warehouse"],"testStepDescription":"Click on search button to search the valid Item in the warehouseLine"}}]},
+					{"typeTextWithTabKey" : [{"WHFilter":{"xpathparams": [], "value" : "$warehouse", "testStepDescription" : "Enter Active warehouse Item value"}}]},
+					{"clickElement" : [{"windowFirstRowCheckBox":{"xpathparams": [], "tesStepDescription": "Click on check box"}}]},
+					{"clickElement" : [{"windowOkButton":{"xpathparams": [],"testStepDescription" : "Click on Ok Button"}}]},
+					{"clickElement" : [{"inputFields":{"xpathparams": ["Warehouse", "Receipt Address"],"testStepDescription" : "Click Receipt address and entering the values"}}]},
+					{"clickElement" : [{"buttonSaveSession":{"xpathparams": ["Purchase Order Lines"],"testStepDescription":"Click on Save button to save the PO Lines"}}]},
+					{"clickElement" : [{"buttonSaveAndExit":{"xpathparams": ["Purchase Order Lines"],"testStepDescription" : "Click ON SAVE and EXIT"}}]},
+					 { "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"sessionTab":{"xpathparams":["Purchase Order"], "continueTestNodes" : false,"testStepDescription":"Validate the Print Purchase Order Tab is displayed"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"buttonMenuHeadres":{"xpathparams": ["Purchase Order","Approve"],"testStepDescription" : "Click ON Approve"}}]} 
+				]
+			}
+		},
+		{
+			 "testNode": {
+				"testCaseID": "CIR_030",
+				"testCaseTitle": "Navigate to the Line Status Session",
+				"testCaseDescription" : "Navigate to the Line Status Session",
+				"dependsOn": "CIR_029",
+				"tags":["CIR"],
+				"testCaseSteps": [
+				{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"lineMenuButtons":{"xpathparams":["Purchase Order","References"], "continueTestNodes" : false, "testStepDescription" : "Validate References is displayed"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"lineMenuButtons":{"xpathparams": ["Purchase Order","References"], "testStepDescription" : "Click on References"}}]},									
+			   { "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"buttonMenuItemUnderActions":{"xpathparams":["Status"], "continueTestNodes" : false, "testStepDescription" : "Validate Status is displayed"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"buttonMenuItemUnderActions":{"xpathparams": ["Status"], "testStepDescription" : "Click on Staus"}}]},										
+			   { "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"sessionTab":{"xpathparams":["Purchase Order Line Status"], "continueTestNodes" : false,"testStepDescription":"Validate the Print Purchase Order Tab is displayed"}}									
+								]
+							}
+						]
+					}
+				]
+			}
+		},
+		{
+			 "testNode": {
+				"testCaseID": "CIR_031",
+				"testCaseTitle": "Execute Print Purchase Orders",
+				"testCaseDescription" : "Execute Print Purchase Orders",
+				"dependsOn": "CIR_030",
+				"tags":["CIR"],
+				"testCaseSteps": [
+				{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"automaticStatus":{"xpathparams":["Print Purchase Orders","No"], "continueTestNodes" : false,"testStepDescription":"Validate the Automatic status of Print Purchase Orders"}},									
+								    {"then":
+									[
+										{"clickElement" : [{"Execute":{"xpathparams": [],"testStepDescription":"Click on Execute"}}]},
+										{"clickElement" : [{"popUpMenubutton":{"xpathparams": ["Print Purchase Orders","Print"],"testStepDescription":"Click on Print in the PO Session"}}]},
+										{"clickElement" : [{"sessionClose":{"xpathparams": [],"testStepDescription":"Click on Close for the Print Purchase Order Tab"}}]},
+										{"clickElement" : [{"sessionTab":{"xpathparams": ["Purchase Order Line Status"],"testStepDescription": "Click on the Purchase Order Line Status Tab to move to the previous session"}}]},
+										{"clickElement" : [{"popUpMenubutton":{"xpathparams": ["Print Purchase Orders","Close"],"testStepDescription":"Click on Close on the PO Session"}}]}
+									]
+									}
+								]
+							}
+						]
+					}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "CIR_032",
+				"testCaseTitle": "Execute Release Purchase orders to Warehousing",
+				"testCaseDescription" : "Execute Release Purchase orders to Warehousing",
+				"dependsOn": "CIR_030",
+				"tags":["CIR"],
+				"testCaseSteps": [
+		        { "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"automaticStatus":{"xpathparams":["Release Purchase Orders to Warehousing","No"], "continueTestNodes" : false,"testStepDescription":"Validate the Automatic status of Release Purchase Orders to Warehousing"}},									
+								    {"then":
+									[
+										{"clickElement" : [{"Execute":{"xpathparams": [],"testStepDescription":"Click on Execute"}}]}
+											
+									]
+									}
+								]
+							}
+						]
+					}
+		]
+		}
+		},
+		{
+	      "testNode": {
+				"testCaseID": "CIR_033",
+				"testCaseTitle": "Execute Awaiting Receipts - Warehouse",
+				"testCaseDescription" : " Execute Awaiting Receipts - Warehouse",
+				"dependsOn": "CIR_030",
+				"tags":["CIR"],
+				"testCaseSteps": [
+				 { "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"automaticStatus":{"xpathparams":["Awaiting Receipts - Warehouse","No"], "continueTestNodes" : false,"testStepDescription":"Validate the Automatic status of Awaiting Receipts - Warehouse"}},									
+								    {"then":
+									[
+										{"clickElement" : [{"Execute":{"xpathparams": [],"testStepDescription":"Click on Execute"}}]},
+										{"clickElement" : [{"sessionTab":{"xpathparams": ["Inbound Line Status Overview"],"testStepDescription": "Click on the Inbound Line Status Overview Tab"}}]},
+										{"clickElement" : [{"buttonMenuHeadres":{"xpathparams": ["Inbound Line Status Overview","Actions"],"testStepDescription":"Click on Actions"}}]},
+										{"clickElement" : [{"buttonMenuItemUnderActions":{"xpathparams": ["Receive"],"testStepDescription":"Click on Receive "}}]},
+										{"clickElement" : [{"sessionTab":{"xpathparams": ["Warehouse Receipt"],"testStepDescription": "Click on Warehouse Receipt session"}}]},
+										{"typeTextWithTabKey" : [{"inputFields":{"xpathparams": ["Delivery","Packing Slip"], "value" : "$pakingSlip","testStepDescription":"Enter the Packin Slip Number"}}]},
+										{"clickElement" : [{"buttonMenuHeadres":{"xpathparams": ["Warehouse Receipt","Confirm Receipt"],"testStepDscription":"Click on Confirm Button on the Header"}}]},
+					                    {"clickElement" : [{"buttonYesDialogButton":{"xpathparams": ["Yes"],"testStepDescription":"Click on Yes in the Dialog Box"}}]},
+										{"clickElement" : [{"buttonSaveAndExit":{"xpathparams": ["Warehouse Receipt"],"testStepDescription":"Click on Save and Exit on Warehouse Receipt Session"}}]},
+										{"clickElement" : [{"sessionTab":{"xpathparams": ["Inbound Line Status Overview"],"testStepDescription": "Click onInbound Line Status Overview session"}}]},
+										{"clickElement" : [{"buttonSaveAndExit":{"xpathparams": ["Inbound Line Status Overview"],"testStepDescription":"Click on Save and Exit on Inbound Line Status Overview Session"}}]}
+									]
+									}
+								]
+							}
+						]
+					}		
+				
+				]
+				}
+				},
+				{
+		     "testNode": {
+				"testCaseID": "CIR_034",
+				"testCaseTitle": "Save and Exit Purchase Order and Line Status",
+				"testCaseDescription" : "Save and Exit Purchase Order and Line Status",
+				"dependsOn": "CIR_030",
+				"tags":["CIR"],
+				"testCaseSteps": [
+				{"clickElement" : [{"buttonSaveAndExit":{"xpathparams": ["Purchase Order Line Status"], "tesStepDescription": "Click on Save and Exit"}}]},
+				{"clickElement" : [{"buttonSaveAndExit":{"xpathparams": ["Purchase Order"], "tesStepDescription": "Click on Save and Exit"}}]}
+				]
+				}
+				},
+					{			    
+			 "testNode": {
+				"testCaseID": "CIR_035",
+				"testCaseTitle": "Naviagte to Inventory 360",
+				"testCaseDescription" : "Naviagte to Inventory 360",
+				"dependsOn": "CIR_034",
+				"tags":["CIR"],
+				"testCaseSteps": [					
+				{"clickElement" : [{"subMenuItems":{"xpathparams": ["Infor LN", "Warehousing","Inventory 360"], "testStepDescription" : "Click on Inventory 360 under Warehousing"}}]}
+				]
+				}
+				},
+				{
+		   "testNode": {
+				"testCaseID": "CIR_036",
+				"testCaseTitle": "Consignment Inventory",
+				"testCaseDescription" : "Consignment Inventory",
+				"dependsOn": "CIR_035",
+				"tags":["CIR"],
+				"testCaseSteps": [
+				    { "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"sessionTab":{"xpathparams":["Inventory 360"], "continueTestNodes" : false,"testStepDescription":"Validate the Print Purchase Order Tab is displayed"}}									
+								]
+							}
+						]
+					},
+				    {"typeTextWithEnter" : [{"textInventory360_ItemSearch":{"xpathparams": [], "value" : "$searchItem","testStepDescription": "Enter the Sales order number in the serach"}}]},
+					{"clickElement" : [{"selectLinePickingList":{"xpathparams": [],"testStepDescription":"Click on check box to select the lines"}}]},
+				   	{"clickElement" : [{"selectAll":{"xpathparams": ["All"],"testStepDescription":"Click on All to select all the lines"}}]},				
+				    { "sleep": { "sec":"1000"}},
+				    {"clickElement" : [{"linkwithText":{"xpathparams": ["Consignment Inventory"],"testStepDescription":"Click on consignment Inventory Link"}}]},
+				    { "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"sessionTab":{"xpathparams":["Consigned Inventory"], "continueTestNodes" : false,"testStepDescription":"Validate the Consigned Inventory Tab is displayed"}}									
+								]
+							}
+						]
+					},
+				   {"clickElement" : [{"CILineItems":{"xpathparams": [],"testStepDescription":"Click on check box to select the Item  "}}]},
+				   {"clickElement" : [{"buttonMenuHeadres":{"xpathparams": ["Consigned Inventory","References"],"testStepDescription":"Click on References in Consigned Inventory"}}]},
+				   {"clickElement" : [{"buttonMenuItemUnderActions":{"xpathparams": ["Consigned Receipts"],"testStepDescription":"Click on Consigned Receipts"}}]},
+				   {"clickElement" : [{"buttonSaveAndExit":{"xpathparams": ["Consigned Receipts"], "tesStepDescription": "Click on Save and Exit"}}]},
+				   {"clickElement" : [{"buttonSaveAndExit":{"xpathparams": ["Consigned Inventory"], "tesStepDescription": "Click on Save and Exit"}}]},
+				   {"clickElement" : [{"buttonSaveAndExit":{"xpathparams": ["Inventory 360"], "tesStepDescription": "Click on Save and Exit"}}]}
+				]
+				}
+				}
+		]
+		}
+		

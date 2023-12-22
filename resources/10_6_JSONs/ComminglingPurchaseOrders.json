@@ -1,0 +1,500 @@
+{
+	"suiteName" : "ComminglingOrders",
+	"suiteDescription" : "Commingling Purchase Orders Suite",
+	"testCases": [
+		{
+			"testNode": {
+				"testCaseID": "CMGL_004",
+				"testCaseTitle": "Verify Login with Valid Credentials",
+				"testCaseDescription": "Infor LN Login",
+				"dependsOn": "",
+				"tags":["SmokeTest","CMPO","NegativeTest"],
+				"testCaseSteps": [
+				{ "login": { "login_username":"niranjan", "login_password":"SailoInc@345", "testStepDescription" : "Login with valid username and password"}},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"menuItem":{"xpathparams":["Infor LN"], "continueTestNodes" : false, "testStepDescription" : "Successfully Logged in and validate Infor LN Menu on the Homepage"}}									
+								]
+							}
+						]
+					}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "CMGL_005",
+				"testCaseTitle": "Verify Order Intake Workbench",
+				"testCaseDescription": "Navigate to Sales Order Intake Workbench",
+				"dependsOn": "CMGL_004",
+				"tags":["SmokeTest","CMPO","NegativeTest"],
+				"testCaseSteps": [
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"menuItem":{"xpathparams":["Infor LN"], "continueTestNodes" : false}},
+									{"else":
+									[
+										{"clickElement" : [{"sideMenu":{"xpathparams": []}}]}
+									]
+									}
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"menuItem":{"xpathparams": ["Infor LN"], "testStepDescription" : "Click on Infor LN Menu"}}]},
+					{"clickElement" : [{"subMenuItem":{"xpathparams": ["Infor LN", "Procurement"], "testStepDescription" : "Click on Procurement under Infor LN"}}]},
+					{"clickElement" : [{"subMenuItems":{"xpathparams": ["Infor LN", "Procurement", "Orders"], "testStepDescription" : "Click on Orders under Procurement"}}]},
+					{"clickElement" : [{"subMenuItemChild":{"xpathparams": ["Infor LN", "Procurement", "Orders","Order Intake Workbench"], "testStepDescription" : "Click on Order Intake Workbench under Orders"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sessionTab":{"xpathparams":["Purchase Order Intake Workbench"], "continueTestNodes" : false, "testStepDescription" : "Validate Sales Order Intake WorkBench Tab is displayed"}}									
+								]
+							}
+						]
+					}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "CMGL_006",
+				"testCaseTitle": "Verify New PO form",
+				"testCaseDescription": "Creating New Purchase Order Form",
+				"dependsOn": "CMGL_005",
+				"tags":["SmokeTest","CMPO","NegativeTest"],
+				"testCaseSteps": [
+					{"clickElement" : [{"labelwithText":{"xpathparams": ["Purchase Orders"], "testStepDescription" : "Click on Purchase Orders tab on the bar"}}]},
+					{"clickElement" : [{"NewPO":{"xpathparams": [], "testStepDescription" : "Click on New button on PO Workbench Tab"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sessionTab":{"xpathparams":["Purchase Order"], "continueTestNodes" : false, "testStepDescription" : "Validate PO Tab is displayed"}}									
+								]
+							}
+						]
+					}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "CMGL_007",
+				"testCaseTitle": "Verify Inactive BP for PO",
+				"testCaseDescription": "Validate Invalid Business Partner for Purchase Order",
+				"dependsOn": "CMGL_006",
+				"tags":["SmokeTest","NegativeTest"],
+				"testCaseSteps": [
+					{"typeTextWithTabKey" : [{"inputFields":{"xpathparams": ["Buy-from","Business Partner:"], "value" : "CUS000001", "testStepDescription" : "Enter Inactive BP Details"}}]},
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"errorMessagePopUp":{"xpathparams":["Specified \"Business Partner\" not found in \"Buy-from Business Partners\". Enter another \"Business Partner\"."], "continueTestNodes" : false, "testStepDescription": "Validate the Error Message for Inactive BP Details"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"buttonOKError":{"xpathparams": [], "tesStepDescription": "Click on OK button to close the error message"}}]}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "CMGL_008",
+				"testCaseTitle": "Verify Active BP for PO",
+				"testCaseDescription": "Validate valid Business Partner for Purchase Order",
+				"dependsOn": "CMGL_006",
+				"tags":["SmokeTest","CMPO","NegativeTest"],
+				"testCaseSteps": [
+					{"clickElement" : [{"searchButtonInputFields":{"xpathparams": ["Buy-from","Business Partner"],"testStepDescription" : "Click on Search Button to search the Bussiness Partner"}}]},
+					{"typeTextWithTabKey" : [{"textinputFieldsSearch":{"xpathparams": [], "value" : "Boston Suppliers", "testStepDescription" : "Enter Active BP value"}}]},
+					{"clickElement" : [{"windowFirstRowCheckBox":{"xpathparams": [], "tesStepDescription": "Click on check box"}}]},
+					{"clickElement" : [{"windowOkButton":{"xpathparams": [],"testStepDescription" : "Click on Ok Button"}}]}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "CMGL_009",
+				"testCaseTitle": "Verify Invalid Order Type for PO",
+				"testCaseDescription": "Validate invalid Order Type for Purchase Order",
+				"dependsOn": "CMGL_008",
+				"tags":["SmokeTest","NegativeTest"],
+				"testCaseSteps": [
+					{"typeTextWithEnter" : [{"inputFields":{"xpathparams": ["Control","Order Type"], "value" : "ABC", "testStepDescription":"Enter Invalid Order Type"}}]},
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"errorMessagePopUp":{"xpathparams":["Specified \"Order Type\" not found in \"Purchase Order Types\". Enter another \"Order Type\"."], "continueTestNodes" : false, "testStepDescription": "Validate the Error Message for Invalid Order Type"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"buttonOKError":{"xpathparams": [],"testStepDescription" : "Click on OK Button to close the error message"}}]}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "CMGL_010",
+				"testCaseTitle": "Verify Valid Order Type for PO",
+				"testCaseDescription": "Validate valid Order Type for Purchase Order",
+				"dependsOn": "CMGL_008",
+				"tags":["SmokeTest","CMPO","NegativeTest"],
+				"testCaseSteps": [
+					{"clickElement" : [{"searchButtonInputFields":{"xpathparams": ["Control","Order Type"],"testStepDescription" : "Click on Search Button to search the Purchase order type"}}]},
+					{"typeTextWithTabKey" : [{"textinputFieldsSearch":{"xpathparams": [], "value" : "Purchase Order Type", "testStepDescription" : "Enter valid Purchase order type value"}}]},
+					{"clickElement" : [{"windowFirstRowCheckBox":{"xpathparams": [], "tesStepDescription": "Click on check box"}}]},
+					{"clickElement" : [{"windowOkButton":{"xpathparams": [],"testStepDescription" : "Click on Ok Button"}}]}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "CMGL_011",
+				"testCaseTitle": "Verify Invalid Purchase office",
+				"testCaseDescription" : "Enter Invalid Purchase Office and Validate the error message displayed",
+				"dependsOn": "CMGL_010",
+				"tags":["SmokeTest","NegativeTest"],
+				"testCaseSteps": [
+					{"typeTextWithEnter" : [{"inputFields":{"xpathparams": ["Control","Purchase Office"], "value" : "NAVOFF", "testStepDescription": "Enter Invalid Purchase Office"}}]},
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"errorMessagePopUp":{"xpathparams":["Specified \"Purchase Office\" not found in \"Purchase Offices\". Enter another \"Purchase Office\"."], "continueTestNodes" : false, "testStepDescription" : "Validate the error message displayed for Invalid Purchase Office"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"buttonOKError":{"xpathparams": [], "testStepDescription": "Click on OK button to close the error message for Invalid Purchase Office"}}]}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "CMGL_012",
+				"testCaseTitle": "Verify Valid Purchase office",
+				"testCaseDescription": "Enter Valid Purchase Office",
+				"dependsOn": "CMGL_010",
+				"tags":["SmokeTest","CMPO","NegativeTest"],
+				"testCaseSteps": [
+					{"clickElement" : [{"searchButtonInputFields":{"xpathparams": ["Control","Purchase Office"],"testStepDescription" : "Click on Search Button to pick the Purchase Office"}}]},
+					{"clickElement" : [{"windowFirstRowCheckBox":{"xpathparams": [], "tesStepDescription": "Click on check box"}}]},
+					{"clickElement" : [{"windowOkButton":{"xpathparams": [],"testStepDescription" : "Click on Ok Button"}}]}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "CMGL_013",
+				"testCaseTitle": "Verify Invalid Order series",
+				"testCaseDescription" : "Enter Invalid Order Series and validate the error message displayed",
+				"dependsOn": "CMGL_012",
+				"tags":["SmokeTest","NegativeTest"],
+				"testCaseSteps": [
+					{"typeTextWithEnter" : [{"inputFields":{"xpathparams": ["Control","Order:"], "value" : "ABC", "testStepDescription" : "Enter Invalid Order Series"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"errorMessagePopUp":{"xpathparams":["Change the value of the Purchase Order field."], "continueTestNodes" : false, "testStepDescription" : "Validate the error message displayed for Invalid Order Series"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"buttonOKError":{"xpathparams": []}}]}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "CMGL_014",
+				"testCaseTitle": "Verify Valid Order Series",
+				"testCaseDescription": "Enter Valid Order Series",
+				"dependsOn": "CMGL_012",
+				"tags":["SmokeTest","CMPO","NegativeTest"],
+				"testCaseSteps": [
+					{"clickElement" : [{"searchButtonInputFields":{"xpathparams": ["Control","Order:"],"testStepDescription" : "Click on Search Button to search the Valid order series"}}]},
+					{"typeTextWithTabKey" : [{"textinputFieldsSearch":{"xpathparams": [], "value" : "Purchase Order", "testStepDescription" : "Enter valid valid order series value"}}]},
+					{"clickElement" : [{"windowFirstRowCheckBox":{"xpathparams": [], "tesStepDescription": "Click on check box"}}]},
+					{"clickElement" : [{"windowOkButton":{"xpathparams": [],"testStepDescription" : "Click on Ok Button"}}]}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "CMGL_015",
+				"testCaseTitle": "Verify Save Order",
+				"testCaseDescription" : "Click on Save to save PO",
+				"dependsOn": "CMGL_014",
+				"tags":["SmokeTest","CMPO","NegativeTest"],
+				"testCaseSteps": [
+					{"clickElement" : [{"StdSaveButton":{"xpathparams": ["Purchase Order"],"testStepDescription":"Click on Save button to save the PO"}}]}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "CMGL_016",
+				"testCaseTitle": "Verify New Order Lines",
+				"testCaseDescription": "Click on New on the Line to create new line",
+				"dependsOn": "CMGL_015",
+				"tags":["SmokeTest","CMPO","NegativeTest"],
+				"testCaseSteps": [
+					{"clickElement" : [{"NewOrderLinePurchase":{"xpathparams": [],"testStepDescription":"Click on New on the Line to create a new line"}}]},
+					{"doubleClickElement" : [{"splitBar":{"xpathparams": [],"testStepDescription": "Click on the splitbar to move upwards"}}]},
+					{ "keyBoardEvent": { "tab":"2"}}				
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "CMGL_017",
+				"testCaseTitle": "Verify Invalid Item",
+				"testCaseDescription":"Enter Invalid Item in the Line and validate the error message displayed",
+				"dependsOn": "CMGL_016",
+				"tags":["SmokeTest","NegativeTest"],
+				"testCaseSteps": [
+					{"typeTextWithTabKey" : [{"purchaseItemEntry":{"xpathparams": [], "value" : "CAPA00009GGG0XX1", "testStepDescription" : "Enter invalid Item in the line"}}]},
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"errorMessagePopUp":{"xpathparams":["Specified \"Item\" not found in \"Item - Purchase\". Enter another \"Item\"."], "continueTestNodes" : false,"testStepDescription":"Validate the error message displayed for the Invalid Item in the Line"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"buttonOKError":{"xpathparams": [],"testStepDescription":"Click on OK button to close the error message for the Invalid Item in the Line"}}]}										
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "CMGL_018",
+				"testCaseTitle": "Verify Valid Item",
+				"testCaseDescription": "Enter Valid Item in the Line",
+				"dependsOn": "CMGL_016",
+				"tags":["SmokeTest","CMPO","NegativeTest"],
+				"testCaseSteps": [
+					{"clickElement" : [{"searchButtonPurchaseitem":{"xpathparams": [],"testStepDescription":"Click on search button to search the valid Item in the Line"}}]},
+					{"typeTextWithTabKey" : [{"textItemfilter":{"xpathparams": [], "value" : "Test Item10", "testStepDescription" : "Enter Active Sales Item value"}}]},
+					{"clickElement" : [{"windowFirstRowCheckBox":{"xpathparams": [], "tesStepDescription": "Click on check box"}}]},
+					{"clickElement" : [{"windowOkButton":{"xpathparams": [],"testStepDescription" : "Click on Ok Button"}}]},
+					{ "keyBoardEvent": { "tab":"1"}}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "CMGL_019",
+				"testCaseTitle": "Verify Zero Qty",
+				"testCaseDescription":"Enter zero qty and validate the error message displayed",
+				"dependsOn": "CMGL_018",
+				"tags":["SmokeTest","NegativeTest"],
+				"testCaseSteps": [
+					{"typeTextWithTabKey" : [{"purchaseItemQuantity":{"xpathparams": [], "value" : "0", "testStepDescription" : "Enter zero Quantity"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"errorMessagePopUp":{"xpathparams":["Enter a value for the Ordered Quantity field."], "continueTestNodes" : false,"testStepDescription": "Validate the error message for the zero qty"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"buttonOKError":{"xpathparams": [],"testStepDescription":"Click on OK Button to close the error message for zero qty"}}]}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "CMGL_020",
+				"testCaseTitle": "Verify Valid Qty",
+				"testCaseDescription":"Enter valid qty greater than 0",
+				"dependsOn": "CMGL_018",
+				"tags":["SmokeTest","CMPO","NegativeTest"],
+				"testCaseSteps": [
+					{"typeTextWithTabKey" : [{"purchaseItemQuantity":{"xpathparams": [], "value" : "100", "testStepDescription" : "Enter valid Quantity"}}]},
+					{ "keyBoardEvent": { "tab":"1"}}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "CMGL_021",
+				"testCaseTitle": "Verify Save Order",
+				"testCaseDescription" : "Click on Save to save PO",
+				"dependsOn": "CMGL_020",
+				"tags":["SmokeTest","CMPO","NegativeTest"],
+				"testCaseSteps": [
+					{"doubleClickElement" : [{"splitBar":{"xpathparams": [],"testStepDescription": "Click on the splitbar to move upwards"}}]},
+					{"clickElement" : [{"StdSaveButton":{"xpathparams": ["Purchase Order"],"testStepDescription":"Click on Save button to save the PO"}}]},
+					{"getText": [{"inputFields":{"xpathparams": ["Control","Order:"], "varName" : "purchaseOrderNumber1","testStepDescription":"Get the genrated purchase order number and save"}}]}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "CMGL_022",
+				"testCaseTitle": "Generate duplicate orders",
+				"testCaseDescription" : "Click on Duplicate button and generate a set of duplicate Purchase order",
+				"dependsOn": "CMGL_021",
+				"tags":["SmokeTest","CMPO","NegativeTest"],
+				"testCaseSteps": [
+					{"clickElement" : [{"duplicatebutton":{"xpathparams": ["Purchase Order"],"testStepDescription":"Click on duplicate button to copy the PO"}}]},
+					{"clickElement" : [{"contProcessButton":{"xpathparams": ["Copy"],"testStepDescription":"Click on copy button"}}]},
+					{"typeTextWithTabKey" : [{"device":{"xpathparams": [], "value" : "D","testStepDescription":"Enter the value D in the Device text box"}}]},
+				    {"clickElement" : [{"DisplayTab":{"xpathparams": [],"testStepDescription":"Click on Display tab"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"DisplayLabel":{"xpathparams":["Display"], "continueTestNodes" : false,"testStepDescription": "Validate the error message for the zero qty"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"contProcessButton":{"xpathparams": ["Continue"],"testStepDescription":"Click on copy button"}}]},
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"sessionTab":{"xpathparams":["Remarks during Copy Purchase Order"], "continueTestNodes" : false,"testStepDescription":"Validate the Sales Order Acknowledgement Session "}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"SessionTabClose":{"xpathparams": ["Remarks during Copy Purchase Order"],"testStepDescription" : "Close Sales Order Acknowledgements/RMAs session"}}]},
+					{"clickElement" : [{"contProcessButton":{"xpathparams": ["Close"],"testStepDescription":"Click on copy button"}}]},
+					{"getText": [{"inputFields":{"xpathparams": ["Control","Order:"], "varName" : "purchaseOrderNumber2","testStepDescription":"Get the genrated purchase order number and save"}}]}
+					
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "CMGL_023",
+				"testCaseTitle": "Generate another set duplicate orders",
+				"testCaseDescription" : "Generate aother set of duplicate Purchase order for commingling",
+				"dependsOn": "CMGL_022",
+				"tags":["SmokeTest","CMPO","NegativeTest"],
+				"testCaseSteps": [
+					{"clickElement" : [{"duplicatebutton":{"xpathparams": ["Purchase Order"],"testStepDescription":"Click on duplicate button to copy the PO"}}]},
+					{"clickElement" : [{"contProcessButton":{"xpathparams": ["Copy"],"testStepDescription":"Click on copy button"}}]},
+					{"typeTextWithTabKey" : [{"device":{"xpathparams": [], "value" : "D","testStepDescription":"Enter the value D in the Device text box"}}]},
+				    {"clickElement" : [{"DisplayTab":{"xpathparams": [],"testStepDescription":"Click on Display tab"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"DisplayLabel":{"xpathparams":["Display"], "continueTestNodes" : false,"testStepDescription": "Validate the error message for the zero qty"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"contProcessButton":{"xpathparams": ["Continue"],"testStepDescription":"Click on copy button"}}]},
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"sessionTab":{"xpathparams":["Remarks during Copy Purchase Order"], "continueTestNodes" : false,"testStepDescription":"Validate the Sales Order Acknowledgement Session "}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"SessionTabClose":{"xpathparams": ["Remarks during Copy Purchase Order"],"testStepDescription" : "Close Sales Order Acknowledgements/RMAs session"}}]},
+					{"clickElement" : [{"contProcessButton":{"xpathparams": ["Close"],"testStepDescription":"Click on copy button"}}]},
+					{"getText": [{"inputFields":{"xpathparams": ["Control","Order:"], "varName" : "purchaseOrderNumber3","testStepDescription":"Get the genrated purchase order number and save"}}]}
+					
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "CMGL_024",
+				"testCaseTitle": "Verify Order Lines Tab",
+				"testCaseDescription" : "Order Lines Tab verification to filer the PO",
+				"dependsOn": "CMGL_023",
+				"tags":["SmokeTest","CMPO","NegativeTest"],
+				"testCaseSteps": [
+					{"clickElement" : [{"buttonSaveAndExit":{"xpathparams": ["Purchase Order"],"testStepDescription":"Click on Save button to save the PO"}}]},
+					{"clickElement" : [{"barTabs":{"xpathparams": ["Order Lines"],"testStepDescription":"Click on Save button to save the PO"}}]}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "CMGL_025",
+				"testCaseTitle": "Commingle Purchase order 1",
+				"testCaseDescription" : "Commingle 1st Purchase Order Generated",
+				"dependsOn": "CMGL_024",
+				"tags":["SmokeTest","CMPO","NegativeTest"],
+				"testCaseSteps": [
+					{"typeTextWithEnter" : [{"PurOrdFilter":{"xpathparams": [], "varName" : "purchaseOrderNumber1","testStepDescription": "Enter the Purchase Order number 1 value in the serach"}}]},
+					{"clickElement" : [{"OpenFirstRow":{"xpathparams": [],"testStepDescription":"Click on the first row"}}]},
+					{"clickElement" : [{"checkBoxwithText":{"xpathparams": ["For Commingling"],"testStepDescription":"Click on check box For Commingling"}}]},
+					{"clickElement" : [{"buttonSaveAndExit":{"xpathparams": ["Purchase Order Lines"],"testStepDescription":"Click on Save and Exit button"}}]},
+					{"clickElement" : [{"Uncheckrow":{"xpathparams": [],"testStepDescription":"Uncheck the first row line item"}}]}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "CMGL_026",
+				"testCaseTitle": "Commingle Purchase order 2",
+				"testCaseDescription" : "Commingle 2nd Purchase Order Generated",
+				"dependsOn": "CMGL_025",
+				"tags":["SmokeTest","CMPO","NegativeTest"],
+				"testCaseSteps": [
+					{"typeTextWithEnter" : [{"PurOrdFilter":{"xpathparams": [], "varName" : "purchaseOrderNumber2","testStepDescription": "Enter the Purchase Order number 2 value in the serach"}}]},
+					{"clickElement" : [{"OpenFirstRow":{"xpathparams": [],"testStepDescription":"Click on the first row"}}]},
+					{"clickElement" : [{"checkBoxwithText":{"xpathparams": ["For Commingling"],"testStepDescription":"Click on check box For Commingling"}}]},
+					{"clickElement" : [{"buttonSaveAndExit":{"xpathparams": ["Purchase Order Lines"],"testStepDescription":"Click on Save and Exit button"}}]},
+					{"clickElement" : [{"Uncheckrow":{"xpathparams": [],"testStepDescription":"Uncheck the first row line item"}}]}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "CMGL_027",
+				"testCaseTitle": "Commingle Purchase order 3",
+				"testCaseDescription" : "Commingle 3rd Purchase Order Generated",
+				"dependsOn": "CMGL_026",
+				"tags":["SmokeTest","CMPO","NegativeTest"],
+				"testCaseSteps": [
+					{"typeTextWithEnter" : [{"PurOrdFilter":{"xpathparams": [], "varName" : "purchaseOrderNumber3","testStepDescription": "Enter the Purchase Order number 3 value in the serach"}}]},
+					{"clickElement" : [{"OpenFirstRow":{"xpathparams": [],"testStepDescription":"Click on the first row"}}]},
+					{"clickElement" : [{"checkBoxwithText":{"xpathparams": ["For Commingling"],"testStepDescription":"Click on check box For Commingling"}}]},
+					{"clickElement" : [{"buttonSaveAndExit":{"xpathparams": ["Purchase Order Lines"],"testStepDescription":"Click on Save and Exit button"}}]},
+					{"clickElement" : [{"Uncheckrow":{"xpathparams": [],"testStepDescription":"Uncheck the first row line item"}}]}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "CMGL_028",
+				"testCaseTitle": "Refresh and click on PO tab",
+				"testCaseDescription" : "Refresh the session after commingling",
+				"dependsOn": "CMGL_027",
+				"tags":["SmokeTest","CMPO","NegativeTest"],
+				"testCaseSteps": [
+					{"clickElement" : [{"RefreshButton":{"xpathparams": [],"testStepDescription":"Click on the refresh button"}}]},
+					{"clickElement" : [{"barTabs":{"xpathparams": ["Purchase Orders"],"testStepDescription":"Click on Save button to save the PO"}}]}
+				]
+			}
+		}
+		
+		
+		
+]
+}

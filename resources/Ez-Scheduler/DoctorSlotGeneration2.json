@@ -1,0 +1,517 @@
+{
+	"suiteName" : "Doctor Slot Generation",
+	"suiteDescription" : "Doctor Slot Generation Suite",
+	"testCases": [
+		{
+			"testNode": {
+				"testCaseID": "DOC_001",
+				"testCaseTitle": "Verify Login with Valid Credentials",
+				"testCaseDescription": "Doctor Login",
+				"dependsOn": "",
+				"tags":["SmokeTest","SLTGEN","SLTDUP","SLTDOW","NegativeTest"],
+				"testCaseSteps": [
+				{ "login": { "login_username":"", "login_password":"", "url" : "https://demo.ezscheduler.io/doctorlogin","testStepDescription" : "Login with valid username and password"}},
+				{"typeTextWithTabKey" : [{"inputName":{"xpathparams": ["email"], "value" : "$userName", "testStepDescription" : "Enter valid username"}}]},					
+				{"typeTextWithTabKey" : [{"inputName":{"xpathparams": ["password"], "value" : "$password", "testStepDescription" : "Enter valid password"}}]},
+				{"clickElement" : [{"buttonWithName":{"xpathparams": ["Sign-In"],"testStepDescription" : "Click on Sign in Button"}}]},
+					
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"buttonwithtext":{"xpathparams":["Location"], "continueTestNodes" : false, "testStepDescription" : "Successfully Logged in and validate Infor LN Menu on the Homepage"}}									
+								]
+							}
+						]
+					}
+				]
+			}
+		},
+{
+			"testNode": {
+				"testCaseID": "DOC_002",
+				"testCaseTitle": "Navigate to Generate Slots Page",
+				"testCaseDescription": "Navigate to Generate Slots Page",
+				"dependsOn": "DOC_001",
+				"tags":["SmokeTest","SLTGEN","SLTDUP","SLTDOW","NegativeTest"],
+				"testCaseSteps": [
+					{"clickElement" : [{"menuButton":{"xpathparams": [], "testStepDescription" : "Click on Menu Button"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"buttonWithName":{"xpathparams":["Generate Slots"], "continueTestNodes" : false, "testStepDescription" : "Validate Generate Slots button is displayed"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"buttonWithName":{"xpathparams": ["Generate Slots"], "testStepDescription" : "Click on Generate Slots button "}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"headerWithText":{"xpathparams":["Generate Slots"], "continueTestNodes" : false, "testStepDescription" : "Validate Orders option is displayed"}}									
+								]
+							}
+						]
+					}
+					
+					
+					
+				]
+			}
+		}, 
+		{
+			"testNode": {
+				"testCaseID": "DOC_003",
+				"testCaseTitle": "Validate Location for Office Slot Type",
+				"testCaseDescription": "Validate Location for Office Slot Type",
+				"dependsOn": "DOC_002",
+				"tags":["SmokeTest","NegativeTest"],
+				"testCaseSteps": [
+				    {"clickElement" : [{"inputName":{"xpathparams": ["facility"],"testStepDescription" : "Click on  Facility"}}]},
+					{"clickElement" : [{"inputName":{"xpathparams": ["consultType"],"testStepDescription" : "Click on  consult type"}}]},
+					{"typeText" : [{"inputName":{"xpathparams": ["consultType"],"value":"At Office","testStepDescription":"Enter consultation type as Office Type"}}]},
+					{ "keyBoardEvent": { "arrowDown":"1"}},
+					{ "keyBoardEvent": { "enter":"1"}},
+					{ "keyBoardEvent": { "tab":"1"}},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"inputError":{"xpathparams":["Please select a location for Visit"], "continueTestNodes" : false, "testStepDescription" : "Validate Please select a location for Visit Error Message for Location"}}									
+								]
+							}
+						]
+					}
+					
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "DOC_004",
+				"testCaseTitle": "Validate Location for Both Slot Type",
+				"testCaseDescription": "Validate Location for Both Slot Type",
+				"dependsOn": "DOC_002",
+				"tags":["SmokeTest","NegativeTest"],
+				"testCaseSteps": [
+				    {"clickElement" : [{"inputName":{"xpathparams": ["facility"],"testStepDescription" : "Click on  Facility"}}]},
+				    {"clickElement" : [{"inputName":{"xpathparams": ["consultType"],"testStepDescription" : "Click on  consult type"}}]},
+					{"textClearInputs" : [{"inputName":{"xpathparams": ["consultType"],"testStepDescription" : "Clear the consultType inputs"}}]},
+					{"typeText" : [{"inputName":{"xpathparams": ["consultType"],"value":"Both","testStepDescription":"Enter consultation type as Both"}}]},
+					{ "keyBoardEvent": { "arrowDown":"1"}},
+					{ "keyBoardEvent": { "enter":"1"}},
+					{ "keyBoardEvent": { "tab":"1"}},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"inputError":{"xpathparams":["Please select a location for Visit"], "continueTestNodes" : false, "testStepDescription" : "Validate Please select a location for Visit Error Message for Location"}}									
+								]
+							}
+						]
+					}
+					
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "DOC_005",
+				"testCaseTitle": "Enter Valid Location",
+				"testCaseDescription": "Enter Valid Location",
+				"dependsOn": "DOC_002",
+				"tags":["SmokeTest","SLTGEN","SLTDUP","SLTDOW","NegativeTest"],
+				"testCaseSteps": [
+				    {"clickElement" : [{"inputName":{"xpathparams": ["facility"],"testStepDescription" : "Click on  Facility"}}]},
+					{"typeText" : [{"inputName":{"xpathparams": ["facility"],"value":"$location","testStepDescription":"Enter consultation type as Both"}}]},
+					{ "keyBoardEvent": { "arrowDown":"1"}},
+					{ "keyBoardEvent": { "enter":"1"}},
+					{ "keyBoardEvent": { "tab":"1"}}
+					
+				]
+			}
+		},
+		
+	{
+			"testNode": {
+				"testCaseID": "DOC_006",
+				"testCaseTitle": "Enter Valid Slot Type",
+				"testCaseDescription": "Enter Valid Slot Type",
+				"dependsOn": "DOC_005",
+				"tags":["SmokeTest","SLTGEN","SLTDUP","SLTDOW","NegativeTest"],
+				"testCaseSteps": [
+				    {"clickElement" : [{"inputName":{"xpathparams": ["consultType"],"testStepDescription" : "Click on  consult type"}}]},
+					{"textClearInputs" : [{"inputName":{"xpathparams": ["consultType"],"testStepDescription" : "Clear the consultType inputs"}}]},
+					{"typeText" : [{"inputName":{"xpathparams": ["consultType"],"value":"Both","testStepDescription":"Enter consultation type as Both"}}]},
+					{ "keyBoardEvent": { "arrowDown":"1"}},
+					{ "keyBoardEvent": { "enter":"1"}},
+					{ "keyBoardEvent": { "tab":"1"}}	
+				]
+			}
+		},
+		
+	{
+			"testNode": {
+				"testCaseID": "DOC_007",
+				"testCaseTitle": "Enter Past Date in From Date field",
+				"testCaseDescription": "Enter Past Date in From Date field",
+				"dependsOn": "DOC_005",
+				"tags":["SmokeTest","NegativeTest"],
+				"testCaseSteps": [
+				    {"clickElement" : [{"inputName":{"xpathparams": ["fromDate"],"testStepDescription" : "Click on  fromDate"}}]},
+					{"textClearInputs" : [{"inputName":{"xpathparams": ["fromDate"],"testStepDescription" : "Clear the fromDate inputs"}}]},
+					{"typeText" : [{"inputName":{"xpathparams": ["fromDate"],"value":"07112021","testStepDescription":"Enter fromDate"}}]},
+					{ "keyBoardEvent": { "tab":"1"}},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"inputError":{"xpathparams":["Date should not be before minimal date"], "continueTestNodes" : false, "testStepDescription" : "Validate Date should not be before minimal date error message for From Date"}}									
+								]
+							}
+						]
+					}	
+				]
+			}
+		},
+	{
+			"testNode": {
+				"testCaseID": "DOC_008",
+				"testCaseTitle": "Enter Invalid Date Format in From Date field",
+				"testCaseDescription": "Enter Invalid Date Format in From Date field",
+				"dependsOn": "DOC_005",
+				"tags":["SmokeTest","NegativeTest"],
+				"testCaseSteps": [
+				    {"clickElement" : [{"inputName":{"xpathparams": ["fromDate"],"testStepDescription" : "Click on  fromDate"}}]},
+					{"textClearInputs" : [{"inputName":{"xpathparams": ["fromDate"],"testStepDescription" : "Clear the fromDate inputs"}}]},
+					{"typeText" : [{"inputName":{"xpathparams": ["fromDate"],"value":"071","testStepDescription":"Enter fromDate"}}]},
+					{ "keyBoardEvent": { "tab":"1"}},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"inputError":{"xpathparams":["Invalid Date Format"], "continueTestNodes" : false, "testStepDescription" : "Validate Date should not be before minimal date error message for From Date"}}									
+								]
+							}
+						]
+					}	
+				]
+			}
+		},	
+	{
+			"testNode": {
+				"testCaseID": "DOC_009",
+				"testCaseTitle": "Enter Valid Date Format in From Date field",
+				"testCaseDescription": "Enter Valid Date Format in From Date field",
+				"dependsOn": "DOC_006",
+				"tags":["SmokeTest","SLTGEN","SLTDUP","SLTDOW","NegativeTest"],
+				"testCaseSteps": [
+				    {"clickElement" : [{"inputName":{"xpathparams": ["fromDate"],"testStepDescription" : "Click on  fromDate"}}]},
+					{"textClearInputs" : [{"inputName":{"xpathparams": ["fromDate"],"testStepDescription" : "Clear the fromDate inputs"}}]},
+					{"typeText" : [{"inputName":{"xpathparams": ["fromDate"],"value":"$fromDate","testStepDescription":"Enter fromDate"}}]},
+					{ "keyBoardEvent": { "tab":"1"}}	
+				]
+			}
+		},
+{
+			"testNode": {
+				"testCaseID": "DOC_010",
+				"testCaseTitle": "Enter Past Date in To Date field",
+				"testCaseDescription": "Enter To Date in From Date field",
+				"dependsOn": "DOC_009",
+				"tags":["SmokeTest","NegativeTest"],
+				"testCaseSteps": [
+				    {"clickElement" : [{"inputName2":{"xpathparams": ["fromDate"],"testStepDescription" : "Click on  To Date"}}]},
+					{"textClearInputs" : [{"inputName2":{"xpathparams": ["fromDate"],"testStepDescription" : "Clear the To Date inputs"}}]},
+					{"typeText" : [{"inputName2":{"xpathparams": ["fromDate"],"value":"07112021","testStepDescription":"Enter To Date"}}]},
+					{ "keyBoardEvent": { "tab":"1"}},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"inputError":{"xpathparams":["Date should not be before minimal date"], "continueTestNodes" : false, "testStepDescription" : "Validate Date should not be before minimal date error message for From Date"}}									
+								]
+							}
+						]
+					}	
+				]
+			}
+		},
+	{
+			"testNode": {
+				"testCaseID": "DOC_011",
+				"testCaseTitle": "Enter Invalid Date Format in To Date field",
+				"testCaseDescription": "Enter Invalid Date Format in To Date field",
+				"dependsOn": "DOC_009",
+				"tags":["SmokeTest","NegativeTest"],
+				"testCaseSteps": [
+				    {"clickElement" : [{"inputName2":{"xpathparams": ["fromDate"],"testStepDescription" : "Click on  To Date"}}]},
+					{"textClearInputs" : [{"inputName2":{"xpathparams": ["fromDate"],"testStepDescription" : "Clear the To Date inputs"}}]},
+					{"typeText" : [{"inputName2":{"xpathparams": ["fromDate"],"value":"071","testStepDescription":"Enter To Date"}}]},
+					{ "keyBoardEvent": { "tab":"1"}},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"inputError":{"xpathparams":["Invalid Date Format"], "continueTestNodes" : false, "testStepDescription" : "Validate Date should not be before minimal date error message for From Date"}}									
+								]
+							}
+						]
+					}	
+				]
+			}
+		},	
+	{
+			"testNode": {
+				"testCaseID": "DOC_012",
+				"testCaseTitle": "Enter Valid Date Format in To Date field",
+				"testCaseDescription": "Enter Valid Date Format in To Date field",
+				"dependsOn": "DOC_009",
+				"tags":["SmokeTest","SLTGEN","SLTDUP","SLTDOW","NegativeTest"],
+				"testCaseSteps": [
+				    {"clickElement" : [{"inputName2":{"xpathparams": ["fromDate"],"testStepDescription" : "Click on To Date"}}]},
+					{"textClearInputs" : [{"inputName2":{"xpathparams": ["fromDate"],"testStepDescription" : "Clear the To Date inputs"}}]},
+					{"typeText" : [{"inputName2":{"xpathparams": ["fromDate"],"value":"$toDate","testStepDescription":"Enter To Date"}}]},
+					{ "keyBoardEvent": { "tab":"1"}}	
+				]
+			}
+		},
+	{
+			"testNode": {
+				"testCaseID": "DOC_013",
+				"testCaseTitle": "Enter Valid Time Format in From Time field",
+				"testCaseDescription": "Enter Valid Time Format in From Time field",
+				"dependsOn": "DOC_012",
+				"tags":["SmokeTest","SLTGEN","SLTDUP","SLTDOW","NegativeTest"],
+				"testCaseSteps": [
+				    {"clickElement" : [{"inputName3":{"xpathparams": ["fromDate"],"testStepDescription" : "Click on From Time"}}]},
+					{"textClearInputs" : [{"inputName3":{"xpathparams": ["fromDate"],"testStepDescription" : "Clear the From Time inputs"}}]},
+					{"typeText" : [{"inputName3":{"xpathparams": ["fromDate"],"value":"$fromTime","testStepDescription":"Enter From Time"}}]},
+					{ "keyBoardEvent": { "tab":"1"}}	
+				]
+			}
+		},				
+	{
+			"testNode": {
+				"testCaseID": "DOC_014",
+				"testCaseTitle": "Enter Valid Time Format in To Time field",
+				"testCaseDescription": "Enter Valid Time Format in To Time field",
+				"dependsOn": "DOC_013",
+				"tags":["SmokeTest","SLTGEN","SLTDUP","SLTDOW","NegativeTest"],
+				"testCaseSteps": [
+				    {"clickElement" : [{"inputName":{"xpathparams": ["toTime"],"testStepDescription" : "Click on To Time"}}]},
+					{"textClearInputs" : [{"inputName":{"xpathparams": ["toTime"],"testStepDescription" : "Clear the To Time inputs"}}]},
+					{"typeText" : [{"inputName":{"xpathparams": ["toTime"],"value":"$toTime","testStepDescription":"Enter To Time"}}]},
+					{ "keyBoardEvent": { "tab":"1"}}	
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "DOC_015",
+				"testCaseTitle": "Select Invalid Days of the Week",
+				"testCaseDescription": "Select Invalid Days of the Week",
+				"dependsOn": "DOC_014",
+				"tags":["SmokeTest","SLTDOW","NegativeTest"],
+				"testCaseSteps": [
+				    {"clickElement" : [{"buttonWithName":{"xpathparams": ["Mon"],"testStepDescription" : "Click on Days of the Week"}}]}
+				    
+						
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "DOC_016",
+				"testCaseTitle": "Select Valid Days of the Week",
+				"testCaseDescription": "Select Valid Days of the Week",
+				"dependsOn": "DOC_014",
+				"tags":["SmokeTest","SLTGEN","SLTDUP","NegativeTest"],
+				"testCaseSteps": [
+				    {"clickElement" : [{"buttonWithName":{"xpathparams": ["Daily"],"testStepDescription" : "Click on Days of the Week"}}]}
+				    
+						
+				]
+			}
+		},
+	{
+			"testNode": {
+				"testCaseID": "DOC_017",
+				"testCaseTitle": "Validate Empty Slot Duration field",
+				"testCaseDescription": "Validate Empty Slot Duration field",
+				"dependsOn": "DOC_016",
+				"tags":["SmokeTest","NegativeTest"],
+				"testCaseSteps": [
+				    {"clickElement" : [{"inputName":{"xpathparams": ["slotTime"],"testStepDescription" : "Click on  SlotTime"}}]},
+					{"textClearInputs" : [{"inputName":{"xpathparams": ["slotTime"],"testStepDescription" : "Clear the SlotTime inputs"}}]},
+					{ "keyBoardEvent": { "tab":"1"}},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"inputError":{"xpathparams":["Slot Time is Required"], "continueTestNodes" : false, "testStepDescription" : "Validate Date should not be before minimal date error message for From Date"}}									
+								]
+							}
+						]
+					}	
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "DOC_018",
+				"testCaseTitle": "Validate minimal slot duration",
+				"testCaseDescription": "Validate minimal slot duration",
+				"dependsOn": "DOC_016",
+				"tags":["SmokeTest","NegativeTest"],
+				"testCaseSteps": [
+				    {"clickElement" : [{"inputName":{"xpathparams": ["slotTime"],"testStepDescription" : "Click on  SlotTime"}}]},
+					{"textClearInputs" : [{"inputName":{"xpathparams": ["slotTime"],"testStepDescription" : "Clear the SlotTime inputs"}}]},
+					{"typeText" : [{"inputName":{"xpathparams": ["slotTime"],"value":"1","testStepDescription":"Enter To Time"}}]},
+					{ "keyBoardEvent": { "tab":"1"}},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"inputError":{"xpathparams":["Min Slot duration should be 10 mins"], "continueTestNodes" : false, "testStepDescription" : "Validate Date should not be before minimal date error message for From Date"}}									
+								]
+							}
+						]
+					}	
+				]
+			}
+		},							
+		{
+			"testNode": {
+				"testCaseID": "DOC_019",
+				"testCaseTitle": "Enter valid slot duration",
+				"testCaseDescription": "Enter valid slot duration",
+				"dependsOn": "DOC_016",
+				"tags":["SmokeTest","SLTGEN","SLTDUP","SLTDOW","NegativeTest"],
+				"testCaseSteps": [
+				    {"clickElement" : [{"inputName":{"xpathparams": ["slotTime"],"testStepDescription" : "Click on  SlotTime"}}]},
+					{"textClearInputs" : [{"inputName":{"xpathparams": ["slotTime"],"testStepDescription" : "Clear the SlotTime inputs"}}]},
+					{"typeText" : [{"inputName":{"xpathparams": ["slotTime"],"value":"$slotTime","testStepDescription":"Enter To Time"}}]},
+					{ "keyBoardEvent": { "tab":"1"}}	
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "DOC_020",
+				"testCaseTitle": "Enter Invalid Price",
+				"testCaseDescription": "Enter Invalid Price",
+				"dependsOn": "DOC_019",
+				"tags":["SmokeTest","NegativeTest"],
+				"testCaseSteps": [
+				    {"clickElement" : [{"inputName":{"xpathparams": ["price"],"testStepDescription" : "Click on price"}}]},
+					{"textClearInputs" : [{"inputName":{"xpathparams": ["price"],"testStepDescription" : "Clear the price inputs"}}]},
+					{ "keyBoardEvent": { "tab":"1"}},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"inputError":{"xpathparams":["Consultation Fee is Required"], "continueTestNodes" : false, "testStepDescription" : "Validate Date should not be before minimal date error message for From Date"}}									
+								]
+							}
+						]
+					}	
+				]
+			}
+		},
+	{
+			"testNode": {
+				"testCaseID": "DOC_021",
+				"testCaseTitle": "Enter valid consultation fee  details",
+				"testCaseDescription": "Enter valid consultation fee  details",
+				"dependsOn": "DOC_019",
+				"tags":["SmokeTest","SLTGEN","SLTDUP","SLTDOW","NegativeTest"],
+				"testCaseSteps": [
+				    {"clickElement" : [{"inputName":{"xpathparams": ["price"],"testStepDescription" : "Click on  Price"}}]},
+					{"textClearInputs" : [{"inputName":{"xpathparams": ["price"],"testStepDescription" : "Clear the price inputs"}}]},
+					{"typeText" : [{"inputName":{"xpathparams": ["price"],"value":"$consultationFee","testStepDescription":"Enter Price"}}]},
+					{ "keyBoardEvent": { "tab":"1"}}	
+				]
+			}
+		},	
+		
+		
+			{
+			"testNode": {
+				"testCaseID": "DOC_022",
+				"testCaseTitle": "Click on Generate Slots Button",
+				"testCaseDescription": "Click on Generate Slots Button",
+				"dependsOn": "DOC_021",
+				"tags":["SmokeTest","SLTGEN"],
+				"testCaseSteps": [
+				    {"clickElement" : [{"buttonWithName":{"xpathparams": ["Generate Slots"],"testStepDescription" : "Click on  Generate Slots"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"alertWindow":{"xpathparams":["Slots Generated Successfully..!!"], "continueTestNodes" : false, "testStepDescription" : "Validate Slots Generated Successfully..!! message"}}									
+								]
+							}
+						]
+					}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "DOC_023",
+				"testCaseTitle": "Validate Duplicate Slots ",
+				"testCaseDescription": "Validate Duplicate Slots",
+				"dependsOn": "DOC_021",
+				"tags":["SmokeTest","SLTDUP","NegativeTest"],
+				"testCaseSteps": [
+				    {"clickElement" : [{"buttonWithName":{"xpathparams": ["Generate Slots"],"testStepDescription" : "Click on  Generate Slots"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"alertWindow":{"xpathparams":["Slots with given combination already exist please check."], "continueTestNodes" : false, "testStepDescription" : "Validate Slots with given combination already exist please check. message"}}									
+								]
+							}
+						]
+					}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "DOC_024",
+				"testCaseTitle": "Validate Days Of the Week ",
+				"testCaseDescription": "Validate Days Of the Week for the given dates",
+				"dependsOn": "DOC_021",
+				"tags":["SmokeTest","SLTDOW","NegativeTest"],
+				"testCaseSteps": [
+				    {"clickElement" : [{"buttonWithName":{"xpathparams": ["Generate Slots"],"testStepDescription" : "Click on  Generate Slots"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"alertWindow":{"xpathparams":["Slots with given Days of Week not match."], "continueTestNodes" : false, "testStepDescription" : "Validate Slots with given combination already exist please check. message"}}									
+								]
+							}
+						]
+					}
+				]
+			}
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+					
+	]
+}
+

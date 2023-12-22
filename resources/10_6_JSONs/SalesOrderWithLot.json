@@ -1,0 +1,240 @@
+
+{
+	"testCases": [
+		{
+			"testNode": {
+				"testCaseID": "INFPO0010",
+				"testCaseTitle": "Login to the Infor LN Application",
+				"testCaseSteps": [
+					{ "typeText": { "login_username":"niranjan"}},
+					{ "typeText": { "login_password":"Sailo$987"}},
+					{ "clickElement": { "login_button":""}},
+					{ "clickElement": { "infor_ln_menu":"Infor LN"}},
+					{ "clickElement": { "procurement_menu":"Procurement"}},
+					{ "clickElement": { "orders_menu":"Orders"}},
+					{ "clickElement": { "order_intake_wb_menu":"Order Intake Workbench"}}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "INFPO0020",
+				"testCaseTitle": "Validate Business Partner with Invlid Business Partner",
+				"testCaseSteps": [					
+					{ "typeTextWithEnter": { "po_bp":"ABC"}},
+					{ "validate":[ { "isDisplayed":[
+									{"messageText":"Specified \"Business Partner\" not found in \"Buy-from Business Partners\". Enter another \"Business Partner\""}
+								]}]
+					},
+					{"clickElement" : {"popUpClose":""}}
+									
+				]
+			}
+        },
+		{
+			"testNode": {
+				"testCaseID": "INFPO0030",
+				"testCaseTitle": "Validate Business Partner with valid Business Partner",
+				"testCaseSteps": [
+					{ "clickElement": { "po_bp_search_txt":"Business Partner"}},	
+					{ "clickElement": { "po_bp_chkbox":""}},
+					{ "clickElement": { "po_bp_ok_button":"OK"}}
+				]
+			}
+        },
+        {
+			"testNode": {
+				"testCaseID": "INFPO0040",
+				"testCaseTitle": "Validate Order Type with Invalid Order Type",
+				"testCaseSteps": [
+					{ "typeTextWithEnter": { "po_ordertype":"ABC"}},
+					{ "validate":[ { "isDisplayed":[
+									{"messageText":"Specified \"Order Type\" not found in \"Purchase Order Types\". Enter another \"Order Type\""}
+								]}]
+					},
+					{"clickElement" : {"popUpClose":""}}
+				]
+			}
+        },
+		{
+			"testNode": {
+				"testCaseID": "INFPO0050",
+				"testCaseTitle": "Validate Order Type with valid Order Type",
+				"testCaseSteps": [
+					{ "clickElement": { "po_ordertype_search_txt":"Business Partner"}},	
+					{ "clickElement": { "po_ordertype_chkbox":"PUR"}},
+					{ "clickElement": { "po_ordertype_ok_button":"OK"}},
+					{ "validate":
+							[ 
+								{ "verifyText":
+									[
+										{"po_purchase_office":{"xpathparams":["PUROFF"], "fileName" : "PO_Purchase_Office", "bugTitle" : "PO Purchase Office is missing", "continueTestNodes": true}},
+										{"po_status":"Created"}
+									]
+								}
+							]
+					}
+				]
+			}
+        },
+        {
+			"testNode": {
+				"testCaseID": "ISAMFXTAB.0060",
+				"testCaseTitle": "Verify Product Image & Description",
+				"testCaseSteps": [
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[{"productDescription":"The Nokia 7360 Intelligent Services Access Manager (ISAM) FX is a high capacity access node that addresses mass-market fiber deployments. It meets the Gigabit bandwidth demand of residential and business users today and can smoothly evolve to next-generation fiber technologies to meet the demands of tomorrow. The Nokia 7360 ISAM FX simultaneously supports point-to-point and multiple Passive Optical Network (PON) technologies. High-bandwidth service throughput is enabled by market leading switching and uplink capacity and backplane technology that provides non-blocking connectivity to each user port."}]
+							},
+							{ "isElementPresent":[{"productImage":""}]}
+						]
+					}
+					
+				]
+			}
+        },
+        {
+			"testNode": {
+				"testCaseID": "ISAMFXTAB.0070",
+				"testCaseTitle": "Verify Main Tabs",
+				"testCaseSteps": [
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"mainTab":"1. Rack & Shelf >"},
+									{"mainTab":"2. Uplinks >"},
+									{"mainTab":"3. LTs"}
+								]
+							}
+							
+						]
+					}
+					
+				]
+			}
+        },
+        {
+			"testNode": {
+				"testCaseID": "ISAMFXTAB.0080",
+				"testCaseTitle": "Verify Main Groups in Rack and Shelt",
+				"testCaseSteps": [
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"guidanceHeader": {"xpathparams": ["1. Rack & Shelf >","Guidance"]}},
+									{"maingroup":{"xpathparams":["1. Rack & Shelf >","Starter Kit Type"]}},
+									{"maingroup":{"xpathparams":["1. Rack & Shelf >","AMS"]}},
+									{"maingroup":{"xpathparams":["1. Rack & Shelf >","Rack"]}},
+									{"maingroup":{"xpathparams":["1. Rack & Shelf >","Layer 3 RTU"]}}
+									
+								]
+							}
+						]
+					}
+					
+				]
+			}
+        },
+        {
+			"testNode": {
+				"testCaseID": "ISAMFXTAB.0090",
+				"testCaseTitle": "Verify Guidance Description in Rack and Shelf",
+				"testCaseSteps": [
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"guidanceText":{"xpathparams": ["1. Rack & Shelf >","The 7360 ISAM FX Family can be delivered in different Flavours each supporting a different number of Line termination boards: FX-4 4 LT boards, FX-8 8 LT boards, FX-16 16 LT Boards.For NAR, Shelfs are preconfigured as Starter Kits , Please select the starter kit to be configured.Please also select if the Rack, the AMS or the Layer 3 RTU license need to be included in the cart."]}}
+									
+								]
+							}
+						]
+					}
+					
+				]
+			}
+        },
+        {
+			"testNode": {
+				"testCaseID": "ISAMFXTAB.0100",
+				"testCaseTitle": "Verify Starter Kit Type List in Rack and Shelf",
+				"testCaseSteps": [{ "validate":[ { "isDisplayed":[	
+									{"productRadioButton":{"xpathparams": ["Starter Kit Type","Red FX4  HW Kit FANTG NO OPTICS HM"]}},
+									{"productQty":{"xpathparams": ["Starter Kit Type","Red FX4  HW Kit FANTG NO OPTICS HM","1"]}}
+								 ]}]
+					},
+					{"clickElement" : {"starterKitType":"Red FX4  HW Kit FANTG NO OPTICS HM"}},
+					{ "validate":[ { "isDisplayed":[
+									{"productName":"Red FX4  HW Kit FANTG NO OPTICS HM"},
+									{"productCode":"3HG01527HM"}
+								]}]
+					},
+					
+					{"clickElement" : {"popUpClose":""}}
+				]
+			}
+		},
+        {
+			"testNode": {
+				"testCaseID": "ISAMFXTAB.0110",
+				"testCaseTitle": " Verify By Default Product is Select Starter Kit Type List in Rack and Shelf",
+				"testCaseSteps": [
+					{ "validate": 
+						[ 
+							{ "isDisplayed":[
+																		
+									{"isRadioButtonChecked":{"xpathparams": ["Starter Kit Type","Red FX4  HW Kit FANTG NO OPTICS HM"]}}									
+								]
+							}
+						]
+					}
+					
+				]
+			}
+        },
+        {
+			"testNode": {
+				"testCaseID": "ISAMFXTAB.0130",
+				"testCaseTitle": "Verify Main Groups in Uplinks",
+				"testCaseSteps": [
+					{ "clickElement": {"mainTab":"2. Uplinks >"}},
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"guidanceHeader": {"xpathparams": ["2. Uplinks >","Guidance"]}},
+									{"maingroup":{"xpathparams":["2. Uplinks >","FANT-G Uplinks"]}},
+									{"maingroup":{"xpathparams":["2. Uplinks >","NTIO"]}}
+								]
+							}
+						]
+					},
+					{ "clickElement": {"mainTab":"1. Rack & Shelf >"}},
+					{ "clickRadioButton" :
+							{ "getXpath":[
+        						{"subGroupOption":{"xpathparams": ["1. Rack & Shelf >","Starter Kit Type","REDFX16 FANTH StarterKit W16P XGS NO OPT"]}}
+        					]}
+					},
+					{ "clickElement": {"mainTab":"2. Uplinks >"}},
+					{ "validate": 
+						[ { "isDisplayed":[	
+							{ "getXpath": 
+								[{"maingroup":{"xpathparams":["2. Uplinks >"," FAN-H Uplinks"]}}]
+							}
+						]}]
+					},
+					{"clickCheckbox" :
+							{ "getXpath":[
+        						{"subGroupOption":{"xpathparams": ["2. Uplinks >"," FAN-H Uplinks","FAN-H 100GE"]}}
+        					]}
+					}
+					
+				]
+			}
+        }
+      
+]}
+		

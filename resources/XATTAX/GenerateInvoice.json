@@ -1,0 +1,1429 @@
+{
+	"suiteName" : "XATTAX Generate e-invoice ",
+	"suiteDescription" : "XATTAX Generate e-invoice Suite",
+	"testCases": [
+		{
+			"testNode": {
+				"testCaseID": "GEN_INV_001",
+				"testCaseTitle": "Verify Login with Valid Credentials",
+				"testCaseDescription": "User Login",
+				"dependsOn": "",
+				"tags":["SmokeTest","INPTVLD","B2B","EXPWP","EXPWOP","SEZWP","SEZWOP","NegativeTest"],
+				"testCaseSteps": [
+				{ "login": { "login_username":"", "login_password":"", "url" : "http://175.101.240.71:9791/XATTAXEInvoice1.5/login","testStepDescription" : "Login with valid username and password"}},
+				{"typeTextWithTabKey" : [{"inputName":{"xpathparams": ["username"], "value" : "einvuser1", "testStepDescription" : "Enter valid username"}}]},					
+				{"typeTextWithTabKey" : [{"inputName":{"xpathparams": ["password"], "value" : "1234", "testStepDescription" : "Enter valid password"}}]},
+				{"clickElement" : [{"buttonLogin":{"xpathparams": ["loginId"],"testStepDescription" : "Click on login Button"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"buttonwithAnchor":{"xpathparams":["Logout"], "continueTestNodes" : false, "testStepDescription" : "Successfully Logged in and validate Logout button on the Homepage"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"buttonSelect":{"xpathparams": ["Select"], "testStepDescription" : "Click on Select Button"}}]},
+					{"clickElement" : [{"inputDatePicker":{"xpathparams": ["fp-datepicker","fp"],"testStepDescription" : "Click on Date picker input Button"}}]},
+					{"clickElement" : [{"slectMonth":{"xpathparams": ["Jan"],"testStepDescription" : "Click on January month Button"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sideMenus":{"xpathparams":["DASHBOARD"], "continueTestNodes" : false, "testStepDescription" : "Validate DASHBOARD side menu on the Homepage"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sideMenus":{"xpathparams":["Import e-Invoice"], "continueTestNodes" : false, "testStepDescription" : "Validate Import e-Invoice side menu on the Homepage"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sideMenus":{"xpathparams":["Generate e-Invoice"], "continueTestNodes" : false, "testStepDescription" : "Validate Generate e-Invoice side menu on the Homepage"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sideMenus":{"xpathparams":["e-Invoice Queue"], "continueTestNodes" : false, "testStepDescription" : "Validate User e-Invoice Queue side menu on the Homepage"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sideMenus":{"xpathparams":["B2C Queue"], "continueTestNodes" : false, "testStepDescription" : "Validate B2C Queue side menu on the Homepage"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sideMenus":{"xpathparams":["e-Way bill Queue"], "continueTestNodes" : false, "testStepDescription" : "Validate e-Way bill Queue side menu on the Homepage"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sideMenus":{"xpathparams":["Get e-Invoice"], "continueTestNodes" : false, "testStepDescription" : "Validate Get e-Invoice side menu on the Homepage"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sideMenus":{"xpathparams":["Reports"], "continueTestNodes" : false, "testStepDescription" : "Validate  Reports side menu on the Homepage"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sideMenus":{"xpathparams":["Business Partner"], "continueTestNodes" : false, "testStepDescription" : "Validate Business Partner side menu on the Homepage"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sideMenus":{"xpathparams":["Manage Items"], "continueTestNodes" : false, "testStepDescription" : "Validate Manage Items Mapping side menu on the Homepage"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sideMenus":{"xpathparams":["Tax Rates"], "continueTestNodes" : false, "testStepDescription" : "Validate Tax Rates side menu on the Homepage"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sideMenus":{"xpathparams":["Manage States"], "continueTestNodes" : false, "testStepDescription" : "Validate  Manage States side menu on the Homepage"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sideMenus":{"xpathparams":["Manage UQC"], "continueTestNodes" : false, "testStepDescription" : "Validate Manage UQC side menu on the Homepage"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sideMenus":{"xpathparams":["Erp File Details"], "continueTestNodes" : false, "testStepDescription" : "Validate Erp File Details side menu on the Homepage"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sideMenus":{"xpathparams":["Manage Users"], "continueTestNodes" : false, "testStepDescription" : "Validate Manage Users side menu on the Homepage"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sideMenus":{"xpathparams":["User GSTN Mapping"], "continueTestNodes" : false, "testStepDescription" : "Validate User GSTN Mapping side menu on the Homepage"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sideMenus":{"xpathparams":["Manage Transporter Details"], "continueTestNodes" : false, "testStepDescription" : "Validate Manage Transporter Details side menu on the Homepage"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"sideMenus":{"xpathparams": ["Generate e-Invoice"], "testStepDescription" : "Click on Generate e-Invoice Button"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"mainTitle":{"xpathparams":["e-Invoice"], "continueTestNodes" : false, "testStepDescription" : "Validate e-Invoice Title on the Generate invoice page"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sideHeaderTitle":{"xpathparams":["ebay_heading","Transaction Details"], "continueTestNodes" : false, "testStepDescription" : "Validate  Transaction Details  on the Genanerate invoice page"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sideHeaderTitle":{"xpathparams":["ebay_heading","Supplier Details"], "continueTestNodes" : false, "testStepDescription" : "Validate Supplier Details on the Generate invoice page"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sideHeaderTitle":{"xpathparams":["ebay_heading","Buyer Details"], "continueTestNodes" : false, "testStepDescription" : "Validate Buyer Details on the Generate invoice page"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sideHeaderTitle":{"xpathparams":["ebay_heading","Dispatch Details"], "continueTestNodes" : false, "testStepDescription" : "Validate Dispatch Details on the Generate invoice page"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sideHeaderTitle":{"xpathparams":["ebay_heading","Shipping Details"], "continueTestNodes" : false, "testStepDescription" : "Validate Shipping Details on the Generate invoice page"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sideHeaderTitle":{"xpathparams":["ebay_heading","E-WayBill Details"], "continueTestNodes" : false, "testStepDescription" : "Validate E-WayBill Details on the Generate invoice page"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sideHeaderTitle":{"xpathparams":["ebay_heading","Lines Details"], "continueTestNodes" : false, "testStepDescription" : "Validate Lines Details on the Generate invoice page"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sideHeaderTitle":{"xpathparams":["ebay_heading","UserDefinedFields Details"], "continueTestNodes" : false, "testStepDescription" : "Validate UserDefinedFields Details on the Generate invoice page"}}									
+								]
+							}
+						]
+					}
+								
+					
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "GEN_INV_002",
+				"testCaseTitle": "Verify Transaction Details",
+				"testCaseDescription": "Verify Transaction Details on Generate invoice page",
+				"dependsOn": "GEN_INV_001",
+				"tags":["SmokeTest","INPTVLD","B2B","EXPWP","EXPWOP","SEZWP","SEZWOP","NegativeTest"],
+				"testCaseSteps": [
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"inputFieldGEN":{"xpathparams":["Document Number"], "continueTestNodes" : false, "testStepDescription" : "Validate Document Number field on the Generate invoice page"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"inputFieldGEN":{"xpathparams":["Document Date"], "continueTestNodes" : false, "testStepDescription" : "Validate Document Date field on the Generate invoice page"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"ddField":{"xpathparams":["Document Type"], "continueTestNodes" : false, "testStepDescription" : "Validate Document Type field on the Generate invoice page"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"ddField":{"xpathparams":["Supply Type"], "continueTestNodes" : false, "testStepDescription" : "Validate Supply Type field on the Generate invoice page"}}									
+								]
+							}
+						]
+					}
+										
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "GEN_INV_003",
+				"testCaseTitle": "Validate the Transaction details",
+				"testCaseDescription": "Validate the Transaction details",
+				"dependsOn": "GEN_INV_002",
+				"tags":["SmokeTest","INPTVLD","B2B","EXPWP","EXPWOP","SEZWP","SEZWOP","NegativeTest"],
+				"testCaseSteps": [
+					{"typeTextWithTabKey" : [{"inputFieldGEN":{"xpathparams": ["Document Number"], "value" : "randomString", "randomLength" :"3", "testStepDescription" : "Enter valid Document Number"}}]},
+					{"typeTextWithTabKey" : [{"inputFieldGEN":{"xpathparams": ["Document Date"], "value" : "$documentDate", "testStepDescription" : "Enter valid Date"}}]},
+					{"clickElement" : [{"ddField":{"xpathparams": ["Document Type"],"testStepDescription" : "Click on Document Type Field"}}]},
+					{"clickElement" : [{"ddField":{"xpathparams": ["Supply Type"],"testStepDescription" : "Click on Supply Type Field"}}]},					
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"ddSelect":{"xpathparams":["Supply Type","B2B"], "continueTestNodes" : false, "testStepDescription" : "Validate B2B on Drop Down  the Supply type field"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"ddSelect":{"xpathparams":["Supply Type","SEZWP"], "continueTestNodes" : false, "testStepDescription" : "Validate SEZWP Drop Down the Supply type field"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"ddSelect":{"xpathparams":["Supply Type","SEZWOP"], "continueTestNodes" : false, "testStepDescription" : "Validate SEZWOP Drop Down the Supply type field"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"ddSelect":{"xpathparams":["Supply Type","EXPWP"], "continueTestNodes" : false, "testStepDescription" : "Validate EXPWP Drop Down the Supply type field"}}									
+								]
+							}
+						]
+					}						
+		
+										
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "GEN_INV_004",
+				"testCaseTitle": "Enter Transaction details for B2B invoice",
+				"testCaseDescription": "Enter Transaction details Document type as invoice for B2B invoice",
+				"dependsOn": "GEN_INV_003",
+				"tags":["SmokeTest","B2B","NegativeTest"],
+				"testCaseSteps": [				
+					{"clickElement" : [{"ddField":{"xpathparams": ["Document Type"],"testStepDescription" : "Click on Document Type Field"}}]},
+					{"typeTextWithEnter" : [{"ddField":{"xpathparams": ["Document Type"], "value" : "$documentTypeINV", "testStepDescription" : "Enter Document Type as Invoice"}}]},
+					{"clickElement" : [{"ddField":{"xpathparams": ["Supply Type"],"testStepDescription" : "Click on Document Type Field"}}]},
+					{"typeTextWithEnter" : [{"ddField":{"xpathparams": ["Supply Type"], "value" : "$supplyTypeB2B", "testStepDescription" : "Select Supply Type as B2B"}}]},
+					{"clickElement" : [{"inputFieldGEN":{"xpathparams": ["Supplier Location"],"testStepDescription" : "Click on Supplier Location Field"}}]},
+					{"typeTextWithEnter" : [{"inputFieldGEN":{"xpathparams": ["Supplier Location"], "value" : "$supplierLocation", "testStepDescription" : "Enter Jammu & Kashmir as supplier location"}}]},
+					{"clickElement" : [{"inputFieldGEN":{"xpathparams": ["Supplier Pincode"],"testStepDescription" : "Click on Supplier Pincode Field"}}]},
+					{"typeTextWithEnter" : [{"inputFieldGEN":{"xpathparams": ["Supplier Pincode"], "value" : "$supplierPinCode", "testStepDescription" : "Enter supplier pin code"}}]},
+					{"clickElement" : [{"inputFieldGEN":{"xpathparams": ["Buyer GSTIN"],"testStepDescription" : "Click on Buyer GSTIN Field"}}]},
+					{"typeTextWithEnter" : [{"inputFieldGEN":{"xpathparams": ["Buyer GSTIN"], "value" : "$buyerGSTIN", "testStepDescription" : "Enter Buyer GSTIN"}}]},
+					{"clickElement" : [{"inputFieldGEN":{"xpathparams": ["Buyer Legal Name"],"testStepDescription" : "Click on Buyer Legal Name Field"}}]},
+					{"typeTextWithEnter" : [{"inputFieldGEN":{"xpathparams": ["Buyer Legal Name"], "value" : "$buyerLegalName", "testStepDescription" : "Enter Buyer Legal Name"}}]},
+					{"clickElement" : [{"inputFieldGEN":{"xpathparams": ["Buyer Location"],"testStepDescription" : "Click on Buyer Location Field"}}]},
+					{"typeTextWithEnter" : [{"inputFieldGEN":{"xpathparams": ["Buyer Location"], "value" : "$buyerLocation", "testStepDescription" : "Enter Buyer Location"}}]},
+					{"clickElement" : [{"ddField":{"xpathparams": ["Place Of Supply"],"testStepDescription" : "Click on Place Of Supply Field"}}]},
+					{"typeTextWithEnter" : [{"ddField":{"xpathparams": ["Place Of Supply"], "value" : "$placeofSupply", "testStepDescription" : "Select Place Of Supply as Punjab"}}]},
+					{"clickElement" : [{"textAddressField":{"xpathparams": ["Buyer Address"],"testStepDescription" : "Click on Buyer Address Field"}}]},
+					{"typeTextWithEnter" : [{"textAddressField":{"xpathparams": ["Buyer Address"], "value" : "$buyerAddress", "testStepDescription" : "Enter Buyer Address"}}]},
+					{"clickElement" : [{"ddField":{"xpathparams": ["Buyer State"],"testStepDescription" : "Click on Buyer State Field"}}]},
+					{"typeTextWithEnter" : [{"ddField":{"xpathparams": ["Buyer State"], "value" : "$buyerState", "testStepDescription" : "Select Buyer State as Punjab"}}]},
+					{"clickElement" : [{"inputFieldGEN":{"xpathparams": ["Buyer Pincode"],"testStepDescription" : "Click on Buyer Pincode Field"}}]},
+					{"typeTextWithEnter" : [{"inputFieldGEN":{"xpathparams": ["Buyer Pincode"], "value" : "$buyerPincode", "testStepDescription" : "Enter Buyer Pincode"}}]},
+					{"clickElement" : [{"buttonwithYes":{"xpathparams": ["btn add_new1"],"testStepDescription" : "Click on Add new line Button"}}]},					
+					{"clickElement" : [{"textLinelevel":{"xpathparams": ["sales_invoice_box","prdDesc"],"testStepDescription" : "Click on Buyer Pincode Field"}}]},
+					{"typeTextWithEnter" : [{"textLinelevel":{"xpathparams": ["sales_invoice_box","prdDesc"], "value" : "$itemDesc", "testStepDescription" : "Enter Buyer Pincode"}}]},
+					{"clickElement" : [{"ddlinelevel":{"xpathparams": ["sales_invoice_box"],"testStepDescription" : "Click on Is Service drop down"}}]},
+					{"typeTextWithEnter" : [{"ddlinelevel":{"xpathparams": ["sales_invoice_box"], "value" : "$isService", "testStepDescription" : "Enter Is service as No"}}]},
+					{"clickElement" : [{"textLinelevel":{"xpathparams": ["sales_invoice_box","hsnCd0"],"testStepDescription" : "Click on HSN Code Field"}}]},
+					{"typeTextWithEnter" : [{"textLinelevel":{"xpathparams": ["sales_invoice_box","hsnCd0"], "value" : "$HSNcode", "testStepDescription" : "Enter HSN Code"}}]},
+					{"clickElement" : [{"textLinelevel":{"xpathparams": ["sales_invoice_box","qty0"],"testStepDescription" : "Click on line level Quantity Field"}}]},
+					{"typeTextWithEnter" : [{"textLinelevel":{"xpathparams": ["sales_invoice_box","qty0"], "value" : "$quantity", "testStepDescription" : "Enter line level item Quantity"}}]},
+					{"clickElement" : [{"ddlinewithName":{"xpathparams": ["sales_invoice_box","unit0"],"testStepDescription" : "Click on line level Unit of measure field"}}]},
+					{"typeTextWithEnter" : [{"ddlinewithName":{"xpathparams": ["sales_invoice_box","unit0"], "value" : "$unitofMesure", "testStepDescription" : "Enter KGS-KILOGRAMS"}}]},
+					{"clickElement" : [{"textLinelevel":{"xpathparams": ["sales_invoice_box","unitPrice0"],"testStepDescription" : "Click on Rate per Item Field"}}]},
+					{"typeTextWithEnter" : [{"textLinelevel":{"xpathparams": ["sales_invoice_box","unitPrice0"], "value" : "$rate", "testStepDescription" : "Enter Rate for the item"}}]},
+					{"clickElement" : [{"ddlinewithName":{"xpathparams": ["sales_invoice_box","gstRate0"],"testStepDescription" : "Click on line level Taxable Rate field"}}]},
+					{"typeTextWithEnter" : [{"ddlinewithName":{"xpathparams": ["sales_invoice_box","gstRate0"], "value" : "$taxableRate", "testStepDescription" : "Enter taxable Rate"}}]},
+					{"clickElement" : [{"buttonWithText":{"xpathparams": ["Save and Generate IRN"],"testStepDescription" : "Click on Save and Generate IRN button"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"buttonwithText":{"xpathparams":["Invoice Reference No. :"], "continueTestNodes" : false, "testStepDescription" : "Validate Invoice Reference No. :"}}									
+								]
+							}
+						]
+					},	
+					{"getText": [{"invoiceReferenceNum":{"xpathparams": [""], "varName" : "invoiceReferenceNumberB2B_INV","testStepDescription":"Get the generated e-invoice Reference number and save"}}]}
+									
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "GEN_INV_005",
+				"testCaseTitle": "Enter Transaction details for B2B Credit Note",
+				"testCaseDescription": "Enter Transaction details Document type as Credit Note for B2B invoice",
+				"dependsOn": "GEN_INV_003",
+				"tags":["SmokeTest","B2B","NegativeTest"],
+				"testCaseSteps": [
+					{"clickElement" : [{"sideMenus":{"xpathparams": ["Generate e-Invoice"], "testStepDescription" : "Click on Generate e-Invoice Button"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"mainTitle":{"xpathparams":["e-Invoice"], "continueTestNodes" : false, "testStepDescription" : "Validate e-Invoice Title on the Generate invoice page"}}									
+								]
+							}
+						]
+					},
+					{"typeTextWithTabKey" : [{"inputFieldGEN":{"xpathparams": ["Document Number"], "value" : "randomString", "randomLength" :"6", "testStepDescription" : "Enter valid Document Number"}}]},
+					{"typeTextWithTabKey" : [{"inputFieldGEN":{"xpathparams": ["Document Date"], "value" : "$documentDate", "testStepDescription" : "Enter valid Date"}}]},
+					{"clickElement" : [{"ddField":{"xpathparams": ["Document Type"],"testStepDescription" : "Click on Document Type Field"}}]},
+					{"typeTextWithEnter" : [{"ddField":{"xpathparams": ["Document Type"], "value" : "$documentTypeCredit", "testStepDescription" : "Enter Document Type as Credit Note"}}]},
+					{"clickElement" : [{"ddField":{"xpathparams": ["Supply Type"],"testStepDescription" : "Click on Document Type Field"}}]},
+					{"typeTextWithEnter" : [{"ddField":{"xpathparams": ["Supply Type"], "value" : "$supplyTypeB2B", "testStepDescription" : "Select Supply Type as B2B"}}]},
+					{"clickElement" : [{"inputFieldGEN":{"xpathparams": ["Supplier Location"],"testStepDescription" : "Click on Supplier Location Field"}}]},
+					{"typeTextWithEnter" : [{"inputFieldGEN":{"xpathparams": ["Supplier Location"], "value" : "$supplierLocation", "testStepDescription" : "Enter Jammu & Kashmir as supplier location"}}]},
+					{"clickElement" : [{"inputFieldGEN":{"xpathparams": ["Supplier Pincode"],"testStepDescription" : "Click on Supplier Pincode Field"}}]},
+					{"typeTextWithEnter" : [{"inputFieldGEN":{"xpathparams": ["Supplier Pincode"], "value" : "$supplierPinCode", "testStepDescription" : "Enter supplier pin code"}}]},
+					{"clickElement" : [{"inputFieldGEN":{"xpathparams": ["Buyer GSTIN"],"testStepDescription" : "Click on Buyer GSTIN Field"}}]},
+					{"typeTextWithEnter" : [{"inputFieldGEN":{"xpathparams": ["Buyer GSTIN"], "value" : "$buyerGSTIN", "testStepDescription" : "Enter Buyer GSTIN"}}]},
+					{"clickElement" : [{"inputFieldGEN":{"xpathparams": ["Buyer Legal Name"],"testStepDescription" : "Click on Buyer Legal Name Field"}}]},
+					{"typeTextWithEnter" : [{"inputFieldGEN":{"xpathparams": ["Buyer Legal Name"], "value" : "$buyerLegalName", "testStepDescription" : "Enter Buyer Legal Name"}}]},
+					{"clickElement" : [{"inputFieldGEN":{"xpathparams": ["Buyer Location"],"testStepDescription" : "Click on Buyer Location Field"}}]},
+					{"typeTextWithEnter" : [{"inputFieldGEN":{"xpathparams": ["Buyer Location"], "value" : "$buyerLocation", "testStepDescription" : "Enter Buyer Location"}}]},
+					{"clickElement" : [{"ddField":{"xpathparams": ["Place Of Supply"],"testStepDescription" : "Click on Place Of Supply Field"}}]},
+					{"typeTextWithEnter" : [{"ddField":{"xpathparams": ["Place Of Supply"], "value" : "$placeofSupply", "testStepDescription" : "Select Place Of Supply as Punjab"}}]},
+					{"clickElement" : [{"textAddressField":{"xpathparams": ["Buyer Address"],"testStepDescription" : "Click on Buyer Address Field"}}]},
+					{"typeTextWithEnter" : [{"textAddressField":{"xpathparams": ["Buyer Address"], "value" : "$buyerAddress", "testStepDescription" : "Enter Buyer Address"}}]},
+					{"clickElement" : [{"ddField":{"xpathparams": ["Buyer State"],"testStepDescription" : "Click on Buyer State Field"}}]},
+					{"typeTextWithEnter" : [{"ddField":{"xpathparams": ["Buyer State"], "value" : "$buyerState", "testStepDescription" : "Select Buyer State as Punjab"}}]},
+					{"clickElement" : [{"inputFieldGEN":{"xpathparams": ["Buyer Pincode"],"testStepDescription" : "Click on Buyer Pincode Field"}}]},
+					{"typeTextWithEnter" : [{"inputFieldGEN":{"xpathparams": ["Buyer Pincode"], "value" : "$buyerPincode", "testStepDescription" : "Enter Buyer Pincode"}}]},
+					{"clickElement" : [{"buttonwithYes":{"xpathparams": ["btn add_new1"],"testStepDescription" : "Click on Add new line Button"}}]},					
+					{"clickElement" : [{"textLinelevel":{"xpathparams": ["sales_invoice_box","prdDesc"],"testStepDescription" : "Click on Buyer Pincode Field"}}]},
+					{"typeTextWithEnter" : [{"textLinelevel":{"xpathparams": ["sales_invoice_box","prdDesc"], "value" : "$itemDesc", "testStepDescription" : "Enter Buyer Pincode"}}]},
+					{"clickElement" : [{"ddlinelevel":{"xpathparams": ["sales_invoice_box"],"testStepDescription" : "Click on Is Service drop down"}}]},
+					{"typeTextWithEnter" : [{"ddlinelevel":{"xpathparams": ["sales_invoice_box"], "value" : "$isService", "testStepDescription" : "Enter Is service as No"}}]},
+					{"clickElement" : [{"textLinelevel":{"xpathparams": ["sales_invoice_box","hsnCd0"],"testStepDescription" : "Click on HSN Code Field"}}]},
+					{"typeTextWithEnter" : [{"textLinelevel":{"xpathparams": ["sales_invoice_box","hsnCd0"], "value" : "$HSNcode", "testStepDescription" : "Enter HSN Code"}}]},
+					{"clickElement" : [{"textLinelevel":{"xpathparams": ["sales_invoice_box","qty0"],"testStepDescription" : "Click on line level Quantity Field"}}]},
+					{"typeTextWithEnter" : [{"textLinelevel":{"xpathparams": ["sales_invoice_box","qty0"], "value" : "$quantity", "testStepDescription" : "Enter line level item Quantity"}}]},
+					{"clickElement" : [{"ddlinewithName":{"xpathparams": ["sales_invoice_box","unit0"],"testStepDescription" : "Click on line level Unit of measure field"}}]},
+					{"typeTextWithEnter" : [{"ddlinewithName":{"xpathparams": ["sales_invoice_box","unit0"], "value" : "$unitofMesure", "testStepDescription" : "Enter KGS-KILOGRAMS"}}]},
+					{"clickElement" : [{"textLinelevel":{"xpathparams": ["sales_invoice_box","unitPrice0"],"testStepDescription" : "Click on Rate per Item Field"}}]},
+					{"typeTextWithEnter" : [{"textLinelevel":{"xpathparams": ["sales_invoice_box","unitPrice0"], "value" : "$rate", "testStepDescription" : "Enter Rate for the item"}}]},
+					{"clickElement" : [{"ddlinewithName":{"xpathparams": ["sales_invoice_box","gstRate0"],"testStepDescription" : "Click on line level Taxable Rate field"}}]},
+					{"typeTextWithEnter" : [{"ddlinewithName":{"xpathparams": ["sales_invoice_box","gstRate0"], "value" : "$taxableRate", "testStepDescription" : "Enter taxable Rate"}}]},
+					{"clickElement" : [{"buttonWithText":{"xpathparams": ["Save and Generate IRN"],"testStepDescription" : "Click on Save and Generate IRN button"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"buttonwithText":{"xpathparams":["Invoice Reference No. :"], "continueTestNodes" : false, "testStepDescription" : "Validate Invoice Reference No. :"}}									
+								]
+							}
+						]
+					},	
+					{"getText": [{"invoiceReferenceNum":{"xpathparams": [""], "varName" : "invoiceReferenceNumberB2B_Credit","testStepDescription":"Get the generated e-invoice Reference number and save"}}]}
+													
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "GEN_INV_006",
+				"testCaseTitle": "Enter Transaction details for B2B Debit Note",
+				"testCaseDescription": "Enter Transaction details Document type as Debit Note for B2B invoice",
+				"dependsOn": "GEN_INV_003",
+				"tags":["SmokeTest","B2B","NegativeTest"],
+				"testCaseSteps": [
+					{"clickElement" : [{"sideMenus":{"xpathparams": ["Generate e-Invoice"], "testStepDescription" : "Click on Generate e-Invoice Button"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"mainTitle":{"xpathparams":["e-Invoice"], "continueTestNodes" : false, "testStepDescription" : "Validate e-Invoice Title on the Generate invoice page"}}									
+								]
+							}
+						]
+					},
+					{"typeTextWithTabKey" : [{"inputFieldGEN":{"xpathparams": ["Document Number"], "value" : "randomString", "randomLength" :"6", "testStepDescription" : "Enter valid Document Number"}}]},
+					{"typeTextWithTabKey" : [{"inputFieldGEN":{"xpathparams": ["Document Date"], "value" : "$documentDate", "testStepDescription" : "Enter valid Date"}}]},
+					{"clickElement" : [{"ddField":{"xpathparams": ["Document Type"],"testStepDescription" : "Click on Document Type Field"}}]},
+					{"typeTextWithEnter" : [{"ddField":{"xpathparams": ["Document Type"], "value" : "$documentTypeDebit", "testStepDescription" : "Enter Document Type as Debit Note"}}]},
+					{"clickElement" : [{"ddField":{"xpathparams": ["Supply Type"],"testStepDescription" : "Click on Document Type Field"}}]},
+					{"typeTextWithEnter" : [{"ddField":{"xpathparams": ["Supply Type"], "value" : "$supplyTypeB2B", "testStepDescription" : "Select Supply Type as B2B"}}]},
+					{"clickElement" : [{"inputFieldGEN":{"xpathparams": ["Supplier Location"],"testStepDescription" : "Click on Supplier Location Field"}}]},
+					{"typeTextWithEnter" : [{"inputFieldGEN":{"xpathparams": ["Supplier Location"], "value" : "$supplierLocation", "testStepDescription" : "Enter Jammu & Kashmir as supplier location"}}]},
+					{"clickElement" : [{"inputFieldGEN":{"xpathparams": ["Supplier Pincode"],"testStepDescription" : "Click on Supplier Pincode Field"}}]},
+					{"typeTextWithEnter" : [{"inputFieldGEN":{"xpathparams": ["Supplier Pincode"], "value" : "$supplierPinCode", "testStepDescription" : "Enter supplier pin code"}}]},
+					{"clickElement" : [{"inputFieldGEN":{"xpathparams": ["Buyer GSTIN"],"testStepDescription" : "Click on Buyer GSTIN Field"}}]},
+					{"typeTextWithEnter" : [{"inputFieldGEN":{"xpathparams": ["Buyer GSTIN"], "value" : "$buyerGSTIN", "testStepDescription" : "Enter Buyer GSTIN"}}]},
+					{"clickElement" : [{"inputFieldGEN":{"xpathparams": ["Buyer Legal Name"],"testStepDescription" : "Click on Buyer Legal Name Field"}}]},
+					{"typeTextWithEnter" : [{"inputFieldGEN":{"xpathparams": ["Buyer Legal Name"], "value" : "$buyerLegalName", "testStepDescription" : "Enter Buyer Legal Name"}}]},
+					{"clickElement" : [{"inputFieldGEN":{"xpathparams": ["Buyer Location"],"testStepDescription" : "Click on Buyer Location Field"}}]},
+					{"typeTextWithEnter" : [{"inputFieldGEN":{"xpathparams": ["Buyer Location"], "value" : "$buyerLocation", "testStepDescription" : "Enter Buyer Location"}}]},
+					{"clickElement" : [{"ddField":{"xpathparams": ["Place Of Supply"],"testStepDescription" : "Click on Place Of Supply Field"}}]},
+					{"typeTextWithEnter" : [{"ddField":{"xpathparams": ["Place Of Supply"], "value" : "$placeofSupply", "testStepDescription" : "Select Place Of Supply as Punjab"}}]},
+					{"clickElement" : [{"textAddressField":{"xpathparams": ["Buyer Address"],"testStepDescription" : "Click on Buyer Address Field"}}]},
+					{"typeTextWithEnter" : [{"textAddressField":{"xpathparams": ["Buyer Address"], "value" : "$buyerAddress", "testStepDescription" : "Enter Buyer Address"}}]},
+					{"clickElement" : [{"ddField":{"xpathparams": ["Buyer State"],"testStepDescription" : "Click on Buyer State Field"}}]},
+					{"typeTextWithEnter" : [{"ddField":{"xpathparams": ["Buyer State"], "value" : "$buyerState", "testStepDescription" : "Select Buyer State as Punjab"}}]},
+					{"clickElement" : [{"inputFieldGEN":{"xpathparams": ["Buyer Pincode"],"testStepDescription" : "Click on Buyer Pincode Field"}}]},
+					{"typeTextWithEnter" : [{"inputFieldGEN":{"xpathparams": ["Buyer Pincode"], "value" : "$buyerPincode", "testStepDescription" : "Enter Buyer Pincode"}}]},
+					{"clickElement" : [{"buttonwithYes":{"xpathparams": ["btn add_new1"],"testStepDescription" : "Click on Add new line Button"}}]},					
+					{"clickElement" : [{"textLinelevel":{"xpathparams": ["sales_invoice_box","prdDesc"],"testStepDescription" : "Click on Buyer Pincode Field"}}]},
+					{"typeTextWithEnter" : [{"textLinelevel":{"xpathparams": ["sales_invoice_box","prdDesc"], "value" : "$itemDesc", "testStepDescription" : "Enter Buyer Pincode"}}]},
+					{"clickElement" : [{"ddlinelevel":{"xpathparams": ["sales_invoice_box"],"testStepDescription" : "Click on Is Service drop down"}}]},
+					{"typeTextWithEnter" : [{"ddlinelevel":{"xpathparams": ["sales_invoice_box"], "value" : "$isService", "testStepDescription" : "Enter Is service as No"}}]},
+					{"clickElement" : [{"textLinelevel":{"xpathparams": ["sales_invoice_box","hsnCd0"],"testStepDescription" : "Click on HSN Code Field"}}]},
+					{"typeTextWithEnter" : [{"textLinelevel":{"xpathparams": ["sales_invoice_box","hsnCd0"], "value" : "$HSNcode", "testStepDescription" : "Enter HSN Code"}}]},
+					{"clickElement" : [{"textLinelevel":{"xpathparams": ["sales_invoice_box","qty0"],"testStepDescription" : "Click on line level Quantity Field"}}]},
+					{"typeTextWithEnter" : [{"textLinelevel":{"xpathparams": ["sales_invoice_box","qty0"], "value" : "$quantity", "testStepDescription" : "Enter line level item Quantity"}}]},
+					{"clickElement" : [{"ddlinewithName":{"xpathparams": ["sales_invoice_box","unit0"],"testStepDescription" : "Click on line level Unit of measure field"}}]},
+					{"typeTextWithEnter" : [{"ddlinewithName":{"xpathparams": ["sales_invoice_box","unit0"], "value" : "$unitofMesure", "testStepDescription" : "Enter KGS-KILOGRAMS"}}]},
+					{"clickElement" : [{"textLinelevel":{"xpathparams": ["sales_invoice_box","unitPrice0"],"testStepDescription" : "Click on Rate per Item Field"}}]},
+					{"typeTextWithEnter" : [{"textLinelevel":{"xpathparams": ["sales_invoice_box","unitPrice0"], "value" : "$rate", "testStepDescription" : "Enter Rate for the item"}}]},
+					{"clickElement" : [{"ddlinewithName":{"xpathparams": ["sales_invoice_box","gstRate0"],"testStepDescription" : "Click on line level Taxable Rate field"}}]},
+					{"typeTextWithEnter" : [{"ddlinewithName":{"xpathparams": ["sales_invoice_box","gstRate0"], "value" : "$taxableRate", "testStepDescription" : "Enter taxable Rate"}}]},
+					{"clickElement" : [{"buttonWithText":{"xpathparams": ["Save and Generate IRN"],"testStepDescription" : "Click on Save and Generate IRN button"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"buttonwithText":{"xpathparams":["Invoice Reference No. :"], "continueTestNodes" : false, "testStepDescription" : "Validate Invoice Reference No. :"}}									
+								]
+							}
+						]
+					},	
+					{"getText": [{"invoiceReferenceNum":{"xpathparams": [""], "varName" : "invoiceReferenceNumberB2B_Debit","testStepDescription":"Get the generated e-invoice Reference number and save"}}]}
+									
+					]
+				}
+			},
+			{
+			"testNode": {
+				"testCaseID": "GEN_INV_007",
+				"testCaseTitle": "Validate Supplier details and Dispatch details fields",
+				"testCaseDescription": "Validate Supplier details and Dispatch details fields",
+				"dependsOn": "GEN_INV_003",
+				"tags":["SmokeTest","INPTVLD","NegativeTest"],
+				"testCaseSteps": [
+					{"clickElement" : [{"sideMenus":{"xpathparams": ["Generate e-Invoice"], "testStepDescription" : "Click on Generate e-Invoice Button"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"mainTitle":{"xpathparams":["e-Invoice"], "continueTestNodes" : false, "testStepDescription" : "Validate e-Invoice Title on the Generate invoice page"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sideHeaderTitle":{"xpathparams":["ebay_heading","Supplier Details"], "continueTestNodes" : false, "testStepDescription" : "Validate Supplier Details on the Generate invoice page"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"mandatorycheck":{"xpathparams":["Supplier GSTIN","red-star"], "continueTestNodes" : false, "testStepDescription" : "Validate Supplier GSTIN field is mandatory on the Generate invoice page under Supplier Details tab"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"mandatorycheck":{"xpathparams":["Supplier Legal Name","red-star"], "continueTestNodes" : false, "testStepDescription" : "Validate Supplier Legal Name field is mandatory on the Generate invoice page under Supplier Details tab"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"mandatorycheck":{"xpathparams":["Supplier Location","red-star"], "continueTestNodes" : false, "testStepDescription" : "Validate Supplier Location field is mandatory on the Generate invoice page under Supplier Details tab"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"mandatorycheck":{"xpathparams":["Supplier State","red-star"], "continueTestNodes" : false, "testStepDescription" : "Validate Supplier State field is mandatory on the Generate invoice page under Supplier Details tab"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"mandatorycheck":{"xpathparams":["Supplier Pincode","red-star"], "continueTestNodes" : false, "testStepDescription" : "Validate Supplier Pincode field is mandatory on the Generate invoice page under Supplier Details tab"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"mandatorycheck":{"xpathparams":["Supplier Address","red-star"], "continueTestNodes" : false, "testStepDescription" : "Validate Supplier Address field is mandatory on the Generate invoice page under Supplier Details tab"}}									
+								]
+							}
+						]
+					},
+					
+					
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"inputFieldGEN":{"xpathparams":["Supplier GSTIN"], "continueTestNodes" : false, "testStepDescription" : "Validate Supplier GSTIN field on the Generate invoice page under Supplier Details tab"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"inputFieldGEN":{"xpathparams":["Supplier Legal Name"], "continueTestNodes" : false, "testStepDescription" : "Validate Supplier Legal Name field on the Generate invoice page under Supplier Details tab"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"inputFieldGEN":{"xpathparams":["Supplier Location"], "continueTestNodes" : false, "testStepDescription" : "Validate Supplier Location field on the Generate invoice page under Supplier Details tab"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"ddField":{"xpathparams":["Supplier State"], "continueTestNodes" : false, "testStepDescription" : "Validate Supplier State field on the Generate invoice page under Supplier Details tab"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"inputFieldGEN":{"xpathparams":["Supplier Pincode"], "continueTestNodes" : false, "testStepDescription" : "Validate Supplier Pincode field on the Generate invoice page under Supplier Details tab"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"textAddressField":{"xpathparams":["Supplier Address"], "continueTestNodes" : false, "testStepDescription" : "Validate Supplier Address field on the Generate invoice page under Supplier Details tab"}}									
+								]
+							}
+						]
+					},
+					{"scrollTo" : [{"sideHeaderTitle":{"xpathparams": ["ebay_heading","Dispatch Details"],"scrollLength":"-30","testStepDescription" : "Scroll to Dispatch details tab"}}]},
+					
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sideHeaderTitle":{"xpathparams":["ebay_heading","Dispatch Details"], "continueTestNodes" : false, "testStepDescription" : "Validate Dispatch Details on the Generate invoice page"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"inputFieldGEN":{"xpathparams":["Dispatch Company Name"], "continueTestNodes" : false, "testStepDescription" : "Validate Dispatch Company Name field on the Generate invoice page under Dispatch Details tab"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"inputFieldGEN":{"xpathparams":["Dispatch Location"], "continueTestNodes" : false, "testStepDescription" : "Validate Dispatch Location field on the Generate invoice page under Dispatch Details tab"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"ddField":{"xpathparams":["Dispatch StateCode"], "continueTestNodes" : false, "testStepDescription" : "Validate Dispatch StateCode field on the Generate invoice page under Dispatch Details tab"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"inputFieldGEN":{"xpathparams":["Dispatch Pincode"], "continueTestNodes" : false, "testStepDescription" : "Validate Dispatch Pincode field on the Generate invoice page under Dispatch Details tab"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"textAddressField":{"xpathparams":["Dispatch Address"], "continueTestNodes" : false, "testStepDescription" : "Validate Dispatch Address field on the Generate invoice page under Dispatch Details tab"}}									
+								]
+							}
+						]
+					}
+	
+					]
+				}
+			},
+			{
+			"testNode": {
+				"testCaseID": "GEN_INV_008",
+				"testCaseTitle": "Validate Buyer details and Shipping details fields",
+				"testCaseDescription": "Validate Buyer details and Shipping details fields",
+				"dependsOn": "GEN_INV_003",
+				"tags":["SmokeTest","INPTVLD","NegativeTest"],
+				"testCaseSteps": [
+					{"clickElement" : [{"sideMenus":{"xpathparams": ["Generate e-Invoice"], "testStepDescription" : "Click on Generate e-Invoice Button"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"mainTitle":{"xpathparams":["e-Invoice"], "continueTestNodes" : false, "testStepDescription" : "Validate e-Invoice Title on the Generate invoice page"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sideHeaderTitle":{"xpathparams":["ebay_heading","Buyer Details"], "continueTestNodes" : false, "testStepDescription" : "Validate Buyer Details on the Generate invoice page"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"mandatorycheck":{"xpathparams":["Buyer GSTIN","red-star"], "continueTestNodes" : false, "testStepDescription" : "Validate Buyer GSTIN field is mandatory on the Generate invoice page under Buyer Details tab"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"mandatorycheck":{"xpathparams":["Buyer Legal Name","red-star"], "continueTestNodes" : false, "testStepDescription" : "Validate Buyer Legal Name field is mandatory on the Generate invoice page under Buyer Details tab"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"mandatorycheck":{"xpathparams":["Buyer Location","red-star"], "continueTestNodes" : false, "testStepDescription" : "Validate Buyer Location field is mandatory on the Generate invoice page under Buyer Details tab"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"mandatorycheck":{"xpathparams":["Place Of Supply","red-star"], "continueTestNodes" : false, "testStepDescription" : "Validate Place Of Supply field is mandatory on the Generate invoice page under Buyer Details tab"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"mandatorycheck":{"xpathparams":["Buyer State","red-star"], "continueTestNodes" : false, "testStepDescription" : "Validate Buyer State field is mandatory on the Generate invoice page under Buyer Details tab"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"mandatorycheck":{"xpathparams":["Buyer Pincode","red-star"], "continueTestNodes" : false, "testStepDescription" : "Validate Buyer Pincode field is mandatory on the Generate invoice page under Buyer Details tab"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"mandatorycheck":{"xpathparams":["Buyer Address","red-star"], "continueTestNodes" : false, "testStepDescription" : "Validate Buyer Address field is mandatory on the Generate invoice page under Buyer Details tab"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"inputFieldGEN":{"xpathparams":["Buyer GSTIN"], "continueTestNodes" : false, "testStepDescription" : "Validate Buyer GSTIN field on the Generate invoice page under Buyer Details tab"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"inputFieldGEN":{"xpathparams":["Buyer Legal Name"], "continueTestNodes" : false, "testStepDescription" : "Validate Buyer Legal Name field on the Generate invoice page under Buyer Details tab"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"inputFieldGEN":{"xpathparams":["Buyer Location"], "continueTestNodes" : false, "testStepDescription" : "Validate Buyer Location field on the Generate invoice page under Buyer Details tab"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"ddField":{"xpathparams":["Place Of Supply"], "continueTestNodes" : false, "testStepDescription" : "Validate Place Of Supply field on the Generate invoice page under Buyer Details tab"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"ddField":{"xpathparams":["Buyer State"], "continueTestNodes" : false, "testStepDescription" : "Validate Buyer State field on the Generate invoice page under Buyer Details tab"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"inputFieldGEN":{"xpathparams":["Buyer Pincode"], "continueTestNodes" : false, "testStepDescription" : "Validate Buyer Pincode field on the Generate invoice page under Buyer Details tab"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"textAddressField":{"xpathparams":["Buyer Address"], "continueTestNodes" : false, "testStepDescription" : "Validate Buyer Address field on the Generate invoice page under Buyer Details tab"}}									
+								]
+							}
+						]
+					},
+					{"scrollTo" : [{"sideHeaderTitle":{"xpathparams": ["ebay_heading","Shipping Details"],"scrollLength":"-30","testStepDescription" : "Scroll to Shipping details tab"}}]},
+					
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sideHeaderTitle":{"xpathparams":["ebay_heading","Shipping Details"], "continueTestNodes" : false, "testStepDescription" : "Validate Shipping Details on the Generate invoice page"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"inputFieldGEN":{"xpathparams":["Shipping Legal Name"], "continueTestNodes" : false, "testStepDescription" : "Validate Shipping Legal Name field on the Generate invoice page under Shipping Details tab"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"ddField":{"xpathparams":["Shipping To StateCode"], "continueTestNodes" : false, "testStepDescription" : "Validate Shipping To StateCode field on the Generate invoice page under Dispatch Details tab"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"inputFieldGEN":{"xpathparams":["Shipping To Location"], "continueTestNodes" : false, "testStepDescription" : "Validate Shipping To Location field on the Generate invoice page under Shipping Details tab"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"inputFieldGEN":{"xpathparams":["Shipping To Pincode"], "continueTestNodes" : false, "testStepDescription" : "Validate Shipping To Pincode field on the Generate invoice page under Shipping Details tab"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"textAddressField":{"xpathparams":["Shipping To Address"], "continueTestNodes" : false, "testStepDescription" : "Validate Shipping To Address field on the Generate invoice page under Shipping Details tab"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"inputFieldGEN":{"xpathparams":["Shipping To GSTIN"], "continueTestNodes" : false, "testStepDescription" : "Validate Shipping To GSTIN field on the Generate invoice page under Shipping Details tab"}}									
+								]
+							}
+						]
+					}
+					
+	
+					]
+				}
+			},
+		{
+			"testNode": {
+				"testCaseID": "GEN_INV_009",
+				"testCaseTitle": "Validate line level input fields",
+				"testCaseDescription": "Validate line level input fields",
+				"dependsOn": "GEN_INV_003",
+				"tags":["SmokeTest","INPTVLD","NegativeTest"],
+				"testCaseSteps": [
+					{"clickElement" : [{"sideMenus":{"xpathparams": ["Generate e-Invoice"], "testStepDescription" : "Click on Generate e-Invoice Button"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"mainTitle":{"xpathparams":["e-Invoice"], "continueTestNodes" : false, "testStepDescription" : "Validate e-Invoice Title on the Generate invoice page"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"ddField":{"xpathparams": ["Document Type"],"testStepDescription" : "Click on Document Type Field"}}]},
+					{"typeTextWithEnter" : [{"ddField":{"xpathparams": ["Document Type"], "value" : "$documentTypeINV", "testStepDescription" : "Enter Document Type as Invoice"}}]},
+					{"clickElement" : [{"ddField":{"xpathparams": ["Supply Type"],"testStepDescription" : "Click on Document Type Field"}}]},
+					{"typeTextWithEnter" : [{"ddField":{"xpathparams": ["Supply Type"], "value" : "$supplyTypeB2B", "testStepDescription" : "Select Supply Type as B2B"}}]},
+					{"clickElement" : [{"inputFieldGEN":{"xpathparams": ["Supplier Location"],"testStepDescription" : "Click on Supplier Location Field"}}]},
+					{"typeTextWithEnter" : [{"inputFieldGEN":{"xpathparams": ["Supplier Location"], "value" : "$supplierLocation", "testStepDescription" : "Enter Jammu & Kashmir as supplier location"}}]},
+					{"clickElement" : [{"inputFieldGEN":{"xpathparams": ["Supplier Pincode"],"testStepDescription" : "Click on Supplier Pincode Field"}}]},
+					{"typeTextWithEnter" : [{"inputFieldGEN":{"xpathparams": ["Supplier Pincode"], "value" : "$supplierPinCode", "testStepDescription" : "Enter supplier pin code"}}]},
+					{"clickElement" : [{"inputFieldGEN":{"xpathparams": ["Buyer GSTIN"],"testStepDescription" : "Click on Buyer GSTIN Field"}}]},
+					{"typeTextWithEnter" : [{"inputFieldGEN":{"xpathparams": ["Buyer GSTIN"], "value" : "$buyerGSTIN", "testStepDescription" : "Enter Buyer GSTIN"}}]},
+					{"clickElement" : [{"inputFieldGEN":{"xpathparams": ["Buyer Legal Name"],"testStepDescription" : "Click on Buyer Legal Name Field"}}]},
+					{"typeTextWithEnter" : [{"inputFieldGEN":{"xpathparams": ["Buyer Legal Name"], "value" : "$buyerLegalName", "testStepDescription" : "Enter Buyer Legal Name"}}]},
+					{"clickElement" : [{"inputFieldGEN":{"xpathparams": ["Buyer Location"],"testStepDescription" : "Click on Buyer Location Field"}}]},
+					{"typeTextWithEnter" : [{"inputFieldGEN":{"xpathparams": ["Buyer Location"], "value" : "$buyerLocation", "testStepDescription" : "Enter Buyer Location"}}]},
+					{"clickElement" : [{"ddField":{"xpathparams": ["Place Of Supply"],"testStepDescription" : "Click on Place Of Supply Field"}}]},
+					{"typeTextWithEnter" : [{"ddField":{"xpathparams": ["Place Of Supply"], "value" : "$placeofSupply", "testStepDescription" : "Select Place Of Supply as Punjab"}}]},
+					{"clickElement" : [{"textAddressField":{"xpathparams": ["Buyer Address"],"testStepDescription" : "Click on Buyer Address Field"}}]},
+					{"typeTextWithEnter" : [{"textAddressField":{"xpathparams": ["Buyer Address"], "value" : "$buyerAddress", "testStepDescription" : "Enter Buyer Address"}}]},
+					{"clickElement" : [{"ddField":{"xpathparams": ["Buyer State"],"testStepDescription" : "Click on Buyer State Field"}}]},
+					{"typeTextWithEnter" : [{"ddField":{"xpathparams": ["Buyer State"], "value" : "$buyerState", "testStepDescription" : "Select Buyer State as Punjab"}}]},
+					{"clickElement" : [{"inputFieldGEN":{"xpathparams": ["Buyer Pincode"],"testStepDescription" : "Click on Buyer Pincode Field"}}]},
+					{"typeTextWithEnter" : [{"inputFieldGEN":{"xpathparams": ["Buyer Pincode"], "value" : "$buyerPincode", "testStepDescription" : "Enter Buyer Pincode"}}]},
+					{"scrollTo" : [{"buttonwithYes":{"xpathparams": ["btn add_new1"],"scrollLength":"-50","testStepDescription" : "Scroll to line level Fields"}}]},
+					{"clickElement" : [{"buttonwithYes":{"xpathparams": ["btn add_new1"],"testStepDescription" : "Click on Add new line Button"}}]},					
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"textLinelevel":{"xpathparams":["sales_invoice_box","prdDesc"], "continueTestNodes" : false, "testStepDescription" : "Validate Item Description field on the Generate invoice page under line level"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"ddlinelevel":{"xpathparams":["sales_invoice_box"], "continueTestNodes" : false, "testStepDescription" : "Validate Is Service drop down on the Generate invoice page under line level"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"textLinelevel":{"xpathparams":["sales_invoice_box","hsnCd0"], "continueTestNodes" : false, "testStepDescription" : "Validate HSN Code field on the Generate invoice page under line level"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"textLinelevel":{"xpathparams":["sales_invoice_box","qty0"], "continueTestNodes" : false, "testStepDescription" : "Validate Quantity field on the Generate invoice page under line level"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"ddlinelevel":{"xpathparams":["sales_invoice_box","unit0"], "continueTestNodes" : false, "testStepDescription" : "Validate Unit of measure drop down on the Generate invoice page under line level"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"textLinelevel":{"xpathparams":["sales_invoice_box","unitPrice0"], "continueTestNodes" : false, "testStepDescription" : "Validate Rate per Item field on the Generate invoice page under line level"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"ddlinewithName":{"xpathparams":["sales_invoice_box","gstRate0"], "continueTestNodes" : false, "testStepDescription" : "Validate Taxable Rate drop down on the Generate invoice page under line level"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"buttonWithTitle":{"xpathparams": ["button","Delete"], "testStepDescription" : "Click on Delete(Created line will be delete) "}}]}					
+									
+					]
+				}
+			},
+			{
+			"testNode": {
+				"testCaseID": "GEN_INV_010",
+				"testCaseTitle": "Enter input details for Exports With Payment invoice",
+				"testCaseDescription": "Enter input details Document type as invoice for Exports With Payment invoice",
+				"dependsOn": "GEN_INV_003",
+				"tags":["SmokeTest","EXPWP","NegativeTest"],
+				"testCaseSteps": [				
+					{"clickElement" : [{"sideMenus":{"xpathparams": ["Generate e-Invoice"], "testStepDescription" : "Click on Generate e-Invoice Button"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"mainTitle":{"xpathparams":["e-Invoice"], "continueTestNodes" : false, "testStepDescription" : "Validate e-Invoice Title on the Generate invoice page"}}									
+								]
+							}
+						]
+					},
+					{"typeTextWithTabKey" : [{"inputFieldGEN":{"xpathparams": ["Document Number"], "value" : "randomString", "randomLength" :"6", "testStepDescription" : "Enter valid Document Number"}}]},
+					{"typeTextWithTabKey" : [{"inputFieldGEN":{"xpathparams": ["Document Date"], "value" : "$documentDate", "testStepDescription" : "Enter valid Date"}}]},
+					{"clickElement" : [{"ddField":{"xpathparams": ["Document Type"],"testStepDescription" : "Click on Document Type Field"}}]},
+					{"typeTextWithEnter" : [{"ddField":{"xpathparams": ["Document Type"], "value" : "$documentTypeINV", "testStepDescription" : "Enter Document Type as Invoice"}}]},
+					{"clickElement" : [{"ddField":{"xpathparams": ["Supply Type"],"testStepDescription" : "Click on Document Type Field"}}]},
+					{"typeTextWithEnter" : [{"ddField":{"xpathparams": ["Supply Type"], "value" : "$supplyTypeEXPWP", "testStepDescription" : "Select Supply Type as EXPWP"}}]},
+					{"clickElement" : [{"inputFieldGEN":{"xpathparams": ["Supplier Location"],"testStepDescription" : "Click on Supplier Location Field"}}]},
+					{"typeTextWithEnter" : [{"inputFieldGEN":{"xpathparams": ["Supplier Location"], "value" : "$supplierLocation", "testStepDescription" : "Enter Jammu & Kashmir as supplier location"}}]},
+					{"clickElement" : [{"inputFieldGEN":{"xpathparams": ["Supplier Pincode"],"testStepDescription" : "Click on Supplier Pincode Field"}}]},
+					{"typeTextWithEnter" : [{"inputFieldGEN":{"xpathparams": ["Supplier Pincode"], "value" : "$supplierPinCode", "testStepDescription" : "Enter supplier pin code"}}]},
+					{"clickElement" : [{"inputFieldGEN":{"xpathparams": ["Buyer GSTIN"],"testStepDescription" : "Click on Buyer GSTIN Field"}}]},
+					{"typeTextWithEnter" : [{"inputFieldGEN":{"xpathparams": ["Buyer GSTIN"], "value" : "$buyerGSTINEXP", "testStepDescription" : "Enter Buyer GSTIN"}}]},
+					{"clickElement" : [{"inputFieldGEN":{"xpathparams": ["Buyer Legal Name"],"testStepDescription" : "Click on Buyer Legal Name Field"}}]},
+					{"typeTextWithEnter" : [{"inputFieldGEN":{"xpathparams": ["Buyer Legal Name"], "value" : "$buyerLegalName", "testStepDescription" : "Enter Buyer Legal Name"}}]},
+					{"clickElement" : [{"inputFieldGEN":{"xpathparams": ["Buyer Location"],"testStepDescription" : "Click on Buyer Location Field"}}]},
+					{"typeTextWithEnter" : [{"inputFieldGEN":{"xpathparams": ["Buyer Location"], "value" : "$buyerLocationEXP", "testStepDescription" : "Enter Buyer Location"}}]},
+					{"clickElement" : [{"ddField":{"xpathparams": ["Place Of Supply"],"testStepDescription" : "Click on Place Of Supply Field"}}]},
+					{"typeTextWithEnter" : [{"ddField":{"xpathparams": ["Place Of Supply"], "value" : "$placeofSupplyEXP", "testStepDescription" : "Select Place Of Supply as Punjab"}}]},
+					{"clickElement" : [{"textAddressField":{"xpathparams": ["Buyer Address"],"testStepDescription" : "Click on Buyer Address Field"}}]},
+					{"typeTextWithEnter" : [{"textAddressField":{"xpathparams": ["Buyer Address"], "value" : "$buyerAddressEXP", "testStepDescription" : "Enter Buyer Address"}}]},
+					{"clickElement" : [{"ddField":{"xpathparams": ["Buyer State"],"testStepDescription" : "Click on Buyer State Field"}}]},
+					{"typeTextWithEnter" : [{"ddField":{"xpathparams": ["Buyer State"], "value" : "$buyerStateEXP", "testStepDescription" : "Select Buyer State as Punjab"}}]},
+					{"clickElement" : [{"inputFieldGEN":{"xpathparams": ["Buyer Pincode"],"testStepDescription" : "Click on Buyer Pincode Field"}}]},
+					{"typeTextWithEnter" : [{"inputFieldGEN":{"xpathparams": ["Buyer Pincode"], "value" : "$buyerPinCodeEXP", "testStepDescription" : "Enter Buyer Pincode"}}]},
+					{"clickElement" : [{"buttonwithYes":{"xpathparams": ["btn add_new1"],"testStepDescription" : "Click on Add new line Button"}}]},					
+					{"clickElement" : [{"textLinelevel":{"xpathparams": ["sales_invoice_box","prdDesc"],"testStepDescription" : "Click on Buyer Pincode Field"}}]},
+					{"typeTextWithEnter" : [{"textLinelevel":{"xpathparams": ["sales_invoice_box","prdDesc"], "value" : "$itemDesc", "testStepDescription" : "Enter Buyer Pincode"}}]},
+					{"clickElement" : [{"ddlinelevel":{"xpathparams": ["sales_invoice_box"],"testStepDescription" : "Click on Is Service drop down"}}]},
+					{"typeTextWithEnter" : [{"ddlinelevel":{"xpathparams": ["sales_invoice_box"], "value" : "$isService", "testStepDescription" : "Enter Is service as No"}}]},
+					{"clickElement" : [{"textLinelevel":{"xpathparams": ["sales_invoice_box","hsnCd0"],"testStepDescription" : "Click on HSN Code Field"}}]},
+					{"typeTextWithEnter" : [{"textLinelevel":{"xpathparams": ["sales_invoice_box","hsnCd0"], "value" : "$HSNcode", "testStepDescription" : "Enter HSN Code"}}]},
+					{"clickElement" : [{"textLinelevel":{"xpathparams": ["sales_invoice_box","qty0"],"testStepDescription" : "Click on line level Quantity Field"}}]},
+					{"typeTextWithEnter" : [{"textLinelevel":{"xpathparams": ["sales_invoice_box","qty0"], "value" : "$quantity", "testStepDescription" : "Enter line level item Quantity"}}]},
+					{"clickElement" : [{"ddlinewithName":{"xpathparams": ["sales_invoice_box","unit0"],"testStepDescription" : "Click on line level Unit of measure field"}}]},
+					{"typeTextWithEnter" : [{"ddlinewithName":{"xpathparams": ["sales_invoice_box","unit0"], "value" : "$unitofMesure", "testStepDescription" : "Enter KGS-KILOGRAMS"}}]},
+					{"clickElement" : [{"textLinelevel":{"xpathparams": ["sales_invoice_box","unitPrice0"],"testStepDescription" : "Click on Rate per Item Field"}}]},
+					{"typeTextWithEnter" : [{"textLinelevel":{"xpathparams": ["sales_invoice_box","unitPrice0"], "value" : "$rate", "testStepDescription" : "Enter Rate for the item"}}]},
+					{"clickElement" : [{"ddlinewithName":{"xpathparams": ["sales_invoice_box","gstRate0"],"testStepDescription" : "Click on line level Taxable Rate field"}}]},
+					{"typeTextWithEnter" : [{"ddlinewithName":{"xpathparams": ["sales_invoice_box","gstRate0"], "value" : "$taxableRate", "testStepDescription" : "Enter taxable Rate"}}]},
+					{"clickElement" : [{"buttonWithText":{"xpathparams": ["Save and Generate IRN"],"testStepDescription" : "Click on Save and Generate IRN button"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"buttonwithText":{"xpathparams":["Invoice Reference No. :"], "continueTestNodes" : false, "testStepDescription" : "Validate Invoice Reference No. :"}}									
+								]
+							}
+						]
+					},	
+					{"getText": [{"invoiceReferenceNum":{"xpathparams": [""], "varName" : "invoiceReferenceNumberEXPWP_INV","testStepDescription":"Get the generated e-invoice Reference number for EXPWP and save"}}]}
+									
+				]
+			}
+		},
+			{
+			"testNode": {
+				"testCaseID": "GEN_INV_011",
+				"testCaseTitle": "Enter input details for Exports With Out Payment invoice",
+				"testCaseDescription": "Enter input details Document type as invoice for Exports With Out Payment invoice",
+				"dependsOn": "GEN_INV_003",
+				"tags":["SmokeTest","EXPWOP","NegativeTest"],
+				"testCaseSteps": [				
+					{"clickElement" : [{"sideMenus":{"xpathparams": ["Generate e-Invoice"], "testStepDescription" : "Click on Generate e-Invoice Button"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"mainTitle":{"xpathparams":["e-Invoice"], "continueTestNodes" : false, "testStepDescription" : "Validate e-Invoice Title on the Generate invoice page"}}									
+								]
+							}
+						]
+					},
+					{"typeTextWithTabKey" : [{"inputFieldGEN":{"xpathparams": ["Document Number"], "value" : "randomString", "randomLength" :"6", "testStepDescription" : "Enter valid Document Number"}}]},
+					{"typeTextWithTabKey" : [{"inputFieldGEN":{"xpathparams": ["Document Date"], "value" : "$documentDate", "testStepDescription" : "Enter valid Date"}}]},
+					
+					{"clickElement" : [{"ddField":{"xpathparams": ["Document Type"],"testStepDescription" : "Click on Document Type Field"}}]},
+					{"typeTextWithEnter" : [{"ddField":{"xpathparams": ["Document Type"], "value" : "$documentTypeINV", "testStepDescription" : "Enter Document Type as Invoice"}}]},
+					{"clickElement" : [{"ddField":{"xpathparams": ["Supply Type"],"testStepDescription" : "Click on Document Type Field"}}]},
+					{"typeTextWithEnter" : [{"ddField":{"xpathparams": ["Supply Type"], "value" : "$supplyTypeEXPWOP", "testStepDescription" : "Select Supply Type as EXPWOP"}}]},
+					{"clickElement" : [{"inputFieldGEN":{"xpathparams": ["Supplier Location"],"testStepDescription" : "Click on Supplier Location Field"}}]},
+					{"typeTextWithEnter" : [{"inputFieldGEN":{"xpathparams": ["Supplier Location"], "value" : "$supplierLocation", "testStepDescription" : "Enter Jammu & Kashmir as supplier location"}}]},
+					{"clickElement" : [{"inputFieldGEN":{"xpathparams": ["Supplier Pincode"],"testStepDescription" : "Click on Supplier Pincode Field"}}]},
+					{"typeTextWithEnter" : [{"inputFieldGEN":{"xpathparams": ["Supplier Pincode"], "value" : "$supplierPinCode", "testStepDescription" : "Enter supplier pin code"}}]},
+					{"clickElement" : [{"inputFieldGEN":{"xpathparams": ["Buyer GSTIN"],"testStepDescription" : "Click on Buyer GSTIN Field"}}]},
+					{"typeTextWithEnter" : [{"inputFieldGEN":{"xpathparams": ["Buyer GSTIN"], "value" : "$buyerGSTINEXP", "testStepDescription" : "Enter Buyer GSTIN"}}]},
+					{"clickElement" : [{"inputFieldGEN":{"xpathparams": ["Buyer Legal Name"],"testStepDescription" : "Click on Buyer Legal Name Field"}}]},
+					{"typeTextWithEnter" : [{"inputFieldGEN":{"xpathparams": ["Buyer Legal Name"], "value" : "$buyerLegalName", "testStepDescription" : "Enter Buyer Legal Name"}}]},
+					{"clickElement" : [{"inputFieldGEN":{"xpathparams": ["Buyer Location"],"testStepDescription" : "Click on Buyer Location Field"}}]},
+					{"typeTextWithEnter" : [{"inputFieldGEN":{"xpathparams": ["Buyer Location"], "value" : "$buyerLocationEXP", "testStepDescription" : "Enter Buyer Location"}}]},
+					{"clickElement" : [{"ddField":{"xpathparams": ["Place Of Supply"],"testStepDescription" : "Click on Place Of Supply Field"}}]},
+					{"typeTextWithEnter" : [{"ddField":{"xpathparams": ["Place Of Supply"], "value" : "$placeofSupplyEXP", "testStepDescription" : "Select Place Of Supply as Punjab"}}]},
+					{"clickElement" : [{"textAddressField":{"xpathparams": ["Buyer Address"],"testStepDescription" : "Click on Buyer Address Field"}}]},
+					{"typeTextWithEnter" : [{"textAddressField":{"xpathparams": ["Buyer Address"], "value" : "$buyerAddressEXP", "testStepDescription" : "Enter Buyer Address"}}]},
+					{"clickElement" : [{"ddField":{"xpathparams": ["Buyer State"],"testStepDescription" : "Click on Buyer State Field"}}]},
+					{"typeTextWithEnter" : [{"ddField":{"xpathparams": ["Buyer State"], "value" : "$buyerStateEXP", "testStepDescription" : "Select Buyer State as Punjab"}}]},
+					{"clickElement" : [{"inputFieldGEN":{"xpathparams": ["Buyer Pincode"],"testStepDescription" : "Click on Buyer Pincode Field"}}]},
+					{"typeTextWithEnter" : [{"inputFieldGEN":{"xpathparams": ["Buyer Pincode"], "value" : "$buyerPinCodeEXP", "testStepDescription" : "Enter Buyer Pincode"}}]},
+					{"clickElement" : [{"buttonwithYes":{"xpathparams": ["btn add_new1"],"testStepDescription" : "Click on Add new line Button"}}]},					
+					{"clickElement" : [{"textLinelevel":{"xpathparams": ["sales_invoice_box","prdDesc"],"testStepDescription" : "Click on Buyer Pincode Field"}}]},
+					{"typeTextWithEnter" : [{"textLinelevel":{"xpathparams": ["sales_invoice_box","prdDesc"], "value" : "$itemDesc", "testStepDescription" : "Enter Buyer Pincode"}}]},
+					{"clickElement" : [{"ddlinelevel":{"xpathparams": ["sales_invoice_box"],"testStepDescription" : "Click on Is Service drop down"}}]},
+					{"typeTextWithEnter" : [{"ddlinelevel":{"xpathparams": ["sales_invoice_box"], "value" : "$isService", "testStepDescription" : "Enter Is service as No"}}]},
+					{"clickElement" : [{"textLinelevel":{"xpathparams": ["sales_invoice_box","hsnCd0"],"testStepDescription" : "Click on HSN Code Field"}}]},
+					{"typeTextWithEnter" : [{"textLinelevel":{"xpathparams": ["sales_invoice_box","hsnCd0"], "value" : "$HSNcode", "testStepDescription" : "Enter HSN Code"}}]},
+					{"clickElement" : [{"textLinelevel":{"xpathparams": ["sales_invoice_box","qty0"],"testStepDescription" : "Click on line level Quantity Field"}}]},
+					{"typeTextWithEnter" : [{"textLinelevel":{"xpathparams": ["sales_invoice_box","qty0"], "value" : "$quantity", "testStepDescription" : "Enter line level item Quantity"}}]},
+					{"clickElement" : [{"ddlinewithName":{"xpathparams": ["sales_invoice_box","unit0"],"testStepDescription" : "Click on line level Unit of measure field"}}]},
+					{"typeTextWithEnter" : [{"ddlinewithName":{"xpathparams": ["sales_invoice_box","unit0"], "value" : "$unitofMesure", "testStepDescription" : "Enter KGS-KILOGRAMS"}}]},
+					{"clickElement" : [{"textLinelevel":{"xpathparams": ["sales_invoice_box","unitPrice0"],"testStepDescription" : "Click on Rate per Item Field"}}]},
+					{"typeTextWithEnter" : [{"textLinelevel":{"xpathparams": ["sales_invoice_box","unitPrice0"], "value" : "$rate", "testStepDescription" : "Enter Rate for the item"}}]},
+					{"clickElement" : [{"ddlinewithName":{"xpathparams": ["sales_invoice_box","gstRate0"],"testStepDescription" : "Click on line level Taxable Rate field"}}]},
+					{"typeTextWithEnter" : [{"ddlinewithName":{"xpathparams": ["sales_invoice_box","gstRate0"], "value" : "$taxableRate", "testStepDescription" : "Enter taxable Rate"}}]},
+					{"clickElement" : [{"buttonWithText":{"xpathparams": ["Save and Generate IRN"],"testStepDescription" : "Click on Save and Generate IRN button"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"buttonwithText":{"xpathparams":["Invoice Reference No. :"], "continueTestNodes" : false, "testStepDescription" : "Validate Invoice Reference No. :"}}									
+								]
+							}
+						]
+					},	
+					{"getText": [{"invoiceReferenceNum":{"xpathparams": [""], "varName" : "invoiceReferenceNumberEXPWOP_INV","testStepDescription":"Get the generated e-invoice Reference number for Export With Out Payment and save"}}]}
+									
+				]
+			}
+		},
+			{
+			"testNode": {
+				"testCaseID": "GEN_INV_012",
+				"testCaseTitle": "Enter input details for SEZ With Payment invoice",
+				"testCaseDescription": "Enter input details Document type as invoice for SEZ With Payment invoice",
+				"dependsOn": "GEN_INV_003",
+				"tags":["SmokeTest","SEZWP","NegativeTest"],
+				"testCaseSteps": [				
+					{"clickElement" : [{"sideMenus":{"xpathparams": ["Generate e-Invoice"], "testStepDescription" : "Click on Generate e-Invoice Button"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"mainTitle":{"xpathparams":["e-Invoice"], "continueTestNodes" : false, "testStepDescription" : "Validate e-Invoice Title on the Generate invoice page"}}									
+								]
+							}
+						]
+					},
+					{"typeTextWithTabKey" : [{"inputFieldGEN":{"xpathparams": ["Document Number"], "value" : "randomString", "randomLength" :"6", "testStepDescription" : "Enter valid Document Number"}}]},
+					{"typeTextWithTabKey" : [{"inputFieldGEN":{"xpathparams": ["Document Date"], "value" : "$documentDate", "testStepDescription" : "Enter valid Date"}}]},
+					
+					{"clickElement" : [{"ddField":{"xpathparams": ["Document Type"],"testStepDescription" : "Click on Document Type Field"}}]},
+					{"typeTextWithEnter" : [{"ddField":{"xpathparams": ["Document Type"], "value" : "$documentTypeINV", "testStepDescription" : "Enter Document Type as Invoice"}}]},
+					{"clickElement" : [{"ddField":{"xpathparams": ["Supply Type"],"testStepDescription" : "Click on Document Type Field"}}]},
+					{"typeTextWithEnter" : [{"ddField":{"xpathparams": ["Supply Type"], "value" : "$supplyTypeSEZWP", "testStepDescription" : "Select Supply Type as SEZWP"}}]},
+					{"clickElement" : [{"inputFieldGEN":{"xpathparams": ["Supplier Location"],"testStepDescription" : "Click on Supplier Location Field"}}]},
+					{"typeTextWithEnter" : [{"inputFieldGEN":{"xpathparams": ["Supplier Location"], "value" : "$supplierLocation", "testStepDescription" : "Enter Jammu & Kashmir as supplier location"}}]},
+					{"clickElement" : [{"inputFieldGEN":{"xpathparams": ["Supplier Pincode"],"testStepDescription" : "Click on Supplier Pincode Field"}}]},
+					{"typeTextWithEnter" : [{"inputFieldGEN":{"xpathparams": ["Supplier Pincode"], "value" : "$supplierPinCode", "testStepDescription" : "Enter supplier pin code"}}]},
+					{"clickElement" : [{"inputFieldGEN":{"xpathparams": ["Buyer GSTIN"],"testStepDescription" : "Click on Buyer GSTIN Field"}}]},
+					{"typeTextWithEnter" : [{"inputFieldGEN":{"xpathparams": ["Buyer GSTIN"], "value" : "$buyerGSTINSEZ", "testStepDescription" : "Enter Buyer GSTIN"}}]},
+					{"clickElement" : [{"inputFieldGEN":{"xpathparams": ["Buyer Legal Name"],"testStepDescription" : "Click on Buyer Legal Name Field"}}]},
+					{"typeTextWithEnter" : [{"inputFieldGEN":{"xpathparams": ["Buyer Legal Name"], "value" : "$buyerLegalName", "testStepDescription" : "Enter Buyer Legal Name"}}]},
+					{"clickElement" : [{"inputFieldGEN":{"xpathparams": ["Buyer Location"],"testStepDescription" : "Click on Buyer Location Field"}}]},
+					{"typeTextWithEnter" : [{"inputFieldGEN":{"xpathparams": ["Buyer Location"], "value" : "$buyerLocationSEZ", "testStepDescription" : "Enter Buyer Location"}}]},
+					{"clickElement" : [{"ddField":{"xpathparams": ["Place Of Supply"],"testStepDescription" : "Click on Place Of Supply Field"}}]},
+					{"typeTextWithEnter" : [{"ddField":{"xpathparams": ["Place Of Supply"], "value" : "$placeofSupplySEZ", "testStepDescription" : "Select Place Of Supply as Tamil Nadu"}}]},
+					{"clickElement" : [{"textAddressField":{"xpathparams": ["Buyer Address"],"testStepDescription" : "Click on Buyer Address Field"}}]},
+					{"typeTextWithEnter" : [{"textAddressField":{"xpathparams": ["Buyer Address"], "value" : "$buyerAddressSEZ", "testStepDescription" : "Enter Buyer Address"}}]},
+					{"clickElement" : [{"ddField":{"xpathparams": ["Buyer State"],"testStepDescription" : "Click on Buyer State Field"}}]},
+					{"typeTextWithEnter" : [{"ddField":{"xpathparams": ["Buyer State"], "value" : "$buyerStateSEZ", "testStepDescription" : "Select Buyer State as Tamil Nadu"}}]},
+					{"clickElement" : [{"inputFieldGEN":{"xpathparams": ["Buyer Pincode"],"testStepDescription" : "Click on Buyer Pincode Field"}}]},
+					{"typeTextWithEnter" : [{"inputFieldGEN":{"xpathparams": ["Buyer Pincode"], "value" : "$buyerPinCodeSEZ", "testStepDescription" : "Enter Buyer Pincode"}}]},
+					{"clickElement" : [{"buttonwithYes":{"xpathparams": ["btn add_new1"],"testStepDescription" : "Click on Add new line Button"}}]},					
+					{"clickElement" : [{"textLinelevel":{"xpathparams": ["sales_invoice_box","prdDesc"],"testStepDescription" : "Click on Buyer Pincode Field"}}]},
+					{"typeTextWithEnter" : [{"textLinelevel":{"xpathparams": ["sales_invoice_box","prdDesc"], "value" : "$itemDesc", "testStepDescription" : "Enter Buyer Pincode"}}]},
+					{"clickElement" : [{"ddlinelevel":{"xpathparams": ["sales_invoice_box"],"testStepDescription" : "Click on Is Service drop down"}}]},
+					{"typeTextWithEnter" : [{"ddlinelevel":{"xpathparams": ["sales_invoice_box"], "value" : "$isService", "testStepDescription" : "Enter Is service as No"}}]},
+					{"clickElement" : [{"textLinelevel":{"xpathparams": ["sales_invoice_box","hsnCd0"],"testStepDescription" : "Click on HSN Code Field"}}]},
+					{"typeTextWithEnter" : [{"textLinelevel":{"xpathparams": ["sales_invoice_box","hsnCd0"], "value" : "$HSNcode", "testStepDescription" : "Enter HSN Code"}}]},
+					{"clickElement" : [{"textLinelevel":{"xpathparams": ["sales_invoice_box","qty0"],"testStepDescription" : "Click on line level Quantity Field"}}]},
+					{"typeTextWithEnter" : [{"textLinelevel":{"xpathparams": ["sales_invoice_box","qty0"], "value" : "$quantity", "testStepDescription" : "Enter line level item Quantity"}}]},
+					{"clickElement" : [{"ddlinewithName":{"xpathparams": ["sales_invoice_box","unit0"],"testStepDescription" : "Click on line level Unit of measure field"}}]},
+					{"typeTextWithEnter" : [{"ddlinewithName":{"xpathparams": ["sales_invoice_box","unit0"], "value" : "$unitofMesure", "testStepDescription" : "Enter KGS-KILOGRAMS"}}]},
+					{"clickElement" : [{"textLinelevel":{"xpathparams": ["sales_invoice_box","unitPrice0"],"testStepDescription" : "Click on Rate per Item Field"}}]},
+					{"typeTextWithEnter" : [{"textLinelevel":{"xpathparams": ["sales_invoice_box","unitPrice0"], "value" : "$rate", "testStepDescription" : "Enter Rate for the item"}}]},
+					{"clickElement" : [{"ddlinewithName":{"xpathparams": ["sales_invoice_box","gstRate0"],"testStepDescription" : "Click on line level Taxable Rate field"}}]},
+					{"typeTextWithEnter" : [{"ddlinewithName":{"xpathparams": ["sales_invoice_box","gstRate0"], "value" : "$taxableRate", "testStepDescription" : "Enter taxable Rate"}}]},
+					{"clickElement" : [{"buttonWithText":{"xpathparams": ["Save and Generate IRN"],"testStepDescription" : "Click on Save and Generate IRN button"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"buttonwithText":{"xpathparams":["Invoice Reference No. :"], "continueTestNodes" : false, "testStepDescription" : "Validate Invoice Reference No. :"}}									
+								]
+							}
+						]
+					},	
+					{"getText": [{"invoiceReferenceNum":{"xpathparams": [""], "varName" : "invoiceReferenceNumberSEZWP_INV","testStepDescription":"Get the generated e-invoice Reference number for SEZ With Payment and save"}}]}
+									
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "GEN_INV_013",
+				"testCaseTitle": "Enter input details for SEZ With Out Payment invoice",
+				"testCaseDescription": "Enter input details Document type as invoice for SEZ With Out Payment invoice",
+				"dependsOn": "GEN_INV_003",
+				"tags":["SmokeTest","SEZWOP","NegativeTest"],
+				"testCaseSteps": [				
+					{"clickElement" : [{"sideMenus":{"xpathparams": ["Generate e-Invoice"], "testStepDescription" : "Click on Generate e-Invoice Button"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"mainTitle":{"xpathparams":["e-Invoice"], "continueTestNodes" : false, "testStepDescription" : "Validate e-Invoice Title on the Generate invoice page"}}									
+								]
+							}
+						]
+					},
+					{"typeTextWithTabKey" : [{"inputFieldGEN":{"xpathparams": ["Document Number"], "value" : "randomString", "randomLength" :"6", "testStepDescription" : "Enter valid Document Number"}}]},
+					{"typeTextWithTabKey" : [{"inputFieldGEN":{"xpathparams": ["Document Date"], "value" : "$documentDate", "testStepDescription" : "Enter valid Date"}}]},
+					
+					{"clickElement" : [{"ddField":{"xpathparams": ["Document Type"],"testStepDescription" : "Click on Document Type Field"}}]},
+					{"typeTextWithEnter" : [{"ddField":{"xpathparams": ["Document Type"], "value" : "$documentTypeINV", "testStepDescription" : "Enter Document Type as Invoice"}}]},
+					{"clickElement" : [{"ddField":{"xpathparams": ["Supply Type"],"testStepDescription" : "Click on Document Type Field"}}]},
+					{"typeTextWithEnter" : [{"ddField":{"xpathparams": ["Supply Type"], "value" : "$supplyTypeSEZWOP", "testStepDescription" : "Select Supply Type as SEZWOP"}}]},
+					{"clickElement" : [{"inputFieldGEN":{"xpathparams": ["Supplier Location"],"testStepDescription" : "Click on Supplier Location Field"}}]},
+					{"typeTextWithEnter" : [{"inputFieldGEN":{"xpathparams": ["Supplier Location"], "value" : "$supplierLocation", "testStepDescription" : "Enter Jammu & Kashmir as supplier location"}}]},
+					{"clickElement" : [{"inputFieldGEN":{"xpathparams": ["Supplier Pincode"],"testStepDescription" : "Click on Supplier Pincode Field"}}]},
+					{"typeTextWithEnter" : [{"inputFieldGEN":{"xpathparams": ["Supplier Pincode"], "value" : "$supplierPinCode", "testStepDescription" : "Enter supplier pin code"}}]},
+					{"clickElement" : [{"inputFieldGEN":{"xpathparams": ["Buyer GSTIN"],"testStepDescription" : "Click on Buyer GSTIN Field"}}]},
+					{"typeTextWithEnter" : [{"inputFieldGEN":{"xpathparams": ["Buyer GSTIN"], "value" : "$buyerGSTINSEZ", "testStepDescription" : "Enter Buyer GSTIN"}}]},
+					{"clickElement" : [{"inputFieldGEN":{"xpathparams": ["Buyer Legal Name"],"testStepDescription" : "Click on Buyer Legal Name Field"}}]},
+					{"typeTextWithEnter" : [{"inputFieldGEN":{"xpathparams": ["Buyer Legal Name"], "value" : "$buyerLegalName", "testStepDescription" : "Enter Buyer Legal Name"}}]},
+					{"clickElement" : [{"inputFieldGEN":{"xpathparams": ["Buyer Location"],"testStepDescription" : "Click on Buyer Location Field"}}]},
+					{"typeTextWithEnter" : [{"inputFieldGEN":{"xpathparams": ["Buyer Location"], "value" : "$buyerLocationSEZ", "testStepDescription" : "Enter Buyer Location"}}]},
+					{"clickElement" : [{"ddField":{"xpathparams": ["Place Of Supply"],"testStepDescription" : "Click on Place Of Supply Field"}}]},
+					{"typeTextWithEnter" : [{"ddField":{"xpathparams": ["Place Of Supply"], "value" : "$placeofSupplySEZ", "testStepDescription" : "Select Place Of Supply as Tamil Nadu"}}]},
+					{"clickElement" : [{"textAddressField":{"xpathparams": ["Buyer Address"],"testStepDescription" : "Click on Buyer Address Field"}}]},
+					{"typeTextWithEnter" : [{"textAddressField":{"xpathparams": ["Buyer Address"], "value" : "$buyerAddressSEZ", "testStepDescription" : "Enter Buyer Address"}}]},
+					{"clickElement" : [{"ddField":{"xpathparams": ["Buyer State"],"testStepDescription" : "Click on Buyer State Field"}}]},
+					{"typeTextWithEnter" : [{"ddField":{"xpathparams": ["Buyer State"], "value" : "$buyerStateSEZ", "testStepDescription" : "Select Buyer State as Tamil Nadu"}}]},
+					{"clickElement" : [{"inputFieldGEN":{"xpathparams": ["Buyer Pincode"],"testStepDescription" : "Click on Buyer Pincode Field"}}]},
+					{"typeTextWithEnter" : [{"inputFieldGEN":{"xpathparams": ["Buyer Pincode"], "value" : "$buyerPinCodeSEZ", "testStepDescription" : "Enter Buyer Pincode"}}]},
+					{"clickElement" : [{"buttonwithYes":{"xpathparams": ["btn add_new1"],"testStepDescription" : "Click on Add new line Button"}}]},					
+					{"clickElement" : [{"textLinelevel":{"xpathparams": ["sales_invoice_box","prdDesc"],"testStepDescription" : "Click on Buyer Pincode Field"}}]},
+					{"typeTextWithEnter" : [{"textLinelevel":{"xpathparams": ["sales_invoice_box","prdDesc"], "value" : "$itemDesc", "testStepDescription" : "Enter Buyer Pincode"}}]},
+					{"clickElement" : [{"ddlinelevel":{"xpathparams": ["sales_invoice_box"],"testStepDescription" : "Click on Is Service drop down"}}]},
+					{"typeTextWithEnter" : [{"ddlinelevel":{"xpathparams": ["sales_invoice_box"], "value" : "$isService", "testStepDescription" : "Enter Is service as No"}}]},
+					{"clickElement" : [{"textLinelevel":{"xpathparams": ["sales_invoice_box","hsnCd0"],"testStepDescription" : "Click on HSN Code Field"}}]},
+					{"typeTextWithEnter" : [{"textLinelevel":{"xpathparams": ["sales_invoice_box","hsnCd0"], "value" : "$HSNcode", "testStepDescription" : "Enter HSN Code"}}]},
+					{"clickElement" : [{"textLinelevel":{"xpathparams": ["sales_invoice_box","qty0"],"testStepDescription" : "Click on line level Quantity Field"}}]},
+					{"typeTextWithEnter" : [{"textLinelevel":{"xpathparams": ["sales_invoice_box","qty0"], "value" : "$quantity", "testStepDescription" : "Enter line level item Quantity"}}]},
+					{"clickElement" : [{"ddlinewithName":{"xpathparams": ["sales_invoice_box","unit0"],"testStepDescription" : "Click on line level Unit of measure field"}}]},
+					{"typeTextWithEnter" : [{"ddlinewithName":{"xpathparams": ["sales_invoice_box","unit0"], "value" : "$unitofMesure", "testStepDescription" : "Enter KGS-KILOGRAMS"}}]},
+					{"clickElement" : [{"textLinelevel":{"xpathparams": ["sales_invoice_box","unitPrice0"],"testStepDescription" : "Click on Rate per Item Field"}}]},
+					{"typeTextWithEnter" : [{"textLinelevel":{"xpathparams": ["sales_invoice_box","unitPrice0"], "value" : "$rate", "testStepDescription" : "Enter Rate for the item"}}]},
+					{"clickElement" : [{"ddlinewithName":{"xpathparams": ["sales_invoice_box","gstRate0"],"testStepDescription" : "Click on line level Taxable Rate field"}}]},
+					{"typeTextWithEnter" : [{"ddlinewithName":{"xpathparams": ["sales_invoice_box","gstRate0"], "value" : "$taxableRate", "testStepDescription" : "Enter taxable Rate"}}]},
+					{"clickElement" : [{"buttonWithText":{"xpathparams": ["Save and Generate IRN"],"testStepDescription" : "Click on Save and Generate IRN button"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"buttonwithText":{"xpathparams":["Invoice Reference No. :"], "continueTestNodes" : false, "testStepDescription" : "Validate Invoice Reference No. :"}}									
+								]
+							}
+						]
+					},	
+					{"getText": [{"invoiceReferenceNum":{"xpathparams": [""], "varName" : "invoiceReferenceNumberSEZWOP_INV","testStepDescription":"Get the generated e-invoice Reference number for SEZ With Out Payment and save"}}]}
+									
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "GEN_INV_014",
+				"testCaseTitle": "Validate log details",
+				"testCaseDescription": "Validate log details",
+				"dependsOn": "GEN_INV_013",
+				"tags":["SmokeTest","LOGDTLS"],
+				"testCaseSteps": [				
+					{"clickElement" : [{"buttonWithText":{"xpathparams": ["Open Log Details"], "testStepDescription" : "Click on Open Log Details Button"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"logDetails":{"xpathparams":["1"], "continueTestNodes" : false, "testStepDescription" : "Validate log details Dates"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"logDetails":{"xpathparams":["2"], "continueTestNodes" : false, "testStepDescription" : "Validate log details Dates"}}									
+								]
+							}
+						]
+					}							
+				]
+			}
+		}		
+		
+					
+	]
+}
+

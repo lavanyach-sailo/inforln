@@ -1,0 +1,817 @@
+{
+	"suiteName" : "PurchaseRequestforQuotation",
+	"suiteDescription" : "Purchase Request for Quotation Suite",
+	"testCases": [
+		{
+			"testNode": {
+				"testCaseID": "RFQ_004",
+				"testCaseTitle": "Verify Login with Valid Credentials",
+				"testCaseDescription": "Infor LN Login",
+				"dependsOn": "",
+				"tags":["SmokeTest","RFQ","NegativeTest"],
+				"testCaseSteps": [
+					{ "login": { "login_username":"", "login_password":"","url":"$url", "testStepDescription" : "Login with valid username and password"}},
+					
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"image":{"xpathparams":[], "continueTestNodes" : false, "testStepDescription" : "Validate the Image is present"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"buttonBrowse":{"xpathparams":["username"], "continueTestNodes" : false, "testStepDescription" : "Validate username is present"}}									
+								]
+							}
+						]
+					},
+					{"typeTextWithTabKey" : [{"buttonBrowse":{"xpathparams": ["username"], "value" : "$username", "testStepDescription" : "Enter username"}}]},
+					{"typeTextWithTabKey" : [{"buttonBrowse":{"xpathparams": ["pass"], "value" : "$password", "testStepDescription" : "Enter password"}}]},	
+					{"clickElement" : [{"buttonWithTextNS":{"xpathparams": ["Sign In"], "testStepDescription" : "Click on Cloud Identities option"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"spanWithText":{"xpathparams":["Homepages"], "continueTestNodes" : false, "testStepDescription" : "Validate Infor Homepages is present"}}									
+								]
+							}
+						]
+					},
+					{ "sleep": { "sec":"2000"}},
+					{"frameSwitch" : {"frame" : "m-app-frame", "by" : "class", "testStepDescription" : "Switch to IFrame"}},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"inforLNIcon":{"xpathparams":[], "continueTestNodes" : false, "testStepDescription" : "Validate Infor Homepages is present"}}									
+								]
+							}
+						]
+					},
+					{ "login": { "login_username":"", "login_password":"", "url" : "https://mingle-portal.se2.inforcloudsuite.com/UH9WFNGMM5Z5HPYE_DEM/36b871bb-ff48-4f95-9d2f-ae149239b851","testStepDescription" : "Naviagte to the Infor Cloud Suite Homepage"}},
+					{"frameSwitch" : {"frame" : "", "by" : "parent", "testStepDescription" : "Switch to IFrame"}},
+					{"frameSwitch" : {"frame" : "m-app-frame", "by" : "class", "testStepDescription" : "Switch to IFrame"}}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "RFQ_005",
+				"testCaseTitle": "Verify Purchase Request for Quotation(RFQ)",
+				"testCaseDescription": "Navigate to Purchase Request for Quotation(RFQ)",
+				"dependsOn": "RFQ_004",
+				"tags":["SmokeTest","RFQ","NegativeTest"],
+				"testCaseSteps": [
+				{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"menuItem":{"xpathparams":["Procurement"], "continueTestNodes" : false}},
+									{"else":
+									[
+										{"clickElement" : [{"sideMenu":{"xpathparams": []}}]}
+									]
+									}
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"menuItem":{"xpathparams": ["Procurement"], "testStepDescription" : "Click on Infor LN Menu"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"subMenuItem":{"xpathparams":["Procurement", "Request for Quotations"], "continueTestNodes" : false, "testStepDescription" : "Validate Request for Quotations menu item is displayed"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"subMenuItem":{"xpathparams": ["Procurement", "Request for Quotations"], "testStepDescription" : "Click on Request for Quotations under Procurement"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sessionTab":{"xpathparams":["RFQ"], "continueTestNodes" : false, "testStepDescription" : "Validate RFQ Tab is displayed"}}									
+								]
+							}
+						]
+					}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "RFQ_006",
+				"testCaseTitle": "Verify New Requests for Quotation form",
+				"testCaseDescription": "Creating New Requests for Quotation Form",
+				"dependsOn": "RFQ_005",
+				"tags":["SmokeTest","RFQ","NegativeTest"],
+				"testCaseSteps": [
+					{"clickElement" : [{"buttonMenuHeadres":{"xpathparams": ["RFQ","References"], "testStepDescription" : "Click on References button on Requests for Quotation Tab"}}]},
+					{"clickElement" : [{"buttonMenuItemUnderActions":{"xpathparams": ["Requests for Quotation Overview"], "testStepDescription" : "Click on Requests for Quotation Overview button under References"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sessionTab":{"xpathparams":["Requests for Quotation"], "continueTestNodes" : false, "testStepDescription" : "Validate Requests for Quotation Tab is displayed"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"buttonAddnewHeader":{"xpathparams": ["Requests for Quotation"], "testStepDescription" : "Click on New buton under Requests for Quotation tab"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sessionTab":{"xpathparams":["Request for Quotation"], "continueTestNodes" : false, "testStepDescription" : "Validate Request for Quotation Tab is displayed"}}									
+								]
+							}
+						]
+					}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "RFQ_007",
+				"testCaseTitle": "Verify Inactive RFQ type for Request for Quotation",
+				"testCaseDescription": "Validate Invalid RFQ type for Request for Quotation",
+				"dependsOn": "RFQ_006",
+				"tags":["SmokeTest","NegativeTest"],
+				"testCaseSteps": [
+					{"typeTextWithTabKey" : [{"inputFields":{"xpathparams": ["General","RFQ Type:"], "value" : "ABC", "testStepDescription" : "Enter Inactive RFQ Details"}}]},
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"errorMessagePopUp":{"xpathparams":["Specified \"RFQ Type\" not found in \"RFQ Types\". Enter another \"RFQ Type\"."], "continueTestNodes" : false, "testStepDescription": "Validate the Error Message for Inactive BP Details"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"buttonOKError":{"xpathparams": [], "tesStepDescription": "Click on OK button to close the error message"}}]}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "RFQ_008",
+				"testCaseTitle": "Verify Active RFQ type for Request for Quotation",
+				"testCaseDescription": "Validate valid RFQ type for Request for Quotation",
+				"dependsOn": "RFQ_006",
+				"tags":["SmokeTest","RFQ","NegativeTest"],
+				"testCaseSteps": [
+					{"clickElement" : [{"searchButtonInputFields":{"xpathparams": ["General","RFQ Type:"],"testStepDescription" : "Click on Search Button to search the Requester"}}]},
+					{"clickElement" : [{"windowFirstRowCheckBox":{"xpathparams": [], "tesStepDescription": "Click on check box"}}]},
+					{"clickElement" : [{"windowOkButton":{"xpathparams": [],"testStepDescription" : "Click on Ok Button"}}]}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "RFQ_009",
+				"testCaseTitle": "Verify Invalid RFQ",
+				"testCaseDescription":"Enter Invalid RFQ and validate the error message displayed",
+				"dependsOn": "RFQ_008",
+				"tags":["SmokeTest","NegativeTest"],
+				"testCaseSteps": [
+					{"typeTextWithTabKey" : [{"inputFields":{"xpathparams": ["General","RFQ:"], "value" : "ABC", "testStepDescription" : "Enter invalid RFQ"}}]},
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"errorMessagePopUp":{"xpathparams":["Change the value of the RFQ field. "], "continueTestNodes" : false,"testStepDescription":"Validate the error message displayed for the Invalid RFQ"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"buttonOKError":{"xpathparams": [],"testStepDescription":"Click on OK button to close the error message for the Invalid Requester Department"}}]}										
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "RFQ_010",
+				"testCaseTitle": "Verify Valid RFQ",
+				"testCaseDescription": "Enter Valid RFQ",
+				"dependsOn": "RFQ_008",
+				"tags":["SmokeTest","RFQ","NegativeTest"],
+				"testCaseSteps": [
+					{"clickElement" : [{"searchButtonInputFields":{"xpathparams": ["General","RFQ:"],"testStepDescription":"Click on search button to search the RFQ"}}]},
+					{"clickElement" : [{"windowFirstRowCheckBox":{"xpathparams": [], "tesStepDescription": "Click on check box"}}]},
+					{"clickElement" : [{"windowOkButton":{"xpathparams": [],"testStepDescription" : "Click on Ok Button"}}]}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "RFQ_011",
+				"testCaseTitle": "Verify Invalid Receiving Site for Request for Quotation",
+				"testCaseDescription": "Validate Receiving Site for Request for Quotation",
+				"dependsOn": "RFQ_010",
+				"tags":["SmokeTest","NegativeTest"],
+				"testCaseSteps": [
+					{"typeTextWithTabKey" : [{"inputFields":{"xpathparams": ["Receipt","Receiving Site:"], "value" : "ABCD", "testStepDescription":"Enter Invalid Requisition Date"}}]},
+					{ "keyBoardEvent": { "tab":"1"}},
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"errorMessagePopUp":{"xpathparams":["Specified \"Receiving Site\" not found in \"Warehouses\". Enter another \"Warehouse\"."], "continueTestNodes" : false, "testStepDescription": "Validate the Error Message for Invalid Warehouse field"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"buttonOKError":{"xpathparams": [],"testStepDescription" : "Click on OK Button to close the error message"}}]}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "RFQ_012",
+				"testCaseTitle": "Verify Valid Warehouse for Request for Quotation",
+				"testCaseDescription": "Validate valid Warehouse for Request for Quotation",
+				"dependsOn": "RFQ_010",
+				"tags":["SmokeTest","RFQ","NegativeTest"],
+				"testCaseSteps": [
+					{"clickElement" : [{"searchButtonInputFields":{"xpathparams": ["Receipt","Receiving Site:"],"testStepDescription" : "Click on Search Button to search the Warehouse"}}]},
+					{"typeTextWithTabKey" : [{"textinputFieldsSearch":{"xpathparams": [], "value" : "$vReceivingSite", "testStepDescription" : "Enter Specific Warehouse value"}}]},
+					{"clickElement" : [{"windowFirstRowCheckBox":{"xpathparams": [], "tesStepDescription": "Click on check box"}}]},
+					{"clickElement" : [{"windowOkButton":{"xpathparams": [],"testStepDescription" : "Click on Ok Button"}}]}
+				]
+			}
+		},
+		
+		{
+			"testNode": {
+				"testCaseID": "RFQ_013",
+				"testCaseTitle": "Verify Invalid Warehouse for Request for Quotation",
+				"testCaseDescription": "Validate invalid Warehouse for Request for Quotation",
+				"dependsOn": "RFQ_012",
+				"tags":["SmokeTest","NegativeTest"],
+				"testCaseSteps": [
+					{ "keyBoardEvent": { "tab":"1"}},
+					{"typeTextWithTabKey" : [{"inputFields":{"xpathparams": ["Receipt","Warehouse:"], "value" : "ABCD", "testStepDescription":"Enter Invalid Requisition Date"}}]},
+					{ "keyBoardEvent": { "tab":"1"}},
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"errorMessagePopUp":{"xpathparams":["Specified \"Warehouse\" not found in \"Warehouses\". Enter another \"Warehouse\"."], "continueTestNodes" : false, "testStepDescription": "Validate the Error Message for Invalid Warehouse field"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"buttonOKError":{"xpathparams": [],"testStepDescription" : "Click on OK Button to close the error message"}}]}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "RFQ_014",
+				"testCaseTitle": "Verify Valid Warehouse for Request for Quotation",
+				"testCaseDescription": "Validate valid Warehouse for Request for Quotation",
+				"dependsOn": "RFQ_012",
+				"tags":["SmokeTest","RFQ","NegativeTest"],
+				"testCaseSteps": [
+					{"clickElement" : [{"searchButtonInputFields":{"xpathparams": ["Receipt","Warehouse:"],"testStepDescription" : "Click on Search Button to search the Warehouse"}}]},
+					{"typeTextWithTabKey" : [{"textinputfieldSeriesSearch":{"xpathparams": [], "value" : "$validWarehouse", "testStepDescription" : "Enter Specific Warehouse value"}}]},
+					{"clickElement" : [{"windowFirstRowCheckBox":{"xpathparams": [], "tesStepDescription": "Click on check box"}}]},
+					{"clickElement" : [{"windowOkButton":{"xpathparams": [],"testStepDescription" : "Click on Ok Button"}}]}
+				]
+			}
+		},
+		
+		
+		{
+			"testNode": {
+				"testCaseID": "RFQ_015",
+				"testCaseTitle": "Verify Invalid Address for Request for Quotation",
+				"testCaseDescription": "Validate invalid Address for Request for Quotation",
+				"dependsOn": "RFQ_014",
+				"tags":["SmokeTest","NegativeTest"],
+				"testCaseSteps": [
+					{"typeTextWithTabKey" : [{"inputFields":{"xpathparams": ["Receipt","Receipt Address:"], "value" : "ABCD", "testStepDescription":"Enter Invalid Requisition Date"}}]},
+					{ "keyBoardEvent": { "tab":"1"}},
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"errorMessagePopUp":{"xpathparams":["Specified \"Receipt Address\" not found in \"Addresses\". Enter another \"Receipt Address\"."], "continueTestNodes" : false, "testStepDescription": "Validate the Error Message for Invalid Address field"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"buttonOKError":{"xpathparams": [],"testStepDescription" : "Click on OK Button to close the error message"}}]}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "RFQ_016",
+				"testCaseTitle": "Verify Valid Address for Request for Quotation",
+				"testCaseDescription": "Validate valid Address for Request for Quotation",
+				"dependsOn": "RFQ_014",
+				"tags":["SmokeTest","RFQ","NegativeTest"],
+				"testCaseSteps": [
+					{"clickElement" : [{"searchButtonInputFields":{"xpathparams": ["Receipt","Receipt Address:"],"testStepDescription" : "Click on Search Button to search the Address"}}]},
+					{"typeTextWithTabKey" : [{"AddressFilter1":{"xpathparams": [], "value" : "$validAddress", "testStepDescription" : "Enter Specific Address value"}}]},
+					{"clickElement" : [{"windowFirstRowCheckBox":{"xpathparams": [], "tesStepDescription": "Click on check box"}}]},
+					{"clickElement" : [{"windowOkButton":{"xpathparams": [],"testStepDescription" : "Click on Ok Button"}}]}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "RFQ_017",
+				"testCaseTitle": "Verify Invalid Receipt Date for Request for Quotation",
+				"testCaseDescription" : "Enter Invalid Receipt Date for Request for Quotation",
+				"dependsOn": "RFQ_016",
+				"tags":["SmokeTest","NegativeTest"],
+				"testCaseSteps": [
+					{"typeTextWithTabKey" : [{"inputFields":{"xpathparams": ["Receipt","Receipt Date:"], "value" : "6/14/2021", "testStepDescription": "Enter Invalid Receipt Date for Request for Quotation"}}]},
+					{ "keyBoardEvent": { "tab":"1"}},
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"errorMessagePopUp":{"xpathparams":["Reason: Receipt date must be later than the response date."], "continueTestNodes" : false, "testStepDescription" : "Validate the error message displayed for Invalid Receipt Date"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"buttonOKError":{"xpathparams": [], "testStepDescription": "Click on OK button to close the error message for Invalid Receipt Date"}}]}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "RFQ_018",
+				"testCaseTitle": "Verify Valid Receipt Date for Request for Quotation",
+				"testCaseDescription": "Enter Valid Receipt Date for Request for Quotation",
+				"dependsOn": "RFQ_016",
+				"tags":["SmokeTest","RFQ","NegativeTest"],
+				"testCaseSteps": [
+					{"clickElement" : [{"searchButtonInputFields":{"xpathparams": ["Receipt","Receipt Date:"],"testStepDescription" : "Click on Date icon Button to select the later date for Receipt Date"}}]},
+					{"clickElement" : [{"inputFields":{"xpathparams": ["Receipt","Receipt Date:"],"testStepDescription" : "Click on later date icon to select the later date"}}]}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "RFQ_019",
+				"testCaseTitle": "Verify Request for Quotation Generation",
+				"testCaseDescription":"Validate the Status of RFQ Generation",
+				"dependsOn": "RFQ_018",
+				"tags":["SmokeTest","RFQ","NegativeTest"],
+				"testCaseSteps": [
+					{"clickElement" : [{"buttonSaveRFQ":{"xpathparams": [],"testStepDescription": "Click on Save button to save the Purchase Request for Quotation creation"}}]},
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"orderStatus":{"xpathparams":["Created"], "continueTestNodes" : false,"testStepDescription": "Validate the status of the Purchase Request for Quotation,it should be in Created state"}}									
+								]
+							}
+						]
+					}
+					
+				]
+			}
+		},
+		
+		{
+			"testNode": {
+				"testCaseID": "RFQ_020",
+				"testCaseTitle": "Verify New Order Lines",
+				"testCaseDescription": "Click on New on the Line to create new line",
+				"dependsOn": "RFQ_019",
+				"tags":["SmokeTest","RFQ","NegativeTest"],
+				"testCaseSteps": [
+					{"clickElement" : [{"buttonAddNewLineRFQ":{"xpathparams": [],"testStepDescription":"Click on New on the Line to create a new line"}}]},
+					{ "sleep": { "sec":"2000"}},
+					{ "keyBoardEvent": { "tab":"3"}}				
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "RFQ_021",
+				"testCaseTitle": "Verify Invalid Item",
+				"testCaseDescription":"Enter Invalid Item in the Line and validate the error message displayed",
+				"dependsOn": "RFQ_020",
+				"tags":["SmokeTest","NegativeTest"],
+				"testCaseSteps": [
+					{"typeTextWithTabKey" : [{"RFQItemEntry":{"xpathparams": [], "value" : "CAPA00009GGG0XX1", "testStepDescription" : "Enter invalid Item in the line"}}]},
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"errorMessagePopUp":{"xpathparams":["Specified \"Item\" not found in \"Item - Purchase\". Enter another \"Item\"."], "continueTestNodes" : false,"testStepDescription":"Validate the error message displayed for the Invalid Item in the Line"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"buttonOKError":{"xpathparams": [],"testStepDescription":"Click on OK button to close the error message for the Invalid Item in the Line"}}]}										
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "RFQ_022",
+				"testCaseTitle": "Verify Valid Item",
+				"testCaseDescription": "Enter Valid Item in the Line",
+				"dependsOn": "RFQ_020",
+				"tags":["SmokeTest","RFQ","NegativeTest"],
+				"testCaseSteps": [
+					{"clickElement" : [{"searchBtnRFQItem":{"xpathparams": [],"testStepDescription":"Click on search button to search the valid Item in the Line"}}]},
+					{"typeTextWithTabKey" : [{"textItemfilter":{"xpathparams": [], "value" : "$validItem", "testStepDescription" : "Enter Active Purchase Request for Quotation Item value"}}]},
+					{"clickElement" : [{"windowFirstRowCheckBox":{"xpathparams": [], "tesStepDescription": "Click on check box"}}]},
+					{"clickElement" : [{"windowOkButton":{"xpathparams": [],"testStepDescription" : "Click on Ok Button"}}]},
+					{ "keyBoardEvent": { "tab":"1"}}
+				]
+			}
+		},		
+		{
+			"testNode": {
+				"testCaseID": "RFQ_023",
+				"testCaseTitle": "Verify Zero Qty",
+				"testCaseDescription":"Enter zero qty and validate the error message displayed",
+				"dependsOn": "RFQ_022",
+				"tags":["SmokeTest","NegativeTest"],
+				"testCaseSteps": [
+					{"typeTextWithTabKey" : [{"RFQQuantity":{"xpathparams": [], "value" : "0", "testStepDescription" : "Enter zero Quantity"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"errorMessagePopUp":{"xpathparams":["Reason: RFQ Quantity must be greater than zero."], "continueTestNodes" : false,"testStepDescription": "Validate the error message for the zero qty"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"buttonOKError":{"xpathparams": [],"testStepDescription":"Click on OK Button to close the error message for zero qty"}}]}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "RFQ_024",
+				"testCaseTitle": "Verify Valid Qty",
+				"testCaseDescription":"Enter valid qty greater than 0",
+				"dependsOn": "RFQ_022",
+				"tags":["SmokeTest","RFQ","NegativeTest"],
+				"testCaseSteps": [
+					{"typeTextWithTabKey" : [{"RFQQuantity":{"xpathparams": [], "value" : "$validQty", "testStepDescription" : "Enter valid Quantity"}}]},
+					{ "keyBoardEvent": { "tab":"1"}}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "RFQ_025",
+				"testCaseTitle": "Verify invalid Receipt Date Entry",
+				"testCaseDescription" :"Enter the Receipt Date entry",
+				"dependsOn": "RFQ_024",
+				"tags":["SmokeTest","NegativeTest"],
+				"testCaseSteps": [
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"itemReceiptDate1":{"xpathparams":[], "continueTestNodes" : false, "testStepDescription": "Validate the Receipt Date field"}}									
+								]
+							}
+						]
+					},
+					{"typeTextWithTabKey" : [{"itemReceiptDate1":{"xpathparams": [], "value" : "6/14/2021", "testStepDescription":"Enter Invalid Receipt Date"}}]},
+					{ "keyBoardEvent": { "tab":"1"}},
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"errorMessagePopUp":{"xpathparams":["Reason: Receipt date must be after RFQ date."], "continueTestNodes" : false, "testStepDescription": "Validate the Error Message for Invalid Receipt Date field"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"buttonOKError":{"xpathparams": [],"testStepDescription" : "Click on OK Button to close the error message"}}]}
+					
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "RFQ_026",
+				"testCaseTitle": "Verify Valid Receipt Date",
+				"testCaseDescription":"Enter Valid Receipt Date",
+				"dependsOn": "RFQ_024",
+				"tags":["SmokeTest","RFQ","NegativeTest"],
+				"testCaseSteps": [
+						{"clickElement" : [{"itemReceiptDate1":{"xpathparams": [],"testStepDescription" : "Click on Receipt Date field"}}]},
+						{ "validate": 
+							[ 
+								{ "isElementPresent":
+									[
+										{"dateiconItemReceiptDate1":{"xpathparams":[], "continueTestNodes" : false, "testStepDescription": "Validate the Receipt Date icon"}}									
+									]
+								}
+							]
+						},
+						{"clickElement" : [{"dateiconItemReceiptDate1":{"xpathparams": [],"testStepDescription" : "Click on Date icon Button to select the later date for Receipt Date"}}]},
+						{"clickElement" : [{"itemReceiptDate1":{"xpathparams": [],"testStepDescription" : "Click on later date icon to select the later date"}}]},
+						{ "keyBoardEvent": { "tab":"1"}}
+					]
+				}
+			},
+			{
+				"testNode": {
+				"testCaseID": "RFQ_027",
+				"testCaseTitle": "Verify Save Purchase Request for Quotation",
+				"testCaseDescription" : "Click on Save to save Purchase Request for Quotation line",
+				"dependsOn": "RFQ_026",
+				"tags":["SmokeTest","RFQ"],
+				"testCaseSteps": [
+						{"clickElement" : [{"buttonSaveRFQ":{"xpathparams": [],"testStepDescription": "Click on Save button to save the Purchase Requesition line"}}]}
+					]
+				}
+			},
+			{
+			"testNode": {
+				"testCaseID": "RFQ_028",
+				"testCaseTitle": "Verify Bidders details for Purchase Request for Quotation",
+				"testCaseDescription": "Click on Bidders tab and enter Bidders details",
+				"dependsOn": "RFQ_027",
+				"tags":["RFQ"],
+				"testCaseSteps": [
+						{ "validate": 
+							[ 
+								{ "isElementPresent":
+									[
+										{"labelwithText":{"xpathparams":["Bidders"], "continueTestNodes" : false, "testStepDescription": "Validate the Bidders tab"}}									
+									]
+								}
+							]
+						},
+						{"clickElement" : [{"labelwithText":{"xpathparams": ["Bidders"],"testStepDescription":"Click on Bidders tab"}}]},
+				   		{ "sleep": { "sec":"2000"}},
+				   		{"clickElement" : [{"btnNewLineBiddersRFQ":{"xpathparams": [],"testStepDescription":"Click on New for line creation under Bidders tab"}}]},
+						{"clickElement" : [{"labelwithText":{"xpathparams": ["OK"],"ignore" : "yes", "waitTime" : "2"}}]},
+						{"clickElement" : [{"labelwithText":{"xpathparams": ["OK"],"ignore" : "yes", "waitTime" : "2"}}]},
+						{"clickElement" : [{"textBidderline":{"xpathparams": [],"testStepDescription" : "Click on Bidders line 1 field"}}]},
+						{"clickElement" : [{"searchBtnBidderLine":{"xpathparams": [],"testStepDescription" : "Click on Search Button to search the Bidders"}}]},
+						{"typeTextWithTabKey" : [{"textinputFieldsSearch":{"xpathparams": [], "value" : "$firstBidder", "testStepDescription" : "Enter Active Bidders value"}}]},
+						{"clickElement" : [{"windowFirstRowCheckBox":{"xpathparams": [], "tesStepDescription": "Click on check box"}}]},
+						{"clickElement" : [{"windowOkButton":{"xpathparams": [],"testStepDescription" : "Click on Ok Button"}}]},
+						{ "keyBoardEvent": { "tab":"1"}},
+						{"clickElement" : [{"labelwithText":{"xpathparams": ["OK"],"ignore" : "yes", "waitTime" : "2"}}]},
+						{"clickElement" : [{"uncneckSend":{"xpathparams": ["0"],"testStepDescription" : "Click on Send"}}]},
+						{"clickElement" : [{"labelwithText":{"xpathparams": ["OK"],"ignore" : "yes", "waitTime" : "2"}}]},
+						{"clickElement" : [{"btnNewLineBiddersRFQ":{"xpathparams": [],"testStepDescription":"Click on New for line creation under Bidders tab"}}]},
+						{"clickElement" : [{"labelwithText":{"xpathparams": ["OK"],"ignore" : "yes", "waitTime" : "2"}}]},
+						{"clickElement" : [{"labelwithText":{"xpathparams": ["OK"],"ignore" : "yes", "waitTime" : "2"}}]},
+						{"clickElement" : [{"textBidderlineWithIndex":{"xpathparams": [],"testStepDescription" : "Click on Bidders line 1 field"}}]},
+						{"clickElement" : [{"searchBtnBidderLine1":{"xpathparams": [],"testStepDescription" : "Click on Search Button to search the Bidders"}}]},
+						{"typeTextWithTabKey" : [{"textinputfieldSeriesSearch":{"xpathparams": [], "value" : "$secondBidder", "testStepDescription" : "Enter Active Bidders value"}}]},
+						{"clickElement" : [{"windowFirstRowCheckBox":{"xpathparams": [], "tesStepDescription": "Click on check box"}}]},
+						{"clickElement" : [{"windowOkButton":{"xpathparams": [],"testStepDescription" : "Click on Ok Button"}}]},
+						{ "keyBoardEvent": { "tab":"1"}},
+						{"clickElement" : [{"labelwithText":{"xpathparams": ["OK"],"ignore" : "yes", "waitTime" : "2"}}]},
+						{"clickElement" : [{"labelwithText":{"xpathparams": ["OK"],"ignore" : "yes", "waitTime" : "2"}}]},
+						{"clickElement" : [{"uncneckSend":{"xpathparams": ["1"],"testStepDescription" : "Click on Send"}}]},
+						{"clickElement" : [{"labelwithText":{"xpathparams": ["OK"],"ignore" : "yes", "waitTime" : "2"}}]},
+						{"clickElement" : [{"labelwithText":{"xpathparams": ["OK"],"ignore" : "yes", "waitTime" : "2"}}]}
+						
+					]
+				}
+			},
+			
+			{
+			"testNode": {
+				"testCaseID": "RFQ_029",
+				"testCaseTitle": "Verify Response Preparations",
+				"testCaseDescription": "Click on Response Preparations tab, select and open the line, And add the line in Responce tab then enter price value",
+				"dependsOn": "RFQ_028",
+				"tags":["RFQ"],
+				"testCaseSteps": [
+					{"clickElement" : [{"labelwithText2":{"xpathparams": ["Responses"],"testStepDescription":"Click on Responses tab"}}]},
+					{"clickElement" : [{"responsesCheckBox":{"xpathparams": ["0"],"testStepDescription":"Click on check box"}}]},
+				    {"clickElement" : [{"lineActionResponseButton":{"xpathparams": [],"testStepDescription":"Click on line level Actions button"}}]},
+				  	{"clickElement" : [{"labelwithText":{"xpathparams": ["Response"],"testStepDescription":"Click on Response under Actions button"}}]},
+					{"clickElement" : [{"lineOpenResponsesWithIndex":{"xpathparams": ["1"],"testStepDescription":"Click on 1st line open bar to open the line under Responses tab"}}]},
+					{ "validate": 
+							[ 
+								{ "isElementPresent":
+									[
+										{"sessionTab":{"xpathparams":["RFQ Responses"], "continueTestNodes" : false, "testStepDescription": "Validate the RFQ Response tab"}}									
+									]
+								}
+							]
+					},
+					{"doubleClickElement" : [{"inputFields":{"xpathparams": ["Price","Price:"],"testStepDescription" : "Clear the Price input"}}]},
+					{"typeTextWithTabKey" : [{"inputFields":{"xpathparams": ["Price","Price:"], "value" : "$firstPrice", "testStepDescription" : "Enter Price value"}}]},
+					{"clickElement" : [{"SessionTabClose":{"xpathparams": ["RFQ Responses"],"testStepDescription":"Click on Save and Exit on RFQ Response Session"}}]},
+					{"clickElement" : [{"labelwithText":{"xpathparams": ["Yes"],"testStepDescription":"Click on Yes"}}]},
+					{"clickElement" : [{"sessionTab":{"xpathparams": ["Request for Quotation"],"testStepDescription":"Click on Request for Quotation session Tab"}}]},
+					{"clickElement" : [{"responsesCheckBox":{"xpathparams": ["0"],"testStepDescription":"Click on Check box"}}]},
+					{"clickElement" : [{"responsesCheckBox":{"xpathparams": ["1"],"testStepDescription":"Click on Check box"}}]},
+				    {"clickElement" : [{"lineActionResponseButton":{"xpathparams": [],"testStepDescription":"Click on line level Actions button"}}]},
+				  	{"clickElement" : [{"labelwithText":{"xpathparams": ["Response"],"testStepDescription":"Click on Response under Actions button"}}]},													
+					{ "validate": 
+							[ 
+								{ "isElementPresent":
+									[
+										{"lineOpenResponsesWithIndex":{"xpathparams":["2"], "continueTestNodes" : false, "testStepDescription": "Validate the Response 2nd line open button"}}									
+									]
+								}
+							]
+					},
+					{"clickElement" : [{"lineOpenResponsesWithIndex":{"xpathparams": ["2"],"testStepDescription":"Click on 2nd line open bar to open the line under Responses tab"}}]},
+					{ "validate": 
+							[ 
+								{ "isElementPresent":
+									[
+										{"sessionTab":{"xpathparams":["RFQ Responses"], "continueTestNodes" : false, "testStepDescription": "Validate the RFQ Response tab"}}									
+									]
+								}
+							]
+					},
+					{"doubleClickElement" : [{"inputFields":{"xpathparams": ["Price","Price:"],"testStepDescription" : "Clear the Price input"}}]},
+					{"typeTextWithTabKey" : [{"inputFields":{"xpathparams": ["Price","Price:"], "value" : "$secondPrice", "testStepDescription" : "Enter Price value"}}]},
+					{"clickElement" : [{"SessionTabClose":{"xpathparams": ["RFQ Responses"],"testStepDescription":"Click on Save and Exit on RFQ Response Session"}}]},
+					{"clickElement" : [{"labelwithText":{"xpathparams": ["Yes"],"testStepDescription":"Click on Yes"}}]}
+					
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "RFQ_030",
+				"testCaseTitle": "Verify Accept Responses",
+				"testCaseDescription":"Select each line and Accept",
+				"dependsOn": "RFQ_029",
+				"tags":["RFQ"],
+				"testCaseSteps": [
+					{"clickElement" : [{"sessionTab":{"xpathparams": ["Request for Quotation"],"testStepDescription": "Click on the Request for Quotation Tab to move to the previous session"}}]},
+					{"clickElement" : [{"responsesCheckBox":{"xpathparams": ["1"],"testStepDescription":"Click on check box"}}]},
+					{"clickElement" : [{"responsesCheckBox":{"xpathparams": ["0"],"testStepDescription":"Click on check box"}}]},
+					{"clickElement" : [{"lineActionResponseButton":{"xpathparams": [], "tesStepDescription": "Click on Actions button"}}]},
+					{"clickElement" : [{"buttonAcceptRFQ":{"xpathparams": [],"testStepDescription" : "Click on Accept Button"}}]},
+					{"clickElement" : [{"bidderSearch":{"xpathparams": [],"testStepDescription" : "Click on Accept Button"}}]},
+					{ "keyBoardEvent": { "tab":"17"}},
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"labelwithText":{"xpathparams":["Accepted"], "continueTestNodes" : false, "testStepDescription": "Validate the Accepted field"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"responsesCheckBox":{"xpathparams": ["0"],"testStepDescription":"Click on check box"}}]},
+					{ "sleep": { "sec":"2000"}},
+					{"clickElement" : [{"responsesCheckBox":{"xpathparams": ["1"],"testStepDescription":"Click on check box"}}]},
+					{"clickElement" : [{"lineActionResponseButton":{"xpathparams": [], "tesStepDescription": "Click on Actions button"}}]},
+					{"clickElement" : [{"buttonAcceptRejectRFQ":{"xpathparams": ["Reject"],"testStepDescription" : "Click on Reject Button"}}]},
+					{"clickElement" : [{"bidderSearch":{"xpathparams": [],"testStepDescription" : "Click on Accept Button"}}]},
+					{ "keyBoardEvent": { "tab":"21"}},
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"labelwithText":{"xpathparams":["Rejected"], "continueTestNodes" : false, "testStepDescription": "Validate the Rejected field"}}									
+								]
+							}
+						]
+					}
+					
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "RFQ_031",
+				"testCaseTitle": "Verify Convert Responses",
+				"testCaseDescription":"Open Response line and convert to Purchase Order",
+				"dependsOn": "RFQ_030",
+				"tags":["RFQ"],
+				"testCaseSteps": [
+					{"clickElement" : [{"lineOpenResponsesWithIndex":{"xpathparams": ["1"],"testStepDescription":"Click on 1st line open bar to open the line under Responses tab"}}]},
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"sessionTab":{"xpathparams":["RFQ Responses"], "continueTestNodes" : false,"testStepDescription":"Validate RFQ Response tab"}}									
+								]
+							}
+						]
+					},
+				   	{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"orderStatus":{"xpathparams":["Accepted"], "continueTestNodes" : false,"testStepDescription":"Validate the status changed to Accepted"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"conversionAction":{"xpathparams": [],"testStepDescription":"Click on Cosnversion Action drop down"}}]},
+					{"clickElement" : [{"labelwithText":{"xpathparams": ["Convert"],"testStepDescription":"Click on Convert"}}]},
+					{ "keyBoardEvent": { "tab":"1"}},
+					{"clickElement" : [{"SessionTabClose":{"xpathparams": ["RFQ Responses"],"testStepDescription":"Click on Save and Exit on RFQ Response Session"}}]},
+					{"clickElement" : [{"labelwithText":{"xpathparams": ["Yes"],"testStepDescription":"Click on Yes"}}]},
+					{"clickElement" : [{"sessionTab":{"xpathparams": ["Request for Quotation"],"testStepDescription": "Click on the Request for Quotation Tab to move to the previous session"}}]}
+					
+								
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "RFQ_032",
+				"testCaseTitle": "Verify Convert RFQs",
+				"testCaseDescription":"Convert the RFQs by selecting lines under Rsponces tab and click on Convert button under Actions",
+				"dependsOn": "RFQ_031",
+				"tags":["RFQ"],
+				"testCaseSteps": [
+					{"clickElement" : [{"buttonMenuHeadres":{"xpathparams": ["Request for Quotation","Convert"],"testStepDescription":"Click on Header level Convert Button"}}]},
+				 	{"clickElement" : [{"labelwithText":{"xpathparams": ["Settings"],"testStepDescription":"Click on Convert"}}]},
+				 	{"clickElement" : [{"orderSeriesRFQ":{"xpathparams": [],"testStepDescription":"Click on Convert"}}]},
+				 	{"typeTextWithTabKey" : [{"textinputfieldSeriesSearch":{"xpathparams": [], "value" : "$orderSeries", "testStepDescription" : "Enter Price value"}}]},
+				 	{"clickElement" : [{"windowFirstRowCheckBox":{"xpathparams": [], "tesStepDescription": "Click on check box"}}]},
+					{"clickElement" : [{"windowOkButton":{"xpathparams": [],"testStepDescription" : "Click on Ok Button"}}]},
+					{"clickElement" : [{"orderTypeRFQ":{"xpathparams": [],"testStepDescription":"Click on Convert"}}]},
+				 	{"typeTextWithTabKey" : [{"textinputfieldSeriesSearch":{"xpathparams": [], "value" : "$orderType", "testStepDescription" : "Enter Price value"}}]},
+				 	{"clickElement" : [{"windowFirstRowCheckBox":{"xpathparams": [], "tesStepDescription": "Click on check box"}}]},
+					{"clickElement" : [{"windowOkButton":{"xpathparams": [],"testStepDescription" : "Click on Ok Button"}}]},
+				 	{"clickElement" : [{"popUpMenubutton":{"xpathparams": ["Convert RFQs","Convert"],"testStepDescription":"Click on Convert button"}}]},
+					{"typeTextWithTabKey" : [{"device":{"xpathparams": [], "value" : "$device", "ignore" : "yes", "waitTime" : "2","testStepDescription":"Enter the value D in the device textbox"}}]},
+					{"clickElement" : [{"continueBtn":{"xpathparams": [], "ignore" : "yes", "waitTime" : "2","testStepDescription":"Click on Continue button"}}]},
+					{"clickElement" : [{"sessionTab":{"xpathparams": ["Converted RFQs"],"testStepDescription": "Click on the Converted RFQs reports Tab"}}]},
+					{"clickElement" : [{"sessionClose1":{"xpathparams": [],"testStepDescription":"Close the Performa Purchase Invoice Tab"}}]},
+					{"clickElement" : [{"sessionTab":{"xpathparams": ["Request for Quotation"],"testStepDescription": "Click on the Request for Quotation Tab to move to the previous session"}}]},
+					{"clickElement" : [{"popUpMenubutton":{"xpathparams": ["Convert RFQs","Close"],"testStepDescription":"Click on Close button"}}]},
+					{"clickElement" : [{"buttonMenuHeadres":{"xpathparams": ["Request for Quotation","Actions"],"testStepDescription": "Click on Actions button"}}]},
+					{"clickElement" : [{"buttonMenuItemUnderActions":{"xpathparams": ["Process Non-Converted..."],"testStepDescription":"Click on Process Non-Converted button"}}]},
+					{"clickElement" : [{"popUpMenubutton":{"xpathparams": ["Process Non-Converted RFQ Responses","Process"],"testStepDescription":"Click on Process button"}}]},
+					{"typeTextWithTabKey" : [{"device":{"xpathparams": [], "value" : "$device", "ignore" : "yes", "waitTime" : "2","testStepDescription":"Enter the value D in the device textbox"}}]},
+					{"clickElement" : [{"continueBtn":{"xpathparams": [], "ignore" : "yes", "waitTime" : "2","testStepDescription":"Click on Continue button"}}]},
+					{"clickElement" : [{"popUpMenubutton":{"xpathparams": ["Process Non-Converted RFQ Responses","Close"],"testStepDescription":"Click on Close button"}}]}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "RFQ_033",
+				"testCaseTitle": "Verify Linked RFQ Responces Data",
+				"testCaseDescription":"Navigate to Linked RFQ Responces Data and verify Purchase order creation",
+				"dependsOn": "RFQ_032",
+				"tags":["RFQ"],
+				"testCaseSteps": [
+					{"clickElement" : [{"sessionTab":{"xpathparams": ["Request for Quotation"],"testStepDescription": "Click on the Purchase Requisition Tab to move to the previous session"}}]},
+					{"clickElement" : [{"buttonReferencesRFQ":{"xpathparams": [],"testStepDescription":"Click on line level References buttton"}}]},
+				    {"clickElement" : [{"buttonLinkedRFQResponcesData":{"xpathparams": [],"testStepDescription":"Click on Linked RFQ Responces Data button"}}]},
+				    { "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"sessionTab":{"xpathparams":["Linked RFQ Data"], "continueTestNodes" : false,"testStepDescription":"Validate Linked RFQ Data tab"}}									
+								]
+							}
+						]
+					},
+				   	{"clickElement" : [{"buttonArrowStartRFQ":{"xpathparams": [],"testStepDescription":"Click on start button"}}]},
+				    { "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"labelwithText":{"xpathparams":["Purchase Order"], "continueTestNodes" : false,"testStepDescription":"Validate Purchase Order popup"}}									
+								]
+							}
+						]
+					},
+				  	{"clickElement" : [{"buttonSaveAndExit":{"xpathparams": ["Purchase Order"],"testStepDescription":"Click on Save and close button"}}]},
+					{"clickElement" : [{"sessionTab":{"xpathparams": ["Linked RFQ Data"],"testStepDescription": "Click on the Linked Requisition Line Data Tab to move to the previous session"}}]},
+					{"clickElement" : [{"buttonSaveAndExit":{"xpathparams": ["Linked RFQ Data"],"testStepDescription":"Click on Save and close button"}}]},
+					{"clickElement" : [{"sessionTab":{"xpathparams": ["Request for Quotation"],"testStepDescription": "Click on the Purchase Requisition Tab to move to the previous session"}}]},
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"orderStatus":{"xpathparams":["Processed"], "continueTestNodes" : false,"testStepDescription":"Validate the status changed to Processed"}}									
+								]
+							}
+						]
+					}
+				]
+			}
+		}
+		
+	]
+}
+

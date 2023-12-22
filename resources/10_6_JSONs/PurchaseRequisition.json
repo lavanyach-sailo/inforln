@@ -1,0 +1,783 @@
+{
+	"suiteName" : "Purchase Requisition",
+	"suiteDescription" : "Purchase Requisition Suite",
+	"testCases": [
+		{
+			"testNode": {
+				"testCaseID": "REQ_004",
+				"testCaseTitle": "Verify Login with Valid Credentials",
+				"testCaseDescription": "Infor LN Login",
+				"dependsOn": "",
+				"tags":["SmokeTest","REQ","REQ-RFQ","NegativeTest"],
+				"testCaseSteps": [
+				{ "login": { "login_username":"niranjan", "login_password":"SailoInc@345", "testStepDescription" : "Login with valid username and password"}},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"menuItem":{"xpathparams":["Infor LN"], "continueTestNodes" : false, "testStepDescription" : "Successfully Logged in and validate Infor LN Menu on the Homepage"}}									
+								]
+							}
+						]
+					}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "REQ_005",
+				"testCaseTitle": "Verify Purchase Requisitions",
+				"testCaseDescription": "Navigate to Purchase Requisitions",
+				"dependsOn": "REQ_004",
+				"tags":["SmokeTest","REQ","REQ-RFQ","NegativeTest"],
+				"testCaseSteps": [
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"menuItem":{"xpathparams":["Infor LN"], "continueTestNodes" : false}},
+									{"else":
+									[
+										{"clickElement" : [{"sideMenu":{"xpathparams": []}}]}
+									]
+									}
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"menuItem":{"xpathparams": ["Infor LN"], "testStepDescription" : "Click on Infor LN Menu"}}]},
+					{"clickElement" : [{"subMenuItem":{"xpathparams": ["Infor LN", "Procurement"], "testStepDescription" : "Click on Procurement under Infor LN"}}]},
+					{"clickElement" : [{"subMenuItems":{"xpathparams": ["Infor LN", "Procurement", "Requisitions"], "testStepDescription" : "Click on Requisitions under Procurement"}}]},
+					{"clickElement" : [{"subMenuItemChild":{"xpathparams": ["Infor LN", "Procurement", "Requisitions","Requisitions"], "testStepDescription" : "Click on Requisitions under Requisitions"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sessionTab":{"xpathparams":["Purchase Requisitions"], "continueTestNodes" : false, "testStepDescription" : "Validate Purchase Requisitions Tab is displayed"}}									
+								]
+							}
+						]
+					}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "REQ_006",
+				"testCaseTitle": "Verify New Purchase Requisition form",
+				"testCaseDescription": "Creating New Purchase Requisition Form",
+				"dependsOn": "REQ_005",
+				"tags":["SmokeTest","REQ","REQ-RFQ","NegativeTest"],
+				"testCaseSteps": [
+					{"clickElement" : [{"buttonNewPurchaseRequisition":{"xpathparams": [], "testStepDescription" : "Click on New button on Purchase Requisitions Tab"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sessionTab":{"xpathparams":["Purchase Requisition"], "continueTestNodes" : false, "testStepDescription" : "Validate Purchase Requisition Tab is displayed"}}									
+								]
+							}
+						]
+					}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "REQ_007",
+				"testCaseTitle": "Verify Invalid Requester for Purchase Requisition",
+				"testCaseDescription": "Validate Invalid Requester for Purchase Requisition",
+				"dependsOn": "REQ_006",
+				"tags":["SmokeTest","NegativeTest"],
+				"testCaseSteps": [
+					{"typeTextWithTabKey" : [{"inputFields":{"xpathparams": ["General","Requester:"], "value" : "PRASAAD", "testStepDescription" : "Enter Inactive Requester Details"}}]},
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"errorMessagePopUp":{"xpathparams":["Specified \"Requester\" not found in \"Employees - General\". Enter another \"Requester\"."], "continueTestNodes" : false, "testStepDescription": "Validate the Error Message for Inactive Requester Details"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"buttonOKError":{"xpathparams": [], "tesStepDescription": "Click on OK button to close the error message"}}]}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "REQ_008",
+				"testCaseTitle": "Verify Active Requester for Purchase Requisition",
+				"testCaseDescription": "Validate valid Requester for Purchase Requisition",
+				"dependsOn": "REQ_006",
+				"tags":["SmokeTest","REQ","REQ-RFQ","NegativeTest"],
+				"testCaseSteps": [
+					{"clickElement" : [{"inputFields":{"xpathparams": ["General","Requester:"], "testStepDescription" : "Click on Requester Details"}}]},
+					{"clickElement" : [{"searchButtonInputFields":{"xpathparams": ["General","Requester:"],"testStepDescription" : "Click on Search Button to search the Requester"}}]},
+					{"typeTextWithTabKey" : [{"textinputFieldsSearch":{"xpathparams": [], "value" : "Niranjan", "testStepDescription" : "Enter Active Requester value"}}]},
+					{"clickElement" : [{"windowFirstRowCheckBox":{"xpathparams": [], "tesStepDescription": "Click on check box"}}]},
+					{"clickElement" : [{"windowOkButton":{"xpathparams": [],"testStepDescription" : "Click on Ok Button"}}]}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "REQ_009",
+				"testCaseTitle": "Verify Invalid Requester Department",
+				"testCaseDescription":"Enter Invalid Requester Department and validate the error message displayed",
+				"dependsOn": "REQ_008",
+				"tags":["SmokeTest","NegativeTest"],
+				"testCaseSteps": [
+					{"typeTextWithTabKey" : [{"inputFields":{"xpathparams": ["General","Requester Department:"], "value" : "NAVOFF", "testStepDescription" : "Enter invalid Requester Department details"}}]},
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"errorMessagePopUp":{"xpathparams":["Specified \"Requester Department\" not found in \"Departments\". Enter another \"Requester Department\"."], "continueTestNodes" : false,"testStepDescription":"Validate the error message displayed for the Invalid Item in the Line"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"buttonOKError":{"xpathparams": [],"testStepDescription":"Click on OK button to close the error message for the Invalid Requester Department"}}]}										
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "REQ_010",
+				"testCaseTitle": "Verify Valid Requester Department",
+				"testCaseDescription": "Enter Valid Requester Department",
+				"dependsOn": "REQ_008",
+				"tags":["SmokeTest","REQ","REQ-RFQ","NegativeTest"],
+				"testCaseSteps": [
+					{"clickElement" : [{"inputFields":{"xpathparams": ["General","Requester Department:"], "testStepDescription" : "Click on Requester Department details"}}]},
+					{"clickElement" : [{"searchButtonInputFields":{"xpathparams": ["General","Requester Department:"],"testStepDescription":"Click on search button to search the Requester Department"}}]},
+					{"typeTextWithTabKey" : [{"textinputfieldSeriesSearch":{"xpathparams": [], "value" : "PUROFF", "testStepDescription" : "Enter Active Requester Department"}}]},
+					{"clickElement" : [{"windowFirstRowCheckBox":{"xpathparams": [], "tesStepDescription": "Click on check box"}}]},
+					{"clickElement" : [{"windowOkButton":{"xpathparams": [],"testStepDescription" : "Click on Ok Button"}}]}
+				]
+			}
+		},
+		
+		{
+			"testNode": {
+				"testCaseID": "REQ_011",
+				"testCaseTitle": "Verify Invalid Requisition Date for Purchase Requisition",
+				"testCaseDescription": "Validate invalid Requisition Date for Purchase Requisition",
+				"dependsOn": "REQ_010",
+				"tags":["SmokeTest","NegativeTest"],
+				"testCaseSteps": [
+					{"typeTextWithTabKey" : [{"inputFields":{"xpathparams": ["Control","Requisition Date:"], "value" : "6/14/2021", "testStepDescription":"Enter Invalid Requisition Date"}}]},
+					{ "keyBoardEvent": { "tab":"1"}},
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"errorMessagePopUp":{"xpathparams":["Change the value of the Requisition Date field."], "continueTestNodes" : false, "testStepDescription": "Validate the Error Message for Invalid Requisition Date field"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"buttonOKError":{"xpathparams": [],"testStepDescription" : "Click on OK Button to close the error message"}}]}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "REQ_012",
+				"testCaseTitle": "Verify Valid Requisition Date for Purchase Requisition",
+				"testCaseDescription": "Validate valid Requisition Date for Purchase Requisition",
+				"dependsOn": "REQ_010",
+				"tags":["SmokeTest","REQ","REQ-RFQ","NegativeTest"],
+				"testCaseSteps": [
+					{"clickElement" : [{"inputFields":{"xpathparams": ["Control","Requisition Date:"],"testStepDescription" : "Click on input Date field to select the current date for Requisition Date"}}]},
+					{"clickElement" : [{"searchButtonInputFields":{"xpathparams": ["Control","Requisition Date:"],"testStepDescription" : "Click on Date icon Button to select the current date for Requisition Date"}}]},
+					{"clickElement" : [{"selectCurrentDate":{"xpathparams": [],"testStepDescription" : "Click on current date icon to select the current dates"}}]}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "REQ_013",
+				"testCaseTitle": "Verify Invalid Requisted Date for Purchase Requisition",
+				"testCaseDescription" : "Enter Invalid Requisted Date for Purchase Requisition",
+				"dependsOn": "REQ_012",
+				"tags":["SmokeTest","NegativeTest"],
+				"testCaseSteps": [
+					{"typeTextWithEnter" : [{"inputFields":{"xpathparams": ["Control","Requested Date:"], "value" : "6/14/2021", "testStepDescription": "Enter Invalid Requisted Date for Purchase Requisition"}}]},
+					{ "keyBoardEvent": { "tab":"1"}},
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"errorMessagePopUp":{"xpathparams":["Reason: Receipt date cannot be earlier than requisition date."], "continueTestNodes" : false, "testStepDescription" : "Validate the error message displayed for Invalid Requisted Date"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"buttonOKError":{"xpathparams": [], "testStepDescription": "Click on OK button to close the error message for Invalid Requisted Date"}}]}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "REQ_014",
+				"testCaseTitle": "Verify Valid Requisted Date for Purchase Requisition",
+				"testCaseDescription": "Enter Valid Requisted Date for Purchase Requisition",
+				"dependsOn": "REQ_012",
+				"tags":["SmokeTest","REQ","REQ-RFQ","NegativeTest"],
+				"testCaseSteps": [
+					{"clickElement" : [{"inputFields":{"xpathparams": ["Control","Requested Date:"],"testStepDescription" : "Click on input Date field to select the current date for Requested Date"}}]},
+					{"clickElement" : [{"searchButtonInputFields":{"xpathparams": ["Control","Requested Date:"],"testStepDescription" : "Click on Date icon Button to select the current date for Requested Date"}}]},
+					{"clickElement" : [{"selectCurrentDate":{"xpathparams": [],"testStepDescription" : "Click on current date icon to select the current date"}}]}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "REQ_015",
+				"testCaseTitle": "Verify Invalid Requisition ",
+				"testCaseDescription" : "Enter Invalid Requisition and validate the error message displayed",
+				"dependsOn": "REQ_014",
+				"tags":["SmokeTest","NegativeTest"],
+				"testCaseSteps": [
+					{"typeTextWithEnter" : [{"inputFields":{"xpathparams": ["Control","Requisition:"], "value" : "ABC", "testStepDescription" : "Enter Invalid Requisition"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"errorMessagePopUp":{"xpathparams":["Change the value of the Requisition field."], "continueTestNodes" : false, "testStepDescription" : "Validate the error message displayed for Invalid Requisition"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"buttonOKError":{"xpathparams": []}}]}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "REQ_016",
+				"testCaseTitle": "Verify Valid Requisition",
+				"testCaseDescription": "Enter Valid Requisition",
+				"dependsOn": "REQ_014",
+				"tags":["SmokeTest","REQ","REQ-RFQ","NegativeTest"],
+				"testCaseSteps": [
+					{"clickElement" : [{"inputFields":{"xpathparams": ["Control","Requisition:"],"testStepDescription" : "Click on Requisition input field to search the Valid Requisition"}}]},
+					{"clickElement" : [{"searchButtonInputFields":{"xpathparams": ["Control","Requisition:"],"testStepDescription" : "Click on Search Button to search the Valid Requisition"}}]},
+					{"typeTextWithTabKey" : [{"textinputFieldsSearch":{"xpathparams": [], "value" : "Purchase Requisitions", "testStepDescription" : "Enter valid valid Requisition value"}}]},
+					{"clickElement" : [{"windowFirstRowCheckBox":{"xpathparams": [], "tesStepDescription": "Click on check box"}}]},
+					{"clickElement" : [{"windowOkButton":{"xpathparams": [],"testStepDescription" : "Click on Ok Button"}}]}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "REQ_017",
+				"testCaseTitle": "Verify Purchase Requisition Generation",
+				"testCaseDescription":"Validate the Status of REQ Generation",
+				"dependsOn": "REQ_016",
+				"tags":["SmokeTest","REQ","REQ-RFQ","NegativeTest"],
+				"testCaseSteps": [
+					{"clickElement" : [{"buttonSaveREQ":{"xpathparams": [],"testStepDescription": "Click on Save button to save the Purchase Requesition creation"}}]},
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"orderStatus":{"xpathparams":["Created"], "continueTestNodes" : false,"testStepDescription": "Validate the status of the Purchase Requisition,it should be in Created state"}}									
+								]
+							}
+						]
+					}
+					
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "REQ_018",
+				"testCaseTitle": "Verify New Order Lines",
+				"testCaseDescription": "Click on New on the Line to create new line",
+				"dependsOn": "REQ_017",
+				"tags":["SmokeTest","REQ","REQ-RFQ","NegativeTest"],
+				"testCaseSteps": [
+					{"clickElement" : [{"buttonAddNewLineREQ":{"xpathparams": [],"testStepDescription":"Click on New on the Line to create a new line"}}]},
+					{ "keyBoardEvent": { "tab":"2"}}				
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "REQ_019",
+				"testCaseTitle": "Verify Invalid Item",
+				"testCaseDescription":"Enter Invalid Item in the Line and validate the error message displayed",
+				"dependsOn": "REQ_018",
+				"tags":["SmokeTest","NegativeTest"],
+				"testCaseSteps": [
+					{"typeTextWithTabKey" : [{"purchaseREQitemEntry":{"xpathparams": [], "value" : "CAPA00009GGG0XX1", "testStepDescription" : "Enter invalid Item in the line"}}]},
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"errorMessagePopUp":{"xpathparams":["Specified \"Item\" not found in \"Item - Purchase\". Enter another \"Item\"."], "continueTestNodes" : false,"testStepDescription":"Validate the error message displayed for the Invalid Item in the Line"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"buttonOKError":{"xpathparams": [],"testStepDescription":"Click on OK button to close the error message for the Invalid Item in the Line"}}]}										
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "REQ_020",
+				"testCaseTitle": "Verify Valid Item",
+				"testCaseDescription": "Enter Valid Item in the Line",
+				"dependsOn": "REQ_018",
+				"tags":["SmokeTest","REQ","REQ-RFQ","NegativeTest"],
+				"testCaseSteps": [
+					{"clickElement" : [{"purchaseREQitemEntry":{"xpathparams": [],"testStepDescription":"Click on Item input field to search the valid Item in the Line"}}]},
+					{"clickElement" : [{"searchButtonPurchaseItemREQ":{"xpathparams": [],"testStepDescription":"Click on search button to search the valid Item in the Line"}}]},
+					{"typeTextWithTabKey" : [{"textItemfilter":{"xpathparams": [], "value" : "Test Item 30", "testStepDescription" : "Enter Active Purchase Requisition Item value"}}]},
+					{"clickElement" : [{"windowFirstRowCheckBox":{"xpathparams": [], "tesStepDescription": "Click on check box"}}]},
+					{"clickElement" : [{"windowOkButton":{"xpathparams": [],"testStepDescription" : "Click on Ok Button"}}]},
+					{ "keyBoardEvent": { "tab":"1"}}
+				]
+			}
+		},		
+		{
+			"testNode": {
+				"testCaseID": "REQ_021",
+				"testCaseTitle": "Verify Zero Qty",
+				"testCaseDescription":"Enter zero qty and validate the error message displayed",
+				"dependsOn": "REQ_020",
+				"tags":["SmokeTest","NegativeTest"],
+				"testCaseSteps": [
+					{"typeTextWithTabKey" : [{"purREQquantity":{"xpathparams": [], "value" : "0", "testStepDescription" : "Enter zero Quantity"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"errorMessagePopUp":{"xpathparams":["Enter a value for the Ordered Quantity field."], "continueTestNodes" : false,"testStepDescription": "Validate the error message for the zero qty"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"buttonOKError":{"xpathparams": [],"testStepDescription":"Click on OK Button to close the error message for zero qty"}}]}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "REQ_022",
+				"testCaseTitle": "Verify Valid Qty",
+				"testCaseDescription":"Enter valid qty greater than 0",
+				"dependsOn": "REQ_020",
+				"tags":["SmokeTest","REQ","REQ-RFQ","NegativeTest"],
+				"testCaseSteps": [
+					{"typeTextWithTabKey" : [{"purREQquantity":{"xpathparams": [], "value" : "1", "testStepDescription" : "Enter valid Quantity"}}]},
+					{ "keyBoardEvent": { "tab":"1"}}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "REQ_023",
+				"testCaseTitle": "Verify invalid Requested Date Entry",
+				"testCaseDescription" :"Enter the Requested Date entry",
+				"dependsOn": "REQ_022",
+				"tags":["SmokeTest","NegativeTest"],
+				"testCaseSteps": [
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"itemRequestedDate":{"xpathparams":[], "continueTestNodes" : false, "testStepDescription": "Validate the Requested Date field"}}									
+								]
+							}
+						]
+					},
+					{"typeTextWithTabKey" : [{"itemRequestedDate":{"xpathparams": [], "value" : "6/14/2021", "testStepDescription":"Enter Invalid Requested Date"}}]},
+					{ "keyBoardEvent": { "tab":"1"}},
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"errorMessagePopUp":{"xpathparams":["Change the value of the Requested Date field."], "continueTestNodes" : false, "testStepDescription": "Validate the Error Message for Invalid Requisition Date field"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"buttonOKError":{"xpathparams": [],"testStepDescription" : "Click on OK Button to close the error message"}}]}
+					
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "REQ_024",
+				"testCaseTitle": "Verify Valid Requested Date",
+				"testCaseDescription":"Enter Valid Requested Date",
+				"dependsOn": "REQ_022",
+				"tags":["SmokeTest","REQ","REQ-RFQ","NegativeTest"],
+				"testCaseSteps": [
+						{"clickElement" : [{"itemRequestedDate":{"xpathparams": [],"testStepDescription" : "Click on Requested Date field"}}]},
+						{ "validate": 
+							[ 
+								{ "isElementPresent":
+									[
+										{"dateIconItemRequestedDate":{"xpathparams":[], "continueTestNodes" : false, "testStepDescription": "Validate the Requested Date icon"}}									
+									]
+								}
+							]
+						},
+						{"clickElement" : [{"dateIconItemRequestedDate":{"xpathparams": [],"testStepDescription" : "Click on Date icon Button to select the current date for Requested Date"}}]},
+						{"clickElement" : [{"selectCurrentDate":{"xpathparams": [],"testStepDescription" : "Click on current date icon to select the current date"}}]},
+						{ "keyBoardEvent": { "tab":"2"}}
+					]
+				}
+			},
+			{
+				"testNode": {
+				"testCaseID": "REQ_025",
+				"testCaseTitle": "Verify Save Purchase Requisition",
+				"testCaseDescription" : "Click on Save to save Purchase Requisition line",
+				"dependsOn": "REQ_024",
+				"tags":["SmokeTest","REQ","REQ-RFQ","NegativeTest"],
+				"testCaseSteps": [
+						{"clickElement" : [{"buttonSaveREQ":{"xpathparams": [],"testStepDescription": "Click on Save button to save the Purchase Requesition line"}}]}
+					]
+				}
+			},
+			{
+			"testNode": {
+				"testCaseID": "REQ_026",
+				"testCaseTitle": "Verify Purchase Requisition Details",
+				"testCaseDescription": "Click on Reference button and click on Purchase Requisition Details button ",
+				"dependsOn": "REQ_025",
+				"tags":["SmokeTest","REQ","REQ-RFQ"],
+				"testCaseSteps": [
+						{"clickElement" : [{"buttonMenuHeadres":{"xpathparams": ["Purchase Requisition","References"],"testStepDescription":"Click on References Button"}}]},
+				   		{"clickElement" : [{"buttonMenuItemUnderActions":{"xpathparams": ["Purchase Requisition Details"],"testStepDescription":"Click on Purchase Requisition Details under the References Menu"}}]},
+						{"clickElement" : [{"inputFields":{"xpathparams": ["Approval","Approver Department:"],"testStepDescription" : "Click on Approver Department field"}}]},
+						{"clickElement" : [{"searchButtonInputFields":{"xpathparams": ["Approval","Approver Department:"],"testStepDescription" : "Click on Search Button to search the Approver Department"}}]},
+						{"clickElement" : [{"windowFirstRowCheckBox":{"xpathparams": [], "tesStepDescription": "Click on check box"}}]},
+						{"clickElement" : [{"windowOkButton":{"xpathparams": [],"testStepDescription" : "Click on Ok Button"}}]},
+					
+						{"clickElement" : [{"searchButtonInputFields":{"xpathparams": ["Approval","Approver:"],"testStepDescription" : "Click on Search Button to search the Approver"}}]},
+						{"typeTextWithTabKey" : [{"textItemfilter":{"xpathparams": [], "value" : "2", "testStepDescription" : "Enter Active Approver value"}}]},
+						{"clickElement" : [{"windowFirstRowCheckBox":{"xpathparams": [], "tesStepDescription": "Click on check box"}}]},
+						{"clickElement" : [{"windowOkButton":{"xpathparams": [],"testStepDescription" : "Click on Ok Button"}}]},	
+						{ "keyBoardEvent": { "tab":"1"}},
+						{"clickElement" : [{"buttonSaveAndExit":{"xpathparams": ["Purchase Requisitions"],"testStepDescription":"Click on Save and close button"}}]}					
+					]
+				}
+			},
+			{
+			"testNode": {
+				"testCaseID": "REQ_027",
+				"testCaseTitle": "Verify submit the Purchase Requisition",
+				"testCaseDescription" :"Cllick on Submit Button",
+				"dependsOn": "REQ_026",
+				"tags":["REQ","REQ-RFQ"],
+				"testCaseSteps": [
+					{ "validate": 
+							[ 
+								{ "isElementPresent":
+									[
+										{"sessionTab":{"xpathparams":["Purchase Requisition"], "continueTestNodes" : false, "testStepDescription": "Validate the Purchase Requisition tab"}}									
+									]
+								}
+							]
+					},
+					{"clickElement" : [{"sessionTab":{"xpathparams": ["Purchase Requisition"],"testStepDescription":"Click on Purchase Requisition"}}]},	 
+					{"clickElement" : [{"selectLineItems":{"xpathparams": [],"testStepDescription":"Click on check box to select the lines"}}]},
+				   	{"clickElement" : [{"selectAll":{"xpathparams": ["All"],"testStepDescription":"Click on All to select all the lines"}}]},
+				   	{"clickElement" : [{"buttonMenuHeadres":{"xpathparams": ["Purchase Requisition","Actions"],"testStepDescription":"Click on Actions Button"}}]},
+					{"clickElement" : [{"buttonMenuItemUnderActions":{"xpathparams": ["Submit"],"testStepDescription":"Click on Submit in the Purchase Requisition"}}]},
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"orderStatus":{"xpathparams":["Pending Approval"], "continueTestNodes" : false,"testStepDescription": "Validate the status of the Purchase Requisition,it should be in Pending Approval"}}									
+								]
+							}
+						]
+					}				
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "REQ_028",
+				"testCaseTitle": "Verify Approve Order",
+				"testCaseDescription": "Click on Requisition Approval Progress tab, select lene and click on Action button and click on Approve button to Approve the Purchase Requisition",
+				"dependsOn": "REQ_027",
+				"tags":["REQ","REQ-RFQ"],
+				"testCaseSteps": [
+					{"clickElement" : [{"labelwithText":{"xpathparams": ["Requisition Approval Progress"],"testStepDescription":"Click on Requisition Approval Progress tab"}}]},
+					{"clickElement" : [{"selectLineItems":{"xpathparams": [],"testStepDescription":"Click on check box to select the lines"}}]},
+				   	{"clickElement" : [{"selectAll":{"xpathparams": ["All"],"testStepDescription":"Click on All to select all the lines"}}]},
+				   	
+					{"clickElement" : [{"lineMenuButton2":{"xpathparams": ["Purchase Requisition","Actions"],"testStepDescription":"Click on Action Button"}}]},
+				   	{"clickElement" : [{"actionsMenuButton":{"xpathparams": ["Approve"],"testStepDescription":"Click on Approve under the Actions Menu"}}]},
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"orderStatus":{"xpathparams":["Approved"], "continueTestNodes" : false,"testStepDescription":"Validate the status changed to APproved"}}									
+								]
+							}
+						]
+					}
+						
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "REQ_029",
+				"testCaseTitle": "Verify Prepare conversion",
+				"testCaseDescription":"Click on Prepare conversion under header level Actions button",
+				"dependsOn": "REQ_028",
+				"tags":["REQ"],
+				"testCaseSteps": [
+					{"clickElement" : [{"labelwithText":{"xpathparams": ["Requisition Lines"],"testStepDescription":"Click on Requisition Lines tab"}}]},
+					{"clickElement" : [{"buttonMenuHeadres":{"xpathparams": ["Purchase Requisition","Actions"],"testStepDescription":"Click on header level Actions button"}}]},
+				   	{"clickElement" : [{"buttonMenuItemUnderActions":{"xpathparams": ["Prepare Conversion"],"testStepDescription":"Click on Prepare Conversion button under Actions button"}}]},
+				   	{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"ddConversionType":{"xpathparams":[], "continueTestNodes" : false,"testStepDescription":"Validate the Conversion type drop down button"}}									
+								]
+							}
+						]
+					},
+				   	{"clickElement" : [{"ddConversionType":{"xpathparams": [],"testStepDescription" : "Click on conversion type drop down button"}}]},
+					{"typeTextWithTabKey" : [{"textConversionType":{"xpathparams": [], "value" : "Purchase Order", "testStepDescription" : "Enter conversion type"}}]},
+					{"clickElement" : [{"buttonSavePRPC":{"xpathparams": [],"testStepDescription" : "Click on save button"}}]},
+					{"clickElement" : [{"popUpMenubutton":{"xpathparams": ["Purchase Requisition - Prepare Conversion","Actions"],"testStepDescription":"Click on Actions button under Purchase Requisition - Prepare Conversion window"}}]},
+					{"clickElement" : [{"actionsMenuButton":{"xpathparams": ["Convert"],"testStepDescription":"Click on Convert under the Actions Menu"}}]}
+						
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "REQ_030",
+				"testCaseTitle": "Verify Convert Purchase Requesitions",
+				"testCaseDescription":"Enter convert process input fields and click on convert",
+				"dependsOn": "REQ_029",
+				"tags":["REQ"],
+				"testCaseSteps": [
+					{"clickElement" : [{"searchButtonInputFields":{"xpathparams": ["Purchase Orders","Order Series:"],"testStepDescription" : "Click on Search Button to search the Order Series"}}]},
+					{"typeTextWithTabKey" : [{"textinputFieldsSearch":{"xpathparams": [], "value" : "Purchase Order", "testStepDescription" : "Enter Order series value"}}]},
+					{"clickElement" : [{"windowFirstRowCheckBox":{"xpathparams": [], "tesStepDescription": "Click on check box"}}]},
+					{"clickElement" : [{"windowOkButton":{"xpathparams": [],"testStepDescription" : "Click on Ok Button"}}]},
+					
+					{"clickElement" : [{"searchButtonInputFields":{"xpathparams": ["Purchase Orders","Order Type:"],"testStepDescription" : "Click on Search Button to search the Order Type"}}]},
+					{"typeTextWithTabKey" : [{"textinputFieldsSearch":{"xpathparams": [], "value" : "Purchase Order Type", "testStepDescription" : "Enter Order Type value"}}]},
+					{"clickElement" : [{"windowFirstRowCheckBox":{"xpathparams": [], "tesStepDescription": "Click on check box"}}]},
+					{"clickElement" : [{"windowOkButton":{"xpathparams": [],"testStepDescription" : "Click on Ok Button"}}]},
+					{"clickElement" : [{"popUpMenubutton":{"xpathparams": ["Convert Purchase Requisitions","Convert"],"testStepDescription":"Click on Convert button under Convert Purchase Requisitions"}}]},
+					{"typeTextWithTabKey" : [{"device":{"xpathparams": [], "value" : "D","testStepDescription":"Enter the value D in the device textbox"}}]},
+					{"clickElement" : [{"continueBtn":{"xpathparams": [],"testStepDescription":"Click on Continue button"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"continueBtn":{"xpathparams":[], "continueTestNodes" : false,"testStepDescription":"Validate the Continue button"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"continueBtn":{"xpathparams": [],"testStepDescription":"Click on Continue button"}}]},
+					{"clickElement" : [{"sessionTab":{"xpathparams": ["Requisition Conversion List"],"testStepDescription": "Click on the Requisition Conversion List Tab report"}}]},
+					{"clickElement" : [{"sessionClose":{"xpathparams": [],"testStepDescription":"Click on Close for the Requisition Conversion List Tab"}}]},
+					{"clickElement" : [{"sessionTab":{"xpathparams": ["Purchase Requisition"],"testStepDescription": "Click on the Purchase Requisition Tab to move to the previous session"}}]},
+					{"clickElement" : [{"popUpMenubutton":{"xpathparams": ["Convert Purchase Requisitions","Close"],"testStepDscription":"Click on Close button"}}]},
+					{"clickElement" : [{"buttonSaveAndExit":{"xpathparams": ["Purchase Requisition - Prepare Conversion"],"testStepDescription":"Click on Save and close button"}}]}
+				
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "REQ_031",
+				"testCaseTitle": "Verify Status",
+				"testCaseDescription":"Purchase Requisition status changed to Processed",
+				"dependsOn": "REQ_030",
+				"tags":["REQ"],
+				"testCaseSteps": [
+				   {"clickElement" : [{"sessionTab":{"xpathparams": ["Purchase Requisition"],"testStepDescription":"Click on Purchase Requisition tab"}}]},
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"orderStatus":{"xpathparams":["Processed"], "continueTestNodes" : false,"testStepDescription":"Validate the status changed to Processed"}}									
+								]
+							}
+						]
+					}
+					
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "REQ_032",
+				"testCaseTitle": "Verify Linked Requisition Line Data",
+				"testCaseDescription":"Navigate to Linked Requisition Line Data",
+				"dependsOn": "REQ_031",
+				"tags":["REQ"],
+				"testCaseSteps": [
+				    {"clickElement" : [{"lineMenuButtons":{"xpathparams": ["Purchase Requisition","References"],"testStepDescription":"Click on References Button"}}]},
+				   	{"clickElement" : [{"actionsMenuButton":{"xpathparams": ["Linked Requisition Line Data"],"testStepDescription":"Click on Linked Requisition Line Data under the References Menu"}}]},
+					
+				    
+				    {"clickElement" : [{"buttonArrowREQ":{"xpathparams": [],"testStepDescription":"Click on open Linked Requisition Line Data"}}]},
+				   	{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"labelwithText":{"xpathparams":["Purchase Order"], "continueTestNodes" : false,"testStepDescription": "Validate the Purchase Order Tab"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"buttonSaveAndExit":{"xpathparams": ["Purchase Order"],"testStepDescription":"Click on Save and close button"}}]},
+					{"clickElement" : [{"sessionTab":{"xpathparams": ["Linked Requisition Line Data"],"testStepDescription": "Click on the Linked Requisition Line Data Tab to move to the previous session"}}]},
+					{"clickElement" : [{"buttonSaveAndExit":{"xpathparams": ["Linked Requisition Line Data"],"testStepDescription":"Click on Save and close button"}}]},
+					{"clickElement" : [{"sessionTab":{"xpathparams": ["Purchase Requisition"],"testStepDescription": "Click on the Purchase Requisition Tab to move to the previous session"}}]}
+				]
+			}
+		},
+		
+		
+		
+		
+		
+		{
+			"testNode": {
+				"testCaseID": "REQ_029",
+				"testCaseTitle": "Verify Prepare conversion",
+				"testCaseDescription":"Click on Prepare conversion under header level Actions button",
+				"dependsOn": "REQ_028",
+				"tags":["REQ-RFQ"],
+				"testCaseSteps": [
+					{"clickElement" : [{"labelwithText":{"xpathparams": ["Requisition Lines"],"testStepDescription":"Click on Requisition Lines tab"}}]},
+					{"clickElement" : [{"buttonMenuHeadres":{"xpathparams": ["Purchase Requisition","Actions"],"testStepDescription":"Click on header level Actions button"}}]},
+				   	{"clickElement" : [{"buttonMenuItemUnderActions":{"xpathparams": ["Prepare Conversion"],"testStepDescription":"Click on Prepare Conversion button under Actions button"}}]},
+				   	{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"ddConversionType":{"xpathparams":[], "continueTestNodes" : false,"testStepDescription":"Validate the Conversion type drop down button"}}									
+								]
+							}
+						]
+					},
+				   	{"clickElement" : [{"ddConversionType":{"xpathparams": [],"testStepDescription" : "Click on conversion type drop down button"}}]},
+					{"typeTextWithTabKey" : [{"textConversionType":{"xpathparams": [], "value" : "RFQ", "testStepDescription" : "Enter conversion type"}}]},
+					{"clickElement" : [{"buttonSavePRPC":{"xpathparams": [],"testStepDescription" : "Click on save button"}}]},
+					{"clickElement" : [{"popUpMenubutton":{"xpathparams": ["Purchase Requisition - Prepare Conversion","Actions"],"testStepDescription":"Click on Actions button under Purchase Requisition - Prepare Conversion window"}}]},
+					{"clickElement" : [{"actionsMenuButton":{"xpathparams": ["Convert"],"testStepDescription":"Click on Convert under the Actions Menu"}}]}
+						
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "REQ_030",
+				"testCaseTitle": "Verify Convert Purchase Requesitions",
+				"testCaseDescription":"Enter convert process input fields and click on convert",
+				"dependsOn": "REQ_029",
+				"tags":["REQ-RFQ"],
+				"testCaseSteps": [
+					{"textClearInputs" : [{"inputFields":{"xpathparams": ["Purchase Orders","Order Series:"],"testStepDescription" : "Clear the Order Series inputs"}}]},
+					{"textClearInputs" : [{"inputFields":{"xpathparams": ["Purchase Orders","Order Type:"],"testStepDescription" : "Clear the Order Type inputs"}}]},
+					
+					
+					{"clickElement" : [{"searchButtonInputFields":{"xpathparams": ["RFQs","RFQ Series:"],"testStepDescription" : "Click on Search Button to search the RFQ Series"}}]},
+					{"clickElement" : [{"windowFirstRowCheckBox":{"xpathparams": [], "tesStepDescription": "Click on check box"}}]},
+					{"clickElement" : [{"windowOkButton":{"xpathparams": [],"testStepDescription" : "Click on Ok Button"}}]},
+					
+					{"clickElement" : [{"searchButtonInputFields":{"xpathparams": ["RFQs","RFQ Type:"],"testStepDescription" : "Click on Search Button to search the Order Type"}}]},
+					{"clickElement" : [{"windowFirstRowCheckBox":{"xpathparams": [], "tesStepDescription": "Click on check box"}}]},
+					{"clickElement" : [{"windowOkButton":{"xpathparams": [],"testStepDescription" : "Click on Ok Button"}}]},
+					{"clickElement" : [{"popUpMenubutton":{"xpathparams": ["Convert Purchase Requisitions","Convert"],"testStepDescription":"Click on Convert button under Convert Purchase Requisitions"}}]},
+					{"typeTextWithTabKey" : [{"device":{"xpathparams": [], "value" : "D","testStepDescription":"Enter the value D in the device textbox"}}]},
+					{"clickElement" : [{"continueBtn":{"xpathparams": [],"testStepDescription":"Click on Continue button"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"continueBtn":{"xpathparams":[], "continueTestNodes" : false,"testStepDescription":"Validate the Continue button"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"continueBtn":{"xpathparams": [],"testStepDescription":"Click on Continue button"}}]},
+					{"clickElement" : [{"sessionTab":{"xpathparams": ["Requisition Conversion List"],"testStepDescription": "Click on the Requisition Conversion List Tab report"}}]},
+					{"clickElement" : [{"sessionClose":{"xpathparams": [],"testStepDescription":"Click on Close for the Requisition Conversion List Tab"}}]},
+					{"clickElement" : [{"sessionTab":{"xpathparams": ["Purchase Requisition"],"testStepDescription": "Click on the Purchase Requisition Tab to move to the previous session"}}]},
+					{"clickElement" : [{"popUpMenubutton":{"xpathparams": ["Convert Purchase Requisitions","Close"],"testStepDscription":"Click on Close button"}}]},
+					{"clickElement" : [{"buttonSaveAndExit":{"xpathparams": ["Purchase Requisition - Prepare Conversion"],"testStepDescription":"Click on Save and close button"}}]}
+				
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "REQ_031",
+				"testCaseTitle": "Verify Status",
+				"testCaseDescription":"Purchase Requisition status changed to Processed",
+				"dependsOn": "REQ_030",
+				"tags":["REQ-RFQ"],
+				"testCaseSteps": [
+				   {"clickElement" : [{"sessionTab":{"xpathparams": ["Purchase Requisition"],"testStepDescription":"Click on Purchase Requisition tab"}}]},
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"orderStatus":{"xpathparams":["Processed"], "continueTestNodes" : false,"testStepDescription":"Validate the status changed to Processed"}}									
+								]
+							}
+						]
+					}
+					
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "REQ_032",
+				"testCaseTitle": "Verify Linked Requisition Line Data",
+				"testCaseDescription":"Navigate to Linked Requisition Line Data",
+				"dependsOn": "REQ_031",
+				"tags":["REQ-RFQ"],
+				"testCaseSteps": [
+				    {"clickElement" : [{"lineMenuButtons":{"xpathparams": ["Purchase Requisition","References"],"testStepDescription":"Click on References Button"}}]},
+				   	{"clickElement" : [{"actionsMenuButton":{"xpathparams": ["Linked Requisition Line Data"],"testStepDescription":"Click on Linked Requisition Line Data under the References Menu"}}]},
+					{"clickElement" : [{"buttonArrowREQ":{"xpathparams": [],"testStepDescription":"Click on open Linked Requisition Line Data"}}]},
+				   	{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"labelwithText":{"xpathparams":["Request for Quotation"], "continueTestNodes" : false,"testStepDescription": "Validate the Request for Quotation Tab"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"buttonSaveAndExit":{"xpathparams": ["Request for Quotation"],"testStepDescription":"Click on Save and close button"}}]},
+					{"clickElement" : [{"sessionTab":{"xpathparams": ["Linked Requisition Line Data"],"testStepDescription": "Click on the Linked Requisition Line Data Tab to move to the previous session"}}]},
+					{"clickElement" : [{"buttonSaveAndExit":{"xpathparams": ["Linked Requisition Line Data"],"testStepDescription":"Click on Save and close button"}}]},
+					{"clickElement" : [{"sessionTab":{"xpathparams": ["Purchase Requisition"],"testStepDescription": "Click on the Purchase Requisition Tab to move to the previous session"}}]}
+				]
+			}
+		}
+			
+	]
+}
+

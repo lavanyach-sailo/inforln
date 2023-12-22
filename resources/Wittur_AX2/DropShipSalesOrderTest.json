@@ -1,0 +1,1563 @@
+{
+	"suiteName" : "DropShipSalesOrder",
+	"suiteDescription" : "Drop Ship Sales Order",
+	"testCases": [
+		{
+			"testNode": {
+				"testCaseID": "DSSO_001",
+				"testCaseTitle": "Verify Login with Valid Credentials",
+				"testCaseDescription": "Verify Login with Valid Credentials",
+				"dependsOn": "",
+				"tags":["SmokeTest","DSSO","NegativeTest"],
+				"testCaseSteps": [
+				{ "login": { "login_username":"", "login_password":"", "url" : "$url","testStepDescription" : "Naviagte to the Infor Cloud Suite Homepage"}},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"linkwithText":{"xpathparams":["Cloud Identities"], "continueTestNodes" : false, "testStepDescription" : "Validate the Cloud Identities button is present"}}									
+								]
+							}
+						]
+					},
+				{"clickElement" : [{"linkwithText":{"xpathparams": ["Cloud Identities"], "testStepDescription" : "Click on Cloud Identities option"}}]},
+				{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"buttonBrowse":{"xpathparams":["username"], "continueTestNodes" : false, "testStepDescription" : "Validate username is present"}}									
+								]
+							}
+						]
+					},
+				{"typeTextWithTabKey" : [{"buttonBrowse":{"xpathparams": ["username"], "value" : "$username", "testStepDescription" : "Enter username"}}]},
+				{"typeTextWithTabKey" : [{"buttonBrowse":{"xpathparams": ["pass"], "value" : "$password", "testStepDescription" : "Enter password"}}]},	
+				{"clickElement" : [{"buttonWithTextNS":{"xpathparams": ["Sign In"], "testStepDescription" : "Click on Cloud Identities option"}}]},
+				{ "login": { "login_username":"", "login_password":"", "url" : "https://mingle-portal.eu1.inforcloudsuite.com/WITTUR_AX2/f7ac043c-8cef-4e14-b859-a921d8a037f1","testStepDescription" : "Naviagte to the Infor Cloud Suite Homepage"}}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "DSSO_002",
+				"testCaseTitle": "Sales Order Navigation",
+				"testCaseDescription": "Navigate to Sales Order to create Sales Order",
+				"dependsOn": "DSSO_001",
+				"tags":["SmokeTest","DSSO","NegativeTest"],
+				"testCaseSteps": [
+				    {"frameSwitch" : [{"menuItem":{"xpathparams": ["Options"], "frame" : "m-app-frame", "by" : "class", "testStepDescription" : "Switch to IFrame"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"menuItem":{"xpathparams":["Sales"], "continueTestNodes" : false, "testStepDescription" : "Validate Sales menu is displayed"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"menuItem":{"xpathparams": ["Sales"], "testStepDescription" : "Click on Sales menu"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"subMenuItem":{"xpathparams":["Sales", "Orders"], "continueTestNodes" : false, "testStepDescription" : "Validate Orders option is displayed"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"subMenuItem":{"xpathparams": ["Sales", "Orders"], "testStepDescription" : "Click on Orders under Sales"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"subMenuItems":{"xpathparams":["Sales", "Orders", "Order Intake Workbench"], "continueTestNodes" : false, "testStepDescription" : "Validate Order Intake Workbench option is displayed"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"subMenuItems":{"xpathparams": ["Sales", "Orders", "Order Intake Workbench"], "testStepDescription" : "Click on Order Intake Workbench under Order"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sessionTab":{"xpathparams":["Sales Order Intake Workbench"], "continueTestNodes" : false, "testStepDescription" : "Validate Sales Order Intake WorkBench Tab is displayed"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"buttonAddnewHeader1":{"xpathparams": ["Sales Order Intake Workbench"], "testStepDescription" : "Click on new Button to create new Sales Order"}}]},
+				    { "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sessionTab":{"xpathparams":["Sales Order"], "continueTestNodes" : false, "testStepDescription" : "Validate Sales Order Intake WorkBench Tab is displayed"}}									
+								]
+							}
+						]
+					}
+		    	]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "DSSO_003",
+				"testCaseTitle": "Verify Invalid BP Details",
+				"testCaseDescription": "Enter Invalid BP Details",
+				"dependsOn": "DSSO_002",
+				"tags":["SmokeTest","NegativeTest"],
+				"testCaseSteps": [
+				    {"typeTextWithEnter" : [{"inputFields":{"xpathparams": ["Sold-to BP","Business Partner"], "value" : "ABC", "testStepDescription" : "Enter Invalid Order Series"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"errorMessagePopUp":{"xpathparams":["Specified \"Business Partner\" not found in \"Buy-from Business Partners\". Enter another \"Business Partner\"."], "continueTestNodes" : false, "testStepDescription": "Validate the Error Message for Invalid BP Details"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"buttonOKError":{"xpathparams": []}}]}
+		]
+			}
+		},			
+									
+	 {
+			"testNode": {
+				"testCaseID": "DSSO_004",
+				"testCaseTitle": "Verify Valid BP Details",
+				"testCaseDescription": "Enter Valid BP Details",
+				"dependsOn": "DSSO_002",
+				"tags":["SmokeTest","DSSO","NegativeTest"],
+				"testCaseSteps": [
+					{"clickElement" : [{"searchButtonInputFields":{"xpathparams": ["Sold-to BP", "Business Partner"], "testStepDescription" : "Click on search button for Business Partner"}}]},
+					{"typeTextWithTabKey" : [{"textinputfieldSeriesSearch":{"xpathparams": [], "value" : "$validBP", "testStepDescription" : "Enter Business Partner"}}]},
+					{"clickElement" : [{"windowFirstRowCheckBox":{"xpathparams": [], "tesStepDescription": "Click on check box"}}]},
+					{"clickElement" : [{"dialogBoxMenuButton":{"xpathparams": ["Sold-to Business Partners", "OK"],"testStepDescription" : "Click on Ok Button"}}]}
+										
+		]
+			}
+		},			
+												
+
+	{
+			"testNode": {
+				"testCaseID": "DSSO_005",
+				"testCaseTitle": "Verify Invalid Order Type",
+				"testCaseDescription": "Enter Invalid Order Type Details",
+				"dependsOn": "DSSO_004",
+				"tags":["SmokeTest","NegativeTest"],
+				"testCaseSteps": [
+				    {"typeTextWithEnter" : [{"inputFields":{"xpathparams": ["Control","Order Type"], "value" : "ABC", "testStepDescription":"Enter Invalid Order Type"}}]},
+				    { "keyBoardEvent": { "tab":"1"}},
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"errorMessagePopUp":{"xpathparams":["Specified \"Order Type\" not found in \"Sales Order Types\". Enter another \"Order Type\"."], "continueTestNodes" : false, "testStepDescription": "Validate the Error Message for Invalid Order Type"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"buttonOKError":{"xpathparams": [],"testStepDescription" : "Click on OK Button to close the error message"}}]}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "DSSO_006",
+				"testCaseTitle": "Verify Valid Order Type",
+				"testCaseDescription": "Enter Valid Order Type",
+				"dependsOn": "DSSO_004",
+				"tags":["SmokeTest","DSSO","NegativeTest"],
+				"testCaseSteps": [
+					{"clickElement" : [{"searchButtonInputFields":{"xpathparams": ["Control", "Order Type"], "testStepDescription" : "Click on search button for Order Type"}}]},
+					{"typeTextWithTabKey" : [{"textinputFieldsSearch":{"xpathparams": [], "value" : "$validOrderType", "testStepDescription" : "Enter Order Type"}}]},
+					{"clickElement" : [{"windowFirstRowCheckBox":{"xpathparams": [], "tesStepDescription": "Click on check box"}}]},
+					{"clickElement" : [{"dialogBoxMenuButton":{"xpathparams": ["Sales Order Types", "OK"],"testStepDescription" : "Click on Ok Button"}}]}
+					
+		]
+			}
+		},	
+		{
+			"testNode": {
+				"testCaseID": "DSSO_007",
+				"testCaseTitle": "Verify Invalid Sales office",
+				"testCaseDescription" : "Enter Invalid Sales Office and Validate the error message displayed",
+				"dependsOn": "DSSO_006",
+				"tags":["SmokeTest","NegativeTest"],
+				"testCaseSteps": [
+					{"typeTextWithEnter" : [{"inputFields":{"xpathparams": ["Control","Sales Office"], "value" : "NAVOFF", "testStepDescription": "Enter Invalid Sales Office"}}]},
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"errorMessagePopUp":{"xpathparams":["Specified \"Sales Office\" not found in \"Sales Offices\". Enter another \"Sales Office\"."], "continueTestNodes" : false, "testStepDescription" : "Validate the error message displayed for Invalid Sales Office"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"buttonOKError":{"xpathparams": [], "testStepDescription": "Click on OK button to close the error message for Invalid Sales Office"}}]}
+				]
+			}
+		},
+		
+		{
+			"testNode": {
+				"testCaseID": "DSSO_008",
+				"testCaseTitle": "Verify Valid Sales Ofice",
+				"testCaseDescription": "Enter Valid Sales Ofice",
+				"dependsOn": "DSSO_006",
+				"tags":["SmokeTest","DSSO","NegativeTest"],
+				"testCaseSteps": [
+					{"clickElement" : [{"searchButtonInputFields":{"xpathparams": ["Control", "Sales Office"], "testStepDescription" : "Click on search button for Sales Office"}}]},
+					{"clickElement" : [{"windowFirstRowCheckBox":{"xpathparams": [], "tesStepDescription": "Click on check box"}}]},
+					{"clickElement" : [{"dialogBoxMenuButton":{"xpathparams": ["Sales Offices", "OK"],"testStepDescription" : "Click on Ok Button"}}]}
+					
+		]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "DSSO_009",
+				"testCaseTitle": "Verify Valid Number",
+				"testCaseDescription" : "Enter Valid Number",
+				"dependsOn": "DSSO_008",
+				"tags":["SmokeTest","DSSO","NegativeTest"],
+				"testCaseSteps": [
+					{"clickElement" : [{"searchButtonInputFields":{"xpathparams": ["Control", "Number"], "testStepDescription" : "Click on search button for Number"}}]},
+					{"typeTextWithTabKey" : [{"textinputFieldsSearch":{"xpathparams": [], "value" : "$validSalesOffice", "testStepDescription" : "Enter Number type"}}]},
+					{"clickElement" : [{"windowFirstRowCheckBox":{"xpathparams": [], "tesStepDescription": "Click on check box"}}]},
+					{"clickElement" : [{"dialogBoxMenuButton":{"xpathparams": ["First Free Numbers", "OK"],"testStepDescription" : "Click on Ok Button"}}]}
+				]
+			}
+		},
+		
+		{
+			"testNode": {
+				"testCaseID": "DSSO_010",
+				"testCaseTitle": "Enter Customer Order Date",
+				"testCaseDescription": "Enter Customer Order Date in Configurable Tab",
+				"dependsOn": "DSSO_009",
+				"tags":["SmokeTest","DSSO","NegativeTest"],
+				"testCaseSteps": [
+					{"clickElement" : [{"labelwithText":{"xpathparams": ["Configurable Fields"], "testStepDescription" : "Click on Configurable Fields Tab"}}]},
+					{"clickElement" : [{"inputDateWithoutHeading":{"xpathparams": ["Customer Order Date:"], "tesStepDescription": "Click on Customer Order Date Calendar button"}}]},
+					{"clickElement" : [{"labelwithText":{"xpathparams": ["Today"],"testStepDescription" : "Click on Today Button to select Today's Date"}}]},
+					{"clickElement" : [{"tabButton":{"xpathparams": ["Order"],"testStepDescription" : "Click on Order Tab"}}]}
+					
+		]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "DSSO_011",
+				"testCaseTitle": "Save the Sales Order Details",
+				"testCaseDescription": "Save the Sales Order Details",
+				"dependsOn": "DSSO_010",
+				"tags":["SmokeTest","DSSO","NegativeTest"],
+				"testCaseSteps": [
+					{"clickElement" : [{"StdSaveButton":{"xpathparams": ["Sales Order"], "testStepDescription" : "Click on Save button"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"labelwithText":{"xpathparams":["OK"], "continueTestNodes" : false}},
+									{"then":
+									[
+										{"clickElement" : [{"labelwithText":{"xpathparams": ["OK"]}}]}
+									]
+									}
+								]
+							}
+						]
+					}			
+		]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "DSSO_012",
+				"testCaseTitle": "Enter the Site Details in Sales Order Details",
+				"testCaseDescription": "Enter the Site Details in Sales Order Details",
+				"dependsOn": "DSSO_011",
+				"tags":["SmokeTest","DSSO","NegativeTest"],
+				"testCaseSteps": [
+					{"clickElement" : [{"buttonMenuHeadres":{"xpathparams": ["Sales Order", "References"], "testStepDescription" : "Click on References button in the header"}}]},
+					{"clickElement" : [{"buttonMenuItemUnderActions":{"xpathparams": ["Sales Order Details"], "testStepDescription" : "Click on Sales Order Details"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sessionTab":{"xpathparams":["Sales Orders"], "continueTestNodes" : false, "testStepDescription" : "Validate Sales Orders Tab is displayed"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"site":{"xpathparams": [], "testStepDescription" : "Click on Site Search button"}}]},
+					{"typeTextWithTabKey" : [{"textinputfieldSeriesSearch":{"xpathparams": [], "value" : "$site", "testStepDescription" : "Enter Site Name"}}]},
+					{"clickElement" : [{"windowFirstRowCheckBox":{"xpathparams": [], "tesStepDescription": "Click on check box"}}]},
+					{"clickElement" : [{"dialogBoxMenuButton":{"xpathparams": ["Sites", "OK"],"testStepDescription" : "Click on Ok Button"}}]},
+					{"clickElement" : [{"salesOrdersSave":{"xpathparams": ["Sales Orders"], "testStepDescription" : "Click on save button"}}]},
+					{ "sleep": { "sec":"2000"}},
+					{"clickElement" : [{"SODetailsFieldsSearch":{"xpathparams": ["Shipping", "Warehouse"], "testStepDescription" : "Click on Site Search button"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"textinputfieldSeriesSearch":{"xpathparams":[], "continueTestNodes" : true}},
+									{"else":
+									[
+										{"clickElement" : [{"SODetailsFieldsSearch":{"xpathparams": ["Shipping", "Warehouse"], "testStepDescription" : "Click on Site Search button"}}]}
+									]
+									}
+								]
+							}
+						]
+					},
+					{"typeTextWithTabKey" : [{"textinputfieldSeriesSearch":{"xpathparams": [], "value" : "$warehouse", "testStepDescription" : "Enter Site Name"}}]},
+					{"clickElement" : [{"windowFirstRowCheckBox":{"xpathparams": [], "tesStepDescription": "Click on check box"}}]},
+					{"clickElement" : [{"dialogBoxMenuButton":{"xpathparams": ["Warehouses", "OK"],"testStepDescription" : "Click on Ok Button"}}]}
+												
+		]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "DSSO_013",
+				"testCaseTitle": "Enter the Business Classification Details",
+				"testCaseDescription": "Enter the Business Classification Details",
+				"dependsOn": "DSSO_012",
+				"tags":["SmokeTest","DSSO","NegativeTest"],
+				"testCaseSteps": [
+					{"clickElement" : [{"labelwithText2":{"xpathparams": ["Configurable Fields"], "testStepDescription" : "Click on Configurable Fields"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"businessClassification":{"xpathparams":[], "continueTestNodes" : false, "testStepDescription" : "Validate business classification"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"businessClassification":{"xpathparams": [],"testStepDescription" : "Click on Business Classification"}}]},
+					{"clickElement" : [{"businessClassificationItem":{"xpathparams": ["0"], "testStepDescription" : "Click on New installation"}}]},
+					{"clickElement" : [{"saveAndExit":{"xpathparams": [],"testStepDescription" : "Click on Save and Close button"}}]}
+							
+		]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "DSSO_014",
+				"testCaseTitle": "Add 3 Line Items",
+				"testCaseDescription": "Add 3 Line Items",
+				"dependsOn": "DSSO_013",
+				"tags":["SmokeTest","DSSO","NegativeTest"],
+				"testCaseSteps": [
+					{ "sleep": { "sec":"2000"}},
+					{"doubleClickElement" : [{"splitBar":{"xpathparams": [],"testStepDescription": "Click on the splitbar to move upwards"}}]},
+					{"clickElement" : [{"buttonAddnewLine":{"xpathparams": ["Sales Order"], "testStepDescription" : "Click on New Button in the Line"}}]},
+					{"clickElement" : [{"salesLineItem":{"xpathparams": ["0"], "testStepDescription" : "Click on Item field"}}]},	
+					{"clickElement" : [{"salesSearchLineItem":{"xpathparams": ["0"], "testStepDescription" : "Click on Search button for Items"}}]},
+					{"typeTextWithTabKey" : [{"textItemCodefilter":{"xpathparams": [], "value" : "$textItemfilter.1", "testStepDescription" : "Enter Item Name"}}]},
+					{"clickElement" : [{"windowFirstRowCheckBox":{"xpathparams": [], "tesStepDescription": "Click on check box"}}]},
+					{"clickElement" : [{"dialogBoxMenuButton":{"xpathparams": ["Items - Sales by Office", "OK"],"testStepDescription" : "Click on Ok Button"}}]},
+					{"clickElement" : [{"salesOrderedQuantity":{"xpathparams": ["0"], "testStepDescription" : "Click on Search button for Items"}}]},
+					{"typeTextWithTabKey" : [{"salesOrderedQuantity":{"xpathparams": ["0"], "value" : "$lineItemQuantity.1", "testStepDescription" : "Enter Item Name"}}]},
+					{ "keyBoardEvent": { "tab":"1"}},
+					{"clickElement" : [{"buttonAddnewLine":{"xpathparams": ["Sales Order"], "testStepDescription" : "Click on New Button in the Line"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"labelwithText":{"xpathparams":["OK"], "continueTestNodes" : true}},
+									{"then":
+									[
+										{"clickElement" : [{"labelwithText":{"xpathparams": ["OK"]}}]}
+									]
+									}
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"salesLineItem":{"xpathparams": ["1"], "testStepDescription" : "Click on Item field"}}]},	
+					{"clickElement" : [{"salesSearchLineItem":{"xpathparams": ["1"], "testStepDescription" : "Click on Search button for Items"}}]},
+					{"typeTextWithTabKey" : [{"textItemCodefilter":{"xpathparams": [], "value" : "$textItemfilter.2", "testStepDescription" : "Enter Item Name"}}]},
+					{"clickElement" : [{"windowFirstRowCheckBox":{"xpathparams": [], "tesStepDescription": "Click on check box"}}]},
+					{"clickElement" : [{"dialogBoxMenuButton":{"xpathparams": ["Items - Sales by Office", "OK"],"testStepDescription" : "Click on Ok Button"}}]},
+					{"clickElement" : [{"salesOrderedQuantity":{"xpathparams": ["1"], "testStepDescription" : "Click on Search button for Items"}}]},
+					{"typeTextWithTabKey" : [{"salesOrderedQuantity":{"xpathparams": ["1"], "value" : "$lineItemQuantity.2", "testStepDescription" : "Enter Item Name"}}]},
+					{ "keyBoardEvent": { "tab":"1"}},
+					{"clickElement" : [{"buttonAddnewLine":{"xpathparams": ["Sales Order"], "testStepDescription" : "Click on New Button in the Line"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"labelwithText":{"xpathparams":["OK"], "continueTestNodes" : true}},
+									{"then":
+									[
+										{"clickElement" : [{"labelwithText":{"xpathparams": ["OK"]}}]}
+									]
+									}
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"salesLineItem":{"xpathparams": ["2"], "testStepDescription" : "Click on Item field"}}]},	
+					{"clickElement" : [{"salesSearchLineItem":{"xpathparams": ["2"], "testStepDescription" : "Click on Search button for Items"}}]},
+					{"typeTextWithTabKey" : [{"textItemCodefilter":{"xpathparams": [], "value" : "$textItemfilter.3", "testStepDescription" : "Enter Item Name"}}]},
+					{"clickElement" : [{"windowFirstRowCheckBox":{"xpathparams": [], "tesStepDescription": "Click on check box"}}]},
+					{"clickElement" : [{"dialogBoxMenuButton":{"xpathparams": ["Items - Sales by Office", "OK"],"testStepDescription" : "Click on Ok Button"}}]},
+					{"clickElement" : [{"salesOrderedQuantity":{"xpathparams": ["2"], "testStepDescription" : "Click on Search button for Items"}}]},
+					{"typeTextWithTabKey" : [{"salesOrderedQuantity":{"xpathparams": ["2"], "value" : "$lineItemQuantity.3", "testStepDescription" : "Enter Item Name"}}]},
+					{ "keyBoardEvent": { "tab":"1"}},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"labelwithText":{"xpathparams":["OK"], "continueTestNodes" : true}},
+									{"then":
+									[
+										{"clickElement" : [{"labelwithText":{"xpathparams": ["OK"]}}]}
+									]
+									}
+								]
+							}
+						]
+					},
+					{ "sleep": { "sec":"2000"}},
+					{"doubleClickElement" : [{"splitBar":{"xpathparams": [],"testStepDescription": "Click on the splitbar to downwards"}}]}
+					
+					
+												
+		]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "DSSO_015",
+				"testCaseTitle": "Enter Order Confirmation Date",
+				"testCaseDescription": "Enter Order Confirmation Date",
+				"dependsOn": "DSSO_014",
+				"tags":["SmokeTest","DSSO","NegativeTest"],
+				"testCaseSteps": [
+					{ "sleep": { "sec":"2000"}},
+					{"clickElement" : [{"searchButtonInputFields":{"xpathparams": ["Control", "Order Confirmation Date"], "testStepDescription" : "Click on Order Confirmation Calendar button"}}]},
+					{"clickElement" : [{"labelwithText":{"xpathparams": ["Today"],"testStepDescription" : "Click on Today Button to select Today's Date"}}]},
+					{ "sleep": { "sec":"2000"}}
+					
+					
+		]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "DSSO_016",
+				"testCaseTitle": "Save the Sales Order Details",
+				"testCaseDescription": "Save the Sales Order Details",
+				"dependsOn": "DSSO_015",
+				"tags":["SmokeTest","DSSO","NegativeTest"],
+				"testCaseSteps": [
+					{"clickElement" : [{"StdSaveButton":{"xpathparams": ["Sales Order"], "testStepDescription" : "Click on Save button"}}]},
+					{"clickElement" : [{"popUpMenubutton":{"xpathparams": ["Sales Order - Lines - Synchronization","Synchronize"], "testStepDescription" : "Click on Synchronize button"}}]}		
+		]
+			}
+		},
+		
+		{
+			"testNode": {
+				"testCaseID": "DSSO_017",
+				"testCaseTitle": "Approve Sales Order",
+				"testCaseDescription": "Approve Sales Order Details",
+				"dependsOn": "DSSO_016",
+				"tags":["SmokeTest","DSSO","NegativeTest"],
+				"testCaseSteps": [
+					{"clickElement" : [{"salesApprove":{"xpathparams": [], "testStepDescription" : "Click on Approve button"}}]},
+					{ "sleep": { "sec":"25000"}},
+					{"doubleClickElement" : [{"buttonRefreshHeaders":{"xpathparams": ["Sales Order"], "testStepDescription" : "Click on Approve button"}}]},
+					{ "sleep": { "sec":"25000"}},
+					{"doubleClickElement" : [{"buttonRefreshHeaders":{"xpathparams": ["Sales Order"], "testStepDescription" : "Click on Approve button"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"orderStatus":{"xpathparams":["Approved"], "continueTestNodes" : false, "testStepDescription" : "Validate Sales Orders is Approved"}}									
+								]
+							}
+						]
+					},
+					{"getText": [{"inputFields":{"xpathparams": ["Control","Number:"], "varName" : "salesOrderNumber","testStepDescription":"Get the genrated sales order number and save"}}]}		
+		]
+			}
+		},
+		
+	{
+			"testNode": {
+				"testCaseID": "DSSO_018",
+				"testCaseTitle": "Generate Purchase Order Advice",
+				"testCaseDescription": "Generate Purchase Order Advice",
+				"dependsOn": "DSSO_017",
+				"tags":["SmokeTest","DSSO","NegativeTest"],
+				"testCaseSteps": [
+				    {"clickElement" : [{"headerActions":{"xpathparams": [], "testStepDescription" : "Click on Actions button in Header"}}]},
+					{"clickElement" : [{"labelwithText":{"xpathparams": ["Generate"], "testStepDescription" : "Click on Generate"}}]},
+					{"clickElement" : [{"labelwithText":{"xpathparams": ["Generate Purchase Order Advice..."], "testStepDescription" : "Click on Generate Purchase Order Advice..."}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sessionTab":{"xpathparams":["Generate Purchase Order Advice for Sales Order"], "continueTestNodes" : false, "testStepDescription" : "Validate Generate Purchase Order Advice for Sales Order Tab is displayed"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"SessionTabClose":{"xpathparams": ["Generate Purchase Order Advice for Sales Order"],"testStepDescription":"Click on Generate Purchase Order Advice for Sales Order close button"}}]},
+					{ "save": { "data":"textItemfilter", "type":"array", "objName" : "lineItems", "testStepDescription" : "Save line items to object"}},
+
+					{ "save": { "varName": "lipr", "assign" : "0", "testStepDescription" : "Save line items to object"}}
+					
+						
+		]
+			}
+		},
+		
+		{
+			"testNode": {
+				"testCaseID": "DSSO_019",
+				"testCaseTitle": "Generate Purchase Order Advice",
+				"testCaseDescription": "Generate Purchase Order Advice",
+				"dependsOn": "DSSO_018",
+				"tags":["SmokeTest","DSSO","NegativeTest"],
+				"testCaseSteps": [
+					{"clickElement" : [{"salesOrderCheckBox":{"xpathparams": ["#lipr"], "testStepDescription" : "Select the checkbox for 1st line item"}}]},
+					{"clickElement" : [{"lineMenuButtons":{"xpathparams": ["Sales Order", "References"], "testStepDescription" : "Click on References menu in the line level"}}]},
+					{"clickElement" : [{"labelwithText":{"xpathparams": ["Linked Information..."], "testStepDescription" : "Click on Linked Information"}}]},
+					{"getText": [{"outputWithoutHeading":{"xpathparams": ["Planned Purchase Advice Number:"], "varName" : "purchaseAdviceNumber","testStepDescription":"Get the Planned Purchase Advice Number and save"}}]},
+					{ "save": { "varName":"purchaseAdviceNumber", "type":"array", "objName" : "purchaseAdviceNumbers", "unique" : "no", "testStepDescription" : "Save line items to object"}},
+					{"clickElement" : [{"dialogBoxMenuButton":{"xpathparams": ["Linked Order Line Data", "Close"], "testStepDescription" : "Click on Close menu button"}}]},
+					{"clickElement" : [{"salesOrderCheckBox":{"xpathparams": ["#lipr"], "testStepDescription" : "Select the checkbox for 1st line item to uncheck"}}]}
+						
+		]
+			}
+		},
+		
+		{
+			"testNode": {
+				"testCaseID": "DSSO_020",
+				"testCaseTitle": "Generate Purchase Order Advice",
+				"testCaseDescription": "Generate Purchase Order Advice",
+				"dependsOn": "DSSO_019",
+				"tags":["SmokeTest","DSSO","NegativeTest"],
+				"testCaseSteps": [
+					{ "save": { "varName": "lipr", "assign" : "inc", "by" : "", "testStepDescription" : "Save line items to object"}},
+					{ "loop": {"loop" : { "from":"DSSO_019", "to":"DSSO_020", "object" : "lineItems", "varName": "lipr",  "testStepDescription" : "Loop through test cases"}}}
+						
+		]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "DSSO_021",
+				"testCaseTitle": "Navigate to Generate Purchase Order Advice",
+				"testCaseDescription": "Navigate to Generate Purchase Order Advice",
+				"dependsOn": "DSSO_020",
+				"tags":["SmokeTest","DSSO","NegativeTest"],
+				"testCaseSteps": [
+				    {"clickElement" : [{"menuItem":{"xpathparams": ["Sales"], "testStepDescription" : "Click on Sales menu"}}]},
+				    {"clickElement" : [{"menuItem":{"xpathparams": ["Warehousing"], "testStepDescription" : "Click on Warehousing menu"}}]},
+				    {"clickElement" : [{"subMenuItem":{"xpathparams": ["Warehousing", "Inventory Planning & Analysis"], "testStepDescription" : "Click on Inventory Planning & Analysis under Warehousing"}}]},	
+				    {"clickElement" : [{"subMenuItems":{"xpathparams": ["Warehousing", "Inventory Planning & Analysis", "Planning"], "testStepDescription" : "Click on Planning under Inventory Planning & Analysis"}}]},	
+				    {"clickElement" : [{"subMenuItemChild":{"xpathparams": ["Warehousing", "Inventory Planning & Analysis", "Planning", "Purchase Order Advice"], "testStepDescription" : "Click on Purchase Order Advice under Planning"}}]},
+				    { "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sessionTab":{"xpathparams":["Purchase Order Advice"], "continueTestNodes" : false, "testStepDescription" : "Validate Purchase Order Advice Tab is displayed"}}									
+								]
+							}
+						]
+					}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "DSSO_022",
+				"testCaseTitle": "Confirm and Transfer the Generated Purchase Order Advice",
+				"testCaseDescription": "Confirm and Transfer the Generated Purchase Order Advice",
+				"dependsOn": "DSSO_021",
+				"tags":["SmokeTest","DSSO","NegativeTest"],
+				"testCaseSteps": [
+				    {"clickElement" : [{"scrollToLastRecord":{"xpathparams": [], "testStepDescription" : "Click on scroll button"}}]},
+					{ "sleep": { "sec":"2000"}},
+					{"clickPurchaseOrderAdvices" : [{"labelwithText":{"xpathparams": [], "object" :"purchaseAdviceNumbers", "testStepDescription" : "Select the Purchase Order Advice1"}}]},
+					{"clickElement" : [{"moreActions":{"xpathparams": ["Confirm"], "testStepDescription" : "Click on Confirm"}}]},
+					{ "sleep": { "sec":"2000"}},
+					{"clickElement" : [{"scrollToLastRecord":{"xpathparams": [], "testStepDescription" : "Click on scroll button"}}]},
+					{ "sleep": { "sec":"2000"}},
+					{"clickPurchaseOrderAdvices" : [{"labelwithText":{"xpathparams": [], "object" :"purchaseAdviceNumbers", "testStepDescription" : "Select the Purchase Order Advice1"}}]},
+					{"clickElement" : [{"moreActions":{"xpathparams": ["Transfer"], "testStepDescription" : "Click on Transfer"}}]},
+					{ "save": { "varName": "lipr", "assign" : "0", "testStepDescription" : "Save line items to object"}}
+					
+				]
+			}
+		},
+		
+		{
+			"testNode": {
+				"testCaseID": "DSSO_023",
+				"testCaseTitle": "Confirm and Transfer the Generated Purchase Order Advice",
+				"testCaseDescription": "Confirm and Transfer the Generated Purchase Order Advice",
+				"dependsOn": "DSSO_022",
+				"tags":["SmokeTest","DSSO","NegativeTest"],
+				"testCaseSteps": [
+				    { "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"errorMessagePopUp":{"xpathparams":[], "continueTestNodes" : false}},
+									{"then":
+									[
+										{"getText": [{"errorMessagePopUp":{"xpathparams": [], "varName" : "purchaseOrderNumber","testStepDescription":"Get the genrated purchase order number and save"}}]},
+										{"clickElement" : [{"labelwithText":{"xpathparams": ["OK"]}}]}
+									]
+									}
+								]
+							}
+						]
+					},
+					{"splitText": [{"errorMessagePopUp":{"xpathparams": ["Planned Purchase Advice Number:"], "varName" : "purchaseOrderNumber", "object" : "purchaseOrderNumbers", "delimeter" : " ","pos" : "12", "unique": "yes", "testStepDescription":"Get the purchaseOrderNumber"}}]}
+					
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "DSSO_024",
+				"testCaseTitle": "Confirm and Transfer the Generated Purchase Order Advice",
+				"testCaseDescription": "Confirm and Transfer the Generated Purchase Order Advice",
+				"dependsOn": "DSSO_023",
+				"tags":["SmokeTest","DSSO","NegativeTest"],
+				"testCaseSteps": [
+				    { "save": { "varName": "lipr", "assign" : "inc", "by" : "", "testStepDescription" : "Save line items to object"}},
+					{ "loop": {"loop" : { "from":"DSSO_023", "to":"DSSO_024", "object" : "lineItems", "varName": "lipr",  "testStepDescription" : "Loop through test cases"}}}
+					
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "DSSO_025",
+				"testCaseTitle": "Close Generate Purchase Order Advice",
+				"testCaseDescription": "Close Generate Purchase Order Advice",
+				"dependsOn": "DSSO_024",
+				"tags":["SmokeTest","DSSO","NegativeTest"],
+				"testCaseSteps": [
+				    {"clickElement" : [{"saveAndClosePOA":{"xpathparams": ["Purchase Order Advice"], "testStepDescription" : "Click on Save and Close button the Header"}}]},    
+					{"clickElement" : [{"subMenuItems":{"xpathparams": ["Warehousing", "Inventory Planning & Analysis", "Planning"], "testStepDescription" : "Click on Planning under Inventory Planning & Analysis"}}]},
+					{"clickElement" : [{"subMenuItem":{"xpathparams": ["Warehousing", "Inventory Planning & Analysis"], "testStepDescription" : "Click on Inventory Planning & Analysis under Warehousing"}}]},	
+					{"clickElement" : [{"menuItem":{"xpathparams": ["Warehousing"], "testStepDescription" : "Click on Warehousing menu"}}]}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "DSSO_026",
+				"testCaseTitle": "Search Purchase Order Numbers",
+				"testCaseDescription": "Search Purchase Order Numbers",
+				"dependsOn": "DSSO_025",
+				"tags":["SmokeTest","DSSO","NegativeTest"],
+				"testCaseSteps": [
+				{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"menuItem":{"xpathparams":["Procurement"], "continueTestNodes" : false, "testStepDescription" : "Validate Sales Orders Tab is displayed"}}									
+								]
+							}
+						]
+					},
+				    {"clickElement" : [{"menuItem":{"xpathparams": ["Procurement"], "testStepDescription" : "Click on Procurement"}}]},
+				    { "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"menuItem":{"xpathparams":["Procurement", "Orders"], "continueTestNodes" : false, "testStepDescription" : "Validate Orders menu is displayed"}}									
+								]
+							}
+						]
+					},
+				    {"clickElement" : [{"subMenuItem":{"xpathparams": ["Procurement", "Orders"], "testStepDescription" : "Click on Orders under Procurement"}}]},	
+				    {"clickElement" : [{"subMenuItems":{"xpathparams": ["Procurement", "Orders", "Order Intake Workbench"], "testStepDescription" : "Click on Order Intake Workbench under Orders"}}]},
+				    { "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sessionTab":{"xpathparams":["Purchase Order Intake Workbench"], "continueTestNodes" : false, "testStepDescription" : "Validate Purchase Order Intake Workbench Tab is displayed"}}									
+								]
+							}
+						]
+					},
+					{ "save": { "varName": "popr", "assign" : "0", "testStepDescription" : "Save line items to object"}}
+					
+					
+				]    
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "DSSO_027",
+				"testCaseTitle": "Search Purchase Order Numbers",
+				"testCaseDescription": "Search Purchase Order Numbers",
+				"dependsOn": "DSSO_026",
+				"tags":["SmokeTest","DSSO","NegativeTest"],
+				"testCaseSteps": [
+					{"clickElement" : [{"sessionTab":{"xpathparams": ["Purchase Order Intake Workbench"], "testStepDescription" : "Click on Purchase Order Intake Workbench Tab"}}]},
+				    { "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sessionTab":{"xpathparams":["Purchase Order Intake Workbench"], "continueTestNodes" : false, "testStepDescription" : "Validate Purchase Order Intake Workbench Tab is displayed"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"labelwithText":{"xpathparams": ["Purchase Orders"], "testStepDescription" : "Click on Purchase Orders Tab"}}]},
+					{"typeTextWithTabKey" : [{"searchPO":{"xpathparams": [], "value" : "", "object" : "purchaseOrderNumbers", "pointer" : "popr", "testStepDescription" : "Search Purchase Order Number"}}]},
+					{"clickElement" : [{"firstLineArrowButton":{"xpathparams": [""], "testStepDescription" : "Click on Arrow Button on the first line"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sessionTab":{"xpathparams":["Purchase Order"], "continueTestNodes" : false, "testStepDescription" : "Validate Purchase Order Tab is displayed"}}									
+								]
+							}
+						]
+					}
+				]    
+			}
+		},
+		
+		{
+			"testNode": {
+				"testCaseID": "DSSO_028",
+				"testCaseTitle": "Approve the purchase order",
+				"testCaseDescription": "Approve the purchase order",
+				"dependsOn": "DSSO_027",
+				"tags":["SmokeTest","DSSO","NegativeTest"],
+				"testCaseSteps": [
+				    {"clickElement" : [{"searchButtonInputFields":{"xpathparams": ["Control","Confirmed Receipt Date:"], "testStepDescription" : "Click on Confirmed Receipt Date"}}]},
+				    {"clickElement" : [{"labelwithText":{"xpathparams": ["Today"],"testStepDescription" : "Click on Today Button to select Today's Date"}}]},
+				    {"clickElement" : [{"StdSaveButton":{"xpathparams": ["Purchase Order"], "testStepDescription" : "Click on Save button"}}]},
+				    {"clickElement" : [{"popUpMenubutton":{"xpathparams": ["Purchase Order - Lines - Synchronization","Synchronize"], "testStepDescription" : "Click on Synchronize button"}}]},
+					{"clickElement" : [{"ApprovePurchaseOrd":{"xpathparams": [], "testStepDescription" : "Click on Approve button"}}]},
+					{ "sleep": { "sec":"25000"}},
+					{"doubleClickElement" : [{"buttonRefreshHeaders":{"xpathparams": ["Purchase Order"], "testStepDescription" : "Click on Refresh button"}}]},
+					{ "sleep": { "sec":"25000"}},
+					{"doubleClickElement" : [{"buttonRefreshHeaders":{"xpathparams": ["Purchase Order"], "testStepDescription" : "Click on Refresh button"}}]},
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"orderStatus1":{"xpathparams":["Approved"], "continueTestNodes" : false,"testStepDescription":"Validate the status changed to Approved"}}									
+								]
+							}
+						]
+					},
+					{ "save": { "varName": "polipr", "assign" : "0", "testStepDescription" : "Save line items to object"}},
+					{ "save": { "count":[{"poLineItems":{"xpathparams": []}}], "type":"array", "varName" : "poLineItems", "testStepDescription" : "Save line items to object"}}
+				]    
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "DSSO_029",
+				"testCaseTitle": "Print Purchase Order",
+				"testCaseDescription": "Print Purchase Order",
+				"dependsOn": "DSSO_028",
+				"tags":["SmokeTest","DSSO","NegativeTest"],
+				"testCaseSteps": [
+				    {"clickElement" : [{"printHeaderSessions":{"xpathparams": ["Purchase Order"], "testStepDescription" : "Click on Print button on the header"}}]},
+				    {"clickElement" : [{"popUpMenubutton":{"xpathparams": ["Print Purchase Order", "Print"], "testStepDescription" : "Click on Print button on the Dialog box"}}]},
+				    {"typeTextWithTabKey" : [{"devicen18":{"xpathparams": [], "value" : "$device","testStepDescription":"Enter the value D in the Device text box"}}]},
+					{"clickElement" : [{"labelwithText":{"xpathparams": ["Continue"],"testStepDescription":"Click on Continue"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"SessionTabClose":{"xpathparams":["Print Purchase Order"], "continueTestNodes" : false}},
+									{"then":
+									[
+								    {"clickElement" : [{"SessionTabClose":{"xpathparams": ["Print Purchase Order"],"testStepDescription":"Click on Close for the Print Purchase Order Tab"}}]}
+									]
+									}
+								]
+							}
+						]
+					},
+					          
+				    {"clickElement" : [{"popUpMenubutton":{"xpathparams": ["Print Purchase Order","Close"],"testStepDescription":"Click on Close Button"}}]}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "DSSO_030",
+				"testCaseTitle": "Navigate to Purcahse Order Line Status",
+				"testCaseDescription": "Navigate to Purcahse Order Line Status",
+				"dependsOn": "DSSO_029",
+				"tags":["SmokeTest","DSSO","NegativeTest"],
+				"testCaseSteps": [
+				    {"clickElement" : [{"selectPurchaseOrderLines":{"xpathparams": ["#polipr"], "testStepDescription" : "Select one line"}}]},    
+					{"clickElement" : [{"lineActionButton1":{"xpathparams": ["Purchase Order","References"], "testStepDescription" : "Click on References Button"}}]},	
+					{"clickElement" : [{"buttonMenuItemUnderActions":{"xpathparams": ["Status"],"testStepDescription": "Click on Status under the References Button"}}]},
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"sessionTab":{"xpathparams":["Purchase Order Line Status"], "continueTestNodes" : false,"testStepDescription":"Validate the Purchase Order Line Status Tab is displayed"}}									
+								]
+							}
+						]
+					}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "DSSO_031",
+				"testCaseTitle": "Execute Release Purchase Orders to Warehousing",
+				"testCaseDescription": "Execute Release Purchase Orders to Warehousing",
+				"dependsOn": "DSSO_030",
+				"tags":["SmokeTest","DSSO","NegativeTest"],
+				"testCaseSteps": [
+				    { "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"activityStatus":{"xpathparams":["Release Purchase Orders to Warehousing","Executed"], "continueTestNodes" : true,"testStepDescription":"Validate the Automatic status of Release Purchase Orders to Warehousing"}}
+								]
+							}
+						]
+					}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "DSSO_032",
+				"testCaseTitle": "Execute Awaiting Receipts - Warehouse",
+				"testCaseDescription":"Execute Awaiting Receipts - Warehouse",
+				"dependsOn": "DSSO_031",
+				"tags":["DSSO"],
+				"testCaseSteps": [
+				    
+				   { "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"activityStatus":{"xpathparams":["Awaiting Receipts - Warehouse","Free"], "continueTestNodes" : true,"testStepDescription":"Validate the Automatic status of Awaiting Receipts - Warehouse"}},									
+								    {"then":
+									[
+										{"clickElement" : [{"Execute":{"xpathparams": [],"testStepDescription":"Click on Execute"}}]},
+										{"clickElement" : [{"sessionTab":{"xpathparams": ["Inbound Line Status Overview"],"testStepDescription": "Click on the Inbound Line Status Overview Tab"}}]},
+										{"clickElement" : [{"buttonMenuHeadres":{"xpathparams": ["Inbound Line Status Overview","Actions"],"testStepDescription":"Click on Actions"}}]},
+										{"clickElement" : [{"buttonMenuItemUnderActions":{"xpathparams": ["Goods Received Notes"],"testStepDescription":"Click on Goods Received Notes"}}]},
+										{"clickElement" : [{"popUpMenubutton":{"xpathparams": ["Print Goods Received Note","Print"], "testStepDescription" : "Click on Print button"}}]},
+										{"typeTextWithTabKey" : [{"devicen18":{"xpathparams": [], "value" : "$device","testStepDescription":"Enter the value D in the Device text box"}}]},
+					    				{"clickElement" : [{"labelwithText":{"xpathparams": ["Continue"],"testStepDescription":"Click on Continue"}}]},
+										{"clickElement" : [{"SessionTabClose":{"xpathparams": ["Goods Received Note by Order"],"testStepDescription":"Click on Goods Received Note by Order close button"}}]},
+										{"clickElement" : [{"popUpMenubutton":{"xpathparams": ["Print Goods Received Note","Close"], "testStepDescription" : "Click on Close button"}}]},
+										{"clickElement" : [{"buttonMenuHeadres":{"xpathparams": ["Inbound Line Status Overview","Actions"],"testStepDescription":"Click on Actions"}}]},
+										{"clickElement" : [{"buttonMenuItemUnderActions":{"xpathparams": ["Receive"],"testStepDescription":"Click on Receive "}}]},
+										{"clickElement" : [{"sessionTab":{"xpathparams": ["Warehouse Receipt"],"testStepDescription": "Click on Warehouse Receipt session"}}]},
+										{"doubleClickElement" : [{"arrowInwarehouseReceipt1":{"xpathparams": [],"testStepDescription": "Click on arrow button in the warehouse session"}}]},
+										{"clickElement" : [{"sessionTab":{"xpathparams": ["Receipt Lines"],"testStepDescription": "Click on Warehouse Receipt session"}}]},
+										{"typeTextWithTabKey" : [{"packingSlip":{"xpathparams": [], "value" : "$packingSlip","testStepDescription":"Enter the Packin Slip Number"}}]},
+										{"clickElement" : [{"buttonSaveAndExit":{"xpathparams": ["Receipt Lines"],"testStepDscription":"Click on Save and Exit Button on the Header"}}]},
+				                        {"clickElement" : [{"moreActions":{"xpathparams": ["Confirm Receipt"], "testStepDescription" : "Click on Confirm"}}]},										
+										{"clickElement" : [{"buttonSaveAndExit":{"xpathparams": ["Warehouse Receipt"],"testStepDescription":"Click on Save and Exit on Warehouse Receipt Session"}}]}
+										
+									]
+									}
+								]
+							}
+						]
+					}				     
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "DSSO_033",
+				"testCaseTitle": "Execute Generate Inbound Advice",
+				"testCaseDescription": "Execute Generate Inbound Advice",
+				"dependsOn": "DSSO_032",
+				"tags":["SmokeTest","DSSO","NegativeTest"],
+				"testCaseSteps": [
+				    { "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"sessionTab":{"xpathparams":["Inbound Line Status Overview"], "continueTestNodes" : false,"testStepDescription":"Validate the Inbound Line Status Overview Tab is displayed"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"sessionTab":{"xpathparams": ["Inbound Line Status Overview"],"testStepDescription": "Click on Inbound Line Status Overview session"}}]},
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"outboundActivityStatus":{"xpathparams":["Generate Inbound Advice","No"], "continueTestNodes" : true,"testStepDescription":"Validate the Automatic status of Generate Inbound Advice"}},									
+								    {"then":
+									[
+										{"clickElement" : [{"sessionTab":{"xpathparams": ["Inbound Line Status Overview"],"testStepDescription":"Click on Inbound Line Status Overview"}}]},
+										{"clickElement" : [{"buttonMenuHeadres":{"xpathparams": ["Inbound Line Status Overview","Actions"],"testStepDescription":"Click on Actions"}}]},
+										{"clickElement" : [{"buttonMenuItemUnderActions1":{"xpathparams": ["Generate Inbound Advice"],"testStepDescription":"Click on Generate Inbound Advice"}}]},
+                                        {"clickElement" : [{"popUpMenubutton":{"xpathparams": ["Generate Inbound Advice","Advise"], "testStepDescription" : "Click on Advise button"}}]},
+                                        {"clickElement" : [{"mappingOKButton":{"xpathparams": ["Yes"],"testStepDscription":"Click on Yes"}}]},
+                                        {"clickElement" : [{"labelwithText":{"xpathparams": ["OK"],"testStepDscription":"Click on OK"}}]},
+                                        {"clickElement" : [{"popUpMenubutton":{"xpathparams": ["Generate Inbound Advice","Close"], "testStepDescription" : "Click on Close button"}}]}
+										
+									]
+									}
+								]
+							}
+						]
+					}
+				    
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "DSSO_034",
+				"testCaseTitle": "Execute Put Away Advice",
+				"testCaseDescription": "Execute Put Away Advice",
+				"dependsOn": "DSSO_033",
+				"tags":["SmokeTest","DSSO","NegativeTest"],
+				"testCaseSteps": [
+				     { "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"sessionTab":{"xpathparams":["Inbound Line Status Overview"], "continueTestNodes" : false,"testStepDescription":"Validate the Inbound Line Status Overview Tab is displayed"}}									
+								]
+							}
+						]
+					},
+				    { "validate": 
+						                 [ 
+							               { "isDisplayed":
+								              [
+									             {"outboundActivityStatus":{"xpathparams":["Put Away Inbound Advice","No"], "continueTestNodes" : true,"testStepDescription":"Validate the Automatic status of Put Away Inbound Advice"}},									
+								           {"then":
+									          [
+										         {"clickElement" : [{"buttonMenuHeadres":{"xpathparams": ["Inbound Line Status Overview","Actions"],"testStepDescription":"Click on Actions"}}]},
+										         {"clickElement" : [{"labelwithText1":{"xpathparams": ["Put Away Advice"],"testStepDescription":"Click on Put Away Inbound Advice"}}]},
+                                                 {"clickElement" : [{"popUpMenubutton":{"xpathparams": ["Put Away Inbound Advice","Put Away Advice"], "testStepDescription" : "Click on Put Away Advice button"}}]},
+                                                 {"clickElement" : [{"labelwithText":{"xpathparams": ["OK"],"testStepDscription":"Click on OK"}}]},
+                                                 {"clickElement" : [{"popUpMenubutton":{"xpathparams": ["Put Away Inbound Advice","Close"], "testStepDescription" : "Click on Close button"}}]}
+										      ]
+									       }
+								              ]
+							               } 
+						                  ]
+					                    }
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "DSSO_035",
+				"testCaseTitle": "Save and Exit Inbound Line Status Overview",
+				"testCaseDescription":"Save and Exit Inbound Line Status Overview",
+				"dependsOn": "DSSO_034",
+				"tags":["DSSO"],
+				"testCaseSteps": [
+				    
+				    {"clickElement" : [{"sessionTab":{"xpathparams": ["Inbound Line Status Overview"],"testStepDescription": "Click onInbound Line Status Overview session"}}]},
+					{"clickElement" : [{"buttonSaveAndExit":{"xpathparams": ["Inbound Line Status Overview"],"testStepDescription":"Click on Save and Exit on Inbound Line Status Overview Session"}}]}				   				     
+				]
+			}
+		},
+		
+		{
+			"testNode": {
+				"testCaseID": "DSSO_036",
+				"testCaseTitle": "Save and Exit Purchase Order Line Status",
+				"testCaseDescription":"Save and Exit Purchase Order Line Status",
+				"dependsOn": "DSSO_035",
+				"tags":["DSSO"],
+				"testCaseSteps": [
+				   {"clickElement" : [{"labelwithTextIndex":{"xpathparams": ["Execute...", "1"], "testStepDescription" : "Click on Execute"}}]},
+				   {"clickElement" : [{"popUpMenubutton":{"xpathparams": ["Process Delivered Purchase Orders","Process"],"testStepDescription":"Click on Process Button"}}]},
+				   {"typeTextWithTabKey" : [{"devicen18":{"xpathparams": [], "value" : "$device","testStepDescription":"Enter the value D in the Device text box"}}]},
+				   {"clickElement" : [{"continueBtn":{"xpathparams": [],"testStepDescription":"Click on Continue button"}}]},
+				   { "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"labelwithText":{"xpathparams":["Process completed."], "continueTestNodes" : false,"testStepDescription":"Validate the status changed to Process completed."}}									
+								]
+							}
+						]
+					},
+				   {"clickElement" : [{"popUpMenubutton":{"xpathparams": ["Process Delivered Purchase Orders","Close"],"testStepDescription":"Click on Close Button"}}]},
+				   {"clickElement" : [{"buttonSaveAndExit":{"xpathparams": ["Purchase Order Line Status"],"testStepDescription":"Click on Save and Exit Button on Purchase Order Line Status"}}]},
+				   {"clickElement" : [{"sessionTab":{"xpathparams": ["Purchase Order"],"testStepDescription":"Click on Purchase Order session Tab"}}]},
+				   {"clickElement" : [{"closeSession":{"xpathparams": ["Purchase Order"],"testStepDescription":"Click on Purchase Order session Tab"}}]}
+				   				     
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "DSSO_037",
+				"testCaseTitle": "Verify Login with Valid Credentials",
+				"testCaseDescription": "Verify Login with Valid Credentials",
+				"dependsOn": "DSSO_036",
+				"tags":["SmokeTest","DSSO","NegativeTest"],
+				"testCaseSteps": [
+					{ "save": { "varName": "polipr", "assign" : "inc", "by" : "", "testStepDescription" : "Save line items to object"}},
+					{ "loop": {"loop" : { "from":"DSSO_030", "to":"DSSO_037", "variable" : "poLineItems", "varName": "polipr",  "testStepDescription" : "Save line items to object"}}}
+				
+				
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "DSSO_038",
+				"testCaseTitle": "Verify Login with Valid Credentials",
+				"testCaseDescription": "Verify Login with Valid Credentials",
+				"dependsOn": "DSSO_037",
+				"tags":["SmokeTest","DSSO","NegativeTest"],
+				"testCaseSteps": [
+					{ "save": { "varName": "popr", "assign" : "inc", "by" : "", "testStepDescription" : "Save line items to object"}},
+					{ "loop": {"loop" : { "from":"DSSO_027", "to":"DSSO_038", "object" : "purchaseOrderNumbers", "varName": "popr",  "testStepDescription" : "Save line items to object"}}}
+				
+				
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "DSSO_039",
+				"testCaseTitle": "Save and Close Purchase Order Intake Workbench",
+				"testCaseDescription":"Save and Close Purchase Order Intake Workbench",
+				"dependsOn": "DSSO_038",
+				"tags":["DSSO"],
+				"testCaseSteps": [
+				    
+				   {"clickElement" : [{"SessionTabClose":{"xpathparams": ["Purchase Order Intake Workbench"],"testStepDescription":"Click on Purchase Order Intake Workbench close button"}}]}			   				   			     
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "DSSO_040",
+				"testCaseTitle": "Print Sales Order",
+				"testCaseDescription":"Print Sales Order",
+				"dependsOn": "DSSO_039",
+				"tags":["DSSO"],
+				"testCaseSteps": [
+				    { "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"sessionTab":{"xpathparams":["Sales Order"], "continueTestNodes" : false,"testStepDescription":"Validate the Sales Order Tab is displayed"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"salesPrintDoc":{"xpathparams": [],"testStepDescription": "Click on Print Button"}}]},
+					{"clickElement" : [{"labelwithText":{"xpathparams": ["Draft"],"testStepDescription":"Click on Draft Optioin"}}]},
+					{"clickElement" : [{"popUpMenubutton":{"xpathparams": ["Print Sales Order Acknowledgements/RMAs","Print"],"testStepDescription":"Click on Process Button"}}]},
+					{"typeTextWithTabKey" : [{"devicen18":{"xpathparams": [], "value" : "$device","testStepDescription":"Enter the value D in the Device text box"}}]},
+					{"clickElement" : [{"labelwithText":{"xpathparams": ["Continue"],"testStepDescription":"Click on Continue"}}]},
+				    {"clickElement" : [{"SessionTabClose":{"xpathparams": ["Sales Order Acknowledgements/RMAs"],"testStepDescription":"Click on close Sales Order Acknowledgements/RMAs button"}}]},
+				    {"clickElement" : [{"popUpMenubutton":{"xpathparams": ["Print Sales Order Acknowledgements/RMAs","Close"],"testStepDescription":"Click on Close Button"}}]}
+
+					
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "DSSO_041",
+				"testCaseTitle": "Release Sales Order to Warehousing",
+				"testCaseDescription":"Release Sales Order to Warehousing",
+				"dependsOn": "DSSO_040",
+				"tags":["DSSO"],
+				"testCaseSteps": [
+				    {"clickElement" : [{"headerActions":{"xpathparams": [], "testStepDescription" : "Click on Actions"}}]},
+					{"clickElement" : [{"labelwithText":{"xpathparams": ["Release"],"testStepDescription":"Click on Release Button"}}]},
+				    {"clickElement" : [{"labelwithText":{"xpathparams": ["Release to Warehousing..."],"testStepDescription":"Click on close Release to Warehousing... button"}}]},
+				    { "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"sessionTab":{"xpathparams":["Release Sales Orders to Warehousing"], "continueTestNodes" : false,"testStepDescription":"Validate the Release Sales Orders to Warehousing Tab is displayed"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"labelwithText":{"xpathparams": ["Release"],"testStepDescription":"Click on Release Button"}}]},
+					{"typeTextWithTabKey" : [{"devicen18":{"xpathparams": [], "value" : "$device","testStepDescription":"Enter the value D in the Device text box"}}]},
+					{"clickElement" : [{"labelwithText":{"xpathparams": ["Continue"],"testStepDescription":"Click on Continue"}}]},
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"sessionTab":{"xpathparams":["Release Sales Orders to Warehousing - Log Report"], "continueTestNodes" : false,"testStepDescription":"Validate the Release Sales Orders to Warehousing - Log Report Tab is displayed"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"SessionTabClose":{"xpathparams": ["Release Sales Orders to Warehousing - Log Report"],"testStepDescription":"Click on Release Sales Orders to Warehousing - Log Report close button"}}]},
+                    {"clickElement" : [{"labelwithText":{"xpathparams": ["Close"],"testStepDescription":"Click on cllose Button"}}]}
+					
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "DSSO_042",
+				"testCaseTitle": "Naviagate to Warehousing Orders",
+				"testCaseDescription":"Naviagate to Warehousing Orders",
+				"dependsOn": "DSSO_041",
+				"tags":["DSSO"],
+				"testCaseSteps": [
+		            {"clickElement" : [{"menuItem":{"xpathparams": ["Procurement"], "testStepDescription" : "Click on Procurement"}}]},
+		            {"clickElement" : [{"menuItem":{"xpathparams": ["Warehousing"], "testStepDescription" : "Click on Warehousing"}}]},
+				    {"clickElement" : [{"subMenuItem":{"xpathparams": ["Warehousing", "Orders"], "testStepDescription" : "Click on Orders under Warehousing"}}]},	
+				    {"clickElement" : [{"subMenuItems":{"xpathparams": ["Warehousing", "Orders", "Orders"], "testStepDescription" : "Click on Orders under Orders"}}]},
+				    { "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"sessionTab":{"xpathparams":["Warehousing Orders"], "continueTestNodes" : false,"testStepDescription":"Validate the Warehousing Orders Tab is displayed"}}									
+								]
+							}
+						]
+					},
+					{"typeTextWithTabKey" : [{"WHordersSrchEntry":{"xpathparams": [], "value" : "#salesOrderNumber", "testStepDescription" : "Enter sales order number to search"}}]},
+					{ "save": { "varName": "wolipr", "assign" : "0", "testStepDescription" : "Save line items to object"}},
+					{ "save": { "count":[{"woLineItems":{"xpathparams": []}}], "type":"array", "varName" : "woLineItems", "testStepDescription" : "Save line items to object"}}
+					
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "DSSO_043",
+				"testCaseTitle": "Naviagate to Warehousing Orders",
+				"testCaseDescription":"Naviagate to Warehousing Orders",
+				"dependsOn": "DSSO_042",
+				"tags":["DSSO"],
+				"testCaseSteps": [
+		            {"clickElement" : [{"WHordersOpen4":{"xpathparams": ["#wolipr"], "testStepDescription" : "Click on Warehousing"}}]},
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"sessionTab":{"xpathparams":["Warehousing Order"], "continueTestNodes" : false,"testStepDescription":"Validate the Warehousing Orders Tab is displayed"}}									
+								]
+							}
+						]
+					}
+					
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "DSSO_044",
+				"testCaseTitle": "Generate Outbound Advice",
+				"testCaseDescription":"Generate Outbound Advice",
+				"dependsOn": "DSSO_043",
+				"tags":["DSSO"],
+				"testCaseSteps": [
+				     {"clickElement" : [{"buttonMenuHeadres":{"xpathparams": ["Warehousing Order","Actions"], "testStepDescription" : "Click on Actions"}}]},
+		            {"clickElement" : [{"buttonMenuItemUnderActions":{"xpathparams": ["Advice"], "testStepDescription" : "Click on Advice"}}]},
+				    {"clickElement" : [{"buttonMenuItemUnderActions":{"xpathparams": ["Generate Outbound Advice"], "testStepDescription" : "Click on Generate Outbound Advice"}}]},	
+				    { "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"sessionTab":{"xpathparams":["Picking List by Location"], "continueTestNodes" : false,"testStepDescription":"Validate the Warehousing Orders Tab is displayed"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"closeSession":{"xpathparams": ["Picking List by Location"], "testStepDescription" : "Click on close Picking List by Location"}}]}
+									
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "DSSO_045",
+				"testCaseTitle": "Navigate to Outbound Line Status Overview",
+				"testCaseDescription":"Navigate to Outbound Line Status Overview",
+				"dependsOn": "DSSO_044",
+				"tags":["DSSO"],
+				"testCaseSteps": [
+		            {"clickElement" : [{"WHordersSlct4":{"xpathparams": ["0"], "testStepDescription" : "Select the first line"}}]},
+					{"clickElement" : [{"lineMenuButtons":{"xpathparams": ["Warehousing Order","References"], "testStepDescription" : "Click on References"}}]},
+					{"clickElement" : [{"labelwithText":{"xpathparams": ["Status Overview"], "testStepDescription" : "Click on Status Overview"}}]},				    
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"sessionTab":{"xpathparams":["Outbound Line Status Overview"], "continueTestNodes" : false,"testStepDescription":"Validate the Outbound Line Status Overview Tab is dispalyed"}}									
+								]
+							}
+						]
+					}					
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "DSSO_046",
+				"testCaseTitle": "Execute Picking List",
+				"testCaseDescription":"Execute Picking List",
+				"dependsOn": "DSSO_045",
+				"tags":["DSSO"],
+				"testCaseSteps": [
+		            { "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"outboundActivityStatus":{"xpathparams":["Picking List","No"], "continueTestNodes" : false,"testStepDescription":"Validate the Automatic status of Picking List"}},									
+								    {"then":
+									[
+									 {"clickElement" : [{"buttonMenuHeadres":{"xpathparams": ["Outbound Line Status Overview","Actions"],"testStepDescription":"Click on Execute"}}]},
+					                 {"clickElement" : [{"buttonMenuItemUnderActions":{"xpathparams": ["Picking List"],"testStepDescription":"Click on Picking List"}}]},
+					                 {"clickElement" : [{"sessionTab":{"xpathparams": ["Picking List"],"testStepDescription":"Click on Close Button"}}]},
+					                 {"clickElement" : [{"selectWarehouseLines":{"xpathparams": ["Picking List"], "testStepDescription" : "Click on Check Box"}}]},
+					                 {"clickElement" : [{"selectAll":{"xpathparams": ["All"], "testStepDescription" : "Click on All"}}]},
+					                 {"clickElement" : [{"moreActions":{"xpathparams": ["Pick Run"], "testStepDescription" : "Click on Pick Run"}}]},
+					                 {"clickElement" : [{"moreActions":{"xpathparams": ["Pick Mission"], "testStepDescription" : "Click on Pick Mission"}}]},
+					                 {"clickElement" : [{"buttonSaveAndExit":{"xpathparams": ["Picking List"], "testStepDescription" : "Click on close Picking List by Location"}}]},
+					                 {"clickElement" : [{"buttonSaveAndExit":{"xpathparams": ["Outbound Line Status Overview"],"testStepDescription":"Click on Save and Exit Button on Purchase Order Line Status"}}]}
+       								  ]
+									}
+								]
+							}
+						]
+					}					
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "DSSO_047",
+				"testCaseTitle": "Shipment Lines",
+				"testCaseDescription":"Shipment Lines",
+				"dependsOn": "DSSO_046",
+				"tags":["DSSO"],
+				"testCaseSteps": [
+		                
+		                {"clickElement" : [{"buttonMenuHeadres":{"xpathparams": ["Warehousing Order","References"], "testStepDescription" : "Click on Actions"}}]},
+		                {"clickElement" : [{"buttonMenuItemUnderActions":{"xpathparams": ["Shipment Lines"], "testStepDescription" : "Click on Advice"}}]},
+				        { "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sessionTab":{"xpathparams":["Shipment Lines"], "continueTestNodes" : false, "testStepDescription" : "Validate Shipment Lines Tab is displayed"}}									
+								]
+							}
+						]
+					},
+					    {"clickElement" : [{"selectpickLines":{"xpathparams": ["5"], "testStepDescription" : "Click on Check Box"}}]},
+					    {"clickElement" : [{"selectAll":{"xpathparams": ["All"], "testStepDescription" : "Click on All"}}]},
+					    {"clickElement" : [{"moreActions":{"xpathparams": ["Confirm"], "testStepDescription" : "Click on Confirm"}}]},
+					    {"typeTextWithTabKey" : [{"devicen18":{"xpathparams": [], "value" : "$device","testStepDescription":"Enter the value D in the Device text box"}}]},
+					    {"clickElement" : [{"labelwithText":{"xpathparams": ["Continue"],"testStepDescription":"Click on Continue"}}]}, 
+					    {"clickElement" : [{"sessionTab":{"xpathparams": ["Packing Slips"], "testStepDescription" : "Click on Packing Slips"}}]},
+					    {"clickElement" : [{"closeSession":{"xpathparams": ["Packing Slips"], "testStepDescription" : "Click on close Packing Slips"}}]},       
+					    {"clickElement" : [{"sessionTab":{"xpathparams": ["Shipment Lines"], "testStepDescription" : "Click on Shipment Lines"}}]},
+					    {"clickElement" : [{"buttonMenuHeadres":{"xpathparams": ["Shipment Lines","Actions"], "testStepDescription" : "Click on Actions"}}]},
+		                {"clickElement" : [{"buttonMenuItemUnderActions":{"xpathparams": ["Print"], "testStepDescription" : "Click on Print"}}]},
+					    {"clickElement" : [{"buttonMenuItemUnderActions":{"xpathparams": ["Shipments..."], "testStepDescription" : "Click on Shipments..."}}]},
+					    {"clickElement" : [{"popUpMenubutton":{"xpathparams": ["Print Shipments","Print"],"testStepDescription":"Click on Process Button"}}]},
+					    {"typeTextWithTabKey" : [{"devicen18":{"xpathparams": [], "value" : "$device","testStepDescription":"Enter the value D in the Device text box"}}]},
+					    {"clickElement" : [{"labelwithText":{"xpathparams": ["Continue"],"testStepDescription":"Click on Continue"}}]},
+					    { "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sessionTab":{"xpathparams":["Shipments"], "continueTestNodes" : false, "testStepDescription" : "Validate Shipments Tab is displayed"}}									
+								]
+							}
+						]
+					},
+					   {"clickElement" : [{"closeSession":{"xpathparams": ["Shipments"], "testStepDescription" : "Click on close Packing Slips"}}]},
+					   {"clickElement" : [{"popUpMenubutton":{"xpathparams": ["Print Shipments","Close"],"testStepDescription":"Click on Close"}}]},
+       				   {"clickElement" : [{"closeSession":{"xpathparams": ["Shipment Lines"], "testStepDescription" : "Click on close Packing Slips"}}]},       
+					   {"clickElement" : [{"closeSession":{"xpathparams": ["Warehousing Order"], "testStepDescription" : "Click on close Warehousing Order"}}]}			  
+									
+								
+							
+						
+									
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "DSSO_048",
+				"testCaseTitle": "Verify Login with Valid Credentials",
+				"testCaseDescription": "Verify Login with Valid Credentials",
+				"dependsOn": "DSSO_047",
+				"tags":["SmokeTest","DSSO","NegativeTest"],
+				"testCaseSteps": [
+					{ "save": { "varName": "wolipr", "assign" : "inc", "by" : "", "testStepDescription" : "Save line items to object"}},
+					{ "loop": {"loop" : { "from":"DSSO_043", "to":"DSSO_048", "variable" : "woLineItems", "varName": "wolipr",  "testStepDescription" : "Save line items to object"}}}
+				
+				
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "DSSO_049",
+				"testCaseTitle": "Close Warehousing Orders",
+				"testCaseDescription":"Close Warehousing Orders",
+				"dependsOn": "DSSO_048",
+				"tags":["DSSO"],
+				"testCaseSteps": [
+		                
+					   {"clickElement" : [{"closeSession":{"xpathparams": ["Warehousing Orders"], "testStepDescription" : "Click on close Warehousing Order"}}]},
+					   {"clickElement" : [{"subMenuItem":{"xpathparams": ["Warehousing", "Orders"], "testStepDescription" : "Click on Orders under Warehousing"}}]},
+					   {"clickElement" : [{"menuItem":{"xpathparams": ["Warehousing"], "testStepDescription" : "Click on Warehousing menu"}}]}
+									
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "DSSO_050",
+				"testCaseTitle": "Sales Order to Invoicing",
+				"testCaseDescription":"Sales Order to Invoicing",
+				"dependsOn": "DSSO_049",
+				"tags":["DSSO"],
+				"testCaseSteps": [
+				    {"clickElement" : [{"menuItem":{"xpathparams": ["Invoicing"], "testStepDescription" : "Click on Invoicing menu"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"subMenuItem":{"xpathparams":["Invoicing", "Invoicing 360"], "continueTestNodes" : false, "testStepDescription" : "Validate Invoicing 360 is displayed"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"subMenuItem":{"xpathparams": ["Invoicing", "Invoicing 360"], "testStepDescription" : "Click on Invoicing 360"}}]},
+				    { "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sessionTab":{"xpathparams":["Invoicing 360"], "continueTestNodes" : false, "testStepDescription" : "Validate Invoicing 360 Tab is displayed"}}									
+								]
+							}
+						]
+					},	
+					{"clickElement" : [{"labelwithText2":{"xpathparams": ["Show All"], "testStepDescription" : "Click on Show All"}}]},				
+					{"clickElement" : [{"buttonBillableLines1":{"xpathparams": [], "testStepDescription" : "Click on Billable Lines Tab"}}]},
+					{"typeTextWithTabKey" : [{"invoiceOrderSrch":{"xpathparams": [], "value" : "#salesOrderNumber","testStepDescription":"Enter the Sales Order in search box"}}]},
+				    {"clickElement" : [{"selectpickLines":{"xpathparams": ["3"],"testStepDescription":"Click on checkbox button"}}]},
+					{"clickElement" : [{"selectAll":{"xpathparams": ["All"], "testStepDescription" : "Click on All"}}]},
+					{"clickElement" : [{"labelwithText":{"xpathparams": ["Create Invoice"], "testStepDescription" : "Click on Create Invoice"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"labelwithText":{"xpathparams":["Yes"], "continueTestNodes" : false}},
+									{"then":
+									[
+										{"clickElement" : [{"labelwithText":{"xpathparams": ["Yes"]}}]}
+									]
+									}
+								]
+							}
+						]
+					},
+				    {"typeTextWithTabKey" : [{"devicen18":{"xpathparams": [], "value" : "D","testStepDescription":"Enter the value D in the Device text box"}}]},
+					{"clickElement" : [{"continueBtn":{"xpathparams": [],"testStepDescription":"Click on Continue button"}}]},
+					{"typeTextWithTabKey" : [{"devicen18":{"xpathparams": [], "value" : "D","testStepDescription":"Enter the value D in the Device text box"}}]},
+					{"clickElement" : [{"continueBtn":{"xpathparams": [],"testStepDescription":"Click on Continue button"}}]},
+					{"typeTextWithTabKey" : [{"devicen18":{"xpathparams": [], "value" : "D","testStepDescription":"Enter the value D in the Device text box"}}]},
+					{"clickElement" : [{"continueBtn":{"xpathparams": [],"testStepDescription":"Click on Continue button"}}]},
+					{"clickElement" : [{"closeSession":{"xpathparams": ["Posting Batches Created"], "testStepDescription" : "Click on close session"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"labelwithText":{"xpathparams":["OK"], "continueTestNodes" : false}},
+									{"then":
+									[
+										{"clickElement" : [{"labelwithText":{"xpathparams": ["OK"]}}]}
+									]
+									}
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"sessionTab":{"xpathparams": ["Invoicing 360"], "testStepDescription" : "Click on Invoicing 360 Tab"}}]},
+					{"clickElement" : [{"buttonRefreshHeaders":{"xpathparams": ["Invoicing 360"], "testStepDescription" : "Click on Refresh button"}}]},
+					{ "sleep": { "sec":"2000"}},
+					{"typeTextWithTabKey" : [{"inputFields1":{"xpathparams": ["Invoice Filter","Source Document"], "value" : "#salesOrderNumber","testStepDescription":"Enter the Sales Order"}}]},
+					{"clickElement" : [{"labelwithText":{"xpathparams": ["Apply Filter"], "testStepDescription" : "Click on Apply Filter"}}]},
+					{"clickElement" : [{"invoicingDrag":{"xpathparams": [], "testStepDescription" : "Drag up"}}]},
+					{ "sleep": { "sec":"2000"}},
+					{"getText": [{"invoiceNumber1":{"xpathparams": ["0"], "varName" : "invoiceNumber","testStepDescription":"Get the genrated invoice number and save"}}]},
+					{"clickElement" : [{"closeSession":{"xpathparams": ["Invoicing 360"], "testStepDescription" : "Close the Invoicing 360 Tab"}}]},
+					{"clickElement" : [{"closeSession":{"xpathparams": ["Invoice"], "testStepDescription" : "Close the Invoice Tab"}}]},
+					{"clickElement" : [{"menuItem":{"xpathparams": ["Invoicing"], "testStepDescription" : "Click on Invoicing menu"}}]}
+				]
+			}
+		},
+		
+		{
+			"testNode": {
+				"testCaseID": "DSSO_051",
+				"testCaseTitle": "Create Transactions",
+				"testCaseDescription" : "Navigate to Transactions Session under Journal Voucher Entry",
+				"dependsOn": "DSSO_050",
+				"tags":["DSSO"],
+				"testCaseSteps": [
+					{"clickElement" : [{"menuItem":{"xpathparams": ["Financials"],"testStepDescription":"Click on Financials"}}]},
+					{"clickElement" : [{"subMenuItem":{"xpathparams": ["Financials", "General Ledger"],"testStepDescription":"Click on General Ledger"}}]},
+					{"clickElement" : [{"subMenuItems":{"xpathparams": ["Financials", "General Ledger","Journal Voucher Entry"],"testStepDescription":"Click on Journal Voucher Entry"}}]},
+					{"clickElement" : [{"subMenuItemChild":{"xpathparams": ["Financials", "General Ledger","Journal Voucher Entry","Transactions"],"testStepDescription":"Click on Transactions"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sessionTab":{"xpathparams":["Transactions"], "continueTestNodes" : false,"testStepDescription":"Validate the Transaction Tab"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"buttonAddnewHeader1":{"xpathparams": ["Transactions"], "testStepDescription" : "Click on New button"}}]},
+					{"typeTextWithTabKey" : [{"inputFields":{"xpathparams": ["Financial Batch", "Batch Reference"], "value" : "transaction", "testStepDescription" : "Enter Batch Reference"}}]},
+					{"clickElement" : [{"buttonAddnewLine":{"xpathparams": ["Transactions"], "testStepDescription" : "Click on new line button"}}]},
+					{"clickElement" : [{"transactionTypeSearch":{"xpathparams": ["0"], "testStepDescription" : "Click on search for Transaction Type"}}]},
+					{"typeTextWithTabKey" : [{"textinputfieldSeriesSearch":{"xpathparams": [], "value" : "143", "testStepDescription" : "Enter transaction type"}}]},
+					{"clickElement" : [{"windowFirstRowCheckBox":{"xpathparams": [], "tesStepDescription": "Click on check box"}}]},
+					{"clickElement" : [{"dialogBoxMenuButton":{"xpathparams": ["Transaction Types", "OK"],"testStepDescription" : "Click on Ok Button"}}]},
+					{"clickElement" : [{"transactionTypeArrow":{"xpathparams": ["0"],"testStepDescription" : "Click on Arrow Button"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sessionTab":{"xpathparams":["Bank Transactions"], "continueTestNodes" : false, "testStepDescription" : "Validate Bank Transactions is displayed"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"buttonAddnewHeader1":{"xpathparams": ["Bank Transactions"], "testStepDescription" : "Click on New button"}}]},
+                    { "keyBoardEvent": { "tab":"2"}},
+                    {"clickElement" : [{"selectTransactionType":{"xpathparams": ["0"], "testStepDescription" : "Click on Transaction Type"}}]},
+                    {"clickElement" : [{"labelwithText2":{"xpathparams": ["Receipt Transaction"], "testStepDescription" : "Select Receipt Transaction"}}]},
+                    { "keyBoardEvent": { "tab":"1"}},
+                    {"clickElement" : [{"searchTransactionBP":{"xpathparams": ["0"], "testStepDescription" : "Search Transacation BP"}}]},
+                    {"typeTextWithTabKey" : [{"textinputfieldSeriesSearch":{"xpathparams": [], "value" : "$validBP", "testStepDescription" : "Enter Business Partner"}}]},
+					{"clickElement" : [{"windowFirstRowCheckBox":{"xpathparams": [], "tesStepDescription": "Click on check box"}}]},
+					{"clickElement" : [{"dialogBoxMenuButton":{"xpathparams": ["Invoice-to Business Partners", "OK"],"testStepDescription" : "Click on Ok Button"}}]},
+					{ "keyBoardEvent": { "tab":"1"}},
+					{"clickElement" : [{"searchTransactionInvoice":{"xpathparams": ["0"], "testStepDescription" : "Search Transacation Invoice"}}]},
+                    {"typeTextWithTabKey" : [{"textinputFieldsSearch":{"xpathparams": [], "value" : "#invoiceNumber", "testStepDescription" : "Enter Invoice Number"}}]},
+					{"clickElement" : [{"windowFirstRowCheckBox":{"xpathparams": [], "tesStepDescription": "Click on check box"}}]},
+					{"clickElement" : [{"dialogBoxMenuButton":{"xpathparams": ["Invoice-to Business Partner Open Entries", "OK"],"testStepDescription" : "Click on Ok Button"}}]},
+                    { "keyBoardEvent": { "tab":"1"}},
+                    {"clickElement" : [{"buttonSaveSession":{"xpathparams": ["Bank Transactions"], "testStepDescription" : "Click on save button"}}]},
+                    {"clickElement" : [{"buttonSaveAndExit":{"xpathparams": ["Bank Transactions"], "testStepDescription" : "Click on save and exit button"}}]},
+                    {"clickElement" : [{"sessionTab":{"xpathparams": ["Transactions"], "testStepDescription" : "Click on Transactions Tab"}}]},
+                    {"clickElement" : [{"buttonMenuHeadres":{"xpathparams": ["Transactions", "Actions"], "testStepDescription" : "Click on Actions"}}]},
+                    {"clickElement" : [{"labelwithText":{"xpathparams": ["Finalize..."], "testStepDescription" : "Click on Finalize..."}}]},
+                    { "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"devicen18":{"xpathparams":[], "continueTestNodes" : false, "testStepDescription" : "Validate device option is displayed"}}									
+								]
+							}
+						]
+					},
+					{"typeTextWithTabKey" : [{"devicen18":{"xpathparams": [], "value" : "D","testStepDescription":"Enter the value D in the Device text box"}}]},
+					{"clickElement" : [{"continueBtn":{"xpathparams": [],"testStepDescription":"Click on Continue button"}}]},
+					{"clickElement" : [{"sessionTab":{"xpathparams": ["Journal Report (Totals by Ledger Account)"], "testStepDescription" : "Click on Journal Report (Totals by Ledger Account) Tab"}}]},
+					{"clickElement" : [{"closeSession":{"xpathparams": ["Journal Report (Totals by Ledger Account)"], "testStepDescription" : "Click on close Journal Report (Totals by Ledger Account)"}}]},
+					{"clickElement" : [{"sessionTab":{"xpathparams": ["Journal Report (sorted by Company/Document)"], "testStepDescription" : "Click on Journal Report (sorted by Company/Document) Tab"}}]},
+					{"clickElement" : [{"closeSession":{"xpathparams": ["Journal Report (sorted by Company/Document)"], "testStepDescription" : "Click on close Journal Report (sorted by Company/Document)"}}]},
+					{"clickElement" : [{"sessionTab":{"xpathparams": ["Transactions"], "testStepDescription" : "Click on Transactions Tab"}}]},
+					{"clickElement" : [{"closeSession":{"xpathparams": ["Transactions"], "testStepDescription" : "Click on close Transactions"}}]},
+					{"clickElement" : [{"sessionTab":{"xpathparams": ["Sales Order"], "testStepDescription" : "Click on Sales Order Tab"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sessionTab":{"xpathparams":["Finalization Status"], "continueTestNodes" : false, "testStepDescription" : "Validate Finalization Status Tab is displayed"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"sessionTab":{"xpathparams": ["Finalization Status"], "testStepDescription" : "Click on Finalization Status Tab"}}]},
+					{"clickElement" : [{"closeSession":{"xpathparams": ["Finalization Status"], "testStepDescription" : "Click on close Finalization Status"}}]},
+					{"clickElement" : [{"menuItem":{"xpathparams": ["Financials"],"testStepDescription":"Click on Financials"}}]},
+					{"clickElement" : [{"sessionTab":{"xpathparams": ["Sales Order"], "testStepDescription" : "Click on Sales Order Tab"}}]}
+										
+					
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "DSSO_052",
+				"testCaseTitle": "Process Sales Order Lines",
+				"testCaseDescription":"Process Sales Order Lines",
+				"dependsOn": "DSSO_051",
+				"tags":["DSSO"],
+				"testCaseSteps": [
+				    {"clickElement" : [{"sessionTab":{"xpathparams": ["Sales Order"], "testStepDescription" : "Click the Sales Order Tab"}}]},
+					{"clickElement" : [{"salesAction":{"xpathparams": [], "testStepDescription" : "Click on Actions"}}]},
+					{"clickElement" : [{"labelwithText":{"xpathparams": ["Process Delivered Orders..."], "testStepDescription" : "Click on Actions"}}]},
+					{"clickElement" : [{"popUpMenubutton":{"xpathparams": ["Process Delivered Sales Order","Process"],"testStepDescription":"Click on Process"}}]},
+					{"typeTextWithTabKey" : [{"devicen18":{"xpathparams": [], "value" : "$device","testStepDescription":"Enter the value D in the Device text box"}}]},
+					{"clickElement" : [{"labelwithText":{"xpathparams": ["Continue"],"testStepDescription":"Click on Continue"}}]},
+					{"clickElement" : [{"popUpMenubutton":{"xpathparams": ["Process Delivered Sales Order","Close"],"testStepDescription":"Click on Close"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"orderStatus":{"xpathparams":["Closed"], "continueTestNodes" : false, "testStepDescription" : "Validate Sales Orders is Closed"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"sessionTab":{"xpathparams": ["Sales Order"], "testStepDescription" : "Click on Sales Order Tab"}}]},
+					{"clickElement" : [{"closeSession":{"xpathparams": ["Sales Order"], "testStepDescription" : "Click on close Sales Order Tab"}}]},
+					{"clickElement" : [{"closeSession":{"xpathparams": ["Sales Order Intake Workbench"], "testStepDescription" : "Click on close Sales Order Intake Workbench Tab"}}]}
+					
+				]
+			}
+		}
+		
+		
+		
+		
+	
+		
+		
+
+			
+				
+	
+	]
+}

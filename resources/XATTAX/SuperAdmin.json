@@ -1,0 +1,505 @@
+{
+	"suiteName" : "XATTAX Super admin",
+	"suiteDescription" : "XATTAX Super admin Suite",
+	"testCases": [
+		{
+			"testNode": {
+				"testCaseID": "SA_CD_001",
+				"testCaseTitle": "Verify Login with Valid Credentials",
+				"testCaseDescription": "Admin Login",
+				"dependsOn": "",
+				"tags":["SmokeTest","SACD","NegativeTest"],
+				"testCaseSteps": [
+				{ "login": { "login_username":"", "login_password":"", "url" : "http://192.168.1.11/XATTAXEInvoice1.4/login?logout","testStepDescription" : "Login with valid username and password"}},
+				{"typeTextWithTabKey" : [{"inputName":{"xpathparams": ["username"], "value" : "$userid", "testStepDescription" : "Enter valid username"}}]},					
+				{"typeTextWithTabKey" : [{"inputName":{"xpathparams": ["password"], "value" : "$password", "testStepDescription" : "Enter valid password"}}]},
+				{"clickElement" : [{"buttonLogin":{"xpathparams": ["loginId"],"testStepDescription" : "Click on login Button"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"buttonwithAnchor":{"xpathparams":["Logout"], "continueTestNodes" : false, "testStepDescription" : "Successfully Logged in and validate Logout button on the Homepage"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"buttonSelect":{"xpathparams": ["Select"], "testStepDescription" : "Click on Select Button"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sideMenus":{"xpathparams":["Customer Details"], "continueTestNodes" : false, "testStepDescription" : "Validate Customer Details side menu on the Homepage"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sideMenus":{"xpathparams":["GSTN Master"], "continueTestNodes" : false, "testStepDescription" : "Validate GSTN Master side menu on the Homepage"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sideMenus":{"xpathparams":["Manage Users"], "continueTestNodes" : false, "testStepDescription" : "Validate Manage Users side menu on the Homepage"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sideMenus":{"xpathparams":["User GSTN Mapping"], "continueTestNodes" : false, "testStepDescription" : "Validate User GSTN Mapping side menu on the Homepage"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sideMenus":{"xpathparams":["Manage States"], "continueTestNodes" : false, "testStepDescription" : "Validate Manage States side menu on the Homepage"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sideMenus":{"xpathparams":["State Code Mapping"], "continueTestNodes" : false, "testStepDescription" : "Validate State Code Mapping side menu on the Homepage"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sideMenus":{"xpathparams":["Manage Roles"], "continueTestNodes" : false, "testStepDescription" : "Validate Manage Roles side menu on the Homepage"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sideMenus":{"xpathparams":[" Manage Error Master"], "continueTestNodes" : false, "testStepDescription" : "Validate  Manage Error Master side menu on the Homepage"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sideMenus":{"xpathparams":["Manage UQC"], "continueTestNodes" : false, "testStepDescription" : "Validate Manage UQC side menu on the Homepage"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sideMenus":{"xpathparams":["UQC Code Mapping"], "continueTestNodes" : false, "testStepDescription" : "Validate UQC Code Mapping side menu on the Homepage"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sideMenus":{"xpathparams":["GSP Configuration"], "continueTestNodes" : false, "testStepDescription" : "Validate GSP Configuration side menu on the Homepage"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sideMenus":{"xpathparams":["GST API Configuration"], "continueTestNodes" : false, "testStepDescription" : "Validate  GST API Configuration side menu on the Homepage"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sideMenus":{"xpathparams":["Email Configuration"], "continueTestNodes" : false, "testStepDescription" : "Validate Email Configuration side menu on the Homepage"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sideMenus":{"xpathparams":["ERP Configurations"], "continueTestNodes" : false, "testStepDescription" : "Validate ERP Configurations side menu on the Homepage"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sideMenus":{"xpathparams":["SFTP Configuration"], "continueTestNodes" : false, "testStepDescription" : "Validate SFTP Configuration side menu on the Homepage"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sideMenus":{"xpathparams":["E-Invoice Privilige Screen"], "continueTestNodes" : false, "testStepDescription" : "Validate E-Invoice Privilige Screen side menu on the Homepage"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sideMenus":{"xpathparams":["SFTP Configuration"], "continueTestNodes" : false, "testStepDescription" : "Validate SFTP Configuration side menu on the Homepage"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sideMenus":{"xpathparams":["Portal Configurations"], "continueTestNodes" : false, "testStepDescription" : "Validate Portal Configurations side menu on the Homepage"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sideMenus":{"xpathparams":["Delete Raw Data"], "continueTestNodes" : false, "testStepDescription" : "Validate Delete Raw Data side menu on the Homepage"}}									
+								]
+							}
+						]
+					}
+					
+					
+					
+				]
+			}
+		},
+{
+			"testNode": {
+				"testCaseID": "SA_CD_002",
+				"testCaseTitle": "Navigate to Customer Details Page",
+				"testCaseDescription": "Navigate to Customer Details Page",
+				"dependsOn": "SA_CD_001",
+				"tags":["SmokeTest","SACD","NegativeTest"],
+				"testCaseSteps": [
+					{"clickElement" : [{"sideMenus":{"xpathparams": ["Customer Details"],"testStepDescription" : "Click on Customer Details Side menu"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"inputField_C_Name":{"xpathparams":["Customer Name","Name"], "continueTestNodes" : false, "testStepDescription" : "Validate Customer Name field is displayed"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"inputField_C_Name":{"xpathparams":["Customer Code","Code"], "continueTestNodes" : false, "testStepDescription" : "Validate Customer Code field is displayed"}}									
+								]
+							}
+						]
+					}
+					
+					
+					
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "SA_CD_003",
+				"testCaseTitle": "Enter Customer Name and Customer code",
+				"testCaseDescription": "Enter Customer Name and Customer code",
+				"dependsOn": "SA_CD_002",
+				"tags":["SmokeTest","SACD","NegativeTest"],
+				"testCaseSteps": [
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"inputField_C_Name":{"xpathparams":["Customer Name","Name"], "continueTestNodes" : false, "testStepDescription" : "Validate Customer Name field is displayed"}}									
+								]
+							}
+						]
+					},
+					{"typeTextWithTabKey" : [{"inputField_C_Name":{"xpathparams": ["Customer Name","Name"], "value" : "$customerName", "testStepDescription" : "Enter Customer Name"}}]},
+					{"typeTextWithTabKey" : [{"inputField_C_Name":{"xpathparams": ["Customer Code","Code"], "value" : "$customerCode", "testStepDescription" : "Enter Customer Code"}}]},
+					{"clickElement" : [{"buttonwithType":{"xpathparams": ["submit"],"testStepDescription" : "Click on save Button"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"alertMsg":{"xpathparams":["Record  has been saved successfully."], "continueTestNodes" : false, "testStepDescription" : "Validate Record  has been saved successfully. is displayed"}}									
+								]
+							}
+						]
+					}
+										
+				]
+			}
+		},		
+		{
+			"testNode": {
+				"testCaseID": "SA_CD_004",
+				"testCaseTitle": "Edit the Customer Name and Customer code",
+				"testCaseDescription": "Edit the Customer Name and Customer code",
+				"dependsOn": "SA_CD_003",
+				"tags":["SmokeTest","SACD","NegativeTest"],
+				"testCaseSteps": [
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"buttonEdit_Delete":{"xpathparams":["Bharath","Edit"], "continueTestNodes" : false, "testStepDescription" : "Validate Edit field is displayed"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"buttonEdit_Delete":{"xpathparams": ["Bharath","Edit"],"testStepDescription" : "Click on Edit Button"}}]},
+					{"typeTextWithTabKey" : [{"inputField_C_Name":{"xpathparams": ["Customer Name","Name"], "value" : "$updatedCustomerName", "testStepDescription" : "Enter Customer Name"}}]},
+					{"typeTextWithTabKey" : [{"inputField_C_Name":{"xpathparams": ["Customer Code","Code"], "value" : "$updatedCustomerCode", "testStepDescription" : "Enter Customer Code"}}]},
+					{"clickElement" : [{"buttonwithType":{"xpathparams": ["submit"],"testStepDescription" : "Click on save Button"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"alertMsg":{"xpathparams":["Record  has been updated successfully."], "continueTestNodes" : false, "testStepDescription" : "Validate Record  has been saved successfully. is displayed"}}									
+								]
+							}
+						]
+					}
+					
+					
+					
+				]
+			}
+		},		
+		{
+			"testNode": {
+				"testCaseID": "SA_CD_005",
+				"testCaseTitle": "Clear the Customer Name and Customer code",
+				"testCaseDescription": "Clear the Customer Name and Customer code",
+				"dependsOn": "SA_CD_004",
+				"tags":["SmokeTest","SACD","NegativeTest"],
+				"testCaseSteps": [
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"inputField_C_Name":{"xpathparams":["Customer Name","Name"], "continueTestNodes" : false, "testStepDescription" : "Validate Customer Name field is displayed"}}									
+								]
+							}
+						]
+					},
+					{"typeTextWithTabKey" : [{"inputField_C_Name":{"xpathparams": ["Customer Name","Name"], "value" : "$customerName", "testStepDescription" : "Enter Customer Name"}}]},
+					{"typeTextWithTabKey" : [{"inputField_C_Name":{"xpathparams": ["Customer Code","Code"], "value" : "$customerCode", "testStepDescription" : "Enter Customer Code"}}]},
+					{"clickElement" : [{"buttonwithType":{"xpathparams": ["reset"],"testStepDescription" : "Click on Clear Button"}}]}
+										
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "SA_CD_006",
+				"testCaseTitle": "Delete the record",
+				"testCaseDescription": "Delete the records under Actions",
+				"dependsOn": "SA_CD_005",
+				"tags":["SmokeTest","SACD","NegativeTest"],
+				"testCaseSteps": [
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"buttonEdit_Delete":{"xpathparams":["Ramu","Delete"], "continueTestNodes" : false, "testStepDescription" : "Validate Delete field is displayed"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"buttonEdit_Delete":{"xpathparams": ["Ramu","Delete"],"testStepDescription" : "Click on Delete Button"}}]},
+					{"clickElement" : [{"buttonwithClass":{"xpathparams": ["Yes"],"testStepDescription" : "Click on Yes Button"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"alertMsg":{"xpathparams":["Record  has been deleted successfully."], "continueTestNodes" : false, "testStepDescription" : "Validate Record  has been saved successfully. is displayed"}}									
+								]
+							}
+						]
+					}
+				
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "SA_CD_007",
+				"testCaseTitle": "Search the Customer details",
+				"testCaseDescription": "Search the Customer details under the search field",
+				"dependsOn": "SA_CD_006",
+				"tags":["SmokeTest","SACD","NegativeTest"],
+				"testCaseSteps": [
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"searchField":{"xpathparams":["S","search"], "continueTestNodes" : false, "testStepDescription" : "Validate Search field is displayed"}}									
+								]
+							}
+						]
+					},
+					{"typeTextWithTabKey" : [{"searchField":{"xpathparams": ["S","search"], "value" : "Sailotech", "testStepDescription" : "Enter Customer Name"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"tableC_namewithText":{"xpathparams":["Sailotech"], "continueTestNodes" : false, "testStepDescription" : "Validate search field enter details is displayed"}}									
+								]
+							}
+						]
+					}
+				
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "SA_CD_008",
+				"testCaseTitle": "Enter Max length of Customer Name and Customer code",
+				"testCaseDescription": "Enter Max length of Customer Name and Customer code",
+				"dependsOn": "SA_CD_007",
+				"tags":["SmokeTest","SACD","NegativeTest"],
+				"testCaseSteps": [
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"inputField_C_Name":{"xpathparams":["Customer Name","Name"], "continueTestNodes" : false, "testStepDescription" : "Validate Customer Name field is displayed"}}									
+								]
+							}
+						]
+					},
+					{"typeTextWithTabKey" : [{"inputField_C_Name":{"xpathparams": ["Customer Name","Name"], "value" : "$maxCustomerName", "testStepDescription" : "Enter Customer Name"}}]},
+					{"typeTextWithTabKey" : [{"inputField_C_Name":{"xpathparams": ["Customer Code","Code"], "value" : "$maxCustomerCode", "testStepDescription" : "Enter Customer Code"}}]},
+					{"clickElement" : [{"buttonwithType":{"xpathparams": ["submit"],"testStepDescription" : "Click on save Button"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"alertMsg":{"xpathparams":["Record  has been saved successfully."], "continueTestNodes" : false, "testStepDescription" : "Validate Record  has been saved successfully. is displayed"}}									
+								]
+							}
+						]
+					}
+										
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "SA_CD_009",
+				"testCaseTitle": "Delete the record which is GSTN mapped",
+				"testCaseDescription": "Delete the records which is GSTN mapped record under Actions",
+				"dependsOn": "SA_CD_008",
+				"tags":["SmokeTest","SACD","NegativeTest"],
+				"testCaseSteps": [
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"buttonEdit_Delete":{"xpathparams":["Sailotech","Delete"], "continueTestNodes" : false, "testStepDescription" : "Validate Delete field is displayed"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"buttonEdit_Delete":{"xpathparams": ["Sailotech","Delete"],"testStepDescription" : "Click on Delete Button"}}]},
+					{"clickElement" : [{"buttonwithClass":{"xpathparams": ["Yes"],"testStepDescription" : "Click on Yes Button"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"alertMsg":{"xpathparams":["Please Delete  GSTIN Number mapped with this Cstomer first, then delete this Customer"], "continueTestNodes" : false, "testStepDescription" : "Validate Please Delete  GSTIN Number mapped with this Cstomer first, then delete this Customer. is displayed"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"buttonEdit_Delete":{"xpathparams": ["Sailotech Privated limited Hyderabad Telangana","Delete"],"testStepDescription" : "Click on Delete Button"}}]},
+					{"clickElement" : [{"buttonwithClass":{"xpathparams": ["Yes"],"testStepDescription" : "Click on Yes Button"}}]}
+					
+				
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "SA_CD_010",
+				"testCaseTitle": "Save without mandatory fields",
+				"testCaseDescription": "Click on Save button without givng mandatory fields",
+				"dependsOn": "SA_CD_009",
+				"tags":["SmokeTest","SACD","NegativeTest"],
+				"testCaseSteps": [
+					{"clickElement" : [{"buttonwithType":{"xpathparams": ["submit"],"testStepDescription" : "Click on save Button"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"warningmsg":{"xpathparams":["-invalid-msg","Customer Name is mandatory"], "continueTestNodes" : false, "testStepDescription" : "Validate Customer Name is mandatory is displayed"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"warningmsg":{"xpathparams":["-invalid-msg","Customer Code is mandatory"], "continueTestNodes" : false, "testStepDescription" : "Validate Customer Code is mandatory is displayed"}}									
+								]
+							}
+						]
+					}
+										
+				]
+			}
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+					
+	]
+}
+

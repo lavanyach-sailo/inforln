@@ -1,0 +1,409 @@
+{
+	"suiteName" : "XATTAX e-invoice Dashboard",
+	"suiteDescription" : "XATTAX e-invoice Dashboard Suite",
+	"testCases": [
+		{
+			"testNode": {
+				"testCaseID": "EI_DB_001",
+				"testCaseTitle": "Verify Login with Valid Credentials",
+				"testCaseDescription": "User Login",
+				"dependsOn": "",
+				"tags":["SmokeTest","EIDB","NegativeTest"],
+				"testCaseSteps": [
+				{ "login": { "login_username":"", "login_password":"", "url" : "http://175.101.240.71:9791/XATTAXEInvoice1.5/login","testStepDescription" : "Login with valid username and password"}},
+				{"typeTextWithTabKey" : [{"inputName":{"xpathparams": ["username"], "value" : "$userID", "testStepDescription" : "Enter valid username"}}]},					
+				{"typeTextWithTabKey" : [{"inputName":{"xpathparams": ["password"], "value" : "$password", "testStepDescription" : "Enter valid password"}}]},
+				{"clickElement" : [{"buttonLogin":{"xpathparams": ["loginId"],"testStepDescription" : "Click on login Button"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"buttonwithAnchor":{"xpathparams":["Logout"], "continueTestNodes" : false, "testStepDescription" : "Successfully Logged in and validate Logout button on the Homepage"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"buttonSelect":{"xpathparams": ["Select"], "testStepDescription" : "Click on Select Button"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sideMenus":{"xpathparams":["DASHBOARD"], "continueTestNodes" : false, "testStepDescription" : "Validate DASHBOARD side menu on the Homepage"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sideMenus":{"xpathparams":["Import e-Invoice"], "continueTestNodes" : false, "testStepDescription" : "Validate Import e-Invoice side menu on the Homepage"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sideMenus":{"xpathparams":["Generate e-Invoice"], "continueTestNodes" : false, "testStepDescription" : "Validate Generate e-Invoice side menu on the Homepage"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sideMenus":{"xpathparams":["e-Invoice Queue"], "continueTestNodes" : false, "testStepDescription" : "Validate User e-Invoice Queue side menu on the Homepage"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sideMenus":{"xpathparams":["B2C Queue"], "continueTestNodes" : false, "testStepDescription" : "Validate B2C Queue side menu on the Homepage"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sideMenus":{"xpathparams":["e-Way bill Queue"], "continueTestNodes" : false, "testStepDescription" : "Validate e-Way bill Queue side menu on the Homepage"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sideMenus":{"xpathparams":["Get e-Invoice"], "continueTestNodes" : false, "testStepDescription" : "Validate Get e-Invoice side menu on the Homepage"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sideMenus":{"xpathparams":["Reports"], "continueTestNodes" : false, "testStepDescription" : "Validate  Reports side menu on the Homepage"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sideMenus":{"xpathparams":["Business Partner"], "continueTestNodes" : false, "testStepDescription" : "Validate Business Partner side menu on the Homepage"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sideMenus":{"xpathparams":["Manage Items"], "continueTestNodes" : false, "testStepDescription" : "Validate Manage Items Mapping side menu on the Homepage"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sideMenus":{"xpathparams":["Tax Rates"], "continueTestNodes" : false, "testStepDescription" : "Validate Tax Rates side menu on the Homepage"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sideMenus":{"xpathparams":["Manage States"], "continueTestNodes" : false, "testStepDescription" : "Validate  Manage States side menu on the Homepage"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sideMenus":{"xpathparams":["Manage UQC"], "continueTestNodes" : false, "testStepDescription" : "Validate Manage UQC side menu on the Homepage"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sideMenus":{"xpathparams":["Erp File Details"], "continueTestNodes" : false, "testStepDescription" : "Validate Erp File Details side menu on the Homepage"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sideMenus":{"xpathparams":["Manage Users"], "continueTestNodes" : false, "testStepDescription" : "Validate Manage Users side menu on the Homepage"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sideMenus":{"xpathparams":["User GSTN Mapping"], "continueTestNodes" : false, "testStepDescription" : "Validate User GSTN Mapping side menu on the Homepage"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sideMenus":{"xpathparams":["Manage Transporter Details"], "continueTestNodes" : false, "testStepDescription" : "Validate Manage Transporter Details side menu on the Homepage"}}									
+								]
+							}
+						]
+					}
+					
+			
+					
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "EI_DB_002",
+				"testCaseTitle": "Validate generated e invoice numbers",
+				"testCaseDescription": "Validate generated e invoice numbers under Dashboard and e-invoice Queue",
+				"dependsOn": "EI_DB_001",
+				"tags":["SmokeTest","EIDB","NegativeTest"],
+				"testCaseSteps": [
+					{"clickElement" : [{"inputDatePicker":{"xpathparams": ["fp-datepicker","fp"],"testStepDescription" : "Click on Date picker input Button"}}]},
+					{"clickElement" : [{"slectMonth":{"xpathparams": ["Jan"],"testStepDescription" : "Click on January month Button"}}]},
+					{"clickElement" : [{"sideMenus":{"xpathparams": ["DASHBOARD"],"testStepDescription" : "Click on DASHBOARD Button"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"mainTitle":{"xpathparams":["e -Invoice System"], "continueTestNodes" : false, "testStepDescription" : "Validate e -Invoice System title on the Homepage"}}									
+								]
+							}
+						]
+					},
+					{"getText": [{"generatedInvoice":{"xpathparams": ["GSTIN","1"], "varName" : "generatedInvoices","testStepDescription":"Get the genrated e invoice number and save"}}]},
+					{"clickElement" : [{"sideMenus":{"xpathparams": ["e-Invoice Queue"],"testStepDescription" : "Click on e-Invoice Queue Button"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"mainTitle":{"xpathparams":["e - Invoice Queue"], "continueTestNodes" : false, "testStepDescription" : "Validate e - Invoice Queue title on the Homepage"}}									
+								]
+							}
+						]
+					},
+					{"getText": [{"generatedInvoiceQueue":{"xpathparams": ["entries"], "varName" : "generatedInvoiceInQueue","testStepDescription":"Get the genrated e invoice number entries in Queue and save"}}]}
+					
+										
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "EI_DB_003",
+				"testCaseTitle": "Validate cancelled e invoice numbers",
+				"testCaseDescription": "Validate cancelled e invoice numbers under Dashboard and e-invoice Queue",
+				"dependsOn": "EI_DB_001",
+				"tags":["SmokeTest","EIDB","NegativeTest"],
+				"testCaseSteps": [
+					{"clickElement" : [{"sideMenus":{"xpathparams": ["DASHBOARD"],"testStepDescription" : "Click on DASHBOARD Button"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"mainTitle":{"xpathparams":["e -Invoice System"], "continueTestNodes" : false, "testStepDescription" : "Validate e -Invoice System title on the Homepage"}}									
+								]
+							}
+						]
+					},
+					{"getText": [{"cancelledInvoice":{"xpathparams": ["GSTIN","1"], "varName" : "cancelledInvoices","testStepDescription":"Get the cancelled e invoice number and save"}}]},
+					{"clickElement" : [{"sideMenus":{"xpathparams": ["e-Invoice Queue"],"testStepDescription" : "Click on e-Invoice Queue Button"}}]},					
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"mainTitle":{"xpathparams":["e - Invoice Queue"], "continueTestNodes" : false, "testStepDescription" : "Validate e - Invoice Queue title on the Homepage"}}									
+								]
+							}
+						]
+					},
+					
+					
+					
+					{"clickElement" : [{"invoiceQueueTabs":{"xpathparams": ["canceled"],"testStepDescription" : "Click on Cancelled tab under e-Invoice Queue module"}}]},
+					{"getText": [{"cancelledInvoiceQueue":{"xpathparams": ["entries"], "varName" : "cancelledInvoicesInQueue","testStepDescription":"Get the cancelled e-invoice number entries in Queue and save"}}]},
+					
+					{"subtract" : [{"source":"generatedInvoices","target" : "cancelledInvoices", "varName" : "actualGeneratedInvoices","testStepDescription" : "Subtraction of Generated and cancelled e-Invoices "}]},
+					{ "validate": 
+						[ 
+							{ "verifyStrings":
+								[
+									{"actual" : "generatedInvoices", "expected":"generatedInvoiceInQueue", "testStepDescription" : "Validate Generated e-Invoices "}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "verifyStrings":
+								[
+									{"actual" : "cancelledInvoices", "expected":"cancelledInvoicesInQueue", "testStepDescription" : "Validate cancelled e-Invoices "}									
+								]
+							}
+						]
+					}
+					
+										
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "EI_DB_004",
+				"testCaseTitle": "Validate B2C Generated e invoice numbers",
+				"testCaseDescription": "Validate generated B2C e invoice numbers under Dashboard and B2C Queue modules",
+				"dependsOn": "EI_DB_001",
+				"tags":["SmokeTest","EIDB","NegativeTest"],
+				"testCaseSteps": [
+					{"clickElement" : [{"sideMenus":{"xpathparams": ["DASHBOARD"],"testStepDescription" : "Click on DASHBOARD Button"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"mainTitle":{"xpathparams":["e -Invoice System"], "continueTestNodes" : false, "testStepDescription" : "Validate e -Invoice System title on the Homepage"}}									
+								]
+							}
+						]
+					},
+					{"getText": [{"generatedB2CQRCode":{"xpathparams": ["GSTIN","1"], "varName" : "generatedB2CInvoices","testStepDescription":"Get the generated B2C e-invoice numbers count and save"}}]},
+					{"clickElement" : [{"sideMenus":{"xpathparams": ["B2C Queue"],"testStepDescription" : "Click on B2C Queue Button"}}]},					
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"mainTitle":{"xpathparams":["B2C Queue"], "continueTestNodes" : false, "testStepDescription" : "Validate B2C Queue title on the Homepage"}}									
+								]
+							}
+						]
+					},	
+					{"getText": [{"generatedInvoiceQueue":{"xpathparams": ["entries"], "varName" : "generatedB2CInvoicesInB2CQueue","testStepDescription":"Get the generated e-invoice number entries under B2C Queue and save"}}]},
+					{ "validate": 
+						[ 
+							{ "verifyStrings":
+								[
+									{"actual" : "generatedB2CInvoices", "expected":"generatedB2CInvoicesInB2CQueue", "testStepDescription" : "Validate cancelled B2C generated e-Invoices entries "}									
+								]
+							}
+						]
+					}
+										
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "EI_DB_005",
+				"testCaseTitle": "Displaying customer wise Details",
+				"testCaseDescription": "Displaying customer wise Details under Dashboard ",
+				"dependsOn": "EI_DB_001",
+				"tags":["SmokeTest","EIDB","NegativeTest"],
+				"testCaseSteps": [
+					{"clickElement" : [{"sideMenus":{"xpathparams": ["DASHBOARD"],"testStepDescription" : "Click on DASHBOARD Button"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"mainTitle":{"xpathparams":["e -Invoice System"], "continueTestNodes" : false, "testStepDescription" : "Validate e -Invoice System title on the Homepage"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"buttonDetails":{"xpathparams": ["Details"],"testStepDescription" : "Click on Details Button"}}]},					
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"modalTitle":{"xpathparams":["Customer Wise Details"], "continueTestNodes" : false, "testStepDescription" : "Dispalying Customer Wise Details under the Action button on the Dashboard Homepage"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"buttonwithClass":{"xpathparams": ["Close"],"testStepDescription" : "Click on Close Button"}}]}								
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "EI_DB_006",
+				"testCaseTitle": "Validate Generated e-way bill invoice reference summary",
+				"testCaseDescription": "Validate Generated e-way bill invoice reference summary under Dashboard and e-way bill Queue module",
+				"dependsOn": "EI_DB_001",
+				"tags":["SmokeTest","EIDB","NegativeTest"],
+				"testCaseSteps": [
+					{"clickElement" : [{"sideMenus":{"xpathparams": ["DASHBOARD"],"testStepDescription" : "Click on DASHBOARD Button"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"mainTitle":{"xpathparams":["e -Invoice System"], "continueTestNodes" : false, "testStepDescription" : "Validate e -Invoice System title on the Homepage"}}									
+								]
+							}
+						]
+					},
+					{"getText": [{"generatedEwaybills":{"xpathparams": ["GSTIN","1"], "varName" : "generatede_wayBills","testStepDescription":"Get the generated e-way bill numbers count and save"}}]},
+					{"getText": [{"cancelledEwaybills":{"xpathparams": ["GSTIN","1"], "varName" : "cancellede_wayBills","testStepDescription":"Get the cancelled e-way bill numbers count and save"}}]},
+					{"clickElement" : [{"sideMenus":{"xpathparams": ["e-Way bill Queue"],"testStepDescription" : "Click on e-Way bill Queue Button"}}]},					
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"mainTitle":{"xpathparams":["Eway Bill Queue"], "continueTestNodes" : false, "testStepDescription" : "Validate Eway Bill Queue title on the Homepage"}}									
+								]
+							}
+						]
+					},	
+					{"getText": [{"generatedInvoiceQueue":{"xpathparams": ["entries"], "varName" : "generatede_wayBillInvoicesIne_wayBillQueue","testStepDescription":"Get the generated e-invoice number entries under B2C Queue and save"}}]},
+					{ "validate": 
+						[ 
+							{ "verifyStrings":
+								[
+									{"actual" : "generatede_wayBills", "expected":"generatede_wayBillInvoicesIne_wayBillQueue", "testStepDescription" : "Validate generated e-way bill e-Invoices entries "}									
+								]
+							}
+						]
+					}
+										
+				]
+			}
+		}		
+				
+		
+		
+		
+		
+					
+	]
+}
+

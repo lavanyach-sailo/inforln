@@ -1,0 +1,888 @@
+{
+	"suiteName" : "ProductionOrder",
+	"suiteDescription" : "ProductionOrder Flow",
+	"testCases": [
+		{
+			"testNode": {
+				"testCaseID": "PRDO_001",
+				"testCaseTitle": "Verify Login with Valid Credentials",
+				"testCaseDescription": "Infor LN Login",
+				"dependsOn": "",
+				"tags":["SmokeTest","PRDO","NegativeTest"],
+				"testCaseSteps": [
+				{ "login": { "login_username":"niranjan", "login_password":"SailoInc@345", "testStepDescription" : "Login with valid username and password"}},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"menuItem":{"xpathparams":["Infor LN"], "continueTestNodes" : false, "testStepDescription" : "Successfully Logged in and validate Infor LN Menu on the Homepage"}}									
+								]
+							}
+						]
+					}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "PRDO_002",
+				"testCaseTitle": "Verify Production Orders",
+				"testCaseDescription": "Navigate to Production Order",
+				"dependsOn": "PRDO_001",
+				"tags":["SmokeTest","PRDO","NegativeTest"],
+				"testCaseSteps": [
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"menuItem":{"xpathparams":["Infor LN"], "continueTestNodes" : false}},
+									{"else":
+									[
+										{"clickElement" : [{"sideMenu":{"xpathparams": []}}]}
+									]
+									}
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"menuItem":{"xpathparams": ["Infor LN"], "testStepDescription" : "Click on Infor LN Menu"}}]},
+					{"clickElement" : [{"subMenuItem":{"xpathparams": ["Infor LN", "Manufacturing"], "testStepDescription" : "Click on Manufacturing under Infor LN"}}]},
+					{"clickElement" : [{"subMenuItems":{"xpathparams": ["Infor LN", "Manufacturing", "Job Shop"], "testStepDescription" : "Click on Job Shop under Manufacturing"}}]},
+					{"clickElement" : [{"subMenuItemChild":{"xpathparams": ["Infor LN", "Manufacturing", "Job Shop","Production Orders"], "testStepDescription" : "Click on Production Order under Job Shop"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sessionTab":{"xpathparams":["Production Orders"], "continueTestNodes" : false, "testStepDescription" : "Validate Production Orders Tab is displayed"}}									
+								]
+							}
+						]
+					}
+					
+				]
+			}
+		},	
+		{
+			"testNode": {
+				"testCaseID": "PRDO_003",
+				"testCaseTitle": "Verify New Production order form",
+				"testCaseDescription": "Creating New Production Order Form",
+				"dependsOn": "PRDO_002",
+				"tags":["SmokeTest","PRDO","NegativeTest"],
+				"testCaseSteps": [
+					{"clickElement" : [{"buttonAddnewHeader1":{"xpathparams": ["Production Orders"], "testStepDescription" : "Click on New button on Production Order Tab"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sessionTab":{"xpathparams":["Production Order"], "continueTestNodes" : false, "testStepDescription" : "Validate Production Order Tab is displayed"}}									
+								]
+							}
+						]
+					}
+				]
+			}
+		},
+		
+		{
+			"testNode": {
+				"testCaseID": "PRDO_004",
+				"testCaseTitle": "Verify Invalid PO series",
+				"testCaseDescription": "Production Order Series validation",
+				"dependsOn": "PRDO_003",
+				"tags":["SmokeTest","NegativeTest"],
+				"testCaseSteps": [
+					{"typeTextWithEnter" : [{"PONumber":{"xpathparams": [], "value" : "PPP", "testStepDescription" : "Enter Production Order Name"}}]},
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"errorMessagePopUp":{"xpathparams":["Change the value of the Production Order field. Reason: Series PPP not defined for First Free Number Group PRD"], "continueTestNodes" : false, "testStepDescription": "Validate the Error Message for Inactive PRDO Name"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"buttonOKError":{"xpathparams": [], "tesStepDescription": "Click on OK button to close the error message"}}]}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "PRDO_005",
+				"testCaseTitle": "Verify valid PO series",
+				"testCaseDescription": "Production Order Series validation",
+				"dependsOn": "PRDO_003",
+				"tags":["SmokeTest","PRDO","NegativeTest"],
+				"testCaseSteps": [
+					{"typeTextWithEnter" : [{"PONumber":{"xpathparams": [], "value" : "PRD", "testStepDescription" : "Enter valid Production Order"}}]}
+					
+				]
+			}
+		},	
+		{
+			"testNode": {
+				"testCaseID": "PRDO_006",
+				"testCaseTitle": "Verify Inactive Production Item",
+				"testCaseDescription": "Production Item validation",
+				"dependsOn": "PRDO_005",
+				"tags":["SmokeTest","NegativeTest"],
+				"testCaseSteps": [
+					{"typeTextWithEnter" : [{"PrdOItem":{"xpathparams": [], "value" : "ABC00123", "testStepDescription" : "Enter Inactive Production Item Number"}}]},
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"errorMessagePopUp":{"xpathparams":["Specified \"Item\" not found in \"Item-Production\". Enter another \"Item\""], "continueTestNodes" : false, "testStepDescription": "Validate the Error Message for Inactive Production Item Number"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"buttonOKError":{"xpathparams": [], "tesStepDescription": "Click on OK button to close the error message"}}]}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "PRDO_007",
+				"testCaseTitle": "Verify active Production Item",
+				"testCaseDescription": "Production Item validation",
+				"dependsOn": "PRDO_005",
+				"tags":["SmokeTest","PRDO","NegativeTest"],
+				"testCaseSteps": [
+					{"clickElement" : [{"PrdItemSearchButton":{"xpathparams": [],"testStepDescription":"Click on search button to search the valid Item in the Line"}}]},
+					{"typeTextWithTabKey" : [{"TestItemfilter":{"xpathparams": [], "value" : "Test Item8", "testStepDescription" : "Enter Active Production Item value"}}]},
+					{"clickElement" : [{"windowFirstRowCheckBox":{"xpathparams": [], "tesStepDescription": "Click on check box"}}]},
+					{"clickElement" : [{"windowOkButton":{"xpathparams": [],"testStepDescription" : "Click on Ok Button"}}]},
+					{ "keyBoardEvent": { "tab":"1"}}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "PRDO_008",
+				"testCaseTitle": "Verify Invalid Quantity",
+				"testCaseDescription": "Quantity Ordered validation",
+				"dependsOn": "PRDO_007",
+				"tags":["SmokeTest","NegativeTest"],
+				"testCaseSteps": [
+					{"typeTextWithTabKey" : [{"inputFields":{"xpathparams": ["Order","Quantity Ordered"], "value" : "A", "testStepDescription":"Enter Invalid Quantity"}}]},
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"errorMessagePopUp":{"xpathparams":["The format must be numeric. Change the Quantity Ordered"], "continueTestNodes" : false, "testStepDescription": "Validate the Error Message for Invalid Order Quantity"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"buttonOKError":{"xpathparams": [],"testStepDescription" : "Click on OK Button to close the error message"}}]}
+				]
+			}
+		},	
+		{
+			"testNode": {
+				"testCaseID": "PRDO_009",
+				"testCaseTitle": "Verify Valid Quantity",
+				"testCaseDescription": "Quantity Ordered validation",
+				"dependsOn": "PRDO_007",
+				"tags":["SmokeTest","PRDO","NegativeTest"],
+				"testCaseSteps": [
+					{"typeTextWithTabKey" : [{"inputFields":{"xpathparams": ["Order","Quantity Ordered"], "value" : "1", "testStepDescription" : "Enter Valid Quantity"}}]}
+					
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "PRDO_010",
+				"testCaseTitle": "Verify Invalid Routing",
+				"testCaseDescription": "Routing validation",
+				"dependsOn": "PRDO_009",
+				"tags":["SmokeTest","NegativeTest"],
+				"testCaseSteps": [
+					{"typeTextWithTabKey" : [{"inputFields":{"xpathparams": ["Order","Routing:"], "value" : "B", "testStepDescription":"Enter Invalid Routing"}}]},
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"errorMessagePopUp":{"xpathparams":["Change the value of the Routing field"], "continueTestNodes" : false, "testStepDescription": "Validate the Error Message for Invalid Routing"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"buttonOKError":{"xpathparams": [],"testStepDescription" : "Click on OK Button to close the error message"}}]}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "PRDO_011",
+				"testCaseTitle": "Verify Valid Routing",
+				"testCaseDescription": "Routing validation",
+				"dependsOn": "PRDO_009",
+				"tags":["SmokeTest","PRDO","NegativeTest"],
+				"testCaseSteps": [
+					{"typeTextWithTabKey" : [{"inputFields":{"xpathparams": ["Order","Routing:"], "value" : "1", "testStepDescription" : "Enter Valid Routing"}}]}					
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "PRDO_012",
+				"testCaseTitle": "Verify Invalid Warehouse",
+				"testCaseDescription": "Warehouse Validation",
+				"dependsOn": "PRDO_011",
+				"tags":["SmokeTest","NegativeTest"],
+				"testCaseSteps": [
+					{"typeTextWithEnter" : [{"inputFields":{"xpathparams": ["Order","Warehouse:"], "value" : "12", "testStepDescription":"Enter Invalid Warehouse Option"}}]},
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"errorMessagePopUp":{"xpathparams":["Specified \"Warehouse\" not found in \"Warehouses\". Enter another \"Warehouse\"."], "continueTestNodes" : false, "testStepDescription": "Validate the Error Message for Invalid Warehouse"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"buttonOKError":{"xpathparams": [],"testStepDescription" : "Click on OK Button to close the error message"}}]}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "PRDO_013",
+				"testCaseTitle": "Verify Valid Warehouse",
+				"testCaseDescription": "Warehouse validation",
+				"dependsOn": "PRDO_011",
+				"tags":["SmokeTest","PRDO","NegativeTest"],
+				"testCaseSteps": [
+					{"typeTextWithEnter" : [{"inputFields":{"xpathparams": ["Order","Warehouse:"], "value" : "FG", "testStepDescription" : "Enter Valid Warehouse Option"}}]}				
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "PRDO_014",
+				"testCaseTitle": "Verify Reference Date & Time",
+				"testCaseDescription":"Reference Date validation",
+				"dependsOn": "PRDO_013",
+				"tags":["SmokeTest","PRDO","NegativeTest"],
+				"testCaseSteps": [
+				    
+				   {"typeTextWithTabKey" : [{"ReferenceDateTextBox":{"xpathparams": [], "value" : "6/17/2021", "testStepDescription" : "Enter the Reference Date"}}]},
+					{"typeTextWithTabKey" : [{"ReferenceTimeTextBox":{"xpathparams": [], "value" : "4:12:34 AM", "testStepDescription" : "Enter the Reference Time"}}]}
+				]
+			}
+		},	
+		{
+			"testNode": {
+				"testCaseID": "PRDO_015",
+				"testCaseTitle": "Verify Planned Delivery then Save",
+				"testCaseDescription":"Click on Reference Date",
+				"dependsOn": "PRDO_014",
+				"tags":["SmokeTest","PRDO","NegativeTest"],
+				"testCaseSteps": [		    
+				    {"typeTextWithTabKey" : [{"ProductionStartDateTextBox":{"xpathparams": [],"value" : "6/16/2021","testStepDescription" : "Enter the Production Start Date"}}]},
+					{"typeTextWithTabKey" : [{"ProductionStartTimeTextBox":{"xpathparams": [], "value" : "4:12:34 AM", "testStepDescription" : "Enter Requested Delivery Time"}}]},
+					{"typeTextWithTabKey" : [{"RequestedDeliveryDateTextBox":{"xpathparams": [], "value" : "6/16/2021", "testStepDescription" : "Enter Requested Delivery Date"}}]},
+					{"typeTextWithTabKey" : [{"RequestedDeliveryTimeTextBox":{"xpathparams": [], "value" : "5:43:38 PM", "testStepDescription" : "Enter Requested Delivery Time"}}]},
+				    {"clickElement" : [{"StdSaveButton":{"xpathparams": ["Production Order"],"testStepDescription":"Click on Save button"}}]}		    			     						
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "PRDO_016",
+				"testCaseTitle": "Verify Print Documents and Release Order",
+				"testCaseDescription":"Click on Print Documents",
+				"dependsOn": "PRDO_015",
+				"tags":["SmokeTest","PRDO"],
+				"testCaseSteps": [	    
+				    {"clickElement" : [{"PrdOActions":{"xpathparams": [],"testStepDescription":"Click on Actions Icon"}}]},
+				    {"clickElement" : [{"PrintDocRelOrder":{"xpathparams": [],"testStepDescription":"Click on Print Documents and Release Order Icon"}}]},
+				    {"clickElement" : [{"buttonPrintPurchaseInvoices":{"xpathparams": ["Print"],"testStepDscription":"Click Print on the Production Order session"}}]},
+				    { "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"buttonwithtext":{"xpathparams":["Select Device"], "continueTestNodes" : false, "testStepDescription": "Validate the Display Label"}}									
+								]
+							}
+						]
+					},
+				    {"clickElement" : [{"device":{"xpathparams": [],"testStepDscription":"Click on the device field"}}]},
+				 	{"typeTextWithTabKey" : [{"device":{"xpathparams": [], "value" : "D","testStepDescription":"Enter the value D in the Device text box"}}]},
+				    {"clickElement" : [{"DisplayTab":{"xpathparams": [],"testStepDescription":"Click on Display tab"}}]},
+				    { "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"DisplayLabel":{"xpathparams":[], "continueTestNodes" : false, "testStepDescription": "Validate the Display Label"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"ContinueBtn":{"xpathparams": [],"testStepDescription":"Click on Continue button"}}]}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "PRDO_017",
+				"testCaseTitle": "Verify Release Production Order",
+				"testCaseDescription":"Click on Release",
+				"dependsOn": "PRDO_016",
+				"tags":["SmokeTest","PRDO"],
+				"testCaseSteps": [		    
+				    {"clickElement" : [{"CheckShortages":{"xpathparams": [],"testStepDescription":"Click on Check Shortages checkbox"}}]},		    
+				    { "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"ShortageReport":{"xpathparams": [],"testStepDescription":"Validate if Shortage Report is enabled"}},
+									{"then":
+									[
+										{"clickElement" : [{"ShortageReport":{"xpathparams": [],"testStepDescription" : "Click on OK Button to close the error message"}}]}
+									]
+									}
+								]
+							}
+						]
+					},		    
+				    {"clickElement" : [{"PrintProcessReport":{"xpathparams": [],"testStepDescription":"Click on Check Shortages checkbox"}}]},
+				    {"clickElement" : [{"PrintErrorReport":{"xpathparams": [],"testStepDescription":"Click on Check Shortages checkbox"}}]},
+				    {"clickElement" : [{"ReleaseProduction":{"xpathparams": [],"testStepDescription":"Click on Check Shortages checkbox"}}]},
+				    {"clickElement" : [{"ContinueBtn":{"xpathparams": [],"testStepDescription":"Click on Continue button"}}]}
+				    				    
+				]
+			}
+		},	
+		{
+			"testNode": {
+				"testCaseID": "PRDO_018",
+				"testCaseTitle": "Verify the Prints generated",
+				"testCaseDescription":"Material shortages and order Coverage verification",
+				"dependsOn": "PRDO_017",
+				"tags":["SmokeTest","PRDO"],
+				"testCaseSteps": [
+				    
+				    {"clickElement" : [{"sessionTab":{"xpathparams": ["Material Shortages by Production Order"],"testStepDescription":"Click on Material Shortages session"}}]},
+				    {"clickElement" : [{"SessionTabClose":{"xpathparams": ["Material Shortages by Production Order"],"testStepDescription":"Close Material Shortages session"}}]},
+				    {"clickElement" : [{"sessionTab":{"xpathparams": ["Order Covering Note"],"testStepDescription":"Click on Order covering Session"}}]},
+				    {"clickElement" : [{"SessionTabClose":{"xpathparams": ["Order Covering Note"],"testStepDescription":"Close Order covering session"}}]}			    				    				    
+				]
+			}
+		},	
+		{
+			"testNode": {
+				"testCaseID": "PRDO_019",
+				"testCaseTitle": "Verify Material Issue at Production Warehouse",
+				"testCaseDescription":"Production Warehouse Orders verification",
+				"dependsOn": "PRDO_018",
+				"tags":["SmokeTest","PRDO"],
+				"testCaseSteps": [				    
+				    {"clickElement" : [{"MaterialsTab":{"xpathparams": [],"testStepDescription":"Click on Materials tab"}}]},
+				    {"clickElement" : [{"MaterialsLineItem":{"xpathparams": [],"testStepDescription":"Select a Line Item under Materials Tab"}}]}			    				    				    
+				]
+			}
+		},	
+		{
+			"testNode": {
+				"testCaseID": "PRDO_020",
+				"testCaseTitle": "Verify Material Issue at Warehouse Oder Session",
+				"testCaseDescription":"Warehouse Orders verification",
+				"dependsOn": "PRDO_019",
+				"tags":["PRDO"],
+				"testCaseSteps": [			    
+				     { "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"MtrlReferences":{"xpathparams": [],"testStepDescription":"Check if the Reference Tab is enabled"}},
+									{"then":
+									[
+										{"clickElement" : [{"MtrlReferences":{"xpathparams": [],"testStepDescription":"Then click on Reference Tab"}}]}
+									]
+									}
+								]
+							}
+						]
+					},			    
+				    {"clickElement" : [{"PrdWHOrder":{"xpathparams": [],"testStepDescription" : "Click on Production Warehouse Order from the list"}}]},
+				    {"clickElement" : [{"sessionTab":{"xpathparams": ["Production Warehouse Orders"],"testStepDescription" : "Click on Production Order session opens"}}]},
+				    {"clickElement" : [{"PrdWHOrderLineItem":{"xpathparams": [],"testStepDescription":"Select the line item from Production Warehouse session"}}]},
+				    {"clickElement" : [{"PrdWHOrderReferences":{"xpathparams": [],"testStepDescription" : "Click on Production Order Reference Tab"}}]},
+				    {"clickElement" : [{"PrdWHOrdersOverview":{"xpathparams": [],"testStepDescription":"Click Production Warehouse Overview from the list"}}]}			    				    				    
+				]
+			}
+		},	
+		{
+			"testNode": {
+				"testCaseID": "PRDO_021",
+				"testCaseTitle": "Verify Material Issue at Warehouse Oder Session",
+				"testCaseDescription":"Warehouse Orders verification",
+				"dependsOn": "PRDO_020",
+				"tags":["PRDO"],
+				"testCaseSteps": [
+				    
+				     { "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"sessionTab":{"xpathparams": ["Warehousing Order"],"testStepDescription":"Check if Warehouse Order session is opened"}},
+									{"then":
+									[
+										{"clickElement" : [{"sessionTab":{"xpathparams": ["Warehousing Order"],"testStepDescription":"Then click on Warehouse Order session"}}]}
+									]
+									}
+								]
+							}
+						]
+					},			    
+				    {"clickElement" : [{"WHOBLinesCheckbox":{"xpathparams": [],"testStepDescription" : "Click on Warehouse Outbound Lines Checkbox for selecting items"}}]},
+				    {"clickElement" : [{"WHOrderAllLineItems":{"xpathparams": [],"testStepDescription" : "Select all the Line items"}}]},
+				    {"clickElement" : [{"WHOrderActions":{"xpathparams": [],"testStepDescription":"Click on Actions button on the header"}}]},
+				    {"clickElement" : [{"MenuItemAdvice":{"xpathparams": [],"testStepDescription" : "Click on Advice from the list"}}]},
+				    {"clickElement" : [{"GenerateOBAdvice":{"xpathparams": [],"testStepDescription":"Click on Generate Oubound Advice"}}]},
+				    {"clickElement" : [{"WHOrderActions":{"xpathparams": [],"testStepDescription" : "Click on Actions button on the header"}}]},
+				    {"clickElement" : [{"MenuItemAdvice":{"xpathparams": [],"testStepDescription" : "Click on Advice from the list"}}]},
+				    {"clickElement" : [{"ReleaseOBAdvice":{"xpathparams": [],"testStepDescription" : "Click on Release Outbound Advice"}}]},
+				    {"clickElement" : [{"WHOrderActions":{"xpathparams": [],"testStepDescription" : "Click on Actions button on the header"}}]},				    				    
+					{"clickElement" : [{"MenuItemAdvice":{"xpathparams": [],"testStepDescription" : "Click on Advice from the list"}}]},
+				    {"clickElement" : [{"GeneratePickListAdvice":{"xpathparams": [],"testStepDescription" : "Click on Generate PickList Advice"}}]}
+				    
+				
+				]
+			}
+		},	
+		{
+			"testNode": {
+				"testCaseID": "PRDO_022",
+				"testCaseTitle": "Verify Print Documents and Close Picking List Session",
+				"testCaseDescription":"Print documents then Close Picking List by Location Session",
+				"dependsOn": "PRDO_021",
+				"tags":["PRDO"],
+				"testCaseSteps": [
+				    
+				    { "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"buttonwithtext":{"xpathparams":["Select Device"], "continueTestNodes" : false, "testStepDescription": "Validate the Display Label"}}									
+								]
+							}
+						]
+					},
+				    {"clickElement" : [{"device":{"xpathparams": [],"testStepDscription":"Click on the device field"}}]},
+				 	{"typeTextWithTabKey" : [{"device":{"xpathparams": [], "value" : "D","testStepDescription":"Enter the value D in the Device text box"}}]},
+				    {"clickElement" : [{"DisplayTab":{"xpathparams": [],"testStepDescription":"Click on Display tab"}}]},
+				    { "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"DisplayLabel":{"xpathparams":[], "continueTestNodes" : false, "testStepDescription": "Validate the Display Label"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"ContinueBtn":{"xpathparams": [],"testStepDescription":"Click on Continue button"}}]},
+					{"clickElement" : [{"sessionTab":{"xpathparams": ["Picking List by Location"],"testStepDescription":"Click on Picking List By Location session"}}]},
+				    {"clickElement" : [{"SessionTabClose":{"xpathparams": ["Picking List by Location"],"testStepDescription":"Close Picking List session"}}]}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "PRDO_023",
+				"testCaseTitle": "Verify the OutBound Lines",
+				"testCaseDescription":"Verify the OutBound Lines",
+				"dependsOn": "PRDO_022",
+				"tags":["PRDO"],
+				"testCaseSteps": [
+				    
+				    {"clickElement" : [{"OBCheckbox":{"xpathparams": [],"testStepDescription":"Click on CheckBox"}}]},
+				    {"clickElement" : [{"OBSelectNone":{"xpathparams": [],"testStepDescription":"Select None in DropDown"}}]},
+				    {"clickElement" : [{"OBLineItems":{"xpathparams": [],"testStepDescription":"Select First Line Items in Outbound Lines"}}]},
+				    {"clickElement" : [{"OBReferences":{"xpathparams": [],"testStepDescription":"Click on references in OBLines Header"}}]}				    				    				    
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "PRDO_024",
+				"testCaseTitle": "Verify the Picking list",
+				"testCaseDescription":"Verify the Picking list",
+				"dependsOn": "PRDO_023",
+				"tags":["PRDO"],
+				"testCaseSteps": [
+				    
+				    {"clickElement" : [{"PickingList":{"xpathparams": [],"testStepDescription":"Click on Picking List in References"}}]},
+				    {"clickElement" : [{"PLCheckbox":{"xpathparams": [],"testStepDescription":"Click on PL Checkbox"}}]},
+				    {"clickElement" : [{"PLSelectAll":{"xpathparams": [],"testStepDescription":"Select All the Items"}}]}
+						    				    				    
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "PRDO_025",
+				"testCaseTitle": "Verify the Pick Run & Pick Mission",
+				"testCaseDescription":"Verify the Pick Run & Pick Mission",
+				"dependsOn": "PRDO_024",
+				"tags":["PRDO"],
+				"testCaseSteps": [		
+				  
+				    { "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+								{"PMThreeDotsMenu":{"xpathparams": [],"testStepDescription":"Check if Report Operations completed session is opened"}},
+									{"then":
+									[
+									{"clickElement" : [{"PMThreeDotsMenu":{"xpathparams": [],"testStepDescription":"Click on Pick Run in Header"}}]}									
+								    ]
+								}
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"PickRun":{"xpathparams": [],"testStepDescription":"Click on Pick Run in Header"}}]},									
+			       { "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"PLSaveandExit":{"xpathparams":[], "continueTestNodes" : false}}									
+								]
+							}
+						]
+					},
+				    {"clickElement" : [{"PLSaveandExit":{"xpathparams": [],"testStepDescription":"Click on Save and Exit in Header"}}]}
+						    				    				    
+				]
+			}
+		},	
+		{
+			"testNode": {
+				"testCaseID": "PRDO_026",
+				"testCaseTitle": "Check Outbound Status then Save and Exit",
+				"testCaseDescription":"Outbound Status verificaion",
+				"dependsOn": "PRDO_025",
+				"tags":["PRDO"],
+				"testCaseSteps": [	
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"OBReferences":{"xpathparams":[], "continueTestNodes" : false}}									
+								]
+							}
+						]
+					},	    
+				    {"clickElement" : [{"OBReferences":{"xpathparams": [],"testStepDescription":"Click on references in OBLines Header"}}]},
+				    {"clickElement" : [{"OBStatusOverview":{"xpathparams": [],"testStepDescription":"Select Status Overview from reference"}}]},
+				    {"clickElement" : [{"sessionTab":{"xpathparams": ["Outbound Line Status Overview"],"testStepDescription":"Validate the session for Outbound Session"}}]},												    
+				    {"clickElement" : [{"buttonSaveAndExit":{"xpathparams": ["Outbound Line Status Overview"],"testStepDescription":"Save and Exit from Outbound Status Overview"}}]},
+				    {"clickElement" : [{"sessionTab":{"xpathparams": ["Warehousing Order"],"testStepDescription":"Then click on Warehouse Order session"}}]},
+				    {"clickElement" : [{"buttonSaveAndExit":{"xpathparams": ["Warehousing Order"],"testStepDescription":"Save and Exit from Warehouse Session"}}]},
+				    {"clickElement" : [{"sessionTab":{"xpathparams": ["Production Warehouse Orders"],"testStepDescription" : "Click on Production Order session opens"}}]},									
+				    {"clickElement" : [{"buttonSaveAndExit":{"xpathparams": ["Production Warehouse Orders"],"testStepDescription":"Save and Exit from from Production Warehouse Session"}}]}					    				    				    
+				]
+			}
+		},	
+		{
+			"testNode": {
+				"testCaseID": "PRDO_027",
+				"testCaseTitle": "verify Report Operations",
+				"testCaseDescription":"Complete Report Operations verifications",
+				"dependsOn": "PRDO_026",
+				"tags":["PRDO"],
+				"testCaseSteps": [
+				    
+				    {"clickElement" : [{"labelwithText":{"xpathparams": ["Operations"],"testStepDescription":"Click on Operations Tab"}}]},
+				    {"clickElement" : [{"OperationsLineItem":{"xpathparams": [],"testStepDescription":"Select a line item"}}]},
+				    {"clickElement" : [{"OperationsActions":{"xpathparams": [],"testStepDescription":"Click on Actions on Operations header"}}]},
+				    {"clickElement" : [{"ReportOperations":{"xpathparams": [],"testStepDescription":"Click on Report Operations"}}]},
+				    {"clickElement" : [{"sessionTab":{"xpathparams": ["Report Operations Completed"],"testStepDescription":"Report Operations session should open"}}]},			    
+				    {"clickElement" : [{"OpenROLineItem":{"xpathparams": [],"testStepDescription":"Click on a line item"}}]},
+				    {"clickElement" : [{"RepOpsCompleteSession":{"xpathparams": [],"testStepDescription":"Report Operations complete session should open"}}]}					    				    				    
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "PRDO_028",
+				"testCaseTitle": "verify Report Operations Date and Quantity",
+				"testCaseDescription":"Complete Report Operations Date and Quantities",
+				"dependsOn": "PRDO_027",
+				"tags":["PRDO"],
+				"testCaseSteps": [			    
+				     {"typeTextWithEnter" : [{"RepOpsCompletionDateField":{"xpathparams": [],"value" : "6/16/2021","testStepDescription" : "Enter the Report Completion Date"}}]},
+				     {"typeTextWithEnter" : [{"RepOpsCompletionTimeField":{"xpathparams": [], "value" : "8:44:20 PM", "testStepDescription" : "Enter Report Completion Time"}}]},
+				     {"typeTextWithEnter" : [{"RepOpsCompletionQuantity":{"xpathparams": [], "value" : "1", "testStepDescription" : "Enter the Report Completion quantity"}}]},
+				     {"clickElement" : [{"DefaultButton":{"xpathparams": [],"testStepDescription":"Click on Default Button for quantity completed"}}]},
+				     {"clickElement" : [{"buttonSaveAndExit1":{"xpathparams": ["Report Operations Completed"],"testStepDescription":"Click on Save and Exit Icon in header"}}]},
+				     { "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"CompleteButnThreedots":{"xpathparams":[], "continueTestNodes" : false}},
+									{"then":
+									[
+										{"clickElement" : [{"CompleteButnThreedots":{"xpathparams": []}}]}
+									]
+									}
+								]
+							}
+						]
+					},
+				     {"clickElement" : [{"CompleteButton":{"xpathparams": [],"testStepDescription":"Click on Complete Button in header"}}]},
+				     {"clickElement" : [{"buttonSaveAndExit":{"xpathparams": ["Report Operations Completed"],"testStepDescription":"Click on Save and Exit Icon in header"}}]}
+				       				    				    
+				]
+			}
+		},		
+		{
+			"testNode": {
+				"testCaseID": "PRDO_029",
+				"testCaseTitle": "Validate Report Order and Goods Notes",
+				"testCaseDescription":"Report Order and Goods ordered validation",
+				"dependsOn": "PRDO_028",
+				"tags":["PRDO"],
+				"testCaseSteps": [			    
+				     {"clickElement" : [{"OperationsTab":{"xpathparams": [],"testStepDescription":"Click on Operations Tab"}}]},
+				     {"clickElement" : [{"OperationsLineItem":{"xpathparams": [],"testStepDescription":"To uncheck the line item, Click again on selected line"}}]},
+				     {"clickElement" : [{"PrdOActions":{"xpathparams": [],"testStepDescription":"Click on actions button on header"}}]},
+				     {"clickElement" : [{"RepOrderCompleted":{"xpathparams": [],"testStepDescription":"Select Report Orders Completed"}}]},
+				     {"clickElement" : [{"sessionTab":{"xpathparams": ["Report Orders Completed"],"testStepDescription":"Report Orders session should open"}}]},
+				     {"typeTextWithTabKey" : [{"RepOrderWH":{"xpathparams": [], "value" : "FG", "testStepDescription" : "Enter the type of Warehouse value"}}]},
+				     {"typeTextWithTabKey" : [{"AddQtyToDeliver":{"xpathparams": [], "value" : "1", "testStepDescription" : "Enter the quantity to deliver"}}]},
+				     {"clickElement" : [{"ChangeOrderStatus":{"xpathparams": [],"testStepDescription":"Click on dropdown to change order status"}}]},
+				     {"clickElement" : [{"OrderStatusPrdComplete":{"xpathparams": [],"testStepDescription":"Change the status to Production Completed"}}]},
+				     {"clickElement" : [{"SaveRepOrder":{"xpathparams": [],"testStepDescription":"Change the status to Production Completed"}}]},			     
+				     { "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"ReportOrdCompleteerrormsg":{"xpathparams":[], "continueTestNodes" : false, "testStepDescription": "validate Report Order Complete popup message"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"ErrormsgButton":{"xpathparams": [], "tesStepDescription": "Click on Yes button to close the popup message"}}]},				
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"ConfirmationMsgPopup":{"xpathparams":[], "continueTestNodes" : false, "testStepDescription": "Validate the Confirmation message for completing order report"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"ConfirmationMsgYes":{"xpathparams": [], "tesStepDescription": "Click on Yes button to close the popup message"}}]},
+		            {"clickElement" : [{"sessionTab":{"xpathparams": ["Goods Received Note by Order and Warehouse"],"testStepDescription":"Validate Goods Received Note Generated Session"}}]},								
+					{"clickElement" : [{"SessionTabClose":{"xpathparams": ["Goods Received Note by Order and Warehouse"], "tesStepDescription": "Close Goods Received Note Session"}}]},	
+					{"clickElement" : [{"sessionTab":{"xpathparams": ["Report Orders Completed"],"testStepDescription":"Click on Report Orders session"}}]},								
+					{"clickElement" : [{"RepOrderSaveandClose":{"xpathparams": [], "tesStepDescription": "Save and Exit from Report Orders Session"}}]}		       				    				    
+				]
+			}
+		},	
+		{
+			"testNode": {
+				"testCaseID": "PRDO_030",
+				"testCaseTitle": "Verify the Generated Production Order Number and filter in Warehouse Module",
+				"testCaseDescription":"",
+				"dependsOn": "PRDO_029",
+				"tags":["PRDO"],
+				"testCaseSteps": [
+					{"clickElement" : [{"ProductionOrder":{"xpathparams": [],"testStepDescription": "Click on the Production Order session"}}]},
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"PrdOrderStatus":{"xpathparams":[], "continueTestNodes" : false,"testStepDescription": "Validate the status of the Production Order,it should be in In Production Completed status"}}									
+								]
+							}
+						]
+					},
+					{"getText": [{"PONumber":{"xpathparams": [], "varName" : "ProductionOrderNumber","testStepDescription":"Get the genrated Production Order number and save"}}]},				
+					{"clickElement" : [{"subMenuItem":{"xpathparams": ["Infor LN", "Warehousing"],"testStepDescription": "Click on the Warehousing"}}]},
+					{"clickElement" : [{"subMenuItems":{"xpathparams": ["Infor LN", "Warehousing","Orders"],"testStepDescription":"Click on Orders"}}]},
+					{"clickElement" : [{"subMenuItemChild":{"xpathparams": ["Infor LN", "Warehousing", "Orders","Orders"], "testStepDescription" : "Click on Orders under Orders"}}]},
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"sessionTab":{"xpathparams":["Warehousing Orders"], "continueTestNodes" : false,"testStepDescription":"Validate the Warehousing Orders tab is displayed "}}									
+								]
+							}
+						]
+					},		
+					{"clickElement" : [{"ChangeViewOption":{"xpathparams": [],"testStepDescription":"Select the view Option"}}]},
+					{"clickElement" : [{"UnfinishedView":{"xpathparams": [],"testStepDescription":"Select the Unfinished view"}}]},				
+					{"typeTextWithEnter" : [{"WHOrderPrdOrderFilter":{"xpathparams": [], "varName" : "ProductionOrderNumber","testStepDescription": "Enter the Production order number in the serach"}}]},
+					{"clickElement" : [{"WHOrderPrdOLineItem":{"xpathparams": [],"testStepDescription":"Select the lineitem"}}]},
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"sessionTab":{"xpathparams":["Warehousing Order"], "continueTestNodes" : false,"testStepDescription":"Validate the Warehousing Order tab is displayed "}}									
+								]
+							}
+						]
+					}
+					
+				]
+			}
+		},	
+		{
+			"testNode": {
+				"testCaseID": "PRDO_031",
+				"testCaseTitle": "verify WarehouseInBound Status",
+				"testCaseDescription":"verify WarehouseInBound Status",
+				"dependsOn": "PRDO_030",
+				"tags":["PRDO"],
+				"testCaseSteps": [
+				    
+				       {"clickElement" : [{"IBLineItems":{"xpathparams": [],"testStepDescription":"Click the Inbound Line Items"}}]},
+				       {"clickElement" : [{"WHReferences":{"xpathparams": [],"testStepDescription":"Click on the Warehouse References"}}]},
+				       {"clickElement" : [{"WHStatusOverview":{"xpathparams": [],"testStepDescription":"Click on status overview in References"}}]},
+				       
+				       { "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"sessionTab":{"xpathparams":["Inbound Line Status Overview"], "continueTestNodes" : false,"testStepDescription":"Inbound Line Status Session Should open"}}									
+								]
+							}
+						]
+					},
+				       
+				       {"clickElement" : [{"IBActions":{"xpathparams": [],"testStepDescription":"Click on Actions in Inbound Lines"}}]},
+				       {"clickElement" : [{"PRDWHInspections":{"xpathparams": [],"testStepDescription":"Click on Warehouse Inspections in Actions"}}]},
+				       {"clickElement" : [{"WHIlineItems":{"xpathparams": [],"testStepDescription":"Click on Warehouse Line Items"}}]},
+				       { "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"ApprvPrcsThreeDots":{"xpathparams":[], "continueTestNodes" : false}},
+									{"then":
+									[
+										{"clickElement" : [{"ApprvPrcsThreeDots":{"xpathparams": []}}]}
+									]	
+									}
+								]
+							}
+						]
+					},
+				       {"clickElement" : [{"ApproveProcess":{"xpathparams": [],"testStepDescription":"Click the Approve Process in Header"}}]},    
+				       {"clickElement" : [{"WHISaveandExit":{"xpathparams": [],"testStepDescription":"Click on save and exit in Warehouse Inspections"}}]},
+				       {"clickElement" : [{"buttonSaveAndExit":{"xpathparams": ["Inbound Line Status Overview"],"testStepDescription":"Click on save and exit in Inbound Lines"}}]},				       
+				       { "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"WHStatusPutAway":{"xpathparams":[], "continueTestNodes" : false,"testStepDescription":"Validate the InBound Status, It should be in put Away status "}}									
+								]
+							}
+						]
+					},					
+					{"clickElement" : [{"buttonSaveAndExit":{"xpathparams": ["Warehousing Order"],"testStepDescription":"Click on save and exit from Warehousing Orders"}}]},				       
+				        { "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"ProductionOrder":{"xpathparams":[], "continueTestNodes" : false,"testStepDescription": "Validate Production Order session is displayed"}},
+									{"then":
+									[
+										{"clickElement" : [{"ProductionOrder":{"xpathparams": [],"testStepDescription":"Then click on Production Order Session"}}]}
+									]
+									}									
+								]
+							}
+						]
+					},
+				       
+				        { "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"CompletedProdOrderStatus":{"xpathparams":[], "continueTestNodes" : false,"testStepDescription": "Check the Production Order Status is in Completed"}}									
+								]
+							}
+						]
+					},
+					
+					{"clickElement" : [{"buttonSaveAndExit":{"xpathparams": ["Production Order"],"testStepDescription":"Click on save and exit from Production Order Session"}}]}
+												     			    				    
+				]
+			} 
+		},
+		
+		
+		{
+			"testNode": {
+				"testCaseID": "PRDO_032",
+				"testCaseTitle": "verify the order status is closed",
+				"testCaseDescription":"Closing Production Order verification",
+				"dependsOn": "PRDO_031",
+				"tags":["PRDO"],
+				"testCaseSteps": [
+				    
+				      { "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sessionTab":{"xpathparams":["Production Orders"], "continueTestNodes" : false, "testStepDescription" : "Validate Production Orders Tab is displayed"}},
+									{"then":
+									[
+										{"clickElement" : [{"sessionTab":{"xpathparams": ["Production Orders"],"testStepDescription":"Then click on Production Orders Tab"}}]}
+									]
+									}									
+								]
+							}
+						]
+					},
+					
+					{"clickElement" : [{"PrdOrdersView":{"xpathparams": [],"testStepDescription":"Click on View Option"}}]},
+					{"clickElement" : [{"ShowAllView":{"xpathparams": [],"testStepDescription":"Select Show All view"}}]},
+					{"typeTextWithEnter" : [{"PrdOrderFilter":{"xpathparams": [], "varName" : "ProductionOrderNumber","testStepDescription": "Enter the Production order number in the serach"}}]},
+					{"clickElement" : [{"PrdOrderLineItem":{"xpathparams": [],"testStepDescription":"Select the lineitem"}}]},
+					{"clickElement" : [{"PrdOrderActions":{"xpathparams": [],"testStepDescription":"Click on Actions in Production Orders Session"}}]},
+				    {"clickElement" : [{"CloseOrders":{"xpathparams": [],"testStepDescription":"Select Close Orders from dropdown"}}]},
+				    {"clickElement" : [{"CloseOrdersButton":{"xpathparams": [],"testStepDescription":"Click on Close Orders Button"}}]},
+				    {"clickElement" : [{"device":{"xpathparams": [],"testStepDscription":"Click on the device field"}}]},
+				 	{"typeTextWithTabKey" : [{"device":{"xpathparams": [], "value" : "D","testStepDescription":"Enter the value D in the Device text box"}}]},
+				    {"clickElement" : [{"DisplayTab":{"xpathparams": [],"testStepDescription":"Click on Display tab"}}]},
+				    { "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"DisplayLabel":{"xpathparams":[], "continueTestNodes" : false, "testStepDescription": "Validate the Display Label"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"ContinueBtn":{"xpathparams": [],"testStepDescription":"Click on Continue button"}}]},
+					{"clickElement" : [{"sessionTab":{"xpathparams": ["Close Production Orders (Process Report)"],"testStepDescription":"Click on Close Production Orders session"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sessionTab":{"xpathparams":["Production Orders"], "continueTestNodes" : false, "testStepDescription" : "Validate Production Orders Tab is displayed"}},
+									{"then":
+									[
+										{"clickElement" : [{"sessionTab":{"xpathparams": ["Production Orders"],"testStepDescription":"Then click on Production Orders Tab"}}]}
+									]
+									}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"ClosedOrderStatus":{"xpathparams": [],"testStepDescription":"Click on the status of order"}}]}		
+												     			    				    
+				]
+			} 
+
+		}	
+	]
+}

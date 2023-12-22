@@ -1,0 +1,560 @@
+{
+	"suiteName" : "QuarantineInventory",
+	"suiteDescription" : "QuarantineInventory",
+	"testCases": [
+		{
+			"testNode": {
+				"testCaseID": "QI_004",
+				"testCaseTitle": "Verify Login with Valid Credentials",
+				"testCaseDescription": "Infor LN Login",
+				"dependsOn": "",
+				"tags":["SmokeTest","QI","NegativeTest"],
+				"testCaseSteps": [
+					{ "login": { "login_username":"$username", "login_password":"$password","url":"$url", "testStepDescription" : "Login with valid username and password"}},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"labelwithText":{"xpathparams":["OK"], "continueTestNodes" : false}},
+									{"then":
+									[
+										{"clickElement" : [{"labelwithText":{"xpathparams": ["OK"]}}]}
+									]
+									}
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"menuItem":{"xpathparams":["Infor LN"], "continueTestNodes" : false, "testStepDescription" : "Successfully Logged in and validate Infor LN Menu on the Homepage"}}									
+								]
+							}
+						]
+					}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "QI_005",
+				"testCaseTitle": "Verify Order Intake Workbench",
+				"testCaseDescription": "Navigate to Purchase Order Intake Workbench",
+				"dependsOn": "QI_004",
+				"tags":["SmokeTest","QI","NegativeTest"],
+				"testCaseSteps": [
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"menuItem":{"xpathparams":["Infor LN"], "continueTestNodes" : false}},
+									{"else":
+									[
+										{"clickElement" : [{"sideMenu":{"xpathparams": []}}]}
+									]
+									}
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"menuItem":{"xpathparams": ["Infor LN"], "testStepDescription" : "Click on Infor LN Menu"}}]},
+					{"clickElement" : [{"subMenuItem":{"xpathparams": ["Infor LN", "Warehousing"], "testStepDescription" : "Click on Warehousing under Infor LN"}}]},
+					{"clickElement" : [{"subMenuItems":{"xpathparams": ["Infor LN", "Warehousing", "Receipts/Inspections"], "testStepDescription" : "Click on Receipts/Inspections"}}]},
+					{"clickElement" : [{"subMenuItemChild":{"xpathparams": ["Infor LN", "Warehousing", "Receipts/Inspections","Quarantine Inventory Overview"], "testStepDescription" : "Click on QuarantineInventory"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sessionTab":{"xpathparams":["Quarantine Inventory Overview"], "continueTestNodes" : false, "testStepDescription" : "Validate PO WorkBench Tab is displayed"}}									
+								]
+							}
+						]
+					}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "QI_006",
+				"testCaseTitle": "Seach New PO",
+				"testCaseDescription": "Seach New PO",
+				"dependsOn": "QI_005",
+				"tags":["SmokeTest","QI","NegativeTest"],
+				"testCaseSteps": [
+					{"clickElement" : [{"quarantineID":{"xpathparams": [], "testStepDescription" : "Click on Quarantine ID"}}]},
+					{ "keyBoardEvent": { "tab":"40"}},
+					{"typeTextWithTabKey" : [{"quarantineSearchPO":{"xpathparams": [], "value" : "$quarantinePO", "testStepDescription" : "Enter Quarantine PO Number"}}]},
+					{"clickElement" : [{"selectQuarantineInventory":{"xpathparams": [], "testStepDescription" : "Click on Quarantine PO"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sessionTab":{"xpathparams":["Quarantine Inventory"], "continueTestNodes" : true, "testStepDescription" : "Validate Quarantine Inventory Tab is displayed"}}									
+								]
+							}
+						]
+					}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "QI_007",
+				"testCaseTitle": "Enter the details in the Quarantine Inventory",
+				"testCaseDescription": "Enter the details in the Quarantine Inventory",
+				"dependsOn": "QI_006",
+				"tags":["SmokeTest","QI","NegativeTest"],
+				"testCaseSteps": [
+				    {"clickElement" : [{"quarantineDisposition":{"xpathparams": [], "tesStepDescription": "Click on Quarantine Disposition"}}]},
+					{"clickElement" : [{"labelwithText2":{"xpathparams": ["Return to Vendor"], "tesStepDescription": "Click on Return to Vendor"}}]},
+					{ "keyBoardEvent": { "tab":"1"}},
+					{"clickElement" : [{"searchDispositionReason":{"xpathparams": [], "tesStepDescription": "Click on search disposition reason"}}]},
+					{"typeTextWithTabKey" : [{"inputReason":{"xpathparams": [], "value" : "$inputReason", "testStepDescription" : "Enter Reason"}}]},
+					{"clickElement" : [{"windowFirstRowCheckBox":{"xpathparams": [], "tesStepDescription": "Click on check box"}}]},
+					{"clickElement" : [{"windowOkButton":{"xpathparams": [],"testStepDescription" : "Click on Ok Button"}}]},
+					{ "keyBoardEvent": { "tab":"1"}},
+					{"clickElement" : [{"searchOrderSeries":{"xpathparams": [], "tesStepDescription": "Click on search order series"}}]},
+					{"typeTextWithTabKey" : [{"inputOrderSeries":{"xpathparams": [], "value" : "$inputOrderSeries", "testStepDescription" : "Enter Reason"}}]},
+					{"clickElement" : [{"windowFirstRowCheckBox":{"xpathparams": [], "tesStepDescription": "Click on check box"}}]},
+					{"clickElement" : [{"windowOkButton":{"xpathparams": [],"testStepDescription" : "Click on Ok Button"}}]}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "QI_008",
+				"testCaseTitle": "Save and Process",
+				"testCaseDescription": "Save and Process",
+				"dependsOn": "QI_007",
+				"tags":["SmokeTest","QI","NegativeTest"],
+				"testCaseSteps": [
+					{"clickElement" : [{"buttonSaveSession":{"xpathparams": ["Quarantine Inventory"],"testStepDescription":"Click on Save button to save"}}]},
+					{"clickElement" : [{"selectDispositionLine":{"xpathparams": [], "tesStepDescription": "Click on check box"}}]},
+					{"clickElement" : [{"lineMenuButtons":{"xpathparams": ["Quarantine Inventory","Actions"],"testStepDescription" : "Click on Ok Button"}}]},
+					{"clickElement" : [{"buttonMenuItemUnderActions":{"xpathparams": ["Process"],"testStepDescription" : "Click on Ok Button"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"errorMessagePopUp":{"xpathparams":[], "continueTestNodes" : false}},
+									{"then":
+									[
+										{"getText": [{"errorMessagePopUp":{"xpathparams": [], "varName" : "purchaseOrderNumber1","testStepDescription":"Get the genrated purchase order number and save"}}]},
+										{"clickElement" : [{"labelwithText":{"xpathparams": ["OK"]}}]}
+									]
+									}
+								]
+							}
+						]
+					},
+					{"splitText": [{"errorMessagePopUp":{"xpathparams": ["Planned Purchase Advice Number:"], "varName" : "purchaseOrderNumber1", "delimeter" : " ", "pos" : "4","variables" : "po1", "testStepDescription":"Get the purchaseOrderNumber"}}]}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "QI_009",
+				"testCaseTitle": "Search the purchase order",
+				"testCaseDescription": "Search the purchase order",
+				"dependsOn": "QI_008",
+				"tags":["SmokeTest","QI","NegativeTest"],
+				"testCaseSteps": [
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"menuItem":{"xpathparams":["Infor LN"], "continueTestNodes" : false}},
+									{"else":
+									[
+										{"clickElement" : [{"sideMenu":{"xpathparams": []}}]}
+									]
+									}
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"subMenuItem":{"xpathparams": ["Infor LN", "Warehousing"],"testStepDescription": "Click on the Procurement module"}}]},				
+					{"clickElement" : [{"subMenuItem":{"xpathparams": ["Infor LN", "Procurement"],"testStepDescription": "Click on the Procurement module"}}]},
+					{"clickElement" : [{"subMenuItems":{"xpathparams": ["Infor LN", "Procurement","Orders"],"testStepDescription":"Click on Orders"}}]},
+					{"clickElement" : [{"subMenuItemChild":{"xpathparams": ["Infor LN", "Procurement", "Orders","Order Intake Workbench"], "testStepDescription" : "Click on Order Intake Workbench under Orders"}}]},
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"sessionTab":{"xpathparams":["Purchase Order Intake Workbench"], "continueTestNodes" : false,"testStepDescription":"Open Purchase Order Intake Workbench Session"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"inputFields":{"xpathparams": ["General", "Buyer"],"testStepDescription": "Click on Buyer Inputs"}}]},
+					{"textClearInputs" : [{"inputFields":{"xpathparams": ["General", "Buyer"], "testStepDescription" : "Clear buyer information"}}]},
+					{"clickElement" : [{"labelwithText":{"xpathparams": ["Purchase Orders"],"testStepDescription": "Click on the Purchase Orders Tab"}}]},
+					{"typeTextWithEnter" : [{"PurchaseOrderInput":{"xpathparams": [], "varName" : "po1","testStepDescription": "Enter the Purchase Order number in the serach"}}]},
+					{"clickElement" : [{"purOrderOpen1":{"xpathparams": [],"testStepDescription":"Select the lineitem"}}]},
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"sessionTab":{"xpathparams":["Purchase Order"], "continueTestNodes" : false,"testStepDescription":"Validate the Purchase Order session is displayed "}}									
+								]
+							}
+						]
+					}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "QI_010",
+				"testCaseTitle": "Approve the order",
+				"testCaseDescription": "Approve the order",
+				"dependsOn": "QI_009",
+				"tags":["SmokeTest","QI","NegativeTest"],
+				"testCaseSteps": [
+					{"clickElement" : [{"buttonMenuHeadres":{"xpathparams": ["Purchase Order","Actions"],"testStepDescription":"Click on Action Button"}}]},
+				     
+					{"clickElement" : [{"actionsMenuButton":{"xpathparams": ["Approve"],"testStepDescription":"Click on Approve under the Actions Menu"}}]},
+					
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"orderStatus":{"xpathparams":["Approved"], "continueTestNodes" : false,"testStepDescription":"Validate the status changed to APproved"}}									
+								]
+							}
+						]
+					}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "QI_011",
+				"testCaseTitle": "Verify Print PO",
+				"testCaseDescription" :"Go to Purchase Order Line Status Cllick on Execute button, and validate the activity status as executed",
+				"dependsOn": "QI_010",
+				"tags":["QI"],
+				"testCaseSteps": [			   
+				    {"clickElement" : [{"selectLineBillableLines":{"xpathparams": [],"testStepDescription":"Click on check box to select the lines"}}]},
+				   	{"clickElement" : [{"selectAll":{"xpathparams": ["All"],"testStepDescription":"Click on All to select all the lines"}}]},
+					{"clickElement" : [{"References":{"xpathparams": [],"testStepDecription":"Click on References Button"}}]},
+					{"clickElement" : [{"Status":{"xpathparams": [],"testStepDescription":"Click on Status under References"}}]},
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"sessionTab":{"xpathparams":["Purchase Order Line Status"], "continueTestNodes" : false,"testStepDescription":"Validate the PurchaseOrder Line Status Tab is displayed"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"Execute":{"xpathparams": [],"testStepDescription":"Click on Execute"}}]},
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"layOutPanelsession":{"xpathparams":["Print Purchase Orders"], "continueTestNodes" : false,"testStepDescription":"Validate the Print Print Purchase Orders popup is displayed"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"popUpMenubutton":{"xpathparams": ["Print Purchase Orders","Print"],"testStepDscription":"Click on Print button"}}]},
+					{"clickElement" : [{"sessionTab":{"xpathparams": ["Print Purchase Order"],"testStepDescription":"Click on Print Purchase Order report tab"}}]},
+					{"clickElement" : [{"sessionClose":{"xpathparams": [],"testStepDescription":"Close the session"}}]},
+					{"clickElement" : [{"popUpMenubutton":{"xpathparams": ["Print Purchase Orders","Close"],"testStepDscription":"Click on Close button"}}]},
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"activityStatus":{"xpathparams":["Print Purchase Orders","Executed"], "continueTestNodes" : false,"testStepDescription":"Validate the status changed to Executed"}}									
+								]
+							}
+						]
+					}
+						
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "QI_012",
+				"testCaseTitle": "Verify Release PO to Warehouse",
+				"testCaseDescription":"Click on Execute Button and Validate the status as Executed",
+				"dependsOn": "QI_011",
+				"tags":["QI"],
+				"testCaseSteps": [
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"activityStatus":{"xpathparams":["Release Purchase Orders to Warehousing","Executed"], "continueTestNodes" : false,"testStepDescription":"Validate the Automatic status of Release Purchase Orders to Warehousing"}}								
+								]
+							}
+						]
+					}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "QI_013",
+				"testCaseTitle": "Verify Outbound advice",
+				"testCaseDescription":"Verify Outbound advice",
+				"dependsOn": "QI_012",
+				"tags":["QI"],
+				"testCaseSteps": [
+				    {"clickElement" : [{"Execute":{"xpathparams": [],"testStepDescription":"Click on Execute"}}]},
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"sessionTab":{"xpathparams":["Outbound Line Status Overview"], "continueTestNodes" : false,"testStepDescription":"Validate the Warehousing Order Tab is displayed"}}									
+								]
+							}
+						]
+					}, 
+					{"clickElement" : [{"sessionTab":{"xpathparams": ["Outbound Line Status Overview"],"testStepDescription":"Click on Outbound Line Status Overview Tab "}}]},
+				    {"clickElement" : [{"buttonMenuHeadres":{"xpathparams": ["Outbound Line Status Overview","Actions"],"testStepDescription":"Click on Actions button"}}]},
+				    {"clickElement" : [{"buttonMenuItemUnderActions":{"xpathparams": ["Generate Outbound Advice"],"testStepDescription":"Click on Generate Outbound Advice button"}}]},
+				    {"clickElement" : [{"popUpMenubutton":{"xpathparams": ["Generate Outbound Advice","Advise"],"testStepDscription":"Click on Advice button"}}]},
+				    { "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"buttonwithtext":{"xpathparams":["Yes"], "continueTestNodes" : false,"testStepDescription":"Validate Yes button is displayed"}}									
+								]
+							}
+						]
+					},
+				    {"clickElement" : [{"buttonwithtext":{"xpathparams": ["Yes"],"testStepDescription":"Click on Yes button"}}]},
+				  	{"typeTextWithTabKey" : [{"device":{"xpathparams": [], "value" : "$device","testStepDescription":"Enter the value D in the device textbox"}}]},
+					{"clickElement" : [{"continueBtn":{"xpathparams": [],"testStepDescription":"Click on Continue button"}}]},
+					{"typeTextWithTabKey" : [{"device18":{"xpathparams": [], "value" : "$device","testStepDescription":"Enter the value D in the device textbox"}}]},
+					{"clickElement" : [{"continueBtn":{"xpathparams": [],"testStepDescription":"Click on Continue button"}}]},
+					{"typeTextWithTabKey" : [{"device":{"xpathparams": [], "value" : "$device","testStepDescription":"Enter the value D in the device textbox"}}]},
+					{"clickElement" : [{"continueBtn":{"xpathparams": [],"testStepDescription":"Click on Continue button"}}]},
+					{"clickElement" : [{"sessionClose":{"xpathparams": [],"testStepDescription":"Click on Close for the Outbound advice by order Tab"}}]},
+					{"clickElement" : [{"sessionClose":{"xpathparams": [],"testStepDescription":"Click on Close for the Outbound advice by order Tab"}}]},
+					{"clickElement" : [{"sessionTab":{"xpathparams": ["Outbound Line Status Overview"],"testStepDescription": "Click on the Outbound Line Status Overview Tab to move to the previous session"}}]},
+					{"clickElement" : [{"popUpMenubutton":{"xpathparams": ["Generate Outbound Advice","Close"],"testStepDscription":"Click on Close button"}}]},
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"outboundActivityStatus":{"xpathparams":["Generate Outbound Advice","Yes"], "continueTestNodes" : false,"testStepDescription":"Validate the status changed to Yes"}}									
+								]
+							}
+						]
+					}		
+				]
+			}
+		},
+	
+		{
+			"testNode": {
+				"testCaseID": "QI_014",
+				"testCaseTitle": "Verify Freeze/Confirm",
+				"testCaseDescription":"Verify Freeze/Confirm",
+				"dependsOn": "QI_013",
+				"tags":["QI"],
+				"testCaseSteps": [
+				    {"clickElement" : [{"sessionTab":{"xpathparams": ["Outbound Line Status Overview"],"testStepDescription": "Click on the Outbound Line Status Overview Tab to move to the previous session"}}]},
+				    { "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"outboundLineAutomaticStatus":{"xpathparams":["Picking List","No"], "continueTestNodes" : false}},
+									{"then":[
+										{"clickElement" : [{"buttonMenuHeadres":{"xpathparams": ["Outbound Line Status Overview","Actions"],"testStepDescription":"Click on Actions button"}}]},
+				    					{"clickElement" : [{"buttonMenuItemUnderActions":{"xpathparams": ["Picking List"],"testStepDescription":"Click on Picking List button"}}]}
+				   
+											]
+									}
+									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"sessionTab":{"xpathparams":["Picking List"], "continueTestNodes" : false,"testStepDescription": "Validate the Shipment Lines tab"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"selectLineBillableLines":{"xpathparams": [],"testStepDescription": "Click on the checkbox"}}]},
+				    {"clickElement" : [{"selectAll":{"xpathparams": ["All"],"testStepDescription":"Click on All to select all the lines"}}]},
+				    {"clickElement" : [{"buttonMenuHeadres":{"xpathparams": ["Picking List","Pick Mission"],"testStepDescription":"Click on Confirm button"}}]},
+				    {"clickElement" : [{"buttonSaveAndExit":{"xpathparams": ["Picking List"],"testStepDescription":"Click on Save and close button"}}]},
+				    { "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"outboundLineAutomaticStatus":{"xpathparams":["Freeze/Confirm Shipments/Loads","No"], "continueTestNodes" : false}},
+									{"then":[
+										{"clickElement" : [{"buttonMenuHeadres":{"xpathparams": ["Outbound Line Status Overview","Actions"],"testStepDescription":"Click on Actions button"}}]},
+				    					{"clickElement" : [{"buttonMenuItemUnderActions":{"xpathparams": ["Freeze/Confirm"],"testStepDescription":"Click on Picking List button"}}]}
+				   
+											]
+									}
+									
+								]
+							}
+						]
+					}			
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "QI_015",
+				"testCaseTitle": "Verify Confirm",
+				"testCaseDescription":"Verify Confirm",
+				"dependsOn": "QI_014",
+				"tags":["QI"],
+				"testCaseSteps": [
+				    { "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"sessionTab":{"xpathparams":["Shipment Lines"], "continueTestNodes" : false,"testStepDescription": "Validate the Shipment Lines tab"}}									
+								]
+							}
+						]
+					},
+				    {"clickElement" : [{"selectLineBillableLines":{"xpathparams": [],"testStepDescription":"Click on check box to select the lines"}}]},
+				  	{"clickElement" : [{"selectAll":{"xpathparams": ["All"],"testStepDescription":"Click on All to select all the lines"}}]},
+				    {"clickElement" : [{"buttonMenuHeadres":{"xpathparams": ["Shipment Lines","Confirm"],"testStepDescription":"Click on Confirm button"}}]}
+				    
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "QI_016",
+				"testCaseTitle": "Verify Outbound line status overview Line status",
+				"testCaseDescription":"Verify Outbound line status overview Line status",
+				"dependsOn": "QI_015",
+				"tags":["QI"],
+				"testCaseSteps": [
+				    {"clickElement" : [{"sessionTab":{"xpathparams": ["Outbound Line Status Overview"],"testStepDescription": "Click on the Outbound Line Status Overview Tab to move to the previous session"}}]},
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"orderStatus":{"xpathparams":["Shipped"], "continueTestNodes" : false,"testStepDescription": "Validate the status of the Outbound Line Status Overview,it should be in Shipped state"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"buttonSaveAndExit":{"xpathparams": ["Outbound Line Status Overview"],"testStepDescription":"Click on Save and close button"}}]},
+					{"clickElement" : [{"sessionTab":{"xpathparams": ["Shipment Lines"],"testStepDescription": "Click on the Shipment Lines Tab to move to the previous session"}}]},
+					{"clickElement" : [{"buttonSaveAndExit":{"xpathparams": ["Shipment Lines"],"testStepDescription":"Click on Save and close button"}}]}
+					
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "QI_017",
+				"testCaseTitle": "Verify Outbound line status overview Line status",
+				"testCaseDescription":"Verify Outbound line status overview Line status",
+				"dependsOn": "QI_016",
+				"tags":["QI"],
+				"testCaseSteps": [
+				    {"clickElement" : [{"Execute":{"xpathparams": [],"testStepDescription":"Click on Execute"}}]},
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"layOutPanelsession":{"xpathparams":["Print Purchase Invoices"], "continueTestNodes" : false,"testStepDescription":"Validate the Print Purchase Invoices Tab is displayed"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"options":{"xpathparams": [],"testStepDescription":"Click on Options"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"finalInvoices":{"xpathparams":[], "continueTestNodes" : false,"testStepDescription":"Validate the Final invoice button"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"popUpMenubutton":{"xpathparams": ["Print Purchase Invoices","Print"],"testStepDscription":"Click on Print on the PO Session"}}]},
+					{"typeTextWithTabKey" : [{"device":{"xpathparams": [], "value" : "$device","testStepDescription":"Enter the value D in the Device text box"}}]},
+					{"clickElement" : [{"continueBtn":{"xpathparams": [],"testStepDescription":"Click on Continue button"}}]},
+					{"typeTextWithTabKey" : [{"device":{"xpathparams": [], "value" : "$device","testStepDescription":"Enter the value D in the device textbox"}}]},
+					{"clickElement" : [{"continueBtn":{"xpathparams": [],"testStepDescription":"Click on Continue button"}}]},
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"sessionTab":{"xpathparams":["Proforma Purchase Invoice"], "continueTestNodes" : false,"testStepDesceription":"Validate the Performa Purchase Invoice Tab is displayed"}}									
+								]
+							}
+						]
+					},
+					
+					{"clickElement" : [{"sessionClose":{"xpathparams": [],"testStepDescription":"Close the Performa Purchase Invoice Tab"}}]},
+					{"clickElement" : [{"sessionClose":{"xpathparams": [],"testStepDescription":"Close the Print Purchase Invoice Tab"}}]},
+					{"clickElement" : [{"sessionClose":{"xpathparams": [],"testStepDescription":"Close the Print Purchase Invoice Tab"}}]},
+					{"clickElement" : [{"sessionTab":{"xpathparams": ["Purchase Order Line Status"],"testStepDescription":"Click on Purchase Order Line Status"}}]},
+					{"clickElement" : [{"popUpMenubutton":{"xpathparams": ["Print Purchase Invoices","Close"],"testStepDscription":"Click on Close button"}}]},
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"activityStatus":{"xpathparams":["Print Purchase Invoices","Executed"], "continueTestNodes" : false,"testStepDescription":"Validate the status changed to Executed"}}									
+								]
+							}
+						]
+					}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "QI_018",
+				"testCaseTitle": "Verify Close PO",
+				"testCaseDescription":"Click on Execute and Validate the Status",
+				"dependsOn": "QI_017",
+				"tags":["QI"],
+				"testCaseSteps": [				
+					{"clickElement" : [{"Execute":{"xpathparams": [],"tetstStepDescription":"Click on Execute Button"}}]},
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"layOutPanelsession":{"xpathparams":["Process Delivered Purchase Orders"], "continueTestNodes" : false,"testStepDescription":"Validate the Process Delivered Purchase Orders Tab is displayed"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"popUpMenubutton":{"xpathparams": ["Process Delivered Purchase Orders","Process"],"testStepDscription":"Click on Process button"}}]},
+					{"typeTextWithTabKey" : [{"device":{"xpathparams": [], "value" : "$device","testStepDescription":"Enter the value D in the device textbox"}}]},
+					{"clickElement" : [{"continueBtn":{"xpathparams": [],"testStepDescription":"Click on Continue button"}}]},
+					{"clickElement" : [{"popUpMenubutton":{"xpathparams": ["Process Delivered Purchase Orders","Close"],"testStepDscription":"Click on Close button"}}]},
+					{"clickElement" : [{"buttonSaveAndExit":{"xpathparams": ["Purchase Order Line Status"],"testStepDescription":"Click on Save and Exit Button on Purchase Order Line Status"}}]},
+					{"clickElement" : [{"sessionTab":{"xpathparams": ["Purchase Order"],"testStepDescription":"Click on Purchase Order session Tab"}}]},
+					{"clickElement" : [{"PORefresh":{"xpathparams": [],"testStepDescription":"Click on PO Refresh Button"}}]},
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"status":{"xpathparams":["Closed"], "continueTestNodes" : false,"testStepDescription":"Validate the status should be Closed"}}									
+								]
+							}
+						]
+					}
+
+				]
+			}
+		}		
+	]
+}

@@ -1,0 +1,633 @@
+{
+	"suiteName" : "SalesReturnOrder",
+	"suiteDescription" : "Sales Return Order Suite",
+	"testCases": [
+		{
+			"testNode": {
+				"testCaseID": "SLS_004",
+				"testCaseTitle": "Verify Login with Valid Credentials",
+				"testCaseDescription": "Infor LN Login",
+				"dependsOn": "",
+				"tags":["SmokeTest","SRT"],
+				"testCaseSteps": [
+				{ "login": { "login_username":"$username", "login_password":"$password","url":"$url", "testStepDescription" : "Login with valid username and password"}},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"labelwithText":{"xpathparams":["OK"], "continueTestNodes" : false}},
+									{"then":
+									[
+										{"clickElement" : [{"labelwithText":{"xpathparams": ["OK"]}}]}
+									]
+									}
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"menuItem":{"xpathparams":["Infor LN"], "continueTestNodes" : false, "testStepDescription" : "Successfully Logged in and validate Infor LN Menu on the Homepage"}}									
+								]
+							}
+						]
+					}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "SLS_005",
+				"testCaseTitle": "Verify Order Intake Workbench",
+				"testCaseDescription": "Navigate to Sales Order Intake Workbench",
+				"dependsOn": "SLS_004",
+				"tags":["SmokeTest","SRT"],
+				"testCaseSteps": [
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"menuItem":{"xpathparams":["Infor LN"], "continueTestNodes" : false}},
+									{"else":
+									[
+										{"clickElement" : [{"sideMenu":{"xpathparams": []}}]}
+									]	
+									}
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"menuItem":{"xpathparams": ["Infor LN"], "testStepDescription" : "Click on Infor LN Menu"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"subMenuItem":{"xpathparams":["Infor LN", "Sales"], "continueTestNodes" : false, "testStepDescription" : "Validate Sales option is visible"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"subMenuItem":{"xpathparams": ["Infor LN", "Sales"], "testStepDescription" : "Click on Sales under Infor LN"}}]},
+					{"clickElement" : [{"subMenuItems":{"xpathparams": ["Infor LN", "Sales", "Orders"], "testStepDescription" : "Click on Orders under Sales"}}]},
+					{"clickElement" : [{"subMenuItemChild":{"xpathparams": ["Infor LN", "Sales", "Orders","Order Intake Workbench"], "testStepDescription" : "Click on Order Intake Workbench under Orders"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sessionTab":{"xpathparams":["Sales Order Intake Workbench"], "continueTestNodes" : false, "testStepDescription" : "Validate Sales Order WorkBench Tab is displayed"}}									
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+
+									{"labelwithText":{"xpathparams":["Sales Orders"], "continueTestNodes" : false, "testStepDescription" : "Validate Sales Orders Tab is displayed"}}									
+
+								]
+							}
+						]
+					},
+
+				    {"clickElement" : [{"labelwithText":{"xpathparams": ["Sales Orders"], "testStepDescription" : "Click on Sales Order Tab in Sales Order Intake Workbench"}}]}
+
+					
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "SLS_006",
+				"testCaseTitle": "New Sales Order",
+				"testCaseDescription": "Creating New Sales Order Form",
+				"dependsOn": "SLS_005",
+				"tags":["SmokeTest","SRT"],
+				"testCaseSteps": [
+					{"clickElement" : [{"newSalesOrder":{"xpathparams": [], "testStepDescription" : "Click on New button on PO Workbench Tab"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sessionTab":{"xpathparams":["Sales Order"], "continueTestNodes" : false, "testStepDescription" : "Validate PO Tab is displayed"}}									
+								]
+							}
+						]
+					}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "SLS_007",
+				"testCaseTitle": "Verify Inactive BP for SR",
+				"testCaseDescription": "Verify Inactive BP for SR",
+				"dependsOn": "SLS_006",
+				"tags":["SmokeTest","NegativeTest"],
+				"testCaseSteps": [
+				    {"typeTextWithTabKey" : [{"inputFields":{"xpathparams": ["Sold-to BP","Business Partner:"], "value" : "CUS000009", "testStepDescription" : "Enter Inactive BP Details"}}]},
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"errorMessagePopUp":{"xpathparams":["Specified \"Business Partner\" not found in \"Sold-to Business Partners\". Enter another \"Business Partner\"."], "continueTestNodes" : false, "testStepDescription": "Validate the Error Message for Inactive BP Details"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"buttonOKError":{"xpathparams": [], "tesStepDescription": "Click on OK button to close the error message"}}]}
+				]
+			}
+	},
+{
+			"testNode": {
+				"testCaseID": "SLS_008",
+				"testCaseTitle": "Verify Active BP for SR",
+				"testCaseDescription": "Validate valid Business Partner for Sales Order",
+				"dependsOn": "SLS_006",
+				"tags":["SmokeTest","SRT","NegativeTest"],
+				"testCaseSteps": [
+					{"clickElement" : [{"searchButtonInputFields":{"xpathparams": ["Sold-to BP","Business Partner"],"testStepDescription" : "Click on Search Button to search the Bussiness Partner"}}]},
+					{"typeTextWithTabKey" : [{"textinputFieldsSearch":{"xpathparams": [], "value" : "$activeBP", "testStepDescription" : "Enter Active BP value"}}]},
+					{"clickElement" : [{"windowFirstRowCheckBox":{"xpathparams": [], "tesStepDescription": "Click on check box"}}]},
+					{"clickElement" : [{"windowOkButton":{"xpathparams": [],"testStepDescription" : "Click on Ok Button"}}]}
+					
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "SLS_009",
+				"testCaseTitle": "Verify Invalid Order Type for SR",
+				"testCaseDescription": "Validate invalid Order Type for Sales Order",
+				"dependsOn": "SLS_008",
+				"tags":["SmokeTest","NegativeTest"],
+				"testCaseSteps": [
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"inputFields":{"xpathparams":["Control","Order Type"], "continueTestNodes" : false, "testStepDescription": "Validate the Order Type field"}}									
+								]
+							}
+						]
+					},
+					{"typeTextWithTabKey" : [{"inputFields":{"xpathparams": ["Control","Order Type"], "value" : "ABC", "testStepDescription":"Enter Invalid Order Type"}}]},
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"errorMessagePopUp":{"xpathparams":["Specified \"Order Type\" not found in \"Sales Order Types\". Enter another \"Order Type\"."], "continueTestNodes" : false, "testStepDescription": "Validate the Error Message for Invalid Order Type"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"buttonOKError":{"xpathparams": [],"testStepDescription" : "Click on OK Button to close the error message"}}]}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "SLS_010",
+				"testCaseTitle": "Verify Valid Order Type for SO",
+				"testCaseDescription": "Validate valid Order Type for Sales Order",
+				"dependsOn": "SLS_008",
+				"tags":["SmokeTest","SRT","NegativeTest"],
+				"testCaseSteps": [
+					{"clickElement" : [{"searchButtonInputFields":{"xpathparams": ["Control","Order Type"],"testStepDescription" : "Click on Search Button to search the Sales Order type"}}]},
+					{"typeTextWithTabKey" : [{"textinputfieldSeriesSearch":{"xpathparams": [], "value" : "$validOrderType","testStepDescription": "Enter Valid Order type"}}]},
+					{"clickElement" : [{"windowFirstRowCheckBox":{"xpathparams": [], "tesStepDescription": "Click on check box"}}]},
+					{"clickElement" : [{"windowOkButton":{"xpathparams": [],"testStepDescription" : "Click on Ok Button"}}]}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "SLS_011",
+				"testCaseTitle": "Verify Invalid Sales office",
+				"testCaseDescription" : "Enter Invalid Sales Office and Validate the error message displayed",
+				"dependsOn": "SLS_010",
+				"tags":["SmokeTest","NegativeTest"],
+				"testCaseSteps": [
+					{"typeTextWithEnter" : [{"inputFields":{"xpathparams": ["Control","Sales Office:"], "value" : "NAVOFF", "testStepDescription": "Enter Invalid Sales Office"}}]},
+					{ "validate": 
+						[ 
+							{ "isDisplayed":
+								[
+									{"errorMessagePopUp":{"xpathparams":["Specified \"Sales Office\" not found in \"Sales Offices\". Enter another \"Sales Office\"."], "continueTestNodes" : false, "testStepDescription" : "Validate the error message displayed for Invalid Sales Office"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"buttonOKError":{"xpathparams": [], "testStepDescription": "Click on OK button to close the error message for Invalid Sales Office"}}]}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "SLS_012",
+				"testCaseTitle": "Verify Valid Sales office",
+				"testCaseDescription": "Enter Valid Sales Office",
+				"dependsOn": "SLS_010",
+				"tags":["SmokeTest","SRT","NegativeTest"],
+				"testCaseSteps": [
+					{"clickElement" : [{"searchButtonInputFields":{"xpathparams": ["Control","Sales Office:"],"testStepDescription" : "Click on Search Button to search the Sales Office"}}]},
+					{"clickElement" : [{"windowFirstRowCheckBox":{"xpathparams": [], "tesStepDescription": "Click on check box"}}]},
+					{"clickElement" : [{"windowOkButton":{"xpathparams": [],"testStepDescription" : "Click on Ok Button"}}]}
+					
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "SLS_013",
+				"testCaseTitle": "Verify Invalid Order series",
+				"testCaseDescription" : "Enter Invalid Order Series and validate the error message displayed",
+				"dependsOn": "SLS_012",
+				"tags":["SmokeTest","NegativeTest"],
+				"testCaseSteps": [
+					{"typeTextWithTabKey" : [{"inputFields":{"xpathparams": ["Control","Number:"], "value" : "ABC", "testStepDescription" : "Enter Invalid Order Series"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"errorMessagePopUp":{"xpathparams":["Change the value of the Sales Order field."], "continueTestNodes" : false, "testStepDescription" : "Validate the error message displayed for Invalid Order Series"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"buttonOKError":{"xpathparams": []}}]}
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "SLS_014",
+				"testCaseTitle": "Verify Valid Order Series",
+				"testCaseDescription": "Enter Valid Order Series",
+				"dependsOn": "SLS_012",
+				"tags":["SmokeTest","SRT","NegativeTest"],
+				"testCaseSteps": [
+					{"clickElement" : [{"searchButtonInputFields":{"xpathparams": ["Control","Number:"],"testStepDescription" : "Click on Search Button to search the Sales Order series"}}]},
+					{"typeTextWithTabKey" : [{"textinputfieldSeriesSearch":{"xpathparams": [], "value" : "$validOrderSeries","testStepDescription": "Enter Valid Order Series"}}]},
+					{"clickElement" : [{"windowFirstRowCheckBox":{"xpathparams": [], "tesStepDescription": "Click on check box"}}]},
+					{"clickElement" : [{"windowOkButton":{"xpathparams": [],"testStepDescription" : "Click on Ok Button"}}]}
+					
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "SLS_015",
+				"testCaseTitle": "Save and Get the Sales Order",
+				"testCaseDescription": "Save and Get the Sales Order",
+				"dependsOn": "SLS_014",
+				"tags":["SmokeTest","SRT","NegativeTest"],
+				"testCaseSteps": [
+					{"clickElement" : [{"buttonSaveSO":{"xpathparams": [], "tesStepDescription": "Click on Save button"}}]},
+					{ "sleep": { "sec":"5000"}},
+					{"getText": [{"inputFields":{"xpathparams": ["Control","Number:"], "varName" : "salesOrderNumber","testStepDescription":"Get the generated sales return order number"}}]}
+										
+				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "SLS_016",
+				"testCaseTitle": "Navigate to Sales Order Details",
+				"testCaseDescription": "Naviagte to the Sales Order Details Page ",
+				"dependsOn": "SLS_015",
+				"tags":["SRT"],
+				"testCaseSteps": [
+					{"clickElement" : [{"buttonMenuHeadres":{"xpathparams": ["Sales Order","Reference"], "tesStepDescription": "Click on Reference button"}}]},
+					{"clickElement" : [{"buttonwithText":{"xpathparams": ["s Order Details"], "tesStepDescription": "Click on Sales Order Details button"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sessionTab":{"xpathparams":["Sales Orders"], "continueTestNodes" : false, "testStepDescription" : "Validate Sales Order Tab is displayed"}}									
+								]
+							}
+						]
+					}				]
+			}
+		},
+		{
+			"testNode": {
+				"testCaseID": "SLS_017",
+				"testCaseTitle": "Enter the Return Sales Order Details",
+				"testCaseDescription": "Enter Return Sales Order Details",
+				"dependsOn": "SLS_016",
+				"tags":["SRT"],
+				"testCaseSteps": [
+                    {"clickElement" : [{"sessionTab":{"xpathparams": ["Sales Orders"], "tesStepDescription": "Click on Sales Orders Tab"}}]},
+					{"clickElement" : [{"labelwithTextIndex":{"xpathparams": ["Order", "3"], "tesStepDescription": "Click on Orginal Document Type"}}]},
+					{"clickElement" : [{"documentType":{"xpathparams": ["Shipment"], "tesStepDescription": "Select the Order from the Order Type"}}]},
+					{"clickElement" : [{"searchButtonInputFields":{"xpathparams": ["Returns","Original Document No"],"testStepDescription" : "Click on Search Button to search the Sales Order type"}}]},
+					{"typeTextWithTabKey" : [{"textItemfilter":{"xpathparams": [], "value" : "$inputSalesOrder","testStepDescription": "Enter Valid Order type"}}]},
+					{"clickElement" : [{"windowFirstRowCheckBox":{"xpathparams": [], "tesStepDescription": "Click on check box"}}]},
+					{"clickElement" : [{"windowOkButton":{"xpathparams": [],"testStepDescription" : "Click on Ok Button"}}]},			
+					{ "keyBoardEvent": { "tab":"1"}},
+					{"clickElement" : [{"searchButtonInputFields":{"xpathparams": ["Returns","Return Reason:"],"testStepDescription" : "Click on Search Button to search the Sales Order type"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"labelwithText":{"xpathparams":["OK"], "continueTestNodes" : false}},
+									{"then":
+									[
+										{"clickElement" : [{"labelwithText":{"xpathparams": ["OK"]}}]}
+									]
+									}
+								]
+							}
+						]
+					},
+					{"typeTextWithTabKey" : [{"textinputfieldSeriesSearch":{"xpathparams": [], "value" : "$returnReason","testStepDescription": "Enter Valid Order type"}}]},					
+					{"clickElement" : [{"windowFirstRowCheckBox":{"xpathparams": [], "tesStepDescription": "Click on check box"}}]},
+					{"clickElement" : [{"windowOkButton":{"xpathparams": [],"testStepDescription" : "Click on Ok Button"}}]},
+					{"clickElement" : [{"saveSalesOrders":{"xpathparams": [],"testStepDescription" : "Click on Save Button"}}]},
+				    {"clickElement" : [{"buttonMenuHeadres":{"xpathparams": ["Sales Orders","Actions"], "tesStepDescription": "Click on Actions button"}}]},
+					{"clickElement" : [{"buttonwithText":{"xpathparams": ["from Original Document"], "tesStepDescription": "Click on from Original Document button"}}]},
+					{"clickElement" : [{"salesOrderCheckbox":{"xpathparams": [], "tesStepDescription": "Click on check box"}}]},
+					{"clickElement" : [{"buttonSaveAndExit":{"xpathparams": ["Sales Order Invoice Lines"], "tesStepDescription": "Click on save and exit"}}]},
+					{"typeTextWithTabKey" : [{"device":{"xpathparams": [],"value" : "$device", "tesStepDescription": "Type D in the device field"}}]},
+					{"clickElement" : [{"continueBtn":{"xpathparams": [],"testStepDescription":"Click on Continue button"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"labelwithText":{"xpathparams":["Yes"]}},
+									{"then":
+									[
+										{"clickElement" : [{"labelwithText":{"xpathparams": ["Yes"]}}]}
+									]
+									}
+								]
+							}
+						]
+					},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sessionTab":{"xpathparams":["Remarks during Copy Sales Order"], "continueTestNodes" : false, "testStepDescription" : "Validate Sales Order Tab is displayed"}}									
+								]
+							}
+						]
+					},
+				    {"clickElement" : [{"sessionTab":{"xpathparams": ["Remarks during Copy Sales Order"],"testStepDescription":"Close the session"}}]},					
+				    {"clickElement" : [{"sessionClose":{"xpathparams": [],"testStepDescription":"Close the session"}}]},
+				    {"clickElement" : [{"saveAndExit":{"xpathparams": [],"testStepDescription":"Close the session"}}]}
+				    
+]
+			}
+		},
+				{
+			"testNode": {
+				"testCaseID": "SLS_018",
+				"testCaseTitle": "Approve Sales Order and navigate to Status page",
+				"testCaseDescription": "Approve Sales Order and navigate to Status page",
+				"dependsOn": "SLS_017",
+				"tags":["SRT"],
+				"testCaseSteps": [
+				    {"clickElement" : [{"salesItemQtyBeforeClick":{"xpathparams": [],"testStepDescription":"Click on Quantity field button"}}]},
+					{"typeTextWithTabKey" : [{"salesItemQuantity":{"xpathparams": [], "value" : "$changeQty","testStepDescription": "Enter Valid Order type"}}]},
+					{"clickElement" : [{"buttonSaveSO":{"xpathparams": [],"testStepDescription":"Click on Save button"}}]},
+					{"clickElement" : [{"buttonMenuHeadres":{"xpathparams": ["Sales Order","Approve"], "tesStepDescription": "Click on Approve button"}}]},
+				    {"clickElement" : [{"sessionClose":{"xpathparams": [],"testStepDescription":"Close the session"}}]},
+					{"clickElement" : [{"selectLinePickingList":{"xpathparams": [], "tesStepDescription": "Select Checkbox "}}]},
+					{"clickElement" : [{"selectAll":{"xpathparams": ["All"], "tesStepDescription": "Click on All"}}]},
+					{"clickElement" : [{"lineMenuButtons":{"xpathparams": ["Sales Order","References"], "tesStepDescription": "Click on Line Actions"}}]},
+					{"clickElement" : [{"buttonMenuItemUnderActions":{"xpathparams": ["Status"], "tesStepDescription": "Click on Status under Actions"}}]}
+			]
+			}
+		},
+		
+{
+			"testNode": {
+				"testCaseID": "SLS_019",
+				"testCaseTitle": "Warehouse Orders Navigation",
+				"testCaseDescription": "Navigate to Warehousing Orders",
+				"dependsOn": "SLS_018",
+				"tags":["SRT"],
+				"testCaseSteps": [
+                    {"clickElement" : [{"subMenuItem":{"xpathparams": ["Infor LN", "Warehousing"], "testStepDescription" : "Click on Warehousing under Infor LN"}}]},
+					{"clickElement" : [{"subMenuItems":{"xpathparams": ["Infor LN", "Warehousing", "Orders"], "testStepDescription" : "Click on Orders under Warehousing"}}]},
+					{"clickElement" : [{"subMenuItemChild":{"xpathparams": ["Infor LN", "Warehousing", "Orders","Orders"], "testStepDescription" : "Click on Orders under Orders"}}]}
+						
+				]
+			}
+		},
+{
+			"testNode": {
+				"testCaseID": "SLS_020",
+				"testCaseTitle": "Search Order Details",
+				"testCaseDescription": "Search Order Details",
+				"dependsOn": "SLS_019",
+				"tags":["SRT"],
+				"testCaseSteps": [
+					{"typeTextWithEnter" : [{"WHordersSrchEntry":{"xpathparams": [], "varName" : "salesOrderNumber","testStepDescription": "Enter the Sales order number in the serach"}}]},
+				    {"clickElement" : [{"WHordersOpen":{"xpathparams": [],"testStepDescription":"Click on the sales Order arrow button to open"}}]}
+			]
+			}
+		},
+
+{
+			"testNode": {
+				"testCaseID": "SLS_021",
+				"testCaseTitle": "Navigation to Status Overview",
+				"testCaseDescription": "Navigation to Status Overview",
+				"dependsOn": "SLS_020",
+				"tags":["SRT"],
+				"testCaseSteps": [
+					{"clickElement" : [{"selectWarehouseLines":{"xpathparams": [], "testStepDescription" : "Click on Warehouse Lines"}}]},									
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"selectAll":{"xpathparams":["All"], "continueTestNodes" : false, "testStepDescription" : "Validate Sales Order Tab is displayed"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"selectAll":{"xpathparams": ["All"], "tesStepDescription": "Click on All"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"lineMenuButtons":{"xpathparams":["Warehousing Order","References"], "continueTestNodes" : false, "testStepDescription" : "Validate References is displayed"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"lineMenuButtons":{"xpathparams": ["Warehousing Order","References"], "testStepDescription" : "Click on Actions"}}]},									
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"buttonMenuItemUnderActions":{"xpathparams":["Status Overview"], "continueTestNodes" : false, "testStepDescription" : "Validate Status Overview is displayed"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"buttonMenuItemUnderActions":{"xpathparams": ["Status Overview"], "testStepDescription" : "Click on Receive"}}]},									
+				   { "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sessionTab":{"xpathparams":["Inbound Line Status Overview"], "continueTestNodes" : false, "testStepDescription" : "Validate Sales Order Tab is displayed"}}									
+								]
+							}
+						]
+					}			]
+			}
+		},					
+{
+			"testNode": {
+				"testCaseID": "SLS_022",
+				"testCaseTitle": "Receive Sales Order",
+				"testCaseDescription": "Receive Sales Order",
+				"dependsOn": "SLS_021",
+				"tags":["SRT"],
+				"testCaseSteps": [
+					{"clickElement" : [{"buttonMenuHeadres":{"xpathparams": ["Inbound Line Status Overview","Actions"], "tesStepDescription": "Click on Actions"}}]},
+					{"clickElement" : [{"buttonMenuItemUnderActions":{"xpathparams": ["Receive"], "tesStepDescription": "Click on Receive"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"sessionTab":{"xpathparams":["Warehouse Receipt"], "continueTestNodes" : false, "testStepDescription" : "Validate Warehouse Receipt Tab is displayed"}}									
+								]
+							}
+						]
+					}			]
+			}
+		},	
+{
+			"testNode": {
+				"testCaseID": "SLS_023",
+				"testCaseTitle": "Confirm Warehouse Receipt",
+				"testCaseDescription": "Confirm Warehouse Receipt",
+				"dependsOn": "SLS_022",
+				"tags":["SRT"],
+				"testCaseSteps": [
+					{"clickElement" : [{"selectLineBillableLines":{"xpathparams": [], "tesStepDescription": "Click on checkbox"}}]},					
+					{"clickElement" : [{"selectAll":{"xpathparams": ["All"], "tesStepDescription": "Click on All"}}]},
+					{"clickElement" : [{"buttonwithText":{"xpathparams": ["Confirm Receipt"], "tesStepDescription": "Click on Confirm Receipt"}}]},
+					{"clickElement" : [{"buttonSaveAndExit":{"xpathparams": ["Warehouse Receipt"], "tesStepDescription": "Click on Save and Exit"}}]},
+			        {"clickElement" : [{"buttonSaveAndExit":{"xpathparams": ["Inbound Line Status Overview"], "tesStepDescription": "Click on Save and Exit"}}]},
+			        {"clickElement" : [{"buttonSaveAndExit":{"xpathparams": ["Warehousing Order"], "tesStepDescription": "Click on Save and Exit"}}]},
+			        {"clickElement" : [{"buttonSaveAndExit":{"xpathparams": ["Warehousing Orders"], "tesStepDescription": "Click on Save and Exit"}}]}
+			
+			]
+			}
+		},
+{
+			"testNode": {
+				"testCaseID": "SLS_024",
+				"testCaseTitle": "Execute Sales Orders/Schedules to Invoicing",
+				"testCaseDescription": "Execute Sales Orders/Schedules to Invoicing",
+				"dependsOn": "SLS_023",
+				"tags":["SRT"],
+				"testCaseSteps": [
+					{"clickElement" : [{"sessionTab":{"xpathparams": ["Sales Order Line Status"], "tesStepDescription": "Click on Sales Order Line Status Tab"}}]},
+					{"clickElement" : [{"Execute":{"xpathparams": [], "tesStepDescription": "Click on Execute"}}]}
+			]
+			}
+		},				
+			
+					
+				
+		
+{
+			"testNode": {
+				"testCaseID": "SLS_025",
+				"testCaseTitle": "Navigation of Innvoicing 360 Details",
+				"testCaseDescription": "Navigation of Innvoicing 360 Details",
+				"dependsOn": "SLS_024",
+				"tags":["SRT"],
+				"testCaseSteps": [
+                    {"clickElement" : [{"subMenuItem":{"xpathparams": ["Infor LN", "Invoicing"], "testStepDescription" : "Click on Invoicing under Infor LN"}}]},
+					{"clickElement" : [{"subMenuItems":{"xpathparams": ["Infor LN", "Invoicing", "Invoicing 360"], "testStepDescription" : "Click on Invoicing 360 under Invoicing"}}]}
+				
+										
+
+				]
+			}
+		},
+{
+			"testNode": {
+				"testCaseID": "SLS_026",
+				"testCaseTitle": "Create Invoice for Sales Order",
+				"testCaseDescription": "Create Invoice for Sales Order",
+				"dependsOn": "SLS_025",
+				"tags":["SRT"],
+				"testCaseSteps": [
+                    {"typeTextWithEnter" : [{"searchDocument":{"xpathparams": [], "varName" : "salesOrderNumber","testStepDescription": "Enter the Sales order number in the serach"}}]},
+					{"clickElement" : [{"selectLinePickingList":{"xpathparams": [], "tesStepDescription": "Select Checkbox "}}]},
+					{"clickElement" : [{"selectAll":{"xpathparams": ["All"], "tesStepDescription": "Click on All"}}]},					
+					{"clickElement" : [{"lineActions":{"xpathparams": ["Invoicing 360","Create Invoice"], "tesStepDescription": "Click on Create Invoice"}}]},
+					{"clickElement" : [{"buttonYesDialogButton":{"xpathparams": ["Yes"], "tesStepDescription": "Click on Yes Dialog Box"}}]},
+					{"clickElement" : [{"sessionClose":{"xpathparams": [],"testStepDescription":"Close the session"}}]},
+					{"clickElement" : [{"sessionClose":{"xpathparams": [],"testStepDescription":"Close the session"}}]}		
+					]
+			}
+		},				
+		
+{
+			"testNode": {
+				"testCaseID": "SLS_027",
+				"testCaseTitle": "Execute the Status of Sales Order",
+				"testCaseDescription": "Execute the Status of Sales Order",
+				"dependsOn": "SLS_026",
+				"tags":["SRT"],
+				"testCaseSteps": [
+                    {"clickElement" : [{"sessionTab":{"xpathparams": ["Invoicing 360"], "tesStepDescription": "Click on Invoicing 360 Tab"}}]},
+					{"clickElement" : [{"buttonSaveAndExit":{"xpathparams": ["Invoicing 360"], "tesStepDescription": "Click on Save and Exit"}}]},
+					{"clickElement" : [{"sessionTab":{"xpathparams": ["Sales Order Line Status"], "tesStepDescription": "Click on Sales Order Line Status Tab"}}]},
+					{"clickElement" : [{"Execute":{"xpathparams": [], "tesStepDescription": "Click on Execute"}}]},
+					{"clickElement" : [{"buttonPrintPurchaseInvoices":{"xpathparams": ["Process"], "tesStepDescription": "Click on Process"}}]},
+					{"typeTextWithTabKey" : [{"device":{"xpathparams": [],"value" : "$device", "tesStepDescription": "Type D in the device field"}}]},
+					{"clickElement" : [{"continueBtn":{"xpathparams": [],"testStepDescription":"Click on Continue button"}}]},
+					{ "validate": 
+						[ 
+							{ "isElementPresent":
+								[
+									{"buttonPrintPurchaseInvoices":{"xpathparams":["Close"], "continueTestNodes" : false, "testStepDescription" : "Validate Close button is displayed"}}									
+								]
+							}
+						]
+					},
+					{"clickElement" : [{"buttonPrintPurchaseInvoices":{"xpathparams": ["Close"], "tesStepDescription": "Click on Close"}}]},
+					{"clickElement" : [{"buttonSaveAndExit":{"xpathparams": ["Sales Order Line Status"], "tesStepDescription": "Click on Save and Exit"}}]}
+			]
+			}
+		},				
+{
+			"testNode": {
+				"testCaseID": "SLS_028",
+				"testCaseTitle": "Get the Sales Invoice Number Generated",
+				"testCaseDescription": "Get the Sales Invoice Number Generated",
+				"dependsOn": "SLS_027",
+				"tags":["SRT"],
+				"testCaseSteps": [
+                    {"clickElement" : [{"lineMenuButtons":{"xpathparams": ["Sales Order","References"], "tesStepDescription": "Click on Line Actions"}}]},
+					{"clickElement" : [{"buttonMenuItemUnderActions":{"xpathparams": ["Status"], "tesStepDescription": "Click on Status under Actions"}}]},
+					{"getText": [{"salesInvoiceNumber":{"xpathparams": [], "varName" : "salesInvoiceNumber","testStepDescription":"Get the genrated sales invoice number"}}]},
+					{"clickElement" : [{"buttonSaveAndExit":{"xpathparams": ["Sales Order Line Status"], "tesStepDescription": "Click on Save and Exit"}}]}
+				   
+					]
+			}
+		}				
+		
+	
+			
+					
+	
+	]
+}
+
